@@ -5,13 +5,10 @@ info:
   version: 1.0.0
   contact:
     name: Team 10
-    # email: https://t.me/mccmmc1 ПЕРЕДЕЛАТЬ
 
 servers:
-  - url: https://your-app.onrender.com/api/v1
+  - url: https://server.com
     description: Production server
-  - url: http://localhost:3000/api/v1
-    description: Local development
 
 paths:
   /solve:
