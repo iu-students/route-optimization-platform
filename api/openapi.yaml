@@ -239,7 +239,7 @@ components:
         - loaders
         - vehicles
       properties:
-      loaders:
+        loaders:
           type: array
           items:
             $ref: '#/components/schemas/LoaderRoute'
