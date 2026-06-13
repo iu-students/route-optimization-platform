@@ -7,7 +7,7 @@ info:
     name: Team 10
 
 servers:
-  - url: https://http://188.130.155.158/solve
+  - url: http://188.130.155.158/solve
     description: Production server
 
 paths:
