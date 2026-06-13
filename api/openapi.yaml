@@ -50,7 +50,7 @@ paths:
                       vehicle_service_time: 10
                       loader_cnt: 0
                       loader_service_time: 0
-                      optional: 0
+                      optional: false
                   weights:
                     order_penalty: 250
                     take_vehicle: 200
@@ -212,7 +212,7 @@ components:
         optional:
           type: boolean
           description: Обязательность выполнения заказа
-          example: 0
+          example: false
 
     Weights:
       type: object
