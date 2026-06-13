@@ -236,17 +236,17 @@ components:
     Solution:
       type: object
       required:
-        - vehicles
         - loaders
+        - vehicles
       properties:
+      loaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoaderRoute'
         vehicles:
           type: array
           items:
             $ref: '#/components/schemas/VehicleRoute'
-        loaders:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoaderRoute'
 
     VehicleRoute:
       type: object
