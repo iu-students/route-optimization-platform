@@ -5,7 +5,6 @@ from typing import Tuple, List
 
 @dataclass
 class Depot:
-    id: int
     x: int
     y: int
     load_time: int
@@ -24,9 +23,9 @@ class Order:
 
 @dataclass
 class Weights:
-    order_penalty: int
-    take_vehicle: int
-    add_loader: int
+    optional_order_penalty: int
+    vehicle_salary: int
+    loader_salary: int
     fuel_cost: int
     loader_work: int
 
