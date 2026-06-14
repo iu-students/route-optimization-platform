@@ -7,7 +7,7 @@ info:
     name: Team 10
 
 servers:
-  - url: http://139.100.207.201:5000
+  - url: http://localhost:5000
     description: Production server
 
 security:

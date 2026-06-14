@@ -3,11 +3,11 @@ version: "3.9"
 services:
   app:
     build:
-      context: ..
+      context: ./api
       dockerfile: deploy/Dockerfile
     ports:
       - "5000:5000"
     env_file:
-      - .env
+      - ./.env
     volumes:
-      - ..:/app
+      - ./api:/app
