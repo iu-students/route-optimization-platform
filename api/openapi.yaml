@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: CVRPTW Solver API
-  description: API для решения задачи маршрутизации транспортных средств с грузчиками
+  description: API for solving vehicle routing problem (VRP) with loaders
   version: 1.0.0
   contact:
     name: Team 10
@@ -16,10 +16,10 @@ security:
 paths:
   /solve:
     post:
-      summary: Решить задачу маршрутизации
+      summary: Solve VRP
       description: |
-        Принимает сценарий CVRPTW с грузчиками и возвращает оптимальные маршруты
-        для транспортных средств и грузчиков.
+        Accepts a CVRPTW scenario with loaders and returns optimal routes
+        for vehicles and loaders.
       operationId: solveCVRPTW
       requestBody:
         required: true
@@ -50,7 +50,7 @@ paths:
                       vehicle_service_time: 10
                       loader_cnt: 0
                       loader_service_time: 0
-                      optional: false
+                      optional: 0
                   weights:
                     order_penalty: 250
                     take_vehicle: 200
@@ -59,38 +59,38 @@ paths:
                     loader_work: 1
       responses:
         '200':
-          description: Решение найдено
+          description: Solution found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Solution'
               examples:
                 success:
-                  summary: Пример решения
+                  summary: Solution example
                   value:
+                    loaders:
+                      - id: 1
+                        route: [1, 2]
                     vehicles:
                       - id: 1
                         route: [0, 1, 2, 0]
                         time: [0, 100, 200, 300]
-                    loaders:
-                      - id: 1
-                        route: [1, 2]
         '400':
-          description: Невалидный запрос/Сценарий не может быть решён
+          description: Invalid request / Scenario cannot be solved
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '500':
-          description: Внутренняя ошибка сервера
+          description: Internal server error
 
   /health:
     get:
-      summary: Проверка состояния сервиса
+      summary: Service health check
       operationId: healthCheck
       responses:
         '200':
-          description: Сервис работает
+          description: Service is running
           content:
             application/json:
               schema:
@@ -116,23 +116,23 @@ components:
       properties:
         vehicle_capacity:
           type: number
-          description: Вместимость транспортного средства
+          description: Vehicle capacity
           example: 1000
         vehicle_speed:
           type: number
-          description: Скорость ТС (расстояние/время)
+          description: Vehicle speed (distance/time)
           example: 3
         loader_speed:
           type: number
-          description: Скорость грузчика
+          description: Loader speed
           example: 1
         vehicle_shift_size:
           type: number
-          description: Длительность смены ТС
+          description: Vehicle shift duration
           example: 720
         loader_shift_size:
           type: number
-          description: Длительность смены грузчика
+          description: Loader shift duration
           example: 720
         depot:
           $ref: '#/components/schemas/Depot'
@@ -162,7 +162,7 @@ components:
           example: 100
         load_time:
           type: number
-          description: Время погрузки
+          description: Loading time
           example: 40
 
     Order:
@@ -199,20 +199,20 @@ components:
           example: [988, 1031]
         vehicle_service_time:
           type: number
-          description: Время работы ТС на заказе
+          description: Vehicle service time per order
           example: 10
         loader_cnt:
           type: integer
-          description: Требуемое количество грузчиков
+          description: Required number of loaders
           example: 0
         loader_service_time:
           type: number
-          description: Время работы грузчиков на заказе
+          description: Loader service time per order
           example: 0
         optional:
           type: boolean
-          description: Обязательность выполнения заказа
-          example: false
+          description: Whether the order is optional
+          example: 0
 
     Weights:
       type: object
@@ -257,19 +257,19 @@ components:
       properties:
         id:
           type: integer
-          description: ID транспортного средства
+          description: Vehicle ID
           example: 1
         route:
           type: array
           items:
             type: integer
-          description: Маршрут (0 - depot, положительные - ID заказов)
+          description: Route (0 - depot, positive - order IDs)
           example: [0, 1, 2, 3, 0]
         time:
           type: array
           items:
             type: number
-          description: Время начала операций на каждой точке маршрута
+          description: Start time of operations at each route point
           example: [0, 100, 200, 300, 400]
 
     LoaderRoute:
@@ -280,13 +280,13 @@ components:
       properties:
         id:
           type: integer
-          description: ID грузчика
+          description: Loader ID
           example: 1
         route:
           type: array
           items:
             type: integer
-          description: Маршрут грузчика (ID заказов)
+          description: Loader route (order IDs)
           example: [1, 2, 3]
 
     Error:
