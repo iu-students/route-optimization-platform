@@ -35,6 +35,12 @@ cp .env.example .env
 ```
 docker compose up --build -d
 ```
+
+4. Verify :
+```
+curl http://localhost:5000/health
+```
+
 1. Link to the root LICENSE: https://github.com/iu-students/route-optimization-platform/blob/main/LICENSE 
 
 
@@ -90,8 +96,5 @@ https://github.com/iu-students/route-optimization-platform/blob/main/reports/wee
 12. Link to the Week 2 analysis.
 https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/analysis.md
 
-
-4. Verify that the API is working:
-```
-curl http://localhost:5000/health
-```
+13. LLM REPORT:
+https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/llm-report.md
