@@ -30,7 +30,10 @@ The interface prototype is described in `api/openapi.yaml`. MVP v0 implements en
 ## 6. Requirements
 - Docker and Docker Compose
 
-## 7. Smoke Test Scenario
+## 7. SETUP
+https://github.com/iu-students/route-optimization-platform#setup-steps
+
+## 8. Smoke Test Scenario
 
 1. Open browser at http://139.100.207.201:5000/docs/  
    (Swagger UI page loads)
