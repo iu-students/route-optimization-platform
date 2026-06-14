@@ -30,33 +30,7 @@ The interface prototype is described in `api/openapi.yaml`. MVP v0 implements en
 ## 6. Requirements
 - Docker and Docker Compose
 
-## 7. Setup Steps
-
-1. Clone the repository:
-```
-git clone https://github.com/iu-students/route-optimization-platform.git
-cd route-optimization-platform
-git checkout 1-interface
-```
-
-2. Create `.env` file from the example:
-```
-cp .env.example .env
-```
-
-3. Start with Docker Compose:
-```
-docker compose up --build -d
-```
-
-
-4. Verify that the API is working:
-```
-curl http://localhost:5000/health
-```
-
-
-## 8. Smoke Test Scenario
+## 7. Smoke Test Scenario
 
 1. Open browser at http://139.100.207.201:5000/docs/  
    (Swagger UI page loads)
