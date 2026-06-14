@@ -1,0 +1,309 @@
+openapi: 3.0.0
+info:
+  title: CVRPTW Solver API
+  description: API for solving vehicle routing problem (VRP) with loaders
+  version: 1.0.0
+  contact:
+    name: Team 10
+
+servers:
+  - url: http://139.100.207.201:5000
+    description: Production server
+
+security:
+  - Auth: []
+
+paths:
+  /solve:
+    post:
+      summary: Solve VRP
+      description: |
+        Accepts a CVRPTW scenario with loaders and returns optimal routes
+        for vehicles and loaders.
+      operationId: solveCVRPTW
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scenario'
+            examples:
+              simple:
+                summary: сценарий 1
+                value:
+                  vehicle_capacity: 1000
+                  vehicle_speed: 3
+                  loader_speed: 1
+                  vehicle_shift_size: 720
+                  loader_shift_size: 720
+                  depot:
+                    id: 0
+                    x: 100
+                    y: 100
+                    load_time: 40
+                  orders:
+                    - id: 1
+                      x: 134
+                      y: 6
+                      volume: 20
+                      time_window: [988, 1031]
+                      vehicle_service_time: 10
+                      loader_cnt: 0
+                      loader_service_time: 0
+                      optional: 0
+                  weights:
+                    order_penalty: 250
+                    take_vehicle: 200
+                    add_loader: 200
+                    fuel_cost: 2
+                    loader_work: 1
+      responses:
+        '200':
+          description: Solution found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+              examples:
+                success:
+                  summary: Solution example
+                  value:
+                    loaders:
+                      - id: 1
+                        route: [1, 2]
+                    vehicles:
+                      - id: 1
+                        route: [0, 1, 2, 0]
+                        time: [0, 100, 200, 300]
+        '400':
+          description: Invalid request / Scenario cannot be solved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+
+  /health:
+    get:
+      summary: Service health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+components:
+  schemas:
+    Scenario:
+      type: object
+      required:
+        - vehicle_capacity
+        - vehicle_speed
+        - loader_speed
+        - vehicle_shift_size
+        - loader_shift_size
+        - depot
+        - orders
+        - weights
+      properties:
+        vehicle_capacity:
+          type: number
+          description: Vehicle capacity
+          example: 1000
+        vehicle_speed:
+          type: number
+          description: Vehicle speed (distance/time)
+          example: 3
+        loader_speed:
+          type: number
+          description: Loader speed
+          example: 1
+        vehicle_shift_size:
+          type: number
+          description: Vehicle shift duration
+          example: 720
+        loader_shift_size:
+          type: number
+          description: Loader shift duration
+          example: 720
+        depot:
+          $ref: '#/components/schemas/Depot'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        weights:
+          $ref: '#/components/schemas/Weights'
+
+    Depot:
+      type: object
+      required:
+        - id
+        - x
+        - y
+        - load_time
+      properties:
+        id:
+          type: integer
+          example: 0
+        x:
+          type: number
+          example: 100
+        y:
+          type: number
+          example: 100
+        load_time:
+          type: number
+          description: Loading time
+          example: 40
+
+    Order:
+      type: object
+      required:
+        - id
+        - x
+        - y
+        - volume
+        - time_window
+        - vehicle_service_time
+        - loader_cnt
+        - loader_service_time
+        - optional
+      properties:
+        id:
+          type: integer
+          example: 1
+        x:
+          type: number
+          example: 134
+        y:
+          type: number
+          example: 6
+        volume:
+          type: number
+          example: 20
+        time_window:
+          type: array
+          minItems: 2
+          maxItems: 2
+          items:
+            type: number
+          example: [988, 1031]
+        vehicle_service_time:
+          type: number
+          description: Vehicle service time per order
+          example: 10
+        loader_cnt:
+          type: integer
+          description: Required number of loaders
+          example: 0
+        loader_service_time:
+          type: number
+          description: Loader service time per order
+          example: 0
+        optional:
+          type: boolean
+          description: Whether the order is optional
+          example: 0
+
+    Weights:
+      type: object
+      properties:
+        order_penalty:
+          type: number
+          example: 250
+        take_vehicle:
+          type: number
+          example: 200
+        add_loader:
+          type: number
+          example: 200
+        fuel_cost:
+          type: number
+          example: 2
+        loader_work:
+          type: number
+          example: 1
+
+    Solution:
+      type: object
+      required:
+        - loaders
+        - vehicles
+      properties:
+        loaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoaderRoute'
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleRoute'
+
+    VehicleRoute:
+      type: object
+      required:
+        - id
+        - route
+        - time
+      properties:
+        id:
+          type: integer
+          description: Vehicle ID
+          example: 1
+        route:
+          type: array
+          items:
+            type: integer
+          description: Route (0 - depot, positive - order IDs)
+          example: [0, 1, 2, 3, 0]
+        time:
+          type: array
+          items:
+            type: number
+          description: Start time of operations at each route point
+          example: [0, 100, 200, 300, 400]
+
+    LoaderRoute:
+      type: object
+      required:
+        - id
+        - route
+      properties:
+        id:
+          type: integer
+          description: Loader ID
+          example: 1
+        route:
+          type: array
+          items:
+            type: integer
+          description: Loader route (order IDs)
+          example: [1, 2, 3]
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid request body
+        message:
+          type: string
+          example: Missing required field 'vehicle_capacity'
+        code:
+          type: integer
+          example: 400
+
+  securitySchemes:
+    Auth:
+      type: apiKey
+      in: header
+      name: X-API-Key
