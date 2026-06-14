@@ -37,6 +37,11 @@ def swagger_ui():
 def openapi_spec():
     return Response(openapi_yaml, mimetype="text/yaml")
 
+@app.route("/health", methods=["GET"])
+def health():
+    return {"status": "ok"}
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
