@@ -1,9 +1,12 @@
-## What's changed
+## Summary of changes
 
-## How tested
+## Testing performed
+- [ ] Automatic tests passed
+- [ ] Checked by hand
 
 ## Reviewer checklist
-- [ ] code
-- [ ] tests
-- [ ] docs
-- [ ] no breaking changes
+- [ ] The code is readable and follows standards
+- [ ] The logic works correctly
+- [ ] The tests cover the changes
+- [ ] The documentation has been updated (if necessary)
+- [ ] Security has been taken into account
