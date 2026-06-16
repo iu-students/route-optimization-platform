@@ -21,16 +21,21 @@ For an API interface:
 5. Link to the minimal PR/MR template and reviewed PRs/MRs created during Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/.github/pull_request_template.md
 
 
-6. Link to the Lychee configuration and latest successful protected-default-branch run. sorry(
+6. Link to the Lychee configuration and latest successful protected-default-branch run. 
+Lychee configuration: https://github.com/iu-students/route-optimization-platform/blob/main/.github/workflows/link-check.yml 
+Latest successful protected-default-branch run: https://github.com/iu-students/route-optimization-platform/actions/runs/27647194214
 
 
-7. List and justification of excluded Lychee links, plus confirmation of manual verification (visit each excluded link in a browser to confirm it is accessible before submission). sorry(
+7. List and justification of excluded Lychee links, plus confirmation of manual verification (visit each excluded link in a browser to confirm it is accessible before submission). 
+https://github.com/iu-students/route-optimization-platform/blob/main/EXCLUDED_LINKS.md
 
 
 8. Screenshots embedded from reports/week2/images/ (use PNG format; keep file sizes reasonable):
 
-Protected default branch settings: https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_potection_1.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_protection_2.png 
+Protected default branch settings: https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_potection_1.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_protection_2.png
+
 Example reviewed PR/MR (must be a review by another team member, not a self-review): https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/PR_with_template.png
+
 Selected prototype and interface artifacts and Deployed MVP v0 or runnable artifact: https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/mvp0_1.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/mvp0_authorization.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/mvp0_response.png
 
 
@@ -44,8 +49,8 @@ References stable user-story IDs represented by MVP v0 where applicable. For exa
 
 
 
-10. Link to the published customer transcript; link to the customer notes if recording or private sharing was refused; or state that the transcript is included only in Moodle with the customer's permission.
-transcript is included only in Moodle with the customer's permission.
+10. Link to the published customer transcript; link to the customer notes if recording or private sharing was refused; or state that the transcript is included only in Moodle with the customer's permission. -----
+Transcript is included only in Moodle with the customer's permission.
 
 11. Link to the customer meeting summary.
 https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/customer-meeting-summary.md
