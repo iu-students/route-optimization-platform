@@ -1,12 +1,19 @@
-## Summary of changes
+# Pull Request
 
-## Testing performed
-- [ ] Automatic tests passed
-- [ ] Checked by hand
+## Description
+<!-- Provide a clear and concise description of what this PR changes. -->
 
-## Reviewer checklist
-- [ ] The code is readable and follows standards
-- [ ] The logic works correctly
-- [ ] The tests cover the changes
-- [ ] The documentation has been updated (if necessary)
-- [ ] Security has been taken into account
+## Related Issues / PBIs
+<!-- Reference the linked Supporting PBI(s) or User Story.
+- Closes #<issue-number>
+- Relates to #<user-story-number> (if applicable) -->
+
+## Definition of Done (DoD) Checklist
+- [ ] All issue acceptance criteria are satisfied.
+- [ ] The work has been reviewed by another team member.
+- [ ] Required tests or checks pass.
+- [ ] Verification evidence is preserved (e.g., screenshot, logs, test reports).
+- [ ] The PR is ready to be merged into the protected default branch.
+
+## Evidence
+<!-- If the expected evidence is not obvious, provide it here (e.g., screenshots, logs). -->
