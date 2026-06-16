@@ -40,6 +40,9 @@ jobs:
             --cache
             --verbose
             --no-progress
+            --exclude "http://139.100.207.201:5000"
+            --exclude "http://139.100.207.201:5000/health/"
+            --exclude "http://139.100.207.201:5000/solve/"
             './**/*.md'
             './reports/**/*.md'
         env:
