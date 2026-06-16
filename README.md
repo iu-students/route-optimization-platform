@@ -71,7 +71,7 @@ For an API interface:
 
 8. Screenshots embedded from reports/week2/images/ (use PNG format; keep file sizes reasonable):
 
-Protected default branch settings: https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_potection_1.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_potection_2.png 
+Protected default branch settings: https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/default_branch_potection_1.png reports/week2/images/default_branch_protection_2.png 
 Example reviewed PR/MR (must be a review by another team member, not a self-review): https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/PR_with_template.png
 Selected prototype and interface artifacts and Deployed MVP v0 or runnable artifact: https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/mvp0_1.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/mvp0_authorization.png https://github.com/iu-students/route-optimization-platform/tree/main/reports/week2/images/mvp0_response.png
 
