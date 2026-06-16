@@ -102,7 +102,9 @@ if __name__ == "__main__":
 
     fill_model(scenario, model)
 
-    result = model.solve(stop=MaxRuntime(300))
+    result = model.solve(stop=MaxRuntime(10))
 
     vehicles = calculate_vehicles_routes(result)
+
+    print(scenario.orders)
     print(vehicles)
