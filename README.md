@@ -40,3 +40,7 @@ docker compose up --build -d
 ```
 curl http://localhost:5000/health
 ```
+
+## Weekly reports
+
+Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/README.md
