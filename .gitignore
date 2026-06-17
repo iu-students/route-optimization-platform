@@ -2,3 +2,6 @@
 .idea
 routes_pool.json
 input.json
+all_possible_vehicles_routes.json
+all_possible_loaders_routes.json
+solution.json
