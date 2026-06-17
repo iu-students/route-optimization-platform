@@ -4,7 +4,7 @@
 <!-- Provide a clear and concise description of what this PR changes. -->
 
 ## Related Issues / PBIs
-<!-- Reference the linked Supporting PBI(s) or User Story.
+<!-- Provide links to supporting PBI(s) or User Story.
 - Closes #<issue-number>
 - Relates to #<user-story-number> (if applicable) -->
 
