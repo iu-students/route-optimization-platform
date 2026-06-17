@@ -4,7 +4,7 @@
 <!-- Provide a clear and concise description of what this PR changes. -->
 
 ## Related Issues / PBIs
-<!-- Reference the linked Supporting PBI(s) or User Story.
+<!-- Provide links to supporting PBI(s) or User Story.
 - Closes #<issue-number>
 - Relates to #<user-story-number> (if applicable) -->
 
@@ -17,3 +17,8 @@
 
 ## Evidence
 <!-- If the expected evidence is not obvious, provide it here (e.g., screenshots, logs). -->
+
+## Changelog checklist
+**Select exactly ONE checkbox below.**
+- [ ] Added or updated a user-visible entry in CHANGELOG.md.
+- [ ] Not applicable because the change is not user-visible.
