@@ -17,3 +17,7 @@
 
 ## Evidence
 <!-- If the expected evidence is not obvious, provide it here (e.g., screenshots, logs). -->
+
+## Changelog checklist
+- ( ) Added or updated a user-visible entry in CHANGELOG.md.
+- ( ) Not applicable because the change is not user-visible.
