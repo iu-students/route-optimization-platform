@@ -37,27 +37,17 @@ body:
         ---
         ###  Process & Workflow Fields
   - type: dropdown
-    id: implementer
-    attributes:
-      label: Implementer
-      description: Who is responsible for doing the work?
-      options:
-        - Unassigned
-        - Team Member 1
-        - Team Member 2
-        - Team Member 3
-    validations:
-      required: true
-  - type: dropdown
     id: reviewer
     attributes:
       label: Reviewer
       description: Who is responsible for reviewing the work? (Must be different from the Implementer)
       options:
         - Unassigned
-        - Team Member 1
-        - Team Member 2
-        - Team Member 3
+        - Anastasiia
+        - Maksim
+        - Dania
+        - Timur
+        - Marsel
     validations:
       required: true
   - type: dropdown
