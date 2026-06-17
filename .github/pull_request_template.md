@@ -19,6 +19,6 @@
 <!-- If the expected evidence is not obvious, provide it here (e.g., screenshots, logs). -->
 
 ## Changelog checklist
-** Select exactly ONE checkbox below. **
+**Select exactly ONE checkbox below.**
 - [ ] Added or updated a user-visible entry in CHANGELOG.md.
 - [ ] Not applicable because the change is not user-visible.
