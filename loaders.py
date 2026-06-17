@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from importlib.metadata import distribution
+
 import numpy as np
 import json
 from typing import List
@@ -39,6 +41,10 @@ class Point:
     point_available_time = 0.0
     # срочность точки
     urgency: float
+    # потенциал движения в точку
+    potential: float
+    # все грузчики которые могут обработать заказ
+    available_loaders: List[Loader]
 
     def __init__(self, point_id: int, x: int, y: int, loader_service_time: int, vehicle: Vehicle, end_time: float,
                  vehicle_time: float, loader_cnt: int):
@@ -67,6 +73,7 @@ class Loader:
     available_points: List[Point]
     # ремя на часах грузчика
     loader_local_time: float
+
     def __init__(self, loader_home: Point, loader_shift_size: int):
         self.loader_home = loader_home
         self.loader_shift_size = loader_shift_size
@@ -83,21 +90,41 @@ class Loader:
 vehicles = []
 # хранит все точки для котрых требуются грузчики
 points = []
+# хранит все точки которые еще не обработаны
+missed_points = points.copy()
 # хранит всех грузчиков
 loaders = []
+# хранит длительность смены грузчиков
+loader_shift_size = 0
+# хранит скорость грузчиков
+loader_speed = 0
 
+convertion_dict = {}
 
 def build_distance_matrix():
-    coords = np.array([[p.x, p.y] for p in points], dtype=float)  # (n, 2)
+    global convertion_dict
 
-    diff = coords[:, np.newaxis, :] - coords[np.newaxis, :, :]  # (n, n, 2)
-    dist_matrix = np.sqrt((diff ** 2).sum(axis=2))  # (n, n)
+    # Заполняем словарь соответствия
+    convertion_dict = {
+        point.point_id: idx
+        for idx, point in enumerate(points)
+    }
+
+    coords = np.array(
+        [[point.x, point.y] for point in points],
+        dtype=float
+    )
+
+    diff = coords[:, np.newaxis, :] - coords[np.newaxis, :, :]
+    dist_matrix = np.sqrt((diff ** 2).sum(axis=2))
 
     return dist_matrix
 
+distance_matrix = None
 
-distance_matrix = build_distance_matrix()
 
+def get_distance(p1: Point, p2: Point):
+    return distance_matrix[convertion_dict[p1.point_id]][convertion_dict[p2.point_id]]
 
 def parse(data):
     for i in data["routes"]:
@@ -113,28 +140,60 @@ def parse(data):
 
 # def sorting(points: List[Point]):
 
-def find_available(loader: Loader, speed: float):
+def find_available(loader: Loader):
     for i in points:
-        traveling_time = distance_matrix[loader.loader_current_point.point_id - 1][i.point_id - 1] / speed
-        traveling_home_time = distance_matrix[loader.loader_home.point_id - 1][i.point_id - 1] / speed
+        traveling_time = get_distance(loader.loader_current_point, i) / loader_speed
+        traveling_home_time = get_distance(loader.loader_home, i) / loader_speed
         waiting_time = i.vehicle_time - loader.loader_local_time + traveling_time
         if (traveling_time + traveling_home_time + waiting_time + i.loader_service_time) < loader.loader_shift_time_left and waiting_time >= 0:
             loader.available_points.append(i)
+            i.available_loaders.append(loader)
+            if i in missed_points:
+                missed_points.remove(i)
 
-def calculate(loader_shift_size: int):
-    the_earliest_point = points[0]
-    for i in points:
+
+
+# def assign_urgency():
+
+
+def find_the_earliest_point():
+    the_earliest_point = missed_points[0]
+    for i in missed_points:
         if i.vehicle_time < the_earliest_point.vehicle_time:
             the_earliest_point = i
-    print(the_earliest_point.vehicle_time)
-    loaders.append(Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size))
+    return the_earliest_point
+
+
+def find_initial_distribution():
+    while len(missed_points) > 0:
+        the_earliest_point = find_the_earliest_point()
+        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        missed_points.remove(the_earliest_point)
+        loaders.append(loader)
+        find_available(loader)
+
+def calculate():
+    find_initial_distribution()
+
+
+
 
 
 def solve_loaders():
+    global loader_shift_size
+    global loader_speed
+    global distance_matrix
+    global missed_points
     with open('loaders_task_list.json', 'r', encoding='utf-8') as loader_input:
         loader_input_data = json.load(loader_input)
         parse(loader_input_data)
-    with open('loaders_task_list.json', 'r', encoding='utf-8') as input:
-        input_data = json.load(loader_input)
-        calculate(input_data["loader_shift_size"])
+        distance_matrix = build_distance_matrix()
+        missed_points = points.copy()
+    with open('input.json', 'r', encoding='utf-8') as input:
+        input_data = json.load(input)
+        loader_shift_size = input_data["loader_shift_size"]
+        loader_speed = input_data["loader_speed"]
+        calculate()
     print("ok")
+
+solve_loaders()
