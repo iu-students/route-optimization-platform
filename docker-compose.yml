@@ -11,3 +11,12 @@ services:
       - ./.env
     volumes:
       - ./api:/app
+
+  solver:
+    build:
+      context: .
+      dockerfile: api/MVPv1/Dockerfile
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./data:/app/data

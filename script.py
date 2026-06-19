@@ -1,7 +1,8 @@
 import json
 import math
+import os
 
-from loaders import solve_loaders
+from loaders import solve_loaders, clear_loaders_state
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
@@ -79,7 +80,7 @@ def fill_model(scenario, model):
                            unit_distance_cost=scenario.weights.fuel_cost, max_overtime=0)
 
 
-def calculate_vehicles_routes(result):
+def calculate_vehicles_routes(result, scenario):
     vehicles = []
 
     for vehicle_id, route in enumerate(result.best.routes(), start=1):
@@ -152,16 +153,22 @@ def build_output(vehicles, loaders_result):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+def solve_pipeline(input_path="input.json", data_dir="."):
+    old_cwd = os.getcwd()
+    os.chdir(data_dir)
+    try:
+        clear_loaders_state()
+        scenario = parse(input_path)
+        model = Model()
+        fill_model(scenario, model)
+        result = model.solve(stop=MaxRuntime(300))
+        vehicles = calculate_vehicles_routes(result, scenario)
+        create_loaders_task_list(vehicles, scenario)
+        loaders_result = solve_loaders()
+        build_output(vehicles, loaders_result)
+    finally:
+        os.chdir(old_cwd)
+
+
 if __name__ == "__main__":
-    scenario = parse("input.json")
-    model = Model()
-
-    fill_model(scenario, model)
-
-    result = model.solve(stop=MaxRuntime(300))
-
-    vehicles = calculate_vehicles_routes(result)
-    create_loaders_task_list(vehicles, scenario)
-    loaders_result = solve_loaders()
-    build_output(vehicles, loaders_result)
-    print(vehicles)
+    solve_pipeline(input_path="input.json", data_dir=".")

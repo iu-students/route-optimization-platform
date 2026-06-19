@@ -8,7 +8,9 @@ info:
 
 servers:
   - url: http://139.100.207.201:5000
-    description: Production server
+    description: MVPv0
+  - url: http://localhost:5001
+    description: MVPv1
 
 security:
   - Auth: []
