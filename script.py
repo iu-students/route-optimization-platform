@@ -1,9 +1,9 @@
 import json
 import math
 
+from loaders import solve_loaders
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
-from loaders import solve_loaders
 from models import Scenario, Depot, Weights, Order
 
 
@@ -129,15 +129,39 @@ def create_loaders_task_list(vehicles, scenario):
     with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+def build_output(vehicles, loaders_result):
+    vehicles_output = [
+        {"id": v["id"], "route": v["route"], "time": v["time"]}
+        for v in vehicles
+    ]
+
+    loaders_output = []
+    for new_id, loader in enumerate(loaders_result, start=1):
+        route_ids = [point.point_id for point in loader.route]
+        loaders_output.append({
+            "id": new_id,
+            "route": route_ids,
+        })
+
+    data = {
+        "vehicles": vehicles_output,
+        "loaders": loaders_output,
+    }
+
+    with open('output.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
 if __name__ == "__main__":
     scenario = parse("input.json")
     model = Model()
 
     fill_model(scenario, model)
 
-    result = model.solve(stop=MaxRuntime(120))
+    result = model.solve(stop=MaxRuntime(300))
 
     vehicles = calculate_vehicles_routes(result)
     create_loaders_task_list(vehicles, scenario)
+    loaders_result = solve_loaders()
+    build_output(vehicles, loaders_result)
     print(vehicles)
-    solve_loaders()
