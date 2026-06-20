@@ -1,15 +1,14 @@
 FROM python:3.12-slim
 
-WORKDIR /app
+WORKDIR /ROP
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY api/MVPv1/requirements.txt MVPv1/
+RUN pip install --no-cache-dir -r MVPv1/requirements.txt
 
 COPY script.py loaders.py models.py .
 COPY data/ data/
-COPY api/MVPv1/ api/MVPv1/
-RUN pip install --no-cache-dir -r api/MVPv1/requirements.txt
+COPY api/MVPv1/ MVPv1/
 
 EXPOSE 5001
 
-CMD ["python", "api/MVPv1/app.py"]
+CMD ["python", "MVPv1/app.py"]

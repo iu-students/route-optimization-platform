@@ -1,22 +1,22 @@
 version: "3.9"
 
 services:
-  app:
+  mvpv0:
     build:
-      context: ./api
-      dockerfile: MVPv0/Dockerfile
+      context: .
+      dockerfile: ./api/MVPv0/Dockerfile
     ports:
       - "5000:5000"
     env_file:
       - ./.env
-    volumes:
-      - ./api:/app
 
-  solver:
+  mvpv1:
     build:
       context: .
-      dockerfile: api/MVPv1/Dockerfile
+      dockerfile: ./api/MVPv1/Dockerfile
     ports:
       - "5001:5001"
+    env_file:
+      - ./.env
     volumes:
-      - ./data:/app/data
+      - ./data:/ROP/data

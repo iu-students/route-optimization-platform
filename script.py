@@ -11,7 +11,8 @@ from models import Scenario, Depot, Weights, Order
 def parse(path: str) -> Scenario:
     with open(path) as f:
         raw = json.load(f)
-        depot = Depot(**raw["depot"])
+        depot_raw = {k: v for k, v in raw["depot"].items() if k != "id"}
+        depot = Depot(**depot_raw)
     weights = Weights(**raw["weights"])
     orders = [Order(**o) for o in raw["orders"]]
 
@@ -96,6 +97,7 @@ def calculate_vehicles_routes(result, scenario):
 
     return vehicles
 
+
 def create_loaders_task_list(vehicles, scenario):
     data = {
         "routes": []
@@ -130,6 +132,7 @@ def create_loaders_task_list(vehicles, scenario):
     with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+
 def build_output(vehicles, loaders_result):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
@@ -161,7 +164,7 @@ def solve_pipeline(input_path="input.json", data_dir="."):
         scenario = parse(input_path)
         model = Model()
         fill_model(scenario, model)
-        result = model.solve(stop=MaxRuntime(300))
+        result = model.solve(stop=MaxRuntime(60))
         vehicles = calculate_vehicles_routes(result, scenario)
         create_loaders_task_list(vehicles, scenario)
         loaders_result = solve_loaders()
@@ -171,4 +174,4 @@ def solve_pipeline(input_path="input.json", data_dir="."):
 
 
 if __name__ == "__main__":
-    solve_pipeline(input_path="input.json", data_dir=".")
+    solve_pipeline(input_path="input.json", data_dir="data")
