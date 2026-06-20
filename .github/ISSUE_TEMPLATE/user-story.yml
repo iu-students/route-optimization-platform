@@ -1,0 +1,103 @@
+name: User Story
+description: Create a new User Story PBI (Product Backlog Item)
+title: "[User Story]: "
+labels: ["user-story", "pbi"]
+projects: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## User Story
+        Follows the standard: "As a [user role], I want [desired action], so that [expected value]."
+  - type: input
+    id: stable_id
+    attributes:
+      label: Stable User Story ID
+      description: Enter a unique, stable ID (e.g., US-001). Do not change or reuse this ID.
+      placeholder: "US-XXX"
+    validations:
+      required: true
+  - type: input
+    id: user_role
+    attributes:
+      label: User Role / Persona
+      description: Who is this feature for?
+      placeholder: "e.g., Registered User, Admin, Guest"
+    validations:
+      required: true
+  - type: input
+    id: desired_action
+    attributes:
+      label: Desired Action
+      description: What does the user want to do?
+      placeholder: "e.g., reset my password, search for products"
+    validations:
+      required: true
+  - type: input
+    id: expected_value
+    attributes:
+      label: Expected Value
+      description: Why does the user want this? What's the benefit?
+      placeholder: "e.g., so that I can regain access to my account, so that I can find items quickly"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide relevant notes, constraints, assumptions, or open questions.
+      placeholder: "Add any additional context here..."
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: |
+        Specific, observable, and testable conditions. Recommended format:
+        **Given** [context], **When** [action], **Then** [outcome].
+        Use a new line for each scenario.
+      placeholder: |
+        **Scenario: Successful Login**
+        **Given** I am on the login page and have valid credentials
+        **When** I submit the form
+        **Then** I should be redirected to the dashboard
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### Process & Workflow Fields
+  - type: dropdown
+    id: reviewer
+    attributes:
+      label: Reviewer
+      description: Who is responsible for reviewing the work? (Must be different from the Implementer)
+      options:
+        - Unassigned
+        - Anastasiia
+        - Maksim
+        - Dania
+        - Timur
+        - Marsel
+    validations:
+      required: true
+  - type: dropdown
+    id: work_status
+    attributes:
+      label: Work Status
+      description: Track the current state of this PBI.
+      options:
+        - To Do
+        - Ready
+        - In Progress
+        - Review
+        - Done
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ### Important Note
+        This User Story issue should **NOT** contain implementation subtasks. Create separate linked PBIs for implementation, testing, or design work.

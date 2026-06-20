@@ -1,0 +1,50 @@
+{
+    "vehicle_capacity": 1000,
+    "vehicle_speed": 3,
+    "loader_speed": 1,
+    "vehicle_shift_size": 720,
+    "loader_shift_size": 720,
+    "depot": {
+        "id": 0,
+        "x": 100,
+        "y": 100,
+        "load_time": 40
+    },
+    "orders": [
+        {
+            "id": 1,
+            "x": 134,
+            "y": 6,
+            "volume": 20,
+            "time_window": [
+                988,
+                1031
+            ],
+            "vehicle_service_time": 10,
+            "loader_cnt": 0,
+            "loader_service_time": 0,
+            "optional": 0
+        },
+        {
+            "id": 2,
+            "x": 63,
+            "y": 58,
+            "volume": 20,
+            "time_window": [
+                55,
+                589
+            ],
+            "vehicle_service_time": 10,
+            "loader_cnt": 2,
+            "loader_service_time": 20,
+            "optional": 1
+        }
+    ],
+    "weights": {
+        "order_penalty": 250,
+        "take_vehicle": 200,
+        "add_loader": 200,
+        "fuel_cost": 2,
+        "loader_work": 1
+    }
+}

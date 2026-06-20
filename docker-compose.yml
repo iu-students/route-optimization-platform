@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: ./api
+      dockerfile: MVPv0/Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./.env
+    volumes:
+      - ./api:/app

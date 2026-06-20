@@ -1,1 +1,109 @@
-import jsonfrom pyvrp import Modelfrom pyvrp.stop import MaxRuntimefrom models import Scenario, Depot, Weights, Orderfrom ortools.sat.python import cp_modeldef parse(path):    with open(path) as f:        raw = json.load(f)    depot = Depot(**raw["depot"])    weights = Weights(**raw["weights"])    orders = [Order(**o) for o in raw["orders"]]    return Scenario(        depot=depot, weights=weights, orders=orders,        vehicle_capacity=raw["vehicle_capacity"],        vehicle_speed=raw["vehicle_speed"],        loader_speed=raw["loader_speed"],        vehicle_shift_size=raw["vehicle_shift_size"],        loader_shift_size=raw["loader_shift_size"],    )def find_distance(x1, y1, x2, y2):    return round(((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5, 2)# vehiclesdef fill_model(scenario, model):    depot = model.add_depot(x=scenario.depot.x, y=scenario.depot.y, tw_early=0)    clients = []    for order in scenario.orders:        c = model.add_client(            x=order.x, y=order.y,            delivery=order.volume,            service_duration=order.vehicle_service_time,            tw_early=order.time_window[0],            tw_late=order.time_window[1],            prize=scenario.weights.optional_order_penalty if order.optional else 0,            required=not bool(order.optional),        )        clients.append(c)    all_nodes = [depot] + clients    for i, node_i in enumerate(all_nodes):        x_i = depot.x if i == 0 else scenario.orders[i - 1].x        y_i = depot.y if i == 0 else scenario.orders[i - 1].y        for j, node_j in enumerate(all_nodes):            if i == j:                continue            x_j = depot.x if j == 0 else scenario.orders[j - 1].x            y_j = depot.y if j == 0 else scenario.orders[j - 1].y            d = find_distance(x_i, y_i, x_j, y_j)            model.add_edge(node_i, node_j, distance=round(d), duration=round(d / scenario.vehicle_speed))    model.add_vehicle_type(num_available=len(scenario.orders), capacity=scenario.vehicle_capacity, shift_duration=scenario.vehicle_shift_size, fixed_cost=scenario.weights.vehicle_salary, unit_distance_cost=scenario.weights.fuel_cost, max_overtime=0)def compute_times(order_ids, scenario):    by_id = {order.id: order for order in scenario.orders}    time = 0.0    times = []    px, py = scenario.depot.x, scenario.depot.y    for order_id in order_ids:        order = by_id[order_id]        time += find_distance(px, py, order.x, order.y) / scenario.vehicle_speed        time = max(time, order.time_window[0])        times.append(round(time, 2))        time += order.vehicle_service_time        px, py = order.x, order.y    return timesdef extract_routes(result, scenario):    routes = []    for route in result.best.routes():        visits = list(route.visits())        if not visits:            continue        order_ids = [scenario.orders[i - 1].id for i in visits]        arrival_times = compute_times(order_ids, scenario)        routes.append({            "order_ids": order_ids,            "arrival_times": arrival_times,            "cost": route.distance() * scenario.weights.fuel_cost + scenario.weights.vehicle_salary,        })    return routesdef remove_duplicates(routes):    unique = []    seen = set()    for r in routes:        key = tuple(r["order_ids"])        if key not in seen:            seen.add(key)            unique.append(r)    return uniquedef find_best_route(routes, scenario):    model = cp_model.CpModel()    x = [model.NewBoolVar(f"route_{r['route_id']}") for r in routes]    covers = {order.id: [] for order in scenario.orders}    for i, route in enumerate(routes):        for oid in route["order_ids"]:            covers[oid].append(x[i])    objective = 0    penalty = scenario.weights.optional_order_penalty    for order in scenario.orders:        if order.optional:            missed = model.NewBoolVar(f"miss_{order.id}")            model.Add(sum(covers[order.id]) + missed == 1)            objective += missed * penalty * 100        else:            model.Add(sum(covers[order.id]) == 1)    for i, route in enumerate(routes):        objective += int(route["cost"] * 100) * x[i]    model.Minimize(objective)    solver = cp_model.CpSolver()    solver.parameters.max_time_in_seconds = 30    status = solver.Solve(model)    return solver, status, xdef build_solution(routes, solver, x):    solution = {"vehicles": []}    vehicle_id = 1    for i, route in enumerate(routes):        if solver.Value(x[i]) == 1:            solution["vehicles"].append({                "vehicle_id": vehicle_id,                "route": [0] + route["order_ids"] + [0],                "time": route["arrival_times"],                "cost": route["cost"],            })            vehicle_id += 1    return solutiondef find_vehicles_routes(scenario, times):    all_routes = []    for run in range(times):        model = Model()        fill_model(scenario, model)        result = model.solve(stop=MaxRuntime(2), seed=run)        routes = extract_routes(result, scenario)        all_routes.extend(routes)    unique = remove_duplicates(all_routes)    all_pool_routes = []    for i, route in enumerate(unique):        all_pool_routes.append({            "route_id": i + 1,            "order_ids": route["order_ids"],            "arrival_times": route["arrival_times"],            "cost": route["cost"],        })    with open("all_possible_vehicles_routes.json", "w") as file:        json.dump(all_pool_routes, file, indent=4)    solver, status, x = find_best_route(all_pool_routes, scenario)    return build_solution(all_pool_routes, solver, x)# Loadersdef build_slots(solution, scenario):    by_id = {order.id: order for order in scenario.orders}    slots = []    for vehicle in solution["vehicles"]:        order_ids = vehicle["route"][1:-1]        times = vehicle["time"]        for order_id, arrival in zip(order_ids, times):            order = by_id[order_id]            for k in range(order.loader_cnt):                slots.append({                    "slot_id": len(slots),                    "order_id": order_id,                    "x": order.x,                    "y": order.y,                    "start": arrival,                    "service": order.loader_service_time,                })    return slotsdef fill_loader_model(slots, scenario, model):    depot = model.add_depot(x=0, y=0, tw_early=0)    clients = []    for slot in slots:        c = model.add_client(            x=slot["x"],            y=slot["y"],            delivery=1,            service_duration=slot["service"],            tw_early=int(slot["start"]),            tw_late=int(slot["start"]),        )        clients.append(c)    all_nodes = [depot] + clients    for i, node_i in enumerate(all_nodes):        x_i = 0 if i == 0 else slots[i - 1]["x"]        y_i = 0 if i == 0 else slots[i - 1]["y"]        for j, node_j in enumerate(all_nodes):            if i == j:                continue            x_j = 0 if j == 0 else slots[j - 1]["x"]            y_j = 0 if j == 0 else slots[j - 1]["y"]            if i == 0 or j == 0:                d = 0            else:                d = find_distance(x_i, y_i, x_j, y_j)            model.add_edge(node_i, node_j, distance=round(d), duration=round(d / scenario.loader_speed))    model.add_vehicle_type(num_available=len(slots), capacity=len(slots), shift_duration=scenario.loader_shift_size, fixed_cost=scenario.weights.loader_salary, unit_distance_cost=1, max_overtime=0)def extract_chains(result, slots):    chains = []    for route in result.best.routes():        visits = list(route.visits())        if not visits:            continue        chain = [v - 1 for v in visits]        order_ids_in_chain = [slots[s]["order_id"] for s in chain]        if len(set(order_ids_in_chain)) != len(order_ids_in_chain):            continue        chains.append(chain)    return chainsdef chain_cost(chain, slots, scenario):    if len(chain) == 1:        shift = slots[chain[0]]["service"]    else:        first = slots[chain[0]]        last_slot = slots[chain[-1]]        back = find_distance(last_slot["x"], last_slot["y"], first["x"], first["y"]) / scenario.loader_speed        shift = last_slot["start"] + last_slot["service"] + back - first["start"]    return scenario.weights.loader_salary + scenario.weights.loader_work * shiftdef find_best_loaders(chains, slots):    model = cp_model.CpModel()    y = [model.NewBoolVar(f"chain_{c['chain_id']}") for c in chains]    covers = {s: [] for s in range(len(slots))}    for i, chain in enumerate(chains):        for slot_id in chain["slot_ids"]:            covers[slot_id].append(y[i])    for slot_id in range(len(slots)):        model.Add(sum(covers[slot_id]) == 1)    objective = 0    for i, chain in enumerate(chains):        objective += int(chain["cost"] * 100) * y[i]    model.Minimize(objective)    solver = cp_model.CpSolver()    solver.parameters.max_time_in_seconds = 30    status = solver.Solve(model)    return solver, status, ydef build_loaders(chains, solver, y):    loaders = []    loader_id = 1    for i, chain in enumerate(chains):        if solver.Value(y[i]) == 1:            loaders.append({                "id": loader_id,                "route": chain["order_ids"],            })            loader_id += 1    return loadersdef find_loaders_routes(solution, scenario, times):    slots = build_slots(solution, scenario)    all_chains = []    for run in range(times):        model = Model()        fill_loader_model(slots, scenario, model)        result = model.solve(stop=MaxRuntime(2), seed=run)        chains = extract_chains(result, slots)        all_chains.extend(chains)    seen = set()    unique = []    for chain in all_chains:        key = tuple(chain)        if key not in seen:            seen.add(key)            unique.append(chain)    all_pool_chains = []    for i, chain in enumerate(unique):        order_ids = [slots[s]["order_id"] for s in chain]        all_pool_chains.append({            "chain_id": i + 1,            "slot_ids": chain,            "order_ids": order_ids,            "cost": chain_cost(chain, slots, scenario),        })    with open("all_possible_loaders_routes.json", "w") as file:        json.dump(all_pool_chains, file, indent=4)    solver, status, y = find_best_loaders(all_pool_chains, slots)    return build_loaders(all_pool_chains, solver, y)if __name__ == "__main__":    scenario = parse("input.json")    solution = find_vehicles_routes(scenario, 20)    solution["loaders"] = find_loaders_routes(solution, scenario, 20)    with open("solution.json", "w") as file:        json.dump(solution, file, indent=4)
+import json
+import math
+from pyvrp import Model
+from pyvrp.stop import MaxRuntime
+
+from models import Scenario, Depot, Weights, Order
+
+
+def parse(path: str) -> Scenario:
+    with open(path) as f:
+        raw = json.load(f)
+
+    depot = Depot(**raw["depot"])
+    weights = Weights(**raw["weights"])
+    orders = [Order(**o) for o in raw["orders"]]
+
+    return Scenario(
+        depot=depot,
+        weights=weights,
+        orders=orders,
+        vehicle_capacity=raw["vehicle_capacity"],
+        vehicle_speed=raw["vehicle_speed"],
+        loader_speed=raw["loader_speed"],
+        vehicle_shift_size=raw["vehicle_shift_size"],
+        loader_shift_size=raw["loader_shift_size"],
+    )
+
+
+def find_distance(x1, y1, x2, y2) -> float:
+    return round(math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2), 2)
+
+
+def compute_times(order_ids: list, scenario: Scenario) -> list:
+    by_id = {order.id: order for order in scenario.orders}
+
+    time = 0.0
+    times = []
+    px, py = scenario.depot.x, scenario.depot.y
+
+    for order_id in order_ids:
+        order = by_id[order_id]
+
+        time += find_distance(px, py, order.x, order.y) / scenario.vehicle_speed
+        time = max(time, order.time_window[0])
+        times.append(round(time, 2))
+        time += order.vehicle_service_time
+        px, py = order.x, order.y
+
+    return times
+
+
+def fill_model(scenario, model):
+    coordinates = [(scenario.depot.x, scenario.depot.y)] + [(order.x, order.y) for order in scenario.orders]
+
+    depot = model.add_depot(x=scenario.depot.x, y=scenario.depot.y, tw_early=0, tw_late=scenario.vehicle_shift_size)
+
+    clients = []
+
+    for order in scenario.orders:
+        c = model.add_client(x=order.x, y=order.y, delivery=order.volume, service_duration=order.vehicle_service_time,
+                             tw_early=order.time_window[0], tw_late=order.time_window[1],
+                             prize=scenario.weights.order_penalty if order.optional else 0,
+                             required=not bool(order.optional))
+
+        clients.append(c)
+
+    all_nodes = [depot] + clients
+
+    for i, (node_i, (x_i, y_i)) in enumerate(zip(all_nodes, coordinates)):
+        for j, (node_j, (x_j, y_j)) in enumerate(zip(all_nodes, coordinates)):
+            if i != j:
+                distance = find_distance(x_i, y_i, x_j, y_j)
+
+                model.add_edge(node_i, node_j, distance=round(distance),
+                               duration=round(distance / scenario.vehicle_speed))
+
+    model.add_vehicle_type(num_available=len(scenario.orders), capacity=scenario.vehicle_capacity,
+                           shift_duration=scenario.vehicle_shift_size, fixed_cost=scenario.weights.take_vehicle,
+                           unit_distance_cost=scenario.weights.fuel_cost)
+
+
+def calculate_vehicles_routes(result):
+    vehicles = []
+
+    for vehicle_id, route in enumerate(result.best.routes(), start=1):
+        order_ids = [scenario.orders[i - 1].id for i in route.visits()]
+        times = compute_times(order_ids, scenario)
+
+        vehicles.append({
+            "id": vehicle_id,
+            "route": [0] + order_ids + [0],
+            "time": times,
+        })
+
+    return vehicles
+
+
+if __name__ == "__main__":
+    scenario = parse("data/input.json")
+
+    model = Model()
+
+    fill_model(scenario, model)
+
+    result = model.solve(stop=MaxRuntime(10))
+
+    vehicles = calculate_vehicles_routes(result)
+
+    print(vehicles)

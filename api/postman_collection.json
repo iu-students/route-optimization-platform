@@ -1,0 +1,482 @@
+{
+  "info": {
+    "_postman_id": "64971e89-7426-45ea-9c57-6aa15bada1f5",
+    "name": "CVRPTW Solver API",
+    "description": "Collection for testing VRP solver with successful and error responses",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55742983",
+    "_collection_link": "https://go.postman.co/collection/55742983-64971e89-7426-45ea-9c57-6aa15bada1f5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Successful Request (200 OK)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Test 1: Check status code\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Test 2: Check response has required fields\r",
+              "pm.test(\"Response has loaders and vehicles arrays\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response).to.have.property(\"loaders\");\r",
+              "    pm.expect(response).to.have.property(\"vehicles\");\r",
+              "    pm.expect(response.loaders).to.be.an(\"array\");\r",
+              "    pm.expect(response.vehicles).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "// Test 3: Validate vehicle route structure\r",
+              "pm.test(\"Vehicle route has correct structure\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    if (response.vehicles.length > 0) {\r",
+              "        const vehicle = response.vehicles[0];\r",
+              "        pm.expect(vehicle).to.have.property(\"id\");\r",
+              "        pm.expect(vehicle).to.have.property(\"route\");\r",
+              "        pm.expect(vehicle).to.have.property(\"time\");\r",
+              "        pm.expect(vehicle.route).to.be.an(\"array\");\r",
+              "        pm.expect(vehicle.time).to.be.an(\"array\");\r",
+              "        // First and last route points should be depot (0)\r",
+              "        if (vehicle.route.length > 0) {\r",
+              "            pm.expect(vehicle.route[0]).to.equal(0);\r",
+              "            pm.expect(vehicle.route[vehicle.route.length - 1]).to.equal(0);\r",
+              "        }\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "// Test 4: Validate loader route structure\r",
+              "pm.test(\"Loader route has correct structure\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    if (response.loaders.length > 0) {\r",
+              "        const loader = response.loaders[0];\r",
+              "        pm.expect(loader).to.have.property(\"id\");\r",
+              "        pm.expect(loader).to.have.property(\"route\");\r",
+              "        pm.expect(loader.route).to.be.an(\"array\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "// Test 5: Response time is reasonable\r",
+              "pm.test(\"Response time is less than 30 seconds\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"x\": 134,\r\n      \"y\": 6,\r\n      \"volume\": 20,\r\n      \"time_window\": [988, 1031],\r\n      \"vehicle_service_time\": 10,\r\n      \"loader_cnt\": 0,\r\n      \"loader_service_time\": 0,\r\n      \"optional\": 0\r\n    }\r\n  ],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://139.100.207.201:5000/solve",
+          "protocol": "http",
+          "host": [
+            "139",
+            "100",
+            "207",
+            "201"
+          ],
+          "port": "5000",
+          "path": [
+            "solve"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Successful Request (200 OK)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{API_KEY}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"x\": 134,\r\n      \"y\": 6,\r\n      \"volume\": 20,\r\n      \"time_window\": [988, 1031],\r\n      \"vehicle_service_time\": 10,\r\n      \"loader_cnt\": 0,\r\n      \"loader_service_time\": 0,\r\n      \"optional\": 0\r\n    }\r\n  ],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://139.100.207.201:5000/solve",
+              "protocol": "http",
+              "host": [
+                "139",
+                "100",
+                "207",
+                "201"
+              ],
+              "port": "5000",
+              "path": [
+                "solve"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.8 Python/3.12.13"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 14 Jun 2026 17:44:37 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "888"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"loaders\": [\n        {\n            \"id\": 1,\n            \"route\": [\n                2,\n                7,\n                15,\n                21,\n                29\n            ]\n        },\n        {\n            \"id\": 2,\n            \"route\": [\n                2,\n                4,\n                10,\n                23,\n                28,\n                30,\n                37\n            ]\n        }\n    ],\n    \"vehicles\": [\n        {\n            \"id\": 1,\n            \"route\": [\n                0,\n                5,\n                7,\n                15,\n                28,\n                4,\n                0\n            ],\n            \"time\": [\n                38,\n                65.04,\n                113.69,\n                169.94,\n                206,\n                240,\n                275\n            ]\n        },\n        {\n            \"id\": 2,\n            \"route\": [\n                0,\n                2,\n                4,\n                8,\n                9,\n                0,\n                34,\n                39,\n                29,\n                0\n            ],\n            \"time\": [\n                46,\n                66,\n                112.17,\n                154,\n                189.52,\n                195.7,\n                230.14,\n                270.05,\n                310,\n                345\n            ]\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Invalid API Key (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Test 1: Check status code is 401 Unauthorized",
+              "pm.test(\"Status code is 401\", function () {",
+              "    pm.response.to.have.status(401);",
+              "});",
+              "",
+              "// Test 2: Check error response structure",
+              "pm.test(\"Response has error information\", function () {",
+              "    const responseText = pm.response.text();",
+              "    pm.expect(responseText).to.include(\"Unauthorized\");",
+              "});",
+              "",
+              "// Test 3: Verify error message indicates authentication issue",
+              "pm.test(\"Error message indicates authentication failure\", function () {",
+              "    const responseText = pm.response.text().toLowerCase();",
+              "    pm.expect(responseText).to.satisfy(msg => ",
+              "        msg.includes(\"api key\") || ",
+              "        msg.includes(\"auth\") || ",
+              "        msg.includes(\"unauthorized\") ||",
+              "        msg.includes(\"invalid\")",
+              "    );",
+              "});",
+              "",
+              "// Test 4: Response time is fast for auth failure",
+              "pm.test(\"Auth error response is fast (< 1000ms)\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "invalid_key",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://139.100.207.201:5000/solve",
+          "protocol": "http",
+          "host": [
+            "139",
+            "100",
+            "207",
+            "201"
+          ],
+          "port": "5000",
+          "path": [
+            "solve"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Invalid API Key (401)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "invalid_key",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://139.100.207.201:5000/solve",
+              "protocol": "http",
+              "host": [
+                "139",
+                "100",
+                "207",
+                "201"
+              ],
+              "port": "5000",
+              "path": [
+                "solve"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.8 Python/3.12.13"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 14 Jun 2026 17:46:01 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "119"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "<!doctype html><html lang=en><title>401 Unauthorized</title><h1>Unauthorized</h1><p>Invalid or missing API key</p>"
+        }
+      ]
+    },
+    {
+      "name": "Invalid input (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Test 1: Check status code is 400",
+              "pm.test(\"Status code is 400\", function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "// Test 2: Check response is not JSON",
+              "pm.test(\"Response is not JSON\", function () {",
+              "    const contentType = pm.response.headers.get(\"Content-Type\");",
+              "    ",
+              "    // Check that Content-Type is NOT application/json",
+              "    const isNotJson = !contentType || !contentType.includes(\"application/json\");",
+              "    pm.expect(isNotJson).to.be.true;",
+              "});",
+              "",
+              "// Test 3: Validate error details",
+              "pm.test(\"Error response provides meaningful details\", function () {",
+              "    const contentType = pm.response.headers.get(\"Content-Type\") || \"\";",
+              "",
+              "    if (contentType.includes(\"application/json\")) {",
+              "        // Handle JSON response",
+              "        const response = pm.response.json();",
+              "        console.log(\"Error response:\", response);",
+              "",
+              "        if (response.error) {",
+              "            pm.expect(response.error).to.be.a(\"string\");",
+              "        }",
+              "        if (response.message) {",
+              "            pm.expect(response.message).to.be.a(\"string\");",
+              "        }",
+              "        if (response.code) {",
+              "            pm.expect(response.code).to.equal(400);",
+              "        }",
+              "    } else {",
+              "        // Handle non-JSON (e.g. HTML) response",
+              "        const body = pm.response.text();",
+              "        console.log(\"Error response (non-JSON):\", body);",
+              "        pm.expect(body).to.be.a(\"string\").and.to.have.length.above(0);",
+              "    }",
+              "});",
+              "",
+              "// Test 4: Response time is fast for auth failure",
+              "pm.test(\"Auth error response is fast (< 1000ms)\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"vehicle_speed\": 3\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}"
+        },
+        "url": {
+          "raw": "http://139.100.207.201:5000/solve",
+          "protocol": "http",
+          "host": [
+            "139",
+            "100",
+            "207",
+            "201"
+          ],
+          "port": "5000",
+          "path": [
+            "solve"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Invalid input (400)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{API_KEY}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"vehicle_speed\": 3\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}"
+            },
+            "url": {
+              "raw": "http://139.100.207.201:5000/solve",
+              "protocol": "http",
+              "host": [
+                "139",
+                "100",
+                "207",
+                "201"
+              ],
+              "port": "5000",
+              "path": [
+                "solve"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.8 Python/3.12.13"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 14 Jun 2026 17:46:17 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "179"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "<!doctype html><html lang=en><title>400 Bad Request</title><h1>Bad Request</h1><p>Failed to decode JSON object: Expecting &#39;,&#39; delimiter: line 3 column 3 (char 27)</p>"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
