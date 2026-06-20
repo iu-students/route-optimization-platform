@@ -1,0 +1,92 @@
+name: Bug Report
+description: Report a bug to be fixed.
+title: "[Bug]: "
+labels: ["bug", "pbi"]
+projects: []
+body:
+  - type: textarea
+    id: problem_description
+    attributes:
+      label: Problem Description
+      description: What is the problem?
+      placeholder: "Clear summary of the bug..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Reproduction Steps
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: "e.g., The user should be logged in."
+    validations:
+      required: true
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: "e.g., The user sees a 500 error."
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Where did this happen? (OS, Browser, Version, etc.)
+      placeholder: "e.g., Windows 11, Chrome 120, Production"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria_fix
+    attributes:
+      label: Acceptance Criteria for the Fix
+      description: Specific conditions that must be met for this bug to be considered fixed.
+      placeholder: |
+        - [ ] The error no longer occurs
+        - [ ] The user is redirected successfully
+        - [ ] Logs do not show the previous exception
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ###  Process & Workflow Fields
+  - type: dropdown
+    id: reviewer
+    attributes:
+      label: Reviewer
+      description: Who is responsible for reviewing the work? (Must be different from the Implementer)
+      options:
+        - Unassigned
+        - Anastasiia
+        - Maksim
+        - Dania
+        - Timur
+        - Marsel
+    validations:
+      required: true
+  - type: dropdown
+    id: work_status
+    attributes:
+      label: Work Status
+      description: Track the current state of this PBI.
+      options:
+        - To Do
+        - Ready
+        - In Progress
+        - Review
+        - Done
+    validations:
+      required: true

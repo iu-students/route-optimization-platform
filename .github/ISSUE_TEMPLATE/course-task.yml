@@ -1,0 +1,22 @@
+name: Course Task
+description: Create a task for course reporting, grading evidence, or administration (NOT a PBI).
+title: "[Course Task]: "
+labels: ["course-task"]
+projects: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the course-related work to be done.
+      placeholder: "e.g., Submit Sprint 2 grading evidence"
+    validations:
+      required: true
+  - type: input
+    id: expected_evidence
+    attributes:
+      label: Expected Evidence or Deliverable
+      description: What artifact or deliverable is required to complete this task?
+      placeholder: "e.g., Link to the `/reports/sprint-2-review.md` file"
+    validations:
+      required: true
