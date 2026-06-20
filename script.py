@@ -1,9 +1,9 @@
 import json
 import math
 
+from loaders import solve_loaders
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
-
 from models import Scenario, Depot, Weights, Order
 
 
@@ -95,6 +95,62 @@ def calculate_vehicles_routes(result):
 
     return vehicles
 
+def create_loaders_task_list(vehicles, scenario):
+    data = {
+        "routes": []
+    }
+    for i in vehicles:
+        id = i["id"]
+        data["routes"].append({
+            "id": id,
+            "points": [],
+            "car_extra_time": scenario.vehicle_shift_size - i["time2"],
+        })
+        for j in range(1, len(i["time"]) + 1):
+            order_data = scenario.orders[i["route"][j] - 1]
+            if order_data.loader_cnt == 0:
+                continue
+            data["routes"][id - 1]["points"].append({
+                "id": order_data.id,
+                "x": order_data.x,
+                "y": order_data.y,
+                "loader_cnt": order_data.loader_cnt,
+                "loader_service_time": order_data.loader_service_time,
+                "vehicle_time": i["time"][j - 1],
+                "end_time": order_data.time_window[1]
+            })
+
+    filtered_routes = [r for r in data["routes"] if len(r["points"]) > 0]
+    for new_id, route in enumerate(filtered_routes, start=1):
+        route["id"] = new_id
+
+    data["routes"] = filtered_routes
+
+    with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+def build_output(vehicles, loaders_result):
+    vehicles_output = [
+        {"id": v["id"], "route": v["route"], "time": v["time"]}
+        for v in vehicles
+    ]
+
+    loaders_output = []
+    for new_id, loader in enumerate(loaders_result, start=1):
+        route_ids = [point.point_id for point in loader.route]
+        loaders_output.append({
+            "id": new_id,
+            "route": route_ids,
+        })
+
+    data = {
+        "vehicles": vehicles_output,
+        "loaders": loaders_output,
+    }
+
+    with open('output.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
 
 if __name__ == "__main__":
     scenario = parse("input.json")
@@ -105,4 +161,7 @@ if __name__ == "__main__":
     result = model.solve(stop=MaxRuntime(300))
 
     vehicles = calculate_vehicles_routes(result)
+    create_loaders_task_list(vehicles, scenario)
+    loaders_result = solve_loaders()
+    build_output(vehicles, loaders_result)
     print(vehicles)
