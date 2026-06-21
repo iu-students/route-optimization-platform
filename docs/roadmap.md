@@ -29,15 +29,16 @@ A public release (v0.1.0) will be created.
 
 
 # Sprint 2
-**Sprint Milestone:** 
+**Sprint Milestone:** https://github.com/iu-students/route-optimization-platform/milestone/2
 
 **Start date:** 22.06.2026
 
 **Finish date:** 28.06.2026
 
-**Sprint Goal:** 
+**Sprint Goal:** MVPv1 modification, developing a different version of the algorithm to solve the problem, and the implementation part of the  user story.
 
 **Expected outcome:** 
+New version of algorithm works on the server, part of the user story is closed
 
 **Planned items:**
 
