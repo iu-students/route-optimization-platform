@@ -37,7 +37,7 @@ def verify_shift_times(input_data: dict, vehicles: list) -> dict:
 
         route_start_time = times[0]
 
-        if route_start_time <= shift_end:
+        if round(route_start_time, 2) <= round(shift_end, 2):
             vehicle_results.append({
                 "vehicle_id": vehicle["id"],
                 "status": "success",
@@ -99,7 +99,7 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
 
             tw_start, tw_end = order["time_window"]
 
-            if arrival_time < tw_start:
+            if round(arrival_time, 2) < round(tw_start, 2):
                 vehicle_ok = False
                 all_ok = False
                 point_details.append({
@@ -109,7 +109,7 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
                     "status": "error",
                     "message": f"Arrival {arrival_time} before time window start {tw_start}",
                 })
-            elif arrival_time > tw_end:
+            elif round(arrival_time, 2) > round(tw_end, 2):
                 vehicle_ok = False
                 all_ok = False
                 point_details.append({
@@ -178,7 +178,7 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
                     "status": "error",
                     "message": f"Negative total volume ({total_volume})",
                 })
-            elif total_volume > vehicle_capacity:
+            elif round(total_volume, 2) > round(vehicle_capacity, 2):
                 vehicle_ok = False
                 all_ok = False
                 segment_details.append({
