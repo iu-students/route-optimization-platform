@@ -1,6 +1,66 @@
 from typing import List
 
 
+def _split_route_into_segments(route: List[int]) -> List[List[int]]:
+    segments = []
+    current = []
+    for point in route:
+        if point == 0:
+            if current:
+                segments.append(current)
+                current = []
+        else:
+            current.append(point)
+    if current:
+        segments.append(current)
+    return segments
+
+
+def verify_shift_times(input_data: dict, vehicles: list) -> dict:
+    shift_end = input_data["vehicle_shift_size"]
+
+    all_ok = True
+    vehicle_results = []
+
+    for vehicle in vehicles:
+        route = vehicle["route"]
+        times = vehicle["time"]
+
+        delivery_points = [p for p in route if p != 0]
+        if not delivery_points:
+            vehicle_results.append({
+                "vehicle_id": vehicle["id"],
+                "status": "success",
+                "message": "Empty route (no shift constraint violation)",
+            })
+            continue
+
+        route_start_time = times[0]
+
+        if route_start_time <= shift_end:
+            vehicle_results.append({
+                "vehicle_id": vehicle["id"],
+                "status": "success",
+                "message": f"Route start {route_start_time} <= shift end {shift_end}",
+                "route_start_time": route_start_time,
+                "shift_end": shift_end,
+            })
+        else:
+            all_ok = False
+            vehicle_results.append({
+                "vehicle_id": vehicle["id"],
+                "status": "error",
+                "message": f"Route start {route_start_time} > shift end {shift_end}",
+                "route_start_time": route_start_time,
+                "shift_end": shift_end,
+            })
+
+    return {
+        "status": "success" if all_ok else "error",
+        "vehicles": vehicle_results,
+    }
+
+
 def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
     vehicle_capacity = input_data["vehicle_capacity"]
     orders_by_id = {o["id"]: o for o in input_data["orders"]}
@@ -73,16 +133,24 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
     }
 
 
-def _split_route_into_segments(route: List[int]) -> List[List[int]]:
-    segments = []
-    current = []
-    for point in route:
-        if point == 0:
-            if current:
-                segments.append(current)
-                current = []
-        else:
-            current.append(point)
-    if current:
-        segments.append(current)
-    return segments
+def run_verification(input_path: str = "data/input.json", output_path: str = "data/output.json") -> dict:
+    import json
+    with open(input_path) as f:
+        input_data = json.load(f)
+    with open(output_path) as f:
+        output_data = json.load(f)
+
+    vehicles = output_data["vehicles"]
+
+    shift_result = verify_shift_times(input_data, vehicles)
+    capacity_result = verify_truck_capacity(input_data, vehicles)
+
+    return {
+        "shift_verification": shift_result,
+        "capacity_verification": capacity_result,
+    }
+
+
+if __name__ == "__main__":
+    result = run_verification()
+    print(json.dumps(result, indent=2, ensure_ascii=False))
