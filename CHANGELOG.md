@@ -11,8 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Implemented JSON file reading mechanism for vehicle, loader, and order data ([#TT-1] (link))
 - Implemented JSON file generation function for individual driver/loader daily routes ([#TT-5] (link))
+- Added order time window verification to ensure estimated arrival times at each delivery point fall within specified intervals ([#TT-4](https://github.com/iu-students/route-optimization-platform/issues/38))
 
 ### Changed
+- Route generation now validates time window constraints for all delivery points sequentially ([#TT-4](https://github.com/iu-students/route-optimization-platform/issues/38))
 
 ### Deprecated
 
