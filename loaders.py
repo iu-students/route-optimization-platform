@@ -298,6 +298,8 @@ def solve_loaders():
     with open('loaders_task_list.json', 'r', encoding='utf-8') as loader_input:
         loader_input_data = json.load(loader_input)
         parse(loader_input_data)
+        if not unassigned_points:
+            return []
         distance_matrix = build_distance_matrix()
         missed_points = unassigned_points.copy()
     with open('input.json', 'r', encoding='utf-8') as input:
@@ -306,6 +308,14 @@ def solve_loaders():
         loader_speed = input_data["loader_speed"]
         calculate()
     return loaders
+
+
+def clear_loaders_state():
+    global vehicles, unassigned_points, missed_points, loaders
+    vehicles.clear()
+    unassigned_points.clear()
+    missed_points.clear()
+    loaders.clear()
 
 
 if __name__ == "__main__":

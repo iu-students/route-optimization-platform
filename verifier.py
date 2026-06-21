@@ -61,6 +61,85 @@ def verify_shift_times(input_data: dict, vehicles: list) -> dict:
     }
 
 
+def verify_time_windows(input_data: dict, vehicles: list) -> dict:
+    orders_by_id = {o["id"]: o for o in input_data["orders"]}
+
+    all_ok = True
+    vehicle_results = []
+
+    for vehicle in vehicles:
+        route = vehicle["route"]
+        times = vehicle["time"]
+
+        delivery_points = [p for p in route if p != 0]
+        if not delivery_points:
+            vehicle_results.append({
+                "vehicle_id": vehicle["id"],
+                "status": "success",
+                "message": "Empty route (no time window violations)",
+            })
+            continue
+
+        vehicle_ok = True
+        point_details = []
+
+        for i, order_id in enumerate(delivery_points):
+            arrival_time = times[i]
+            order = orders_by_id.get(order_id)
+            if order is None:
+                vehicle_ok = False
+                all_ok = False
+                point_details.append({
+                    "order_id": order_id,
+                    "arrival_time": arrival_time,
+                    "status": "error",
+                    "message": f"Order {order_id} not found in input data",
+                })
+                continue
+
+            tw_start, tw_end = order["time_window"]
+
+            if arrival_time < tw_start:
+                vehicle_ok = False
+                all_ok = False
+                point_details.append({
+                    "order_id": order_id,
+                    "arrival_time": arrival_time,
+                    "time_window": [tw_start, tw_end],
+                    "status": "error",
+                    "message": f"Arrival {arrival_time} before time window start {tw_start}",
+                })
+            elif arrival_time > tw_end:
+                vehicle_ok = False
+                all_ok = False
+                point_details.append({
+                    "order_id": order_id,
+                    "arrival_time": arrival_time,
+                    "time_window": [tw_start, tw_end],
+                    "status": "error",
+                    "message": f"Arrival {arrival_time} after time window end {tw_end}",
+                })
+            else:
+                point_details.append({
+                    "order_id": order_id,
+                    "arrival_time": arrival_time,
+                    "time_window": [tw_start, tw_end],
+                    "status": "success",
+                    "message": f"Arrival {arrival_time} within [{tw_start}, {tw_end}]",
+                })
+
+        vehicle_results.append({
+            "vehicle_id": vehicle["id"],
+            "status": "success" if vehicle_ok else "error",
+            "points": point_details,
+        })
+
+    return {
+        "status": "success" if all_ok else "error",
+        "vehicles": vehicle_results,
+    }
+
+
 def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
     vehicle_capacity = input_data["vehicle_capacity"]
     orders_by_id = {o["id"]: o for o in input_data["orders"]}
@@ -143,10 +222,12 @@ def run_verification(input_path: str = "data/input.json", output_path: str = "da
     vehicles = output_data["vehicles"]
 
     shift_result = verify_shift_times(input_data, vehicles)
+    time_window_result = verify_time_windows(input_data, vehicles)
     capacity_result = verify_truck_capacity(input_data, vehicles)
 
     return {
         "shift_verification": shift_result,
+        "time_window_verification": time_window_result,
         "capacity_verification": capacity_result,
     }
 

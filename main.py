@@ -59,7 +59,7 @@ def fill_model(scenario, model):
     for order in scenario.orders:
         c = model.add_client(x=order.x, y=order.y, delivery=order.volume, service_duration=order.vehicle_service_time,
                              tw_early=order.time_window[0], tw_late=order.time_window[1],
-                             prize=scenario.weights.order_penalty if order.optional else 0,
+                             prize=scenario.weights.optional_order_penalty if order.optional else 0,
                              required=not bool(order.optional))
 
         clients.append(c)
@@ -75,7 +75,7 @@ def fill_model(scenario, model):
                                duration=round(distance / scenario.vehicle_speed))
 
     model.add_vehicle_type(num_available=len(scenario.orders), capacity=scenario.vehicle_capacity,
-                           shift_duration=scenario.vehicle_shift_size, fixed_cost=scenario.weights.take_vehicle,
+                           shift_duration=scenario.vehicle_shift_size, fixed_cost=scenario.weights.vehicle_salary,
                            unit_distance_cost=scenario.weights.fuel_cost)
 
 

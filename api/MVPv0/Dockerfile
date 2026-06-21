@@ -1,12 +1,12 @@
 FROM python:3.12-slim
 
-WORKDIR /app
+WORKDIR /ROP
 
-COPY MVPv0/requirements.txt MVPv0/
+COPY api/MVPv0/requirements.txt MVPv0/
 RUN pip install --no-cache-dir -r MVPv0/requirements.txt
 
-COPY MVPv0/ MVPv0/
-COPY openapi.yaml .
+COPY api/MVPv0/ MVPv0/
+COPY api/openapi.yaml .
 
 EXPOSE 5000
 
