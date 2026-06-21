@@ -1,0 +1,73 @@
+name: Other PBI
+description: Create a PBI for technical work, infrastructure, design, testing, etc.
+title: "[Other PBI]: "
+labels: ["pbi", "supporting"]
+projects: []
+body:
+  - type: input
+    id: issue_type
+    attributes:
+      label: PBI Type
+      description: Specify the type of work (e.g., Technical Work, Infrastructure, Research, Testing, Deployment)
+      placeholder: "e.g., Database Migration"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to be done? Provide clear context and expected outcome.
+      placeholder: "Describe the task clearly..."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Specific, observable, and testable conditions for this work.
+      placeholder: |
+        - [ ] The database migration runs successfully
+        - [ ] All existing data remains intact
+        - [ ] Rollback procedure is documented
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ###  Process & Workflow Fields
+  - type: dropdown
+    id: reviewer
+    attributes:
+      label: Reviewer
+      description: Who is responsible for reviewing the work? (Must be different from the Implementer)
+      options:
+        - Unassigned
+        - Anastasiia
+        - Maksim
+        - Dania
+        - Timur
+        - Marsel
+    validations:
+      required: true
+  - type: dropdown
+    id: work_status
+    attributes:
+      label: Work Status
+      description: Track the current state of this PBI.
+      options:
+        - To Do
+        - Ready
+        - In Progress
+        - Review
+        - Done
+    validations:
+      required: true
+  - type: input
+    id: expected_evidence
+    attributes:
+      label: Expected Evidence
+      description: If the evidence is not obvious from a standard PR/MR, describe the deliverable here (e.g., a design artifact, API specification, documentation).
+      placeholder: "e.g., Link to updated API spec in /docs"
+    validations:
+      required: false
