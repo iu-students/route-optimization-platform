@@ -1,15 +1,32 @@
 # Sprint 1
-**Sprint Milestone:** 
+**Sprint Milestone:** https://github.com/iu-students/route-optimization-platform/milestone/1
 
-**Start date:** 15.06.2026
+**Start date:** 2026-06-15
 
-**Finish date:** 21.06.2026
+**Finish date:** 2026-06-21
 
-**Sprint Goal:** Finish with Assignment 3 and MVPv1 
+**Sprint Goal:** Develop and depliy MVPv1, release v0.1.0
 
-**Expected outcome:** Assignment 3 and MVPv1 are done
+**Expected outcome:** The primary focus is to deliver the core functionality for MVP v1. The expected outcome is a successfully deployed application, accessible externally, containing all "Must Have" user stories and the necessary technical infrastructure. 
+A public release (v0.1.0) will be created.
 
 **Planned items:** 
+-  User stories:
+   - [US-010](https://github.com/iu-students/route-optimization-platform/issues/31)
+   - [US-011](https://github.com/iu-students/route-optimization-platform/issues/32)
+   - [US-013](https://github.com/iu-students/route-optimization-platform/issues/30)
+   - [US-014](https://github.com/iu-students/route-optimization-platform/issues/27)
+
+- Tasks:
+   - [TT-01](https://github.com/iu-students/route-optimization-platform/issues/35)
+   - [TT-02](https://github.com/iu-students/route-optimization-platform/issues/36)
+   - [TT-03](https://github.com/iu-students/route-optimization-platform/issues/37)
+   - [TT-04](https://github.com/iu-students/route-optimization-platform/issues/38)
+   - [TT-05](https://github.com/iu-students/route-optimization-platform/issues/39)
+   - [TT-06](https://github.com/iu-students/route-optimization-platform/issues/41)
+   - [TT-07](https://github.com/iu-students/route-optimization-platform/issues/40)
+  
+
 
 # Sprint 2
 **Sprint Milestone:** 
