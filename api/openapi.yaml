@@ -8,7 +8,9 @@ info:
 
 servers:
   - url: http://139.100.207.201:5000
-    description: Production server
+    description: MVPv0
+  - url: http://139.100.207.201:5001
+    description: MVPv1
 
 security:
   - Auth: []
@@ -16,11 +18,11 @@ security:
 paths:
   /solve:
     post:
-      summary: Solve VRP
+      summary: Start solving VRP
       description: |
-        Accepts a CVRPTW scenario with loaders and returns optimal routes
-        for vehicles and loaders.
-      operationId: solveCVRPTW
+        Accepts a CVRPTW scenario and starts solving in background.
+        Returns immediately with status "started". Poll /solution for result.
+      operationId: startSolving
       requestBody:
         required: true
         content:
@@ -52,37 +54,87 @@ paths:
                       loader_service_time: 0
                       optional: 0
                   weights:
-                    order_penalty: 250
-                    take_vehicle: 200
-                    add_loader: 200
+                    vehicle_salary: 380
+                    loader_salary: 230
                     fuel_cost: 2
                     loader_work: 1
+                    optional_order_penalty: 164
       responses:
-        '200':
-          description: Solution found
+        '202':
+          description: Computation started
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Solution'
-              examples:
-                success:
-                  summary: Solution example
-                  value:
-                    loaders:
-                      - id: 1
-                        route: [1, 2]
-                    vehicles:
-                      - id: 1
-                        route: [0, 1, 2, 0]
-                        time: [0, 100, 200, 300]
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: started
+        '409':
+          description: Already computing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: computing
+                  message:
+                    type: string
+                    example: Already solving
         '400':
           description: Invalid request / Scenario cannot be solved
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
+  /solution:
+    get:
+      summary: Get computed solution
+      description: |
+        Returns the solution if computation is done,
+        or current status (computing / idle / error).
+      operationId: getSolution
+      responses:
+        '200':
+          description: Solution or status
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: done
+                      solution:
+                        $ref: '#/components/schemas/Solution'
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: computing
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: idle
+                      message:
+                        type: string
         '500':
-          description: Internal server error
+          description: Computation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
 
   /health:
     get:
@@ -217,21 +269,21 @@ components:
     Weights:
       type: object
       properties:
-        order_penalty:
+        vehicle_salary:
           type: number
-          example: 250
-        take_vehicle:
+          example: 380
+        loader_salary:
           type: number
-          example: 200
-        add_loader:
-          type: number
-          example: 200
+          example: 230
         fuel_cost:
           type: number
           example: 2
         loader_work:
           type: number
           example: 1
+        optional_order_penalty:
+          type: number
+          example: 164
 
     Solution:
       type: object
