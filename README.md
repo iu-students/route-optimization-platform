@@ -68,3 +68,5 @@ The API key is set in the `.env` file.
 ## Weekly reports
 
 Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/README.md
+
+Week 3: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week3/README.md
