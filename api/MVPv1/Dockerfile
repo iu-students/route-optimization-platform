@@ -5,7 +5,7 @@ WORKDIR /ROP
 COPY api/MVPv1/requirements.txt MVPv1/
 RUN pip install --no-cache-dir -r MVPv1/requirements.txt
 
-COPY script.py loaders.py models.py verifier.py .
+COPY script.py loaders.py models.py .
 COPY data/ data/
 COPY api/MVPv1/ MVPv1/
 

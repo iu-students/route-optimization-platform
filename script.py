@@ -6,7 +6,6 @@ from loaders import solve_loaders, clear_loaders_state
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
-from verifier import run_verification
 
 
 def parse(path: str) -> Scenario:
@@ -165,21 +164,11 @@ def solve_pipeline(input_path="input.json", data_dir="."):
         scenario = parse(input_path)
         model = Model()
         fill_model(scenario, model)
-        result = model.solve(stop=MaxRuntime(120))
+        result = model.solve(stop=MaxRuntime(60))
         vehicles = calculate_vehicles_routes(result, scenario)
         create_loaders_task_list(vehicles, scenario)
         loaders_result = solve_loaders()
         build_output(vehicles, loaders_result)
-
-        verification = run_verification(
-            input_path=os.path.basename(input_path),
-            output_path="output.json"
-        )
-        with open("output.json", encoding="utf-8") as f:
-            data = json.load(f)
-        data["verification"] = verification
-        with open("output.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
     finally:
         os.chdir(old_cwd)
 
