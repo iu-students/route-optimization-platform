@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, abort, Response
+from flask_cors import CORS
 import json
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 API_KEY = os.environ.get("API_KEY", "")
 
@@ -37,10 +39,10 @@ def swagger_ui():
 def openapi_spec():
     return Response(openapi_yaml, mimetype="text/yaml")
 
+
 @app.route("/health", methods=["GET"])
 def health():
     return {"status": "ok"}
-
 
 
 if __name__ == "__main__":

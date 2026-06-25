@@ -103,8 +103,8 @@ if __name__ == '__main__':
         input_path, output_path = sys.argv[1], sys.argv[2]
     else:
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        input_path = os.path.join(script_dir, 'input.json')
-        output_path = os.path.join(script_dir, 'output.json')
+        input_path = os.path.join(script_dir, 'data/input.json')
+        output_path = os.path.join(script_dir, 'data/output.json')
 
     input_data = load_json(input_path)
     output_data = load_json(output_path)
