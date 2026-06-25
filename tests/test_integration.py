@@ -7,8 +7,6 @@ from script import solve_pipeline
 from verifier import run_verification
 from tester import calc_cost
 
-
-# small input with 5 orders, runs fast
 SMALL_INPUT = {
     "vehicle_capacity": 100,
     "vehicle_speed": 1,
@@ -41,14 +39,13 @@ SMALL_INPUT = {
 @pytest.fixture
 def run_pipeline(tmp_path):
     """Run solve_pipeline in a temp folder and return (input_data, output_data)."""
-    # write input
+    
     input_file = tmp_path / "input.json"
     input_file.write_text(json.dumps(SMALL_INPUT, indent=2))
 
-    # run pipeline with short runtime (2 sec instead of 120)
     import script
     old_runtime = 120
-    # monkey-patch MaxRuntime inside solve_pipeline
+
     original = script.solve_pipeline
 
     def patched(input_path="input.json", data_dir="."):
@@ -57,7 +54,7 @@ def run_pipeline(tmp_path):
         orig_init = old_class.__init__
 
         def fast_init(self, max_runtime):
-            orig_init(self, 2)  # 2 seconds is enough for 5 orders
+            orig_init(self, 2)
 
         old_class.__init__ = fast_init
         try:
@@ -73,8 +70,6 @@ def run_pipeline(tmp_path):
 
     return SMALL_INPUT, output_data
 
-
-# --- tests that use verifier as the oracle ---
 
 def test_shift_times_pass(run_pipeline):
     input_data, output_data = run_pipeline
@@ -118,7 +113,7 @@ def test_no_duplicate_orders(run_pipeline):
 
 def test_output_has_loaders(run_pipeline):
     input_data, output_data = run_pipeline
-    # orders 1, 2, 4 need loaders -> at least 1 loader must exist
+    
     assert len(output_data["loaders"]) >= 1
 
 

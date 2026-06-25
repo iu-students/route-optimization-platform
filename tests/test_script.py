@@ -12,7 +12,6 @@ def test_find_distance_same_point():
 
 
 def test_compute_times(scenario):
-    # depot (0,0) -> order 1 (3,4): distance 5, speed 1 -> arrival 5
     times = script.compute_times([1], scenario)
     assert times == [5.0]
 
@@ -24,7 +23,7 @@ def test_compute_times_respects_window():
     orders = [Order(id=1, x=1, y=0, volume=1, time_window=(40, 80),
                     vehicle_service_time=0, loader_cnt=0, loader_service_time=0, optional=0)]
     sc = Scenario(10, 1, 1, 100, 100, depot, weights, orders)
-    # distance 1, but window starts at 40 -> arrival must be 40
+    
     assert script.compute_times([1], sc) == [40.0]
 
 
@@ -41,7 +40,6 @@ def test_create_loaders_task_list(tmp_path, scenario):
     with open(tmp_path / "loaders_task_list.json") as f:
         data = json.load(f)
 
-    # only order 1 needs loaders (loader_cnt=1), order 2 has loader_cnt=0
     points = data["routes"][0]["points"]
     assert len(points) == 1
     assert points[0]["id"] == 1
