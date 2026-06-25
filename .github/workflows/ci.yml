@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, add-loader-route]
   pull_request:
     branches: [main]
 
