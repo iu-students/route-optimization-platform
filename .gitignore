@@ -1,4 +1,9 @@
-.env
-__pycache__/
 .venv
 .idea
+routes_pool.json
+input.json
+all_possible_vehicles_routes.json
+all_possible_loaders_routes.json
+solution.json
+.env
+__pycache__/

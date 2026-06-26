@@ -1,0 +1,433 @@
+{
+  "routes": [
+    {
+      "id": 1,
+      "points": [
+        {
+          "id": 71,
+          "x": 49,
+          "y": 75,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 67.32,
+          "end_time": 97
+        },
+        {
+          "id": 77,
+          "x": 57,
+          "y": 50,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 194.04,
+          "end_time": 199
+        }
+      ],
+      "car_extra_time": 10
+    },
+    {
+      "id": 2,
+      "points": [
+        {
+          "id": 57,
+          "x": 24,
+          "y": 8,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 117.05,
+          "end_time": 121
+        },
+        {
+          "id": 43,
+          "x": 25,
+          "y": 7,
+          "loader_cnt": 1,
+          "loader_service_time": 20,
+          "vehicle_time": 133.46,
+          "end_time": 152
+        },
+        {
+          "id": 59,
+          "x": 23,
+          "y": 25,
+          "loader_cnt": 1,
+          "loader_service_time": 35,
+          "vehicle_time": 181.57,
+          "end_time": 202
+        }
+      ],
+      "car_extra_time": 41
+    },
+    {
+      "id": 3,
+      "points": [
+        {
+          "id": 22,
+          "x": 46,
+          "y": 0,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 102.87,
+          "end_time": 117
+        },
+        {
+          "id": 4,
+          "x": 62,
+          "y": 17,
+          "loader_cnt": 1,
+          "loader_service_time": 20,
+          "vehicle_time": 160.25,
+          "end_time": 169
+        }
+      ],
+      "car_extra_time": 12
+    },
+    {
+      "id": 4,
+      "points": [
+        {
+          "id": 67,
+          "x": 71,
+          "y": 1,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 80.77,
+          "end_time": 103
+        },
+        {
+          "id": 24,
+          "x": 73,
+          "y": 28,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 150.22,
+          "end_time": 173
+        }
+      ],
+      "car_extra_time": 49
+    },
+    {
+      "id": 5,
+      "points": [
+        {
+          "id": 62,
+          "x": 20,
+          "y": 63,
+          "loader_cnt": 3,
+          "loader_service_time": 15,
+          "vehicle_time": 48,
+          "end_time": 78
+        },
+        {
+          "id": 7,
+          "x": 16,
+          "y": 45,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 174.07,
+          "end_time": 198
+        }
+      ],
+      "car_extra_time": 48
+    },
+    {
+      "id": 6,
+      "points": [
+        {
+          "id": 33,
+          "x": 63,
+          "y": 52,
+          "loader_cnt": 1,
+          "loader_service_time": 30,
+          "vehicle_time": 32.76,
+          "end_time": 57
+        },
+        {
+          "id": 78,
+          "x": 61,
+          "y": 42,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 86,
+          "end_time": 116
+        },
+        {
+          "id": 68,
+          "x": 48,
+          "y": 49,
+          "loader_cnt": 1,
+          "loader_service_time": 30,
+          "vehicle_time": 141.03,
+          "end_time": 162
+        },
+        {
+          "id": 52,
+          "x": 37,
+          "y": 50,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 172.08,
+          "end_time": 208
+        }
+      ],
+      "car_extra_time": 39
+    },
+    {
+      "id": 7,
+      "points": [
+        {
+          "id": 69,
+          "x": 36,
+          "y": 51,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 51.43,
+          "end_time": 70
+        },
+        {
+          "id": 51,
+          "x": 40,
+          "y": 60,
+          "loader_cnt": 1,
+          "loader_service_time": 10,
+          "vehicle_time": 87.62,
+          "end_time": 108
+        },
+        {
+          "id": 79,
+          "x": 48,
+          "y": 48,
+          "loader_cnt": 1,
+          "loader_service_time": 30,
+          "vehicle_time": 112.04,
+          "end_time": 112
+        },
+        {
+          "id": 50,
+          "x": 43,
+          "y": 46,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 137.43,
+          "end_time": 203
+        }
+      ],
+      "car_extra_time": 92
+    },
+    {
+      "id": 8,
+      "points": [
+        {
+          "id": 36,
+          "x": -6,
+          "y": 61,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 48.55,
+          "end_time": 71
+        },
+        {
+          "id": 64,
+          "x": 7,
+          "y": 78,
+          "loader_cnt": 1,
+          "loader_service_time": 20,
+          "vehicle_time": 84.95,
+          "end_time": 93
+        },
+        {
+          "id": 32,
+          "x": 35,
+          "y": 77,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 146.46,
+          "end_time": 161
+        },
+        {
+          "id": 70,
+          "x": 37,
+          "y": 61,
+          "loader_cnt": 1,
+          "loader_service_time": 35,
+          "vehicle_time": 172.58,
+          "end_time": 198
+        }
+      ],
+      "car_extra_time": 11
+    },
+    {
+      "id": 9,
+      "points": [
+        {
+          "id": 14,
+          "x": 18,
+          "y": 8,
+          "loader_cnt": 1,
+          "loader_service_time": 10,
+          "vehicle_time": 48.54,
+          "end_time": 62
+        },
+        {
+          "id": 16,
+          "x": 15,
+          "y": 11,
+          "loader_cnt": 1,
+          "loader_service_time": 20,
+          "vehicle_time": 65,
+          "end_time": 95
+        }
+      ],
+      "car_extra_time": 23
+    },
+    {
+      "id": 10,
+      "points": [
+        {
+          "id": 6,
+          "x": 25,
+          "y": 38,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 108.42,
+          "end_time": 119
+        },
+        {
+          "id": 58,
+          "x": 35,
+          "y": 28,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 180,
+          "end_time": 210
+        }
+      ],
+      "car_extra_time": 90
+    },
+    {
+      "id": 11,
+      "points": [
+        {
+          "id": 37,
+          "x": 19,
+          "y": 24,
+          "loader_cnt": 3,
+          "loader_service_time": 10,
+          "vehicle_time": 47.06,
+          "end_time": 198
+        },
+        {
+          "id": 61,
+          "x": 5,
+          "y": 25,
+          "loader_cnt": 1,
+          "loader_service_time": 35,
+          "vehicle_time": 82.26,
+          "end_time": 96
+        },
+        {
+          "id": 84,
+          "x": 12,
+          "y": 26,
+          "loader_cnt": 1,
+          "loader_service_time": 20,
+          "vehicle_time": 109.33,
+          "end_time": 121
+        },
+        {
+          "id": 83,
+          "x": 4,
+          "y": 33,
+          "loader_cnt": 2,
+          "loader_service_time": 20,
+          "vehicle_time": 162.0,
+          "end_time": 198
+        },
+        {
+          "id": 82,
+          "x": 13,
+          "y": 38,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 192.3,
+          "end_time": 196
+        }
+      ],
+      "car_extra_time": 37
+    },
+    {
+      "id": 12,
+      "points": [
+        {
+          "id": 11,
+          "x": 26,
+          "y": 57,
+          "loader_cnt": 1,
+          "loader_service_time": 20,
+          "vehicle_time": 86.0,
+          "end_time": 87
+        },
+        {
+          "id": 35,
+          "x": 55,
+          "y": 67,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 155.9,
+          "end_time": 163
+        },
+        {
+          "id": 3,
+          "x": 61,
+          "y": 55,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 184.32,
+          "end_time": 197
+        }
+      ],
+      "car_extra_time": 58
+    },
+    {
+      "id": 13,
+      "points": [
+        {
+          "id": 40,
+          "x": 43,
+          "y": 31,
+          "loader_cnt": 1,
+          "loader_service_time": 30,
+          "vehicle_time": 85.24,
+          "end_time": 105
+        },
+        {
+          "id": 54,
+          "x": 52,
+          "y": 24,
+          "loader_cnt": 1,
+          "loader_service_time": 35,
+          "vehicle_time": 152.61,
+          "end_time": 160
+        },
+        {
+          "id": 80,
+          "x": 49,
+          "y": 29,
+          "loader_cnt": 1,
+          "loader_service_time": 15,
+          "vehicle_time": 178.44,
+          "end_time": 198
+        },
+        {
+          "id": 12,
+          "x": 44,
+          "y": 29,
+          "loader_cnt": 1,
+          "loader_service_time": 25,
+          "vehicle_time": 198.44,
+          "end_time": 205
+        }
+      ],
+      "car_extra_time": 75
+    }
+  ]
+}
