@@ -1,6 +1,12 @@
 .venv
 __pycache__
 *.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+*.egg-info
+dist
+build
 .env
 .git
 .gitignore
@@ -8,5 +14,9 @@ README.md
 reports
 .vscode
 .idea
+.DS_Store
+.coverage
+.coverage.*
+input.json
 loaders_task_list.json
 output.json

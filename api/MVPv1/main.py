@@ -40,7 +40,8 @@ def compute_times(order_ids: list, scenario: Scenario) -> list:
     for order_id in order_ids:
         order = by_id[order_id]
 
-        time += find_distance(px, py, order.x, order.y) / scenario.vehicle_speed
+        time += (find_distance(px, py, order.x, order.y)
+                 / scenario.vehicle_speed)
         time = max(time, order.time_window[0])
         times.append(round(time, 2))
         time += order.vehicle_service_time
@@ -50,17 +51,25 @@ def compute_times(order_ids: list, scenario: Scenario) -> list:
 
 
 def fill_model(scenario, model):
-    coordinates = [(scenario.depot.x, scenario.depot.y)] + [(order.x, order.y) for order in scenario.orders]
+    coordinates = ([(scenario.depot.x, scenario.depot.y)]
+                   + [(order.x, order.y) for order in scenario.orders])
 
-    depot = model.add_depot(x=scenario.depot.x, y=scenario.depot.y, tw_early=0, tw_late=scenario.vehicle_shift_size)
+    depot = model.add_depot(
+        x=scenario.depot.x, y=scenario.depot.y,
+        tw_early=0, tw_late=scenario.vehicle_shift_size)
 
     clients = []
 
     for order in scenario.orders:
-        c = model.add_client(x=order.x, y=order.y, delivery=order.volume, service_duration=order.vehicle_service_time,
-                             tw_early=order.time_window[0], tw_late=order.time_window[1],
-                             prize=scenario.weights.optional_order_penalty if order.optional else 0,
-                             required=not bool(order.optional))
+        c = model.add_client(
+            x=order.x, y=order.y,
+            delivery=order.volume,
+            service_duration=order.vehicle_service_time,
+            tw_early=order.time_window[0],
+            tw_late=order.time_window[1],
+            prize=(scenario.weights.optional_order_penalty
+                   if order.optional else 0),
+            required=not bool(order.optional))
 
         clients.append(c)
 
@@ -71,12 +80,16 @@ def fill_model(scenario, model):
             if i != j:
                 distance = find_distance(x_i, y_i, x_j, y_j)
 
-                model.add_edge(node_i, node_j, distance=round(distance),
-                               duration=round(distance / scenario.vehicle_speed))
+                dur = round(distance / scenario.vehicle_speed)
+                model.add_edge(node_i, node_j,
+                               distance=round(distance), duration=dur)
 
-    model.add_vehicle_type(num_available=len(scenario.orders), capacity=scenario.vehicle_capacity,
-                           shift_duration=scenario.vehicle_shift_size, fixed_cost=scenario.weights.vehicle_salary,
-                           unit_distance_cost=scenario.weights.fuel_cost)
+    model.add_vehicle_type(
+        num_available=len(scenario.orders),
+        capacity=scenario.vehicle_capacity,
+        shift_duration=scenario.vehicle_shift_size,
+        fixed_cost=scenario.weights.vehicle_salary,
+        unit_distance_cost=scenario.weights.fuel_cost)
 
 
 def calculate_vehicles_routes(result):

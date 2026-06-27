@@ -26,7 +26,7 @@ def solve():
     key = request.headers.get("X-API-Key")
     if not key or key != API_KEY:
         abort(401, description="Invalid or missing API key")
-    data = request.get_json(force=True)
+    request.get_json(force=True)
     return jsonify(response_data)
 
 
@@ -46,4 +46,6 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    host = os.environ.get("FLASK_HOST", "127.0.0.1")
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host=host, port=5000, debug=debug)
