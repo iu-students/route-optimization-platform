@@ -90,3 +90,17 @@
   - `capacity_verification`
   - `shift_verification`
   - `time_window_verification`
+  
+**Execution Results (Week 4):**
+
+| Execution Date | Tester | Result | Notes |
+|----------------|--------|--------|-------|
+| | | | |
+
+**Customer Comments / Issues:**
+*(To be filled after UAT execution)*
+
+**Resulting PBIs / Backlog Items:**
+*(To be filled after UAT execution)*
+
+---
