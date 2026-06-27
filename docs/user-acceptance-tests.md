@@ -104,3 +104,11 @@
 *(To be filled after UAT execution)*
 
 ---
+
+## Execution History
+
+| Scenario ID | Tester | Date | Result |
+|-------------|--------|------|--------|
+| UAT-001 | | | |
+| UAT-002 | | | |
+| UAT-003 | | | |
