@@ -117,7 +117,8 @@ def create_loaders_task_list(vehicles, scenario):
                 "loader_cnt": order_data.loader_cnt,
                 "loader_service_time": order_data.loader_service_time,
                 "vehicle_time": i["time"][j - 1],
-                "end_time": order_data.time_window[1]
+                "end_time": order_data.time_window[1],
+                "mandatory": order_data.optional
             })
 
     filtered_routes = [r for r in data["routes"] if len(r["points"]) > 0]
