@@ -17,7 +17,7 @@ def require_api_key():
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, ".."))
+ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, "..", ".."))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 
 sys.path.insert(0, ROOT_DIR)

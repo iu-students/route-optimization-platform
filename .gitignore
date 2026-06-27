@@ -1,9 +1,13 @@
 .venv
 .idea
 routes_pool.json
-input.json
+/input.json
+/loaders_task_list.json
+/output.json
 all_possible_vehicles_routes.json
 all_possible_loaders_routes.json
 solution.json
 .env
+.coverage
+.coverage.*
 __pycache__/

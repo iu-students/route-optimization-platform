@@ -99,7 +99,7 @@ def calculate_vehicles_routes(result, scenario):
     return vehicles
 
 
-def create_loaders_task_list(vehicles, scenario):
+def create_loaders_task_list(vehicles, scenario, data_dir="."):
     data = {
         "routes": []
     }
@@ -130,11 +130,12 @@ def create_loaders_task_list(vehicles, scenario):
 
     data["routes"] = filtered_routes
 
-    with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
+    path = os.path.join(data_dir, "loaders_task_list.json")
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def build_output(vehicles, loaders_result):
+def build_output(vehicles, loaders_result, data_dir="."):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
         for v in vehicles
@@ -153,35 +154,30 @@ def build_output(vehicles, loaders_result):
         "loaders": loaders_output,
     }
 
-    with open('output.json', 'w', encoding='utf-8') as f:
+    path = os.path.join(data_dir, "output.json")
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 def solve_pipeline(input_path="input.json", data_dir="."):
-    old_cwd = os.getcwd()
-    os.chdir(data_dir)
-    try:
-        clear_loaders_state()
-        scenario = parse(input_path)
-        model = Model()
-        fill_model(scenario, model)
-        result = model.solve(stop=MaxRuntime(120))
-        vehicles = calculate_vehicles_routes(result, scenario)
-        create_loaders_task_list(vehicles, scenario)
-        loaders_result = solve_loaders()
-        build_output(vehicles, loaders_result)
+    if not os.path.isabs(input_path):
+        input_path = os.path.join(data_dir, input_path)
+    scenario = parse(input_path)
+    model = Model()
+    fill_model(scenario, model)
+    result = model.solve(stop=MaxRuntime(120))
+    vehicles = calculate_vehicles_routes(result, scenario)
+    create_loaders_task_list(vehicles, scenario, data_dir)
+    loaders_result = solve_loaders(data_dir)
+    build_output(vehicles, loaders_result, data_dir)
 
-        verification = run_verification(
-            input_path=os.path.basename(input_path),
-            output_path="output.json"
-        )
-        with open("output.json", encoding="utf-8") as f:
-            data = json.load(f)
-        data["verification"] = verification
-        with open("output.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-    finally:
-        os.chdir(old_cwd)
+    output_path = os.path.join(data_dir, "output.json")
+    verification = run_verification(input_path=input_path, output_path=output_path)
+    with open(output_path, encoding="utf-8") as f:
+        data = json.load(f)
+    data["verification"] = verification
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":

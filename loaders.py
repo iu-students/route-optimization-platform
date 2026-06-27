@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-import numpy as np
 import json
+import os
+
+import numpy as np
 from typing import List
 
 
@@ -290,19 +292,21 @@ def calculate():
         build_route_for_loader(loader)
 
 
-def solve_loaders():
+def solve_loaders(data_dir="."):
     global loader_shift_size
     global loader_speed
     global distance_matrix
     global missed_points
-    with open('loaders_task_list.json', 'r', encoding='utf-8') as loader_input:
+    task_list_path = os.path.join(data_dir, "loaders_task_list.json")
+    input_path = os.path.join(data_dir, "input.json")
+    with open(task_list_path, 'r', encoding='utf-8') as loader_input:
         loader_input_data = json.load(loader_input)
         parse(loader_input_data)
         if not unassigned_points:
             return []
         distance_matrix = build_distance_matrix()
         missed_points = unassigned_points.copy()
-    with open('input.json', 'r', encoding='utf-8') as input:
+    with open(input_path, 'r', encoding='utf-8') as input:
         input_data = json.load(input)
         loader_shift_size = input_data["loader_shift_size"]
         loader_speed = input_data["loader_speed"]
