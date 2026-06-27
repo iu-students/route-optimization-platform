@@ -70,11 +70,11 @@ def calc_cost(input_data, output_data):
     missing_required = required_orders - visited_orders
 
     total_cost = (
-        vehicles_cost
-        + loaders_cost
-        + fuel_cost
-        + loader_work_cost
-        + optional_penalty_cost
+            vehicles_cost
+            + loaders_cost
+            + fuel_cost
+            + loader_work_cost
+            + optional_penalty_cost
     )
 
     breakdown = {
@@ -117,9 +117,11 @@ if __name__ == '__main__':
     print(f"Суммарное расстояние: {result['total_distance']:.2f}")
     print(f"Топливо: {result['total_distance']:.2f} x {input_data['weights']['fuel_cost']} = {result['fuel_cost']:.2f}")
     print(f"Суммарное время работы грузчиков: {result['total_loader_work_time']}")
-    print(f"Стоимость работы грузчиков: {result['total_loader_work_time']} x {input_data['weights']['loader_work']} = {result['loader_work_cost']}")
+    print(
+        f"Стоимость работы грузчиков: {result['total_loader_work_time']} x {input_data['weights']['loader_work']} = {result['loader_work_cost']}")
     print(f"Невыполненные опциональные заказы: {result['n_unfulfilled_optional']} {result['unfulfilled_optional_ids']}")
-    print(f"Штраф за опциональные: {result['n_unfulfilled_optional']} x {input_data['weights']['optional_order_penalty']} = {result['optional_penalty_cost']}")
+    print(
+        f"Штраф за опциональные: {result['n_unfulfilled_optional']} x {input_data['weights']['optional_order_penalty']} = {result['optional_penalty_cost']}")
     if result['missing_required_ids']:
         print(f"!! ВНИМАНИЕ: пропущены обязательные заказы: {result['missing_required_ids']}")
     print('-----------------------------------')

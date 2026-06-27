@@ -144,8 +144,8 @@ def parse(data):
         v = Vehicle(i["id"], i["car_extra_time"])
         for j in i["points"]:
             current_point = Point(point_id=j["id"], x=j["x"], y=j["y"], loader_cnt=j["loader_cnt"],
-                                   loader_service_time=j["loader_service_time"], vehicle_time=j["vehicle_time"],
-                                   end_time=j["end_time"], vehicle=v)
+                                  loader_service_time=j["loader_service_time"], vehicle_time=j["vehicle_time"],
+                                  end_time=j["end_time"], vehicle=v)
             v.vehicle_points.append(current_point)
             unassigned_points.append(current_point)
         vehicles.append(v)
@@ -169,7 +169,8 @@ def find_available(loader: Loader):
         traveling_time = get_distance(loader.loader_current_point, i) / loader_speed
         traveling_home_time = get_distance(loader.loader_home, i) / loader_speed
         waiting_time = i.vehicle_time - loader.loader_local_time - traveling_time
-        if (traveling_time + traveling_home_time + waiting_time + i.loader_service_time) < loader.loader_shift_time_left and waiting_time >= 0:
+        if ((traveling_time + traveling_home_time + waiting_time + i.loader_service_time) <
+                loader.loader_shift_time_left and waiting_time >= 0):
             loader.available_points.append(i)
             if i in missed_points:
                 missed_points.remove(i)

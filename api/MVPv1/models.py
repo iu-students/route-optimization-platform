@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Tuple, List
 
+
 # Классы необходимые для понятной работы алгоритма
 
 @dataclass
@@ -8,6 +9,7 @@ class Depot:
     x: int
     y: int
     load_time: int
+
 
 @dataclass
 class Order:
@@ -21,6 +23,7 @@ class Order:
     loader_service_time: int
     optional: bool
 
+
 @dataclass
 class Weights:
     optional_order_penalty: int
@@ -29,16 +32,19 @@ class Weights:
     fuel_cost: int
     loader_work: int
 
+
 @dataclass
 class AnswerVehicles:
     id: int
     route: List[int]
     time: List[float]
 
+
 @dataclass
 class AnswerLoaders:
     id: int
     route: List[int]
+
 
 @dataclass
 class Scenario:
