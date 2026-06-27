@@ -12,7 +12,7 @@ SOLUTIONS = {
     'КОЛЛЕГА':  'va_sol_{}.json',
     'BASELINE': 'sol_{}.json',
 }
-REF_LABEL = 'BASELINE' 
+REF_LABEL = 'BASELINE'
 
 
 def load_json(path):
@@ -53,7 +53,7 @@ def compute(input_data, output_data):
 
     visited = {pid for v in vehicles for pid in v['route'] if pid != 0}
     mand = {o['id'] for o in orders if not o.get('optional', 0)}
-    opt  = {o['id'] for o in orders if o.get('optional', 0)}
+    opt = {o['id'] for o in orders if o.get('optional', 0)}
     missed_opt = sorted(opt - visited)
     missed_mand = sorted(mand - visited)
 
@@ -106,7 +106,6 @@ def analyze_scenario(name, dir_path='test_cases'):
     return input_data, results
 
 
-
 def print_scenario(name, results):
     print(f"\n{'='*70}\nСЦЕНАРИЙ {name.upper()}\n{'='*70}")
     if not results:
@@ -141,7 +140,6 @@ def print_scenario(name, results):
                   f"грузч {r['n_loaders']-ref['n_loaders']:+d}")
 
 
-
 THIN = Side(border_style='thin', color='CCCCCC')
 BORDER = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 HEADER_FILL = PatternFill('solid', start_color='1F4E78')
@@ -170,8 +168,8 @@ def _c(cell, val, fmt=None, bold=False, fill=None):
 
 def _write_summary(ws, all_data):
     headers = ['Сценарий', 'Решение', 'Машин', 'Грузчиков',
-              'Топливо', 'Работа гр.', 'Штраф', 'ИТОГО',
-              'Обяз', 'Опц', 'Пропущ. опц']
+               'Топливо', 'Работа гр.', 'Штраф', 'ИТОГО',
+               'Обяз', 'Опц', 'Пропущ. опц']
     for col, h in enumerate(headers, 1):
         _h(ws.cell(1, col), h)
 
@@ -226,27 +224,27 @@ def _write_scenario(ws, name, results):
             next_col += 1
 
     rows = [
-        ('Машин',          lambda r: r['n_vehicles'],          '0',          False),
-        ('Грузчиков',      lambda r: r['n_loaders'],           '0',          False),
-        ('Расстояние',     lambda r: r['total_dist'],          '#,##0.00',   False),
-        ('Время работы гр',lambda r: r['loader_work_time'],    '0',          False),
+        ('Машин', lambda r: r['n_vehicles'],          '0',          False),
+        ('Грузчиков', lambda r: r['n_loaders'],           '0',          False),
+        ('Расстояние', lambda r: r['total_dist'],          '#,##0.00',   False),
+        ('Время работы гр', lambda r: r['loader_work_time'],    '0',          False),
         (None, None, None, None),
-        ('Аренда машин',   lambda r: r['cost']['vehicles'],    '#,##0.00',   False),
-        ('Аренда грузч',   lambda r: r['cost']['loaders'],     '#,##0.00',   False),
-        ('Топливо',        lambda r: r['cost']['fuel'],        '#,##0.00',   False),
-        ('Работа грузч',   lambda r: r['cost']['loader_w'],    '#,##0.00',   False),
-        ('Штраф опц',      lambda r: r['cost']['penalty'],     '#,##0.00',   False),
-        ('ИТОГО',          lambda r: r['cost']['total'],       '#,##0.00',   True),
+        ('Аренда машин', lambda r: r['cost']['vehicles'],    '#,##0.00',   False),
+        ('Аренда грузч', lambda r: r['cost']['loaders'],     '#,##0.00',   False),
+        ('Топливо', lambda r: r['cost']['fuel'],        '#,##0.00',   False),
+        ('Работа грузч', lambda r: r['cost']['loader_w'],    '#,##0.00',   False),
+        ('Штраф опц', lambda r: r['cost']['penalty'],     '#,##0.00',   False),
+        ('ИТОГО', lambda r: r['cost']['total'],       '#,##0.00',   True),
         (None, None, None, None),
         ('Обяз. покрытие', lambda r: f"{r['served_mandatory']}/{r['total_mandatory']}", None, False),
-        ('Опц. покрытие',  lambda r: f"{r['served_optional']}/{r['total_optional']}",   None, False),
-        ('Пропущ. опц',    lambda r: ', '.join(map(str, r['missed_optional'])) or '—',  None, False),
+        ('Опц. покрытие', lambda r: f"{r['served_optional']}/{r['total_optional']}",   None, False),
+        ('Пропущ. опц', lambda r: ', '.join(map(str, r['missed_optional'])) or '—',  None, False),
         (None, None, None, None),
         ('Заказов/машину', lambda r: r['avg_orders_per_vehicle'], '0.00', False),
-        ('Слотов/грузч',   lambda r: r['avg_slots_per_loader'],   '0.00', False),
-        ('Загрузка ТС',    lambda r: r['avg_util'],               '0.0%', False),
-        ('Длины маршрутов',lambda r: str(r['route_lens']),        None,   False),
-        ('Длины цепочек',  lambda r: str(r['chain_lens']),        None,   False),
+        ('Слотов/грузч', lambda r: r['avg_slots_per_loader'],   '0.00', False),
+        ('Загрузка ТС', lambda r: r['avg_util'],               '0.0%', False),
+        ('Длины маршрутов', lambda r: str(r['route_lens']),        None,   False),
+        ('Длины цепочек', lambda r: str(r['chain_lens']),        None,   False),
     ]
 
     row = 2
@@ -298,6 +296,7 @@ def export_excel(all_data, out_path):
 
     wb.save(out_path)
     print(f"\n[excel] сохранено: {out_path}")
+
 
 if __name__ == '__main__':
     names = sys.argv[1:] if len(sys.argv) >= 2 else ['t1', 't2', 't3']

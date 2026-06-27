@@ -99,6 +99,7 @@ def calculate_vehicles_routes(result):
 
     return vehicles
 
+
 def create_loaders_task_list(vehicles, scenario):
     data = {
         "routes": []
@@ -133,6 +134,7 @@ def create_loaders_task_list(vehicles, scenario):
 
     with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
 
 def build_output(vehicles, loaders_result):
     vehicles_output = [

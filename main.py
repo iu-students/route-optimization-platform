@@ -5,6 +5,7 @@ from validator import validate_or_400
 import random
 import time
 
+
 def parse(path):
     with open(path) as f:
         raw = json.load(f)
@@ -16,8 +17,8 @@ def parse(path):
     orders = [Order(**o) for o in raw["orders"]]
 
     print(f"[parse] {len(orders)} заказов, "
-      f"обяз={sum(1 for o in orders if not o.optional)}, "
-      f"опц={sum(1 for o in orders if o.optional)}")
+          f"обяз={sum(1 for o in orders if not o.optional)}, "
+          f"опц={sum(1 for o in orders if o.optional)}")
 
     return Scenario(
         depot=depot, weights=weights, orders=orders,
@@ -79,6 +80,7 @@ def find_best_route(routes, scenario):
 
     return solver, x
 
+
 def build_solution(routes, solver, x):
     solution = {"vehicles": []}
     vehicle_id = 1
@@ -95,13 +97,14 @@ def build_solution(routes, solver, x):
 
     return solution
 
+
 def eval_route(order_ids, scenario):
     by_id = {o.id: o for o in scenario.orders}
-    
+
     first = by_id[order_ids[0]]
     first_leg = find_distance(scenario.depot.x, scenario.depot.y, first.x, first.y)
     depart = max(0.0, first.time_window[0] - first_leg / scenario.vehicle_speed)
-    
+
     cap = 0
     dist = 0.0
     time = depart
@@ -136,6 +139,7 @@ def eval_route(order_ids, scenario):
     cost = dist * scenario.weights.fuel_cost + scenario.weights.vehicle_salary
     return arrival_times, cost
 
+
 def best_insertion_pos(route, order_id, scenario):
     """Лучшая позиция вставки order_id в route. Возвращает (pos, res) или None."""
     best = None
@@ -149,6 +153,7 @@ def best_insertion_pos(route, order_id, scenario):
             best_cost = res[1]
             best = (pos, res)
     return best
+
 
 def insertion_construct(scenario, jitter=0.0):
     """Заказы по tw_early; каждый — в самую дешёвую вставку либо в новый маршрут."""
@@ -280,6 +285,7 @@ def generate_pool(scenario, num_restarts=200):
 
     return pool
 
+
 def find_vehicles_routes(scenario, num_restarts=200):
     pool = generate_pool(scenario, num_restarts)
 
@@ -303,6 +309,7 @@ def find_vehicles_routes(scenario, num_restarts=200):
 
 # Loaders
 
+
 def build_slots(solution, scenario):
     by_id = {order.id: order for order in scenario.orders}
     slots = []
@@ -325,6 +332,7 @@ def build_slots(solution, scenario):
                 })
 
     return slots
+
 
 def eval_chain(slot_ids, slots, scenario):
     """Проверка цепочки + расчёт cost. None если нефизибл."""
@@ -431,13 +439,11 @@ def generate_loader_pool(slots, scenario, num_restarts=100):
     for i in range(num_restarts):
         for chain, cost in chains_insertion_construct(slots, scenario, jitter=10.0):
             add(chain, cost)
-            
+
         if (i + 1) % 25 == 0:
             print(f"[pool/loaders] рестарт {i+1}/{num_restarts}, пул={len(pool)}")
 
-
     print(f"[pool/loaders] итого: {len(pool)} цепочек ({time.time()-t0:.1f}s)")
-
 
     return pool
 
@@ -456,7 +462,7 @@ def find_best_loaders(pool, slots):
         model.Add(sum(covers[slot_id]) == 1)
 
     objective = sum(int(chain["cost"] * 100) * y[i] for i, chain in enumerate(pool))
-    
+
     model.Minimize(objective)
 
     solver = cp_model.CpSolver()
@@ -502,10 +508,10 @@ def find_loaders_routes(solution, scenario, num_restarts=100):
         json.dump(pool, f, indent=4)
 
     solver, y = find_best_loaders(pool, slots)
-    
+
     loaders = build_loaders(pool, solver, y)
     print(f"[loaders] выбрано грузчиков: {len(loaders)}")
-    
+
     return loaders
 
 
@@ -521,7 +527,7 @@ if __name__ == "__main__":
         v_restarts, l_restarts = 100, 60
     else:
         v_restarts, l_restarts = 200, 100
-        
+
     print(f"[main] заказов={n} → vehicle_restarts={v_restarts}, loader_restarts={l_restarts}")
 
     solution = find_vehicles_routes(scenario, num_restarts=v_restarts)
