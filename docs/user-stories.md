@@ -18,8 +18,11 @@ This document serves as the authoritative current registry of all user stories i
 | US-012 | Optimal routing for resource savings | Should Have | [#33](https://github.com/iu-students/route-optimization-platform/issues/33) | Active | To Do | — |
 | US-013 | Respecting shift schedules to finish on time | Must Have | [#30](https://github.com/iu-students/route-optimization-platform/issues/30) | Active | Done | [Sprint 1](https://github.com/iu-students/route-optimization-platform/milestone/1) |
 | US-014 | Respecting order delivery time windows | Must Have | [#27](https://github.com/iu-students/route-optimization-platform/issues/27) | Active | Done | [Sprint 1](https://github.com/iu-students/route-optimization-platform/milestone/1) |
+| US-015 | Handling optional orders | Should Have | [#57](https://github.com/iu-students/route-optimization-platform/issues/57) | Active | To do | [Sprint 2](https://github.com/iu-students/route-optimization-platform/milestone/2) |
+| US-016 | Respecting order delivery time windows | Could Have | [#58](https://github.com/iu-students/route-optimization-platform/issues/58) | Active | To do | - |
 
 
 ## Notes
 
-US-014 was added after week 2
+US-014 was added after week 2 (during week 3)
+US-015 and US-016 was added after week 3 (during week 4)
