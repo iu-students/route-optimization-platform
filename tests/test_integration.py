@@ -63,7 +63,7 @@ def run_pipeline(tmp_path, monkeypatch):
 
     result = model.solve(stop=MaxRuntime(2))  # short runtime for CI
 
-    vehicles = script.calculate_vehicles_routes(result)
+    vehicles = script.calculate_vehicles_routes(result, scenario_obj)
     script.create_loaders_task_list(vehicles, scenario_obj)
     loaders_result = loaders.solve_loaders()
     script.build_output(vehicles, loaders_result)

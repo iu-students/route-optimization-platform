@@ -1,5 +1,6 @@
 import json
 import math
+import os
 
 from loaders import solve_loaders
 from pyvrp import Model
@@ -117,9 +118,9 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
         "routes": []
     }
     for i in vehicles:
-        id = i["id"]
+        vid = i["id"]
         data["routes"].append({
-            "id": id,
+            "id": vid,
             "points": [],
             "car_extra_time": scenario.vehicle_shift_size - i["time2"],
         })
@@ -127,7 +128,7 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
             order_data = scenario.orders[i["route"][j] - 1]
             if order_data.loader_cnt == 0:
                 continue
-            data["routes"][id - 1]["points"].append({
+            data["routes"][vid - 1]["points"].append({
                 "id": order_data.id,
                 "x": order_data.x,
                 "y": order_data.y,
@@ -144,11 +145,12 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
 
     data["routes"] = filtered_routes
 
-    with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
+    path = os.path.join(data_dir, 'loaders_task_list.json')
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def build_output(vehicles, loaders_result):
+def build_output(vehicles, loaders_result, data_dir="."):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
         for v in vehicles
@@ -167,7 +169,8 @@ def build_output(vehicles, loaders_result):
         "loaders": loaders_output,
     }
 
-    with open('output.json', 'w', encoding='utf-8') as f:
+    path = os.path.join(data_dir, 'output.json')
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
@@ -179,7 +182,7 @@ if __name__ == "__main__":
 
     result = model.solve(stop=MaxRuntime(300))
 
-    vehicles = calculate_vehicles_routes(result)
+    vehicles = calculate_vehicles_routes(result, scenario)
     create_loaders_task_list(vehicles, scenario)
     loaders_result = solve_loaders()
     build_output(vehicles, loaders_result)
