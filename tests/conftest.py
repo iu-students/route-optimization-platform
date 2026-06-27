@@ -3,11 +3,14 @@ import os
 import sys
 import json
 import tempfile
-from models import Scenario, Depot, Weights, Order
-
 
 PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, PROJECT_ROOT)
+
+MVPv1_PATH = os.path.join(PROJECT_ROOT, "api", "MVPv1")
+sys.path.insert(1, MVPv1_PATH)
+
+from models import Scenario, Depot, Weights, Order
 
 
 @pytest.fixture

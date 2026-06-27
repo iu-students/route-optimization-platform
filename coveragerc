@@ -1,5 +1,5 @@
 [run]
-source = verifier,tester,loaders,script
+source = api/MVPv1
 omit = tests/*
 
 [report]
