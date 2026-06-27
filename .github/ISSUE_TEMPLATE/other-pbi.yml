@@ -31,6 +31,14 @@ body:
         - [ ] Rollback procedure is documented
     validations:
       required: true
+  - type: textarea
+    id: linked_us
+    attributes:
+      label: Linked User Stories
+      description: Provide relevant User Stories.
+      placeholder: "Write in format #XX US-XXX..."
+    validations:
+      required: false
   - type: markdown
     attributes:
       value: |

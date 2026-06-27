@@ -64,6 +64,14 @@ body:
         **Then** I should be redirected to the dashboard
     validations:
       required: true
+  - type: textarea
+    id: linked_pbis
+    attributes:
+      label: Linked PBIs
+      description: Provide relevant PBIs.
+      placeholder: "Write in format #XX..."
+    validations:
+      required: false
   - type: markdown
     attributes:
       value: |
