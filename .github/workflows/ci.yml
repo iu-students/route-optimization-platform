@@ -20,14 +20,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyvrp ortools numpy
+          pip install pyvrp ortools numpy openpyxl
           pip install pytest pytest-cov flake8 pip-audit
 
       - name: Lint
-        run: flake8 script.py loaders.py verifier.py tester.py models.py --max-line-length=150 --ignore=E501,W503,E127,E302,W292,E741,F824
+        run: flake8 script.py loaders.py verifier.py tester.py models.py main.py validator.py --max-line-length=150 --ignore=E501,W503,E127,E302,W292,E741,F824
 
       - name: Run tests with coverage
-        run: pytest --cov=script --cov=loaders --cov=verifier --cov=tester --cov-report=term-missing
+        run: pytest --cov=script --cov=loaders --cov=verifier --cov=tester --cov=main --cov=validator --cov-report=term-missing --cov-fail-under=30
 
       - name: Dependency vulnerability scan
         run: pip-audit

@@ -1,12 +1,15 @@
 import json
 from models import Scenario, Depot, Weights, Order
 from ortools.sat.python import cp_model
+from validator import validate_or_400
 import random
 import time
 
 def parse(path):
     with open(path) as f:
         raw = json.load(f)
+
+    validate_or_400(raw)
 
     depot = Depot(**raw["depot"])
     weights = Weights(**raw["weights"])
@@ -508,7 +511,7 @@ def find_loaders_routes(solution, scenario, num_restarts=100):
 
 if __name__ == "__main__":
     t_start = time.time()
-    filename = 'test_cases/t3.json'
+    filename = 'test_cases/t1.json'
     scenario = parse(filename)
 
     n = len(scenario.orders)

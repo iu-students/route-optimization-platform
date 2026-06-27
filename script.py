@@ -5,12 +5,16 @@ from loaders import solve_loaders
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
+from validator import validate_input
 
 
 def parse(path: str) -> Scenario:
     with open(path) as f:
         raw = json.load(f)
-        depot = Depot(**raw["depot"])
+
+    validate_input(raw)
+
+    depot = Depot(**raw["depot"])
     weights = Weights(**raw["weights"])
     orders = [Order(**o) for o in raw["orders"]]
 
@@ -159,7 +163,7 @@ if __name__ == "__main__":
 
     fill_model(scenario, model)
 
-    result = model.solve(stop=MaxRuntime(500))
+    result = model.solve(stop=MaxRuntime(300))
 
     vehicles = calculate_vehicles_routes(result)
     create_loaders_task_list(vehicles, scenario)

@@ -2,88 +2,120 @@
 
 ## Testing Strategy
 
-Our platform solves the CVRPTW problem in two steps. First, PyVRP builds the
-vehicle routes. Second, a greedy algorithm in `loaders.py` assigns the loaders
-to the orders that need them. `script.py` runs the whole pipeline, writes
-`output.json`, and checks the result with `verifier.py`. We also use
-`tester.py` to calculate the total cost and compare our solution to the baseline.
+Our platform has two CVRPTW solutions, and we test both.
 
-We focus our testing on two things, because a bug here breaks the result and
-the baseline comparison:
+- **Solution A (PyVRP).** `script.py` builds the vehicle routes with PyVRP.
+  A greedy algorithm in `loaders.py` then assigns the loaders to the orders
+  that need them. `script.py` runs the full pipeline and writes `output.json`.
+- **Solution B (CP-SAT).** `main.py` runs a two-step pipeline. First it
+  generates a pool of feasible vehicle routes. Then a CP-SAT set-partitioning model
+  picks the best subset of routes. The same idea is used for the loaders:
+  chains of loader slots are built with an insertion heuristic, and a second
+  CP-SAT model picks the best chains.
 
-- **Feasibility:** every route must respect capacity, time windows and the shift
-  limit. `verifier.py` checks this for every solution.
+Both solutions share four modules:
+
+- `validator.py` — validates `input.json` before any solver runs. Used by
+  both pipelines.
+- `verifier.py` — checks the solution (capacity, time windows, shift) on
+  `output.json`.
+- `tester.py` — calculates the total cost of a solution and compares it with
+  the baseline. It also writes an Excel report (`comparison.xlsx`).
+- `models.py` — data classes used by both pipelines.
+
+We focus our testing on four things, because a bug in any of them breaks the
+result or the baseline comparison:
+
+- **Input validity:** `validator.py` must reject broken input before any
+  solver runs.
+- **Feasibility:** every route must respect capacity, time windows and the
+  shift limit. `verifier.py` checks this for every solution.
 - **Correct data:** arrival times and the loader task list must be calculated
   correctly, because the loader step and the verifier use them.
+- **Cost calculation:** `tester.py` must compute the total cost correctly,
+  so the comparison with the baseline is trustworthy.
 
-Test types:
-
-- **Unit tests** for the functions that need no solver: `find_distance`,
-  `compute_times`, the three checks in `verifier.py`, the cost calculation in
-  `tester.py`, and the greedy logic in `loaders.py`. `loaders.py` keeps global
-  state, so we call `clear_loaders_state()` before each test.
-- **Integration tests** that run the full `solve_pipeline` on a small example
-  with a short runtime, and check that all orders are served once and the
-  feasibility check passes.
-
-PyVRP can give different results on every run, so we only use it in integration
-tests. Each integration test runs in its own temporary folder because the code
-writes files with fixed names.
+PyVRP and CP-SAT can both give different results on every run. So we only run them in integration tests, with a short runtime and a small instance. Each integration test runs in its own temporary folder, because the
+code writes files with fixed names.
 
 ## Critical Modules and Coverage
 
-| Critical module | Why critical | Required line coverage | Current line coverage | Evidence |
-|---|---|---:|---:|---|
-| `script.py` | Pipeline orchestration and data transforms that feed the loader step and the output. | 30% | 99% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| `loaders.py` | Greedy loader assignment. Core logic for minimizing loaders (US-006). | 30% | 97% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| `verifier.py` | Feasibility check (capacity, time windows, shift). Guards the correctness of every solution. | 30% | 90% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| `tester.py` | Calculates the total cost of a solution. Used to compare with the baseline. | 30% | 66% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
+| Critical module | Solution | Why critical | Required line coverage | Current line coverage | Evidence |
+|---|---|---|---:|---:|---|
+| `script.py` | A | Pipeline orchestration, input validation entry point, and data transforms that feed the loader step and the output. | 30% | 90% | [Coverage run](TODO) |
+| `loaders.py` | A | Greedy loader assignment. Core logic for minimizing loaders (US-006). | 30% | 89% | [Coverage run](TODO) |
+| `main.py` | B | Two-step pipeline: route pool generation (Clarke-Wright and insertion) and CP-SAT set partitioning for vehicles and loaders. | 30% | 87% | [Coverage run](TODO) |
+| `verifier.py` | shared | Feasibility check (capacity, time windows, shift). Guards the correctness of every solution. | 30% | 90% | [Coverage run](TODO) |
+| `validator.py` | shared | Input schema and value validation. Stops the solvers from running on broken input. | 30% | 82% | [Coverage run](TODO) |
+| `tester.py` | shared | Calculates the total cost of a solution and exports the baseline comparison report. | 30% | 92% | [Coverage run](TODO) |
 
-**Global repository coverage:** 91%
+**Global repository coverage:** 88%
 
 ## Automated Test Status
 
 | Test type | Scope | Command or CI check | Latest result | Evidence |
 |---|---|---|---|---|
-| Unit tests | `find_distance`, `compute_times`, verifier checks, tester cost calc, loader logic | `pytest tests/test_verifier.py tests/test_tester.py tests/test_loaders.py tests/test_script.py` | 28 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| Integration tests | Full `solve_pipeline` on a small instance, verified by `verifier.py` | `pytest tests/test_integration.py` | 7 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
+| Unit tests | `verifier.py` (shift, time window, capacity checks; route segmentation) | `pytest tests/test_verifier.py` | 11 passed | [CI run](TODO) |
+| Unit tests | `validator.py` (schema, value ranges, time window order, duplicate ids, invalid JSON) | `pytest tests/test_validator.py` | 26 passed | [CI run](TODO) |
+| Unit tests | `tester.py` (Euclidean distance, coord lookup, cost components, optional penalty, missing required orders, print and Excel export) | `pytest tests/test_tester.py` | 13 passed | [CI run](TODO) |
+| Unit tests (solution A) | `script.py` (`find_distance`, `compute_times`, `create_loaders_task_list`, `build_output`, input validation) | `pytest tests/test_script.py` | 8 passed | [CI run](TODO) |
+| Unit tests (solution A) | `loaders.py` (Point fields, sorting, distance matrix, `calculate`, `reset_state`) | `pytest tests/test_loaders.py` | 5 passed | [CI run](TODO) |
+| Unit tests (solution B) | `main.py` (`find_distance`, `eval_route`, `best_insertion_pos`, `insertion_construct`, `clarke_wright`, `build_slots`, `eval_chain`, `chains_insertion_construct`) | `pytest tests/test_main.py` | 22 passed | [CI run](TODO) |
+| Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](TODO) |
+| Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](TODO) |
 | Automated QRTs | To be added after QR/QRT are defined | — | — | — |
 
 ## CI and QA Check Status
 
 | Gate or check | Required for Done? | Latest protected-branch status | Evidence |
 |---|---|---|---|
-| Linting (`flake8`) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| Unit tests | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| Integration tests | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| Line coverage (≥30% per critical module) | Yes | Passing (91% global) | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
-| Additional QA check (`pip-audit`) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) |
+| Linting (`flake8`) | Yes | TODO | [CI run](TODO) |
+| Unit tests (shared modules) | Yes | TODO | [CI run](TODO) |
+| Unit tests (solution A) | Yes | TODO | [CI run](TODO) |
+| Unit tests (solution B) | Yes | TODO | [CI run](TODO) |
+| Integration tests (solution A) | Yes | TODO | [CI run](TODO) |
+| Integration tests (solution B) | Yes | TODO | [CI run](TODO) |
+| Line coverage (≥30% per critical module) | Yes | TODO | [CI run](TODO) |
+| Additional QA check (`pip-audit`) | Yes | TODO | [CI run](TODO) |
 
 ## Additional QA Check Rationale
 
 | QA objective or risk | Additional QA check | Scope | Latest result | Evidence | Limitations or follow-up |
 |---|---|---|---|---|---|
-| Known vulnerabilities in dependencies (pyvrp, numpy, ortools) could cause incorrect results or security issues | `pip-audit` | All Python dependencies | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010) | Only checks known CVEs; does not cover zero-day vulnerabilities |
+| Known vulnerabilities in dependencies (pyvrp, ortools, numpy, openpyxl) could cause incorrect results or security issues | `pip-audit` | All Python dependencies | TODO | [CI run](TODO) | Only checks known CVEs; does not cover zero-day vulnerabilities or supply-chain attacks. |
+
+`pip-audit` scans the resolved dependency tree for known CVEs.
+
+Other options considered:
+
+- **`bandit`.** Useful, but our
+  code is not exposed to untrusted input the way a web service is. `pip-audit`
+  covers a more realistic risk for this project (third-party packages with
+  known CVEs).
+- **`mypy`.** Already partly covered by editor tooling
+  and would mostly catch issues that unit tests already catch.
 
 ## Manual Evidence That Does Not Count as QRT
 
 | Evidence | Scope | Result | Follow-up PBI or issue |
 |---|---|---|---|
-| Manual run of `verifier.py` on full `input.json` (113 orders) | Feasibility of the full solution | ALL CHECKS PASSED | — |
+| Manual run of `verifier.py` on full `input.json` (113 orders) for both solutions | Feasibility of the full solution | ALL CHECKS PASSED | — |
+| Manual run of `tester.py` on `t1`, `t2`, `t3` comparing solution A, solution B and the baseline | Cost comparison, Excel report `comparison.xlsx` | Both solutions feasible, baseline comparison recorded | — |
 
 ## CI and Branch Protection
 
 - **CI pipeline:** [CI workflow](https://github.com/iu-students/route-optimization-platform/actions)
-- **Latest protected-default-branch run:** [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28207645468/job/83561811010)
+- **Latest protected-default-branch run:** [CI run](TODO)
 - **Branch protection / rules evidence:** ![Branch protection](../img/branch-protection.png)
 
 ## Continuation of Quality Gates
 
-All testing and CI gates introduced in Assignment 4 remain active for later
-sprints. Specifically:
-
-- Unit and integration tests must keep passing on every merge to `main`.
+- Unit and integration tests for **both** solutions must keep passing on
+  every merge to `main`.
 - Line coverage for critical modules must stay above 30%.
 - `pip-audit` must keep running in CI.
-- If any gate is replaced, the replacement must be documented and provide equal
-  or stronger coverage.
+- If any gate is replaced, the replacement must be documented and provide
+  equal or stronger coverage.
+- If one of the two solutions is dropped, its critical-module rows and its
+  tests may be removed, but the remaining solution must still meet all the
+  gates above.
