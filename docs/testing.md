@@ -40,14 +40,14 @@ code writes files with fixed names.
 
 ## Critical Modules and Coverage
 
-| Critical module | Solution | Why critical | Required line coverage | Current line coverage | Evidence |
-|---|---|---|---:|---:|---|
-| `script.py` | A | Pipeline orchestration, input validation entry point, and data transforms that feed the loader step and the output. | 30% | 90% | [Coverage run](TODO) |
-| `loaders.py` | A | Greedy loader assignment. Core logic for minimizing loaders (US-006). | 30% | 89% | [Coverage run](TODO) |
-| `main.py` | B | Two-step pipeline: route pool generation (Clarke-Wright and insertion) and CP-SAT set partitioning for vehicles and loaders. | 30% | 87% | [Coverage run](TODO) |
-| `verifier.py` | shared | Feasibility check (capacity, time windows, shift). Guards the correctness of every solution. | 30% | 90% | [Coverage run](TODO) |
-| `validator.py` | shared | Input schema and value validation. Stops the solvers from running on broken input. | 30% | 82% | [Coverage run](TODO) |
-| `tester.py` | shared | Calculates the total cost of a solution and exports the baseline comparison report. | 30% | 92% | [Coverage run](TODO) |
+| Critical module | Solution | Why critical | Required line coverage | Current line coverage | Evidence             |
+|---|---|---|---:|---:|----------------------|
+| `script.py` | A | Pipeline orchestration, input validation entry point, and data transforms that feed the loader step and the output. | 30% | 90% | [Coverage run]()     |
+| `loaders.py` | A | Greedy loader assignment. Core logic for minimizing loaders (US-006). | 30% | 89% | [Coverage run]() |
+| `main.py` | B | Two-step pipeline: route pool generation (Clarke-Wright and insertion) and CP-SAT set partitioning for vehicles and loaders. | 30% | 87% | [Coverage run]() |
+| `verifier.py` | shared | Feasibility check (capacity, time windows, shift). Guards the correctness of every solution. | 30% | 90% | [Coverage run]() |
+| `validator.py` | shared | Input schema and value validation. Stops the solvers from running on broken input. | 30% | 82% | [Coverage run]() |
+| `tester.py` | shared | Calculates the total cost of a solution and exports the baseline comparison report. | 30% | 92% | [Coverage run]() |
 
 **Global repository coverage:** 88%
 
@@ -55,34 +55,34 @@ code writes files with fixed names.
 
 | Test type | Scope | Command or CI check | Latest result | Evidence |
 |---|---|---|---|---|
-| Unit tests | `verifier.py` (shift, time window, capacity checks; route segmentation) | `pytest tests/test_verifier.py` | 11 passed | [CI run](TODO) |
-| Unit tests | `validator.py` (schema, value ranges, time window order, duplicate ids, invalid JSON) | `pytest tests/test_validator.py` | 26 passed | [CI run](TODO) |
-| Unit tests | `tester.py` (Euclidean distance, coord lookup, cost components, optional penalty, missing required orders, print and Excel export) | `pytest tests/test_tester.py` | 13 passed | [CI run](TODO) |
-| Unit tests (solution A) | `script.py` (`find_distance`, `compute_times`, `create_loaders_task_list`, `build_output`, input validation) | `pytest tests/test_script.py` | 8 passed | [CI run](TODO) |
-| Unit tests (solution A) | `loaders.py` (Point fields, sorting, distance matrix, `calculate`, `reset_state`) | `pytest tests/test_loaders.py` | 5 passed | [CI run](TODO) |
-| Unit tests (solution B) | `main.py` (`find_distance`, `eval_route`, `best_insertion_pos`, `insertion_construct`, `clarke_wright`, `build_slots`, `eval_chain`, `chains_insertion_construct`) | `pytest tests/test_main.py` | 22 passed | [CI run](TODO) |
-| Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](TODO) |
-| Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](TODO) |
+| Unit tests | `verifier.py` (shift, time window, capacity checks; route segmentation) | `pytest tests/test_verifier.py` | 11 passed | [CI run]() |
+| Unit tests | `validator.py` (schema, value ranges, time window order, duplicate ids, invalid JSON) | `pytest tests/test_validator.py` | 26 passed | [CI run]() |
+| Unit tests | `tester.py` (Euclidean distance, coord lookup, cost components, optional penalty, missing required orders, print and Excel export) | `pytest tests/test_tester.py` | 13 passed | [CI run]() |
+| Unit tests (solution A) | `script.py` (`find_distance`, `compute_times`, `create_loaders_task_list`, `build_output`, input validation) | `pytest tests/test_script.py` | 8 passed | [CI run]() |
+| Unit tests (solution A) | `loaders.py` (Point fields, sorting, distance matrix, `calculate`, `reset_state`) | `pytest tests/test_loaders.py` | 5 passed | [CI run]() |
+| Unit tests (solution B) | `main.py` (`find_distance`, `eval_route`, `best_insertion_pos`, `insertion_construct`, `clarke_wright`, `build_slots`, `eval_chain`, `chains_insertion_construct`) | `pytest tests/test_main.py` | 22 passed | [CI run]() |
+| Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run]() |
+| Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run]() |
 | Automated QRTs | To be added after QR/QRT are defined | — | — | — |
 
 ## CI and QA Check Status
 
 | Gate or check | Required for Done? | Latest protected-branch status | Evidence |
 |---|---|---|---|
-| Linting (`flake8`) | Yes | TODO | [CI run](TODO) |
-| Unit tests (shared modules) | Yes | TODO | [CI run](TODO) |
-| Unit tests (solution A) | Yes | TODO | [CI run](TODO) |
-| Unit tests (solution B) | Yes | TODO | [CI run](TODO) |
-| Integration tests (solution A) | Yes | TODO | [CI run](TODO) |
-| Integration tests (solution B) | Yes | TODO | [CI run](TODO) |
-| Line coverage (≥30% per critical module) | Yes | TODO | [CI run](TODO) |
-| Additional QA check (`pip-audit`) | Yes | TODO | [CI run](TODO) |
+| Linting (`flake8`) | Yes |  | [CI run]() |
+| Unit tests (shared modules) | Yes |  | [CI run]() |
+| Unit tests (solution A) | Yes |  | [CI run]() |
+| Unit tests (solution B) | Yes |  | [CI run]() |
+| Integration tests (solution A) | Yes |  | [CI run]() |
+| Integration tests (solution B) | Yes |  | [CI run]() |
+| Line coverage (≥30% per critical module) | Yes |  | [CI run]() |
+| Additional QA check (`pip-audit`) | Yes |  | [CI run]() |
 
 ## Additional QA Check Rationale
 
 | QA objective or risk | Additional QA check | Scope | Latest result | Evidence | Limitations or follow-up |
 |---|---|---|---|---|---|
-| Known vulnerabilities in dependencies (pyvrp, ortools, numpy, openpyxl) could cause incorrect results or security issues | `pip-audit` | All Python dependencies | TODO | [CI run](TODO) | Only checks known CVEs; does not cover zero-day vulnerabilities or supply-chain attacks. |
+| Known vulnerabilities in dependencies (pyvrp, ortools, numpy, openpyxl) could cause incorrect results or security issues | `pip-audit` | All Python dependencies |  | [CI run]() | Only checks known CVEs; does not cover zero-day vulnerabilities or supply-chain attacks. |
 
 `pip-audit` scans the resolved dependency tree for known CVEs.
 
@@ -105,7 +105,7 @@ Other options considered:
 ## CI and Branch Protection
 
 - **CI pipeline:** [CI workflow](https://github.com/iu-students/route-optimization-platform/actions)
-- **Latest protected-default-branch run:** [CI run](TODO)
+- **Latest protected-default-branch run:** [CI run]()
 - **Branch protection / rules evidence:** ![Branch protection](../img/branch-protection.png)
 
 ## Continuation of Quality Gates

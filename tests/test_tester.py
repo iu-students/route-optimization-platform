@@ -40,7 +40,7 @@ def test_counts_and_costs():
         "vehicles": [{"id": 1, "route": [0, 1, 2, 0], "time": [5, 9]}],
         "loaders": [{"id": 1, "route": [1, 2]}],
     }
-    result = tester.compute(data, output)
+    result = tester.calc_cost(data, output)
     assert result["n_vehicles"] == 1
     assert result["cost"]["vehicles"] == 100
     assert result["n_loaders"] == 1
@@ -56,7 +56,7 @@ def test_optional_penalty():
         "vehicles": [{"id": 1, "route": [0, 1, 2, 0], "time": [5, 9]}],
         "loaders": [],
     }
-    result = tester.compute(data, output)
+    result = tester.calc_cost(data, output)
     # order 3 is optional and not served
     assert result["missed_optional"] == [3]
     assert result["cost"]["penalty"] == 1000
@@ -68,7 +68,7 @@ def test_missing_required():
         "vehicles": [{"id": 1, "route": [0, 1, 0]}],
         "loaders": [],
     }
-    result = tester.compute(data, output)
+    result = tester.calc_cost(data, output)
     # order 2 is mandatory and not served
     assert result["missed_mandatory"] == [2]
 
@@ -79,7 +79,7 @@ def test_total_cost_is_sum_of_components():
         "vehicles": [{"id": 1, "route": [0, 1, 2, 0], "time": [5, 9]}],
         "loaders": [{"id": 1, "route": [1]}],
     }
-    result = tester.compute(data, output)
+    result = tester.calc_cost(data, output)
     c = result["cost"]
     expected = c["vehicles"] + c["loaders"] + c["fuel"] + c["loader_w"] + c["penalty"]
     assert c["total"] == expected
@@ -92,7 +92,7 @@ def test_print_scenario_with_results(capsys):
         "vehicles": [{"id": 1, "route": [0, 1, 2, 0], "time": [5, 9]}],
         "loaders": [{"id": 1, "route": [1, 2]}],
     }
-    result = tester.compute(data, output)
+    result = tester.calc_cost(data, output)
     tester.print_scenario("test_case", {"BASELINE": result})
     captured = capsys.readouterr()
     assert "test_case".upper() in captured.out
@@ -114,8 +114,8 @@ def test_print_scenario_with_diff(capsys):
         "vehicles": [{"id": 1, "route": [0, 1, 2, 0], "time": [5, 9]}],
         "loaders": [],
     }
-    r_a = tester.compute(data, output_a)
-    r_b = tester.compute(data, output_b)
+    r_a = tester.calc_cost(data, output_a)
+    r_b = tester.calc_cost(data, output_b)
     tester.print_scenario("cmp", {"BASELINE": r_a, "НАШЕ": r_b})
     captured = capsys.readouterr()
     assert "Δ" in captured.out  # diff symbol
@@ -155,7 +155,7 @@ def test_export_excel(tmp_path):
         "vehicles": [{"id": 1, "route": [0, 1, 2, 0], "time": [5, 9]}],
         "loaders": [{"id": 1, "route": [1, 2]}],
     }
-    result = tester.compute(data, output)
+    result = tester.calc_cost(data, output)
     all_data = {"t1": (data, {"BASELINE": result, "НАШЕ": result})}
     out_path = tmp_path / "report.xlsx"
     tester.export_excel(all_data, str(out_path))

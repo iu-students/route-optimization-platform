@@ -72,13 +72,14 @@ def find_best_route(routes, scenario):
     t0 = time.time()
     status = solver.Solve(model)
     print(f"[cp-sat/vehicles] {solver.StatusName(status)}, "
-          f"objective={solver.ObjectiveValue()/100:.2f}, {time.time()-t0:.1f}s")
+          f"objective={solver.ObjectiveValue()/100:.2f}, "
+          f"{time.time()-t0:.1f}s")
 
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         raise RuntimeError(
-            f"vehicle CP-SAT не нашёл решения: status={solver.StatusName(status)}. "
-            f"Скорее всего пул не покрывает все обязательные заказы."
-        )
+            f"vehicle CP-SAT не нашёл решения: "
+            f"status={solver.StatusName(status)}. "
+            f"Скорее всего пул не покрывает все обязательные заказы.")
 
     return solver, x
 
@@ -104,8 +105,11 @@ def eval_route(order_ids, scenario):
     by_id = {o.id: o for o in scenario.orders}
 
     first = by_id[order_ids[0]]
-    first_leg = find_distance(scenario.depot.x, scenario.depot.y, first.x, first.y)
-    depart = max(0.0, first.time_window[0] - first_leg / scenario.vehicle_speed)
+    first_leg = find_distance(
+        scenario.depot.x, scenario.depot.y, first.x, first.y)
+    depart = max(
+        0.0,
+        first.time_window[0] - first_leg / scenario.vehicle_speed)
 
     cap = 0
     dist = 0.0
@@ -143,7 +147,7 @@ def eval_route(order_ids, scenario):
 
 
 def best_insertion_pos(route, order_id, scenario):
-    """Лучшая позиция вставки order_id в route. Возвращает (pos, res) или None."""
+    """Лучшая позиция вставки order_id в route. (pos, res) или None."""
     best = None
     best_cost = float('inf')
     for pos in range(len(route) + 1):
@@ -158,7 +162,7 @@ def best_insertion_pos(route, order_id, scenario):
 
 
 def insertion_construct(scenario, jitter=0.0):
-    """Заказы по tw_early; каждый — в самую дешёвую вставку либо в новый маршрут."""
+    """Из tw_early — каждый в дешёвую вставку либо новый маршрут."""
     orders_sorted = sorted(
         scenario.orders,
         key=lambda o: o.time_window[0] + random.uniform(-jitter, jitter)
@@ -260,7 +264,8 @@ def generate_pool(scenario, num_restarts=200):
         if res is None:
             return
         seen.add(key)
-        pool.append({"order_ids": list(seq), "arrival_times": res[0], "cost": res[1]})
+        pool.append({"order_ids": list(seq),
+                     "arrival_times": res[0], "cost": res[1]})
 
     t0 = time.time()
     for o in scenario.orders:
@@ -273,7 +278,8 @@ def generate_pool(scenario, num_restarts=200):
     for _ in range(num_restarts // 4):
         for r in clarke_wright(scenario, perturb=True):
             add(r)
-    print(f"[pool/vehicles] после Clarke-Wright: {len(pool)} ({time.time()-t0:.1f}s)")
+    print(f"[pool/vehicles] после Clarke-Wright: "
+          f"{len(pool)} ({time.time()-t0:.1f}s)")
 
     t0 = time.time()
     for r in insertion_construct(scenario, jitter=0.0):
@@ -282,8 +288,10 @@ def generate_pool(scenario, num_restarts=200):
         for r in insertion_construct(scenario, jitter=15.0):
             add(r)
         if (i + 1) % 50 == 0:
-            print(f"[pool/vehicles] insertion рестарт {i+1}/{num_restarts}, пул={len(pool)}")
-    print(f"[pool/vehicles] итого: {len(pool)} маршрутов ({time.time()-t0:.1f}s)")
+            print(f"[pool/vehicles] insertion рестарт "
+                  f"{i+1}/{num_restarts}, пул={len(pool)}")
+    print(f"[pool/vehicles] итого: {len(pool)} маршрутов "
+          f"({time.time()-t0:.1f}s)")
 
     return pool
 
@@ -356,13 +364,15 @@ def eval_chain(slot_ids, slots, scenario):
         time = cur["start"] + cur["service"]
 
     last = slots[slot_ids[-1]]
-    back = find_distance(last["x"], last["y"], home_x, home_y) / scenario.loader_speed
+    back = (find_distance(last["x"], last["y"], home_x, home_y)
+            / scenario.loader_speed)
     shift = (time + back) - first["start"]
 
     if shift > scenario.loader_shift_size:
         return None
 
-    return scenario.weights.loader_salary + scenario.weights.loader_work * shift
+    return (scenario.weights.loader_salary
+            + scenario.weights.loader_work * shift)
 
 
 def chains_insertion_construct(slots, scenario, jitter=0.0):
@@ -439,11 +449,13 @@ def generate_loader_pool(slots, scenario, num_restarts=100):
         add(chain, cost)
 
     for i in range(num_restarts):
-        for chain, cost in chains_insertion_construct(slots, scenario, jitter=10.0):
+        for chain, cost in chains_insertion_construct(
+                slots, scenario, jitter=10.0):
             add(chain, cost)
 
         if (i + 1) % 25 == 0:
-            print(f"[pool/loaders] рестарт {i+1}/{num_restarts}, пул={len(pool)}")
+            print(f"[pool/loaders] рестарт "
+                  f"{i+1}/{num_restarts}, пул={len(pool)}")
 
     print(f"[pool/loaders] итого: {len(pool)} цепочек ({time.time()-t0:.1f}s)")
 
@@ -463,7 +475,9 @@ def find_best_loaders(pool, slots):
     for slot_id in range(len(slots)):
         model.Add(sum(covers[slot_id]) == 1)
 
-    objective = sum(int(chain["cost"] * 100) * y[i] for i, chain in enumerate(pool))
+    objective = sum(
+        int(chain["cost"] * 100) * y[i]
+        for i, chain in enumerate(pool))
 
     model.Minimize(objective)
 
@@ -474,13 +488,14 @@ def find_best_loaders(pool, slots):
     t0 = time.time()
     status = solver.Solve(model)
     print(f"[cp-sat/loaders] {solver.StatusName(status)}, "
-          f"objective={solver.ObjectiveValue()/100:.2f}, {time.time()-t0:.1f}s")
+          f"objective={solver.ObjectiveValue()/100:.2f}, "
+          f"{time.time()-t0:.1f}s")
 
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         raise RuntimeError(
-            f"loader CP-SAT не нашёл решения: status={solver.StatusName(status)}. "
-            f"Скорее всего пул не покрывает все слоты."
-        )
+            f"loader CP-SAT не нашёл решения: "
+            f"status={solver.StatusName(status)}. "
+            f"Скорее всего пул не покрывает все слоты.")
 
     return solver, y
 
@@ -530,13 +545,16 @@ if __name__ == "__main__":
     else:
         v_restarts, l_restarts = 200, 100
 
-    print(f"[main] заказов={n} → vehicle_restarts={v_restarts}, loader_restarts={l_restarts}")
+    print(f"[main] заказов={n} → vehicle_restarts={v_restarts}, "
+          f"loader_restarts={l_restarts}")
 
     solution = find_vehicles_routes(scenario, num_restarts=v_restarts)
-    solution["loaders"] = find_loaders_routes(solution, scenario, num_restarts=l_restarts)
+    solution["loaders"] = find_loaders_routes(
+        solution, scenario, num_restarts=l_restarts)
 
     with open('test_cases/my_sol_t3.json', "w") as f:
         json.dump(solution, f, indent=4)
 
     print(f"\n[ИТОГО] {time.time()-t_start:.1f}s, "
-          f"машин={len(solution['vehicles'])}, грузчиков={len(solution['loaders'])}")
+          f"машин={len(solution['vehicles'])}, "
+          f"грузчиков={len(solution['loaders'])}")
