@@ -1,4 +1,4 @@
-name: Link Checker
+name: Link check
 
 on:
   pull_request:
@@ -8,14 +8,11 @@ on:
       - main
 
 jobs:
-  check-links:
+  link-check:
+    name: Markdown links
     runs-on: ubuntu-latest
-    
     steps:
-      # 1. Clone repo
       - uses: actions/checkout@v5
-      
-      # 2. Restore cache
       - name: Restore lychee cache
         id: restore-cache
         uses: actions/cache/restore@v4
@@ -24,12 +21,8 @@ jobs:
           key: cache-lychee-${{ github.sha }}
           restore-keys: |
             cache-lychee-
-      
-      # 3. Create output directory
       - name: Create output directory
         run: mkdir -p lychee
-      
-      # 4. Run Lychee
       - name: Check links with Lychee
         id: lychee
         uses: lycheeverse/lychee-action@v2
@@ -47,16 +40,12 @@ jobs:
             './reports/**/*.md'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      # 5. Save cache
       - name: Save lychee cache
         uses: actions/cache/save@v4
         if: always()
         with:
           path: .lycheecache
           key: ${{ steps.restore-cache.outputs.cache-primary-key || 'cache-lychee-' }}
-
-      # 6. Read output file content
       - name: Read output
         id: read-output
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
@@ -68,23 +57,19 @@ jobs:
           else
             echo "content=No broken links found" >> $GITHUB_OUTPUT
           fi
-      
-      # 7. Comment to PR with results
       - name: Comment broken links in PR
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
             ## Results of link checking
-            
+
             Broken links found:
-            
+
             ${{ steps.read-output.outputs.content }}
-            
+
             ---
             *Checked with [lychee](https://github.com/lycheeverse/lychee)*
-      
-      # 8. Fail if broken links found
       - name: Fail if broken links found
         if: steps.lychee.outputs.exit_code != 0
         run: exit 1

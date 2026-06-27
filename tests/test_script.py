@@ -1,5 +1,4 @@
 import json
-import os
 import script
 import pytest
 from validator import ValidationError
@@ -35,8 +34,7 @@ def test_create_loaders_task_list(tmp_path, scenario):
         "time": [5, 12],
         "time2": 20,
     }]
-    os.chdir(tmp_path)
-    script.create_loaders_task_list(vehicles, scenario)
+    script.create_loaders_task_list(vehicles, scenario, data_dir=str(tmp_path))
 
     with open(tmp_path / "loaders_task_list.json") as f:
         data = json.load(f)
@@ -58,8 +56,7 @@ def test_build_output(tmp_path):
     vehicles = [{"id": 1, "route": [0, 1, 0], "time": [5]}]
     loaders_result = [FakeLoader([1, 1])]
 
-    os.chdir(tmp_path)
-    script.build_output(vehicles, loaders_result)
+    script.build_output(vehicles, loaders_result, data_dir=str(tmp_path))
 
     with open(tmp_path / "output.json") as f:
         data = json.load(f)

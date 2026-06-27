@@ -1,14 +1,18 @@
 from __future__ import annotations
 
-import numpy as np
 import json
-import copy
+import os
+
+import numpy as np
 from typing import List
 
 
 class Vehicle:
+    # айди машины
     vehicle_id: int
+    # точки у нее на маршруте
     vehicle_points: List[Point]
+    # время до конца смены машины которое остается лишним после всех заказов
     free_time: float
 
     def __init__(self, vehicle_id: int, free_time: float):
@@ -130,6 +134,9 @@ def build_distance_matrix():
     return dist_matrix
 
 
+distance_matrix = None
+
+
 def get_distance(p1: Point, p2: Point):
     return distance_matrix[convertion_dict[p1.point_id]][convertion_dict[p2.point_id]]
 
@@ -170,7 +177,8 @@ def find_available(loader: Loader):
             loader.available_points.append(i)
             if i in missed_points:
                 missed_points.remove(i)
-    loader.available_points = sort_points_by_vehicle_time(loader.available_points)
+    loader.available_points = sort_points_by_vehicle_time(
+        loader.available_points)
 
 
 def find_the_earliest_point():
@@ -198,7 +206,9 @@ def assign_loader_to_home_point(point: Point):
 def find_initial_distribution():
     while len(missed_points) > 0:
         the_earliest_point = find_the_earliest_point()
-        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        loader = Loader(
+            loader_home=the_earliest_point,
+            loader_shift_size=loader_shift_size)
         missed_points.remove(the_earliest_point)
         assign_loader_to_home_point(the_earliest_point)
         loaders.append(loader)
@@ -253,7 +263,9 @@ def calculate():
 
     while len(unassigned_points) > 0:
         the_earliest_point = find_the_earliest_unassigned_point()
-        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        loader = Loader(
+            loader_home=the_earliest_point,
+            loader_shift_size=loader_shift_size)
         loaders.append(loader)
         assign_loader_to_home_point(the_earliest_point)
         build_route_for_loader(loader)

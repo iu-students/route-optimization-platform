@@ -20,19 +20,20 @@ def load_json(path):
         return json.load(f)
 
 
-def get_coords(point_id, depot, by_id):
+def get_coords(point_id, depot, orders_by_id):
+    """point_id == 0 -> depot, otherwise order id"""
     if point_id == 0:
         return depot['x'], depot['y']
-    o = by_id[point_id]
-    return o['x'], o['y']
+    order = orders_by_id[point_id]
+    return order['x'], order['y']
 
 
 def euclidean(p1, p2):
     return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
 
 
-def compute(input_data, output_data):
-    w = input_data['weights']
+def calc_cost(input_data, output_data):
+    weights = input_data['weights']
     depot = input_data['depot']
     orders = input_data['orders']
     by_id = {o['id']: o for o in orders}

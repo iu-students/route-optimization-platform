@@ -1,4 +1,15 @@
 import pytest
+import os
+import sys
+import json
+import tempfile
+
+PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, PROJECT_ROOT)
+
+MVPv1_PATH = os.path.join(PROJECT_ROOT, "api", "MVPv1")
+sys.path.insert(1, MVPv1_PATH)
+
 from models import Scenario, Depot, Weights, Order
 
 
@@ -23,3 +34,34 @@ def scenario():
         vehicle_shift_size=100, loader_shift_size=100,
         depot=depot, weights=weights, orders=orders,
     )
+
+
+@pytest.fixture
+def app():
+    TEST_API_KEY = "test-api-key-123"
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        import api.MVPv1.app as flask_app
+
+        flask_app.API_KEY = TEST_API_KEY
+        flask_app.DATA_DIR = tmpdir
+        flask_app.INPUT_PATH = os.path.join(tmpdir, "input.json")
+        flask_app.SOLUTION_PATH = os.path.join(tmpdir, "output.json")
+        flask_app.solver_state = {"status": "idle"}
+
+        def _mock_run_solve():
+            with flask_app.solver_lock:
+                flask_app.solver_state = {"status": "done"}
+
+        flask_app.run_solve = _mock_run_solve
+
+        app = flask_app.app
+        app.config["TESTING"] = True
+        yield app
+
+
+@pytest.fixture
+def client(app):
+    with app.test_client() as client:
+        yield client
+

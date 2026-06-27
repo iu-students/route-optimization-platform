@@ -21,7 +21,9 @@ def parse(path):
           f"опц={sum(1 for o in orders if o.optional)}")
 
     return Scenario(
-        depot=depot, weights=weights, orders=orders,
+        depot=depot,
+        weights=weights,
+        orders=orders,
         vehicle_capacity=raw["vehicle_capacity"],
         vehicle_speed=raw["vehicle_speed"],
         loader_speed=raw["loader_speed"],
