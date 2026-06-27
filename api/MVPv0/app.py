@@ -26,7 +26,7 @@ def solve():
     key = request.headers.get("X-API-Key")
     if not key or key != API_KEY:
         abort(401, description="Invalid or missing API key")
-    data = request.get_json(force=True)
+    request.get_json(force=True)
     return jsonify(response_data)
 
 

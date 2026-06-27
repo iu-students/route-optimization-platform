@@ -28,7 +28,7 @@ def calc_cost(input_data, output_data):
     vehicles = output_data['vehicles']
     loaders = output_data['loaders']
 
-    # --- 1. Стоимость машин (каждая использованная машина = одна "куплена") ---
+    # --- 1. Стоимость машин ---
     n_vehicles = len(vehicles)
     vehicles_cost = n_vehicles * weights['vehicle_salary']
 
@@ -46,10 +46,10 @@ def calc_cost(input_data, output_data):
             total_distance += euclidean(pa, pb)
     fuel_cost = total_distance * weights['fuel_cost']
 
-    # --- 4. Работа грузчиков: суммарное время обслуживания заказов грузчиками ---
+    # --- 4. Суммарное время работы грузчиков ---
     total_loader_work_time = 0.0
-    for l in loaders:
-        for order_id in l['route']:
+    for loader in loaders:
+        for order_id in loader['route']:
             order = orders_by_id[order_id]
             total_loader_work_time += order['loader_service_time']
     loader_work_cost = total_loader_work_time * weights['loader_work']
@@ -63,7 +63,8 @@ def calc_cost(input_data, output_data):
 
     optional_orders = {o['id'] for o in orders if o.get('optional', 0) == 1}
     unfulfilled_optional = optional_orders - visited_orders
-    optional_penalty_cost = len(unfulfilled_optional) * weights['optional_order_penalty']
+    penalty = weights['optional_order_penalty']
+    optional_penalty_cost = len(unfulfilled_optional) * penalty
 
     # --- 6. Проверка: обязательные заказы должны быть выполнены ---
     required_orders = {o['id'] for o in orders if o.get('optional', 0) == 0}
@@ -112,17 +113,31 @@ if __name__ == '__main__':
     result = calc_cost(input_data, output_data)
 
     print('=== Разбивка стоимости решения ===')
-    print(f"Машины: {result['n_vehicles']} x {input_data['weights']['vehicle_salary']} = {result['vehicles_cost']}")
-    print(f"Грузчики: {result['n_loaders']} x {input_data['weights']['loader_salary']} = {result['loaders_cost']}")
-    print(f"Суммарное расстояние: {result['total_distance']:.2f}")
-    print(f"Топливо: {result['total_distance']:.2f} x {input_data['weights']['fuel_cost']} = {result['fuel_cost']:.2f}")
-    print(f"Суммарное время работы грузчиков: {result['total_loader_work_time']}")
-    print(
-        f"Стоимость работы грузчиков: {result['total_loader_work_time']} x {input_data['weights']['loader_work']} = {result['loader_work_cost']}")
-    print(f"Невыполненные опциональные заказы: {result['n_unfulfilled_optional']} {result['unfulfilled_optional_ids']}")
-    print(
-        f"Штраф за опциональные: {result['n_unfulfilled_optional']} x {input_data['weights']['optional_order_penalty']} = {result['optional_penalty_cost']}")
-    if result['missing_required_ids']:
-        print(f"!! ВНИМАНИЕ: пропущены обязательные заказы: {result['missing_required_ids']}")
+    w = input_data['weights']
+    r = result
+    print(f"Машины: {r['n_vehicles']} x {w['vehicle_salary']}"
+          f" = {r['vehicles_cost']}")
+    print(f"Грузчики: {r['n_loaders']} x {w['loader_salary']}"
+          f" = {r['loaders_cost']}")
+    print(f"Суммарное расстояние: {r['total_distance']:.2f}")
+    fuel_msg = (f"Топливо: {r['total_distance']:.2f} x {w['fuel_cost']}"
+                f" = {r['fuel_cost']:.2f}")
+    print(fuel_msg)
+    print(f"Суммарное время работы грузчиков:"
+          f" {r['total_loader_work_time']}")
+    work_msg = (f"Стоимость работы грузчиков: "
+                f"{r['total_loader_work_time']} x {w['loader_work']}"
+                f" = {r['loader_work_cost']}")
+    print(work_msg)
+    opt_text = f"{r['n_unfulfilled_optional']} {r['unfulfilled_optional_ids']}"
+    print(f"Невыполненные опциональные заказы: {opt_text}")
+    n_opt = r['n_unfulfilled_optional']
+    penalty_msg = (f"Штраф за опциональные: "
+                   f"{n_opt} x {w['optional_order_penalty']}"
+                   f" = {r['optional_penalty_cost']}")
+    print(penalty_msg)
+    if r['missing_required_ids']:
+        print(f"!! ВНИМАНИЕ: пропущены обязательные заказы:"
+              f" {r['missing_required_ids']}")
     print('-----------------------------------')
     print(f"ИТОГО: {result['total_cost']:.2f}")
