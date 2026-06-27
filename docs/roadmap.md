@@ -35,12 +35,23 @@ A public release (v0.1.0) will be created.
 
 **Finish date:** 28.06.2026
 
-**Sprint Goal:** MVPv1 modification, developing a different version of the algorithm to solve the problem, and the implementation part of the  user story.
+**Sprint Goal:** MVPv1 modification, developing a improved version of the algorithm to solve the problem, and the implementation part of the US-008 and US-015, creation of automated test-checks.
 
 **Expected outcome:** 
-New version of algorithm works on the server, part of the user story is closed
+New version of algorithm works on the server, the user stories US-008 and US-015 are closed, validation is supported
+A public release (v0.2.0) will be created.
 
 **Planned items:**
+-  User stories:
+   - [US-008](https://github.com/iu-students/route-optimization-platform/issues/29)
+   - [US-015](https://github.com/iu-students/route-optimization-platform/issues/57)
+
+- Tasks:
+   - [TT-01](https://github.com/iu-students/route-optimization-platform/issues/59)
+   - [TT-02](https://github.com/iu-students/route-optimization-platform/issues/60)
+   - [TT-03](https://github.com/iu-students/route-optimization-platform/issues/62)
+   - [TT-04](https://github.com/iu-students/route-optimization-platform/issues/63)
+   - [TT-05](https://github.com/iu-students/route-optimization-platform/issues/64)
 
 # Sprint 3
 **Sprint Milestone:** 
@@ -49,9 +60,10 @@ New version of algorithm works on the server, part of the user story is closed
 
 **Finish date:** 05.07.2026
 
-**Sprint Goal:** 
+**Sprint Goal:** MVPv1 modification, developing a different version of the algorithm to solve the problem, and the implementation part of the user stories.
 
-**Expected outcome:** 
+**Expected outcome:** New version of algorithm works on the server, part of the user stories is closed.
+A public release (v0.3.0) will be created.
 
 **Planned items:**
 
