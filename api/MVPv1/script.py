@@ -1,19 +1,20 @@
 import json
 import math
-import os
 
 from loaders import solve_loaders
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
-from verifier import run_verification
+from validator import validate_input
 
 
 def parse(path: str) -> Scenario:
     with open(path) as f:
         raw = json.load(f)
-        depot_raw = {k: v for k, v in raw["depot"].items() if k != "id"}
-        depot = Depot(**depot_raw)
+
+    validate_input(raw)
+
+    depot = Depot(**raw["depot"])
     weights = Weights(**raw["weights"])
     orders = [Order(**o) for o in raw["orders"]]
 
@@ -133,7 +134,8 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
                 "loader_cnt": order_data.loader_cnt,
                 "loader_service_time": order_data.loader_service_time,
                 "vehicle_time": i["time"][j - 1],
-                "end_time": order_data.time_window[1]
+                "end_time": order_data.time_window[1],
+                "mandatory": order_data.optional
             })
 
     filtered_routes = [r for r in data["routes"] if len(r["points"]) > 0]
@@ -142,12 +144,11 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
 
     data["routes"] = filtered_routes
 
-    path = os.path.join(data_dir, "loaders_task_list.json")
-    with open(path, 'w', encoding='utf-8') as f:
+    with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def build_output(vehicles, loaders_result, data_dir="."):
+def build_output(vehicles, loaders_result):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
         for v in vehicles
@@ -166,32 +167,20 @@ def build_output(vehicles, loaders_result, data_dir="."):
         "loaders": loaders_output,
     }
 
-    path = os.path.join(data_dir, "output.json")
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-
-def solve_pipeline(input_path="input.json", data_dir="."):
-    if not os.path.isabs(input_path):
-        input_path = os.path.join(data_dir, input_path)
-    scenario = parse(input_path)
-    model = Model()
-    fill_model(scenario, model)
-    result = model.solve(stop=MaxRuntime(120))
-    vehicles = calculate_vehicles_routes(result, scenario)
-    create_loaders_task_list(vehicles, scenario, data_dir)
-    loaders_result = solve_loaders(data_dir)
-    build_output(vehicles, loaders_result, data_dir)
-
-    output_path = os.path.join(data_dir, "output.json")
-    verification = run_verification(
-        input_path=input_path, output_path=output_path)
-    with open(output_path, encoding="utf-8") as f:
-        data = json.load(f)
-    data["verification"] = verification
-    with open(output_path, "w", encoding="utf-8") as f:
+    with open('output.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":
-    solve_pipeline(input_path="input.json", data_dir="data")
+    scenario = parse("input.json")
+    model = Model()
+
+    fill_model(scenario, model)
+
+    result = model.solve(stop=MaxRuntime(300))
+
+    vehicles = calculate_vehicles_routes(result)
+    create_loaders_task_list(vehicles, scenario)
+    loaders_result = solve_loaders()
+    build_output(vehicles, loaders_result)
+    print(vehicles)
