@@ -1,7 +1,6 @@
 import json
 from models import Scenario, Depot, Weights, Order
 from ortools.sat.python import cp_model
-from validator import validate_or_400
 import random
 import time
 
@@ -9,8 +8,6 @@ import time
 def parse(path):
     with open(path) as f:
         raw = json.load(f)
-
-    validate_or_400(raw)
 
     depot = Depot(**raw["depot"])
     weights = Weights(**raw["weights"])
