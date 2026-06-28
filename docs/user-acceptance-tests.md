@@ -20,13 +20,13 @@
 
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
-| | | | |
+| 2026-06-07 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 
 **Customer Comments / Issues:**
-*(To be filled after UAT execution)*
+All systems operational. Service is accessible and responsive.
 
 **Resulting PBIs / Backlog Items:**
-*(To be filled after UAT execution)*
+None.
 
 ---
 
@@ -51,13 +51,13 @@
 
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
-| | | | |
+| 2026-06-07 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 
 **Customer Comments / Issues:**
-*(To be filled after UAT execution)*
+Authentication successful. Background process initiated without errors.
 
 **Resulting PBIs / Backlog Items:**
-*(To be filled after UAT execution)*
+None.
 
 ---
 
@@ -95,13 +95,14 @@
 
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
-| | | | |
+|2026-06-27 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
 
 **Customer Comments / Issues:**
-*(To be filled after UAT execution)*
+The solution was successfully retrieved and all validation checks passed. However, the user experience during the computation process needs improvement. The calculation lacks interactivity. The "processing" status is visible, but it is unclear when the calculations will be completed and the estimated waiting time.
 
 **Resulting PBIs / Backlog Items:**
-*(To be filled after UAT execution)*
+
+https://github.com/iu-students/route-optimization-platform/issues/71 
 
 ---
 
@@ -109,6 +110,6 @@
 
 | Scenario ID | Tester | Date | Result |
 |-------------|--------|------|--------|
-| UAT-001 | | | |
-| UAT-002 | | | |
-| UAT-003 | | | |
+| UAT-001 | Customer | 2026-07-27 | PASS |
+| UAT-002 | Customer | 2026-07-27 | PASS |
+| UAT-003 | Customer | 2026-07-27 | PASS (with comments) |
