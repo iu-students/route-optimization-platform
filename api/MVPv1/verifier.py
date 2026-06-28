@@ -113,7 +113,8 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
                     "time_window": [tw_start, tw_end],
                     "status": "error",
                     "message": (
-                        f"Arrival {arrival_time} before time window start {tw_start}"
+                        f"Arrival {arrival_time} "
+                        f"before time window start {tw_start}"
                     ),
                 })
             elif round(arrival_time, 2) > round(tw_end, 2):
@@ -125,7 +126,8 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
                     "time_window": [tw_start, tw_end],
                     "status": "error",
                     "message": (
-                        f"Arrival {arrival_time} after time window end {tw_end}"
+                        f"Arrival {arrival_time} "
+                        f"after time window end {tw_end}"
                     ),
                 })
             else:
@@ -199,7 +201,8 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
                     "capacity": vehicle_capacity,
                     "status": "error",
                     "message": (
-                        f"Volume {total_volume} exceeds capacity {vehicle_capacity}"
+                        f"Volume {total_volume} "
+                        f"exceeds capacity {vehicle_capacity}"
                     ),
                 })
             else:

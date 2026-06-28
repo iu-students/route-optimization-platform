@@ -73,7 +73,8 @@ class Loader:
         self.loader_shift_time_left = loader_shift_size
         self.loader_current_point = loader_home
         self.loader_local_time = (
-            loader_home.vehicle_time + self.loader_current_point.loader_service_time
+            loader_home.vehicle_time
+            + self.loader_current_point.loader_service_time
         )
         self.route = [loader_home]
 
@@ -228,7 +229,7 @@ def move_loader_to(loader: Loader, point: Point):
         0.0, point.vehicle_time - loader.loader_local_time - travel_time
     )
 
-    spent_time = traveling_time + waiting_time
+    spent_time = travel_time + waiting_time
 
     loader.loader_shift_time_left -= spent_time
     loader.loader_local_time += spent_time
@@ -250,8 +251,8 @@ def return_loader_home(loader: Loader):
     home_time = get_distance(
         loader.loader_current_point, loader.loader_home
     ) / loader_speed
-    loader.loader_shift_time_left -= traveling_home_time
-    loader.loader_local_time += traveling_home_time
+    loader.loader_shift_time_left -= home_time
+    loader.loader_local_time += home_time
     loader.loader_current_point = loader.loader_home
     loader.route.append(loader.loader_home)
 
@@ -312,11 +313,11 @@ def evaluate_disadvantageous(all_points: List[Point]):
     return bad
 
 
-def remove_disadvantageous_and_rerun(input_data: dict, bad_point_ids: set) -> dict:
-    """
-    Удаляет невыгодные точки из входного словаря данных и возвращает очищенную копию.
-    Маршруты без точек после удаления тоже убираются.
-    """
+def remove_disadvantageous_and_rerun(
+    input_data: dict, bad_point_ids: set
+) -> dict:
+    """Удаляет невыгодные точки и возвращает очищенную копию.
+    Маршруты без точек после удаления тоже убираются."""
     cleaned = copy.deepcopy(input_data)
     new_routes = []
     removed_count = 0
@@ -399,7 +400,9 @@ def solve_loaders():
         print(f"[run {iteration}] ID невыгодных точек: {sorted(bad_ids)}")
 
         current_data = remove_disadvantageous_and_rerun(current_data, bad_ids)
-        with open('loaders_task_list_cleaned.json', 'w', encoding='utf-8') as f:
+        with open(
+            'loaders_task_list_cleaned.json', 'w', encoding='utf-8'
+        ) as f:
             json.dump(current_data, f, ensure_ascii=False, indent=2)
         print(
             "[rerun] Очищенный файл сохранён: loaders_task_list_cleaned.json"
@@ -422,4 +425,7 @@ if __name__ == "__main__":
     print(f"\nИтого грузчиков: {len(loaders)}")
     for loader in loaders:
         route_ids = [p.point_id for p in loader.route]
-        print(f"  Грузчик (дом={loader.loader_home.point_id}): маршрут={route_ids}")
+        print(
+            f"  Грузчик (дом={loader.loader_home.point_id}):"
+            f" маршрут={route_ids}"
+        )

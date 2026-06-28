@@ -68,7 +68,8 @@ def fill_model(scenario, model):
             service_duration=order.vehicle_service_time,
             tw_early=order.time_window[0], tw_late=order.time_window[1],
             prize=(
-                scenario.weights.optional_order_penalty if order.optional else 0
+                scenario.weights.optional_order_penalty
+                if order.optional else 0
             ),
             required=not bool(order.optional),
         )
