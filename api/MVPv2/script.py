@@ -2,20 +2,18 @@ import json
 import math
 import os
 
-from loaders import solve_loaders
+from loaders import solve_loaders, clear_loaders_state
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
-from validator import validate_input
+from verifier import run_verification
 
 
 def parse(path: str) -> Scenario:
     with open(path) as f:
         raw = json.load(f)
-
-    validate_input(raw)
-
-    depot = Depot(**raw["depot"])
+        depot_raw = {k: v for k, v in raw["depot"].items() if k != "id"}
+        depot = Depot(**depot_raw)
     weights = Weights(**raw["weights"])
     orders = [Order(**o) for o in raw["orders"]]
 
@@ -45,8 +43,7 @@ def compute_times(order_ids: list, scenario: Scenario) -> list:
     for order_id in order_ids:
         order = by_id[order_id]
 
-        time += (find_distance(px, py, order.x, order.y)
-                 / scenario.vehicle_speed)
+        time += find_distance(px, py, order.x, order.y) / scenario.vehicle_speed
         time = max(time, order.time_window[0])
         times.append(round(time, 2))
         time += order.vehicle_service_time
@@ -56,23 +53,17 @@ def compute_times(order_ids: list, scenario: Scenario) -> list:
 
 
 def fill_model(scenario, model):
-    coordinates = ([(scenario.depot.x, scenario.depot.y)]
-                   + [(order.x, order.y) for order in scenario.orders])
+    coordinates = [(scenario.depot.x, scenario.depot.y)] + [(order.x, order.y) for order in scenario.orders]
 
     depot = model.add_depot(x=scenario.depot.x, y=scenario.depot.y, tw_early=0)
 
     clients = []
 
     for order in scenario.orders:
-        c = model.add_client(
-            x=order.x, y=order.y,
-            delivery=order.volume,
-            service_duration=order.vehicle_service_time,
-            tw_early=order.time_window[0],
-            tw_late=order.time_window[1],
-            prize=(scenario.weights.optional_order_penalty
-                   if order.optional else 0),
-            required=not bool(order.optional))
+        c = model.add_client(x=order.x, y=order.y, delivery=order.volume, service_duration=order.vehicle_service_time,
+                             tw_early=order.time_window[0], tw_late=order.time_window[1],
+                             prize=scenario.weights.optional_order_penalty if order.optional else 0,
+                             required=not bool(order.optional))
 
         clients.append(c)
 
@@ -83,17 +74,12 @@ def fill_model(scenario, model):
             if i != j:
                 distance = find_distance(x_i, y_i, x_j, y_j)
 
-                dur = round(distance / scenario.vehicle_speed)
-                model.add_edge(node_i, node_j,
-                               distance=round(distance), duration=dur)
+                model.add_edge(node_i, node_j, distance=round(distance),
+                               duration=round(distance / scenario.vehicle_speed))
 
-    model.add_vehicle_type(
-        num_available=len(scenario.orders),
-        capacity=scenario.vehicle_capacity,
-        shift_duration=scenario.vehicle_shift_size,
-        fixed_cost=scenario.weights.vehicle_salary,
-        unit_distance_cost=scenario.weights.fuel_cost,
-        max_overtime=0)
+    model.add_vehicle_type(num_available=len(scenario.orders), capacity=scenario.vehicle_capacity,
+                           shift_duration=scenario.vehicle_shift_size, fixed_cost=scenario.weights.vehicle_salary,
+                           unit_distance_cost=scenario.weights.fuel_cost, max_overtime=0)
 
 
 def calculate_vehicles_routes(result, scenario):
@@ -113,14 +99,14 @@ def calculate_vehicles_routes(result, scenario):
     return vehicles
 
 
-def create_loaders_task_list(vehicles, scenario, data_dir="."):
+def create_loaders_task_list(vehicles, scenario):
     data = {
         "routes": []
     }
     for i in vehicles:
-        vid = i["id"]
+        id = i["id"]
         data["routes"].append({
-            "id": vid,
+            "id": id,
             "points": [],
             "car_extra_time": scenario.vehicle_shift_size - i["time2"],
         })
@@ -128,7 +114,7 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
             order_data = scenario.orders[i["route"][j] - 1]
             if order_data.loader_cnt == 0:
                 continue
-            data["routes"][vid - 1]["points"].append({
+            data["routes"][id - 1]["points"].append({
                 "id": order_data.id,
                 "x": order_data.x,
                 "y": order_data.y,
@@ -145,12 +131,11 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
 
     data["routes"] = filtered_routes
 
-    path = os.path.join(data_dir, 'loaders_task_list.json')
-    with open(path, 'w', encoding='utf-8') as f:
+    with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def build_output(vehicles, loaders_result, data_dir="."):
+def build_output(vehicles, loaders_result):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
         for v in vehicles
@@ -169,21 +154,36 @@ def build_output(vehicles, loaders_result, data_dir="."):
         "loaders": loaders_output,
     }
 
-    path = os.path.join(data_dir, 'output.json')
-    with open(path, 'w', encoding='utf-8') as f:
+    with open('output.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+def solve_pipeline(input_path="input.json", data_dir="."):
+    old_cwd = os.getcwd()
+    os.chdir(data_dir)
+    try:
+        clear_loaders_state()
+        scenario = parse(input_path)
+        model = Model()
+        fill_model(scenario, model)
+        result = model.solve(stop=MaxRuntime(120))
+        vehicles = calculate_vehicles_routes(result, scenario)
+        create_loaders_task_list(vehicles, scenario)
+        loaders_result = solve_loaders()
+        build_output(vehicles, loaders_result)
+
+        verification = run_verification(
+            input_path=os.path.basename(input_path),
+            output_path="output.json"
+        )
+        with open("output.json", encoding="utf-8") as f:
+            data = json.load(f)
+        data["verification"] = verification
+        with open("output.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    finally:
+        os.chdir(old_cwd)
+
+
 if __name__ == "__main__":
-    scenario = parse("input.json")
-    model = Model()
-
-    fill_model(scenario, model)
-
-    result = model.solve(stop=MaxRuntime(300))
-
-    vehicles = calculate_vehicles_routes(result, scenario)
-    create_loaders_task_list(vehicles, scenario)
-    loaders_result = solve_loaders()
-    build_output(vehicles, loaders_result)
-    print(vehicles)
+    solve_pipeline(input_path="input.json", data_dir="data")
