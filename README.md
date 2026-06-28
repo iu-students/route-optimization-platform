@@ -45,11 +45,11 @@ curl http://localhost:5000/health
 
 # Swagger UI
 
-After starting the application, open `http://localhost:5000` in your browser to access Swagger UI.
+After starting the application, open `http://localhost:5000/docs` in your browser to access Swagger UI.
 
 ## API Version
 
-Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v1**
+Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v2**
 
 ## Available Endpoints
 
@@ -70,3 +70,5 @@ The API key is set in the `.env` file.
 Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/README.md
 
 Week 3: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week3/README.md
+
+Week 4: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week4/README.md
