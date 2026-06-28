@@ -27,8 +27,6 @@
 
 ## Validated Assumptions
 
-*Подтвердились или опроверглись наши гипотезы и предположения?*
-
 ### Confirmed
 - [Using PyVRP + CP-SAT in parallel]: We assumed that running two solver pipelines (PyVRP and CP-SAT) would increase solution reliability. Both passed all integration tests and verification checks on UAT. Confirmed.
 - [API key authentication is sufficient]: We assumed that an API key would be enough to protect route data. QRT-002 passed all confidentiality tests — unauthorized requests are rejected. Confirmed.
@@ -40,8 +38,6 @@
 ---
 
 ## Friction and Gaps
-
-*Что пошло не так, где мы "споткнулись", и что осталось нерешенным?*
 
 - **Unresolved Requirements / Backlog:**
     - [US-016 — Manager statistics]: The customer requested a story for viewing calculation metrics and objective function (#58). Not planned for this sprint — deferred to focus on algorithm improvements and CI/CD setup. Will be implemented in subsequent sprints.
@@ -62,8 +58,6 @@
 ---
 
 ## Planned Response
-
-*Как мы исправим ситуацию в следующем спринте? (Ссылаемся на конкретные артефакты)*
 
 - **Backlog Adjustments:**
     - Move US-016 — Manager statistics into the next sprint as a top priority.
