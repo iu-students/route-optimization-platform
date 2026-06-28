@@ -4,7 +4,7 @@ This document defines the automated quality requirement tests (QRTs) that direct
 
 ## QRT-001: API responsiveness
 
-**Linked quality requirement:** [QR-001](quality-requirements.md#qr-001-отзывчивость-api-при-отправке-запроса-на-оптимизацию)
+**Linked quality requirement:** [QR-001](quality-requirements.md#qr-001-api-responsiveness)
 
 **Verification method:** Automated integration test using Flask test client with timing measurement.
 
@@ -24,7 +24,7 @@ python -m pytest tests/test_qrt_001_api_responsiveness.py -v
 
 ## QRT-002: API confidentiality
 
-**Linked quality requirement:** [QR-002](quality-requirements.md#qr-002-конфиденциальность-данных-маршрутов)
+**Linked quality requirement:** [QR-002](quality-requirements.md#qr-002-route-data-confidentiality)
 
 **Verification method:** Automated integration test using Flask test client.
 
@@ -42,12 +42,32 @@ python -m pytest tests/test_qrt_002_api_confidentiality.py -v
 
 ---
 
+## QRT-003: Critical module unit coverage
+
+**Linked quality requirement:** [QR-003](quality-requirements.md#qr-003-critical-module-testability)
+
+**Verification method:** Automated CI coverage check using `pytest-cov` with per-module threshold enforcement.
+
+**Test data, setup, or environment:** Standard CI environment for pull requests and protected default-branch updates. Coverage is measured against the critical modules listed in `docs/testing.md`.
+
+**Automated command or CI check:**
+
+```bash
+python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing
+```
+
+**Expected measurable result:** Every critical module listed in `docs/testing.md` has at least 30% line coverage. The CI coverage job fails if any critical module falls below the threshold.
+
+**Evidence link:** `tests/test_qrt_003_critical_module_coverage.py`
+
+---
+
 ## Test Execution
 
 Run all automated quality requirement tests together:
 
 ```bash
-python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py -v
+python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py -v
 ```
 
 Or run the entire test suite:
