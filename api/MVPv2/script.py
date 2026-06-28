@@ -7,7 +7,7 @@ from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
 from verifier import run_verification
-from validator import ValidationError, validate_input
+from validator import validate_input
 
 
 def parse(path: str) -> Scenario:
