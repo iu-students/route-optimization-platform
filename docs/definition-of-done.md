@@ -20,6 +20,7 @@ A PBI is considered "Done" when:
 
 4.  **Required Tests or Checks Pass**
     - All Continuous Integration (CI) or automated checks (e.g., linters, unit tests, integration tests, build steps) pass successfully.
+    - Relevant quality requirements (QRs) and automated quality requirement tests (QRTs) are satisfied or explicitly documented as not applicable.
     - If manual testing is required, a summary of the test results is added to the PBI or PR.
 
 5.  **Changelog Updated**

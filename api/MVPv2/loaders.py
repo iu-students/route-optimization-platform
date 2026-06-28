@@ -345,6 +345,8 @@ def run_with_data(data: dict):
 
     reset_state()
     parse(data)
+    if not unassigned_points:
+        return
     distance_matrix = build_distance_matrix()
     missed_points = unassigned_points.copy()
     points = unassigned_points.copy()

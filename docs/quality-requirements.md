@@ -3,9 +3,9 @@
 This document defines the measurable quality requirements for the Route Optimization Platform.
 Requirements are structured using the ISO/IEC 25010 quality model and follow the measurable scenario format.
 
-## QR-001: Отзывчивость API при отправке запроса на оптимизацию
+## QR-001: API responsiveness
 
-**ISO/IEC 25010 sub-characteristic:** Time behaviour (временная эффективность)
+**ISO/IEC 25010 sub-characteristic:** Time behaviour
 
 **Scenario:** When a dispatcher sends a `POST /solve` request or polls `GET /solution` under normal production-like load, the API shall return an HTTP response (202, 200, or appropriate 4xx/5xx) within 2 seconds for 99% of requests, regardless of whether the solver computation has completed.
 
@@ -15,9 +15,9 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 ---
 
-## QR-002: Конфиденциальность данных маршрутов
+## QR-002: Route data confidentiality
 
-**ISO/IEC 25010 sub-characteristic:** Confidentiality (конфиденциальность)
+**ISO/IEC 25010 sub-characteristic:** Confidentiality
 
 **Scenario:** When an unauthenticated client sends a request to any protected endpoint (`POST /solve`, `GET /solution`) without a valid `X-API-Key` header, the API shall reject the request with HTTP 401 Unauthorized and return no data about input, solution, or system state beyond an error message.
 
@@ -27,12 +27,12 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 ---
 
-## QR-003: Отказоустойчивость при некорректном вводе
+## QR-003: Critical module testability
 
-**ISO/IEC 25010 sub-characteristic:** Fault tolerance (отказоустойчивость)
+**ISO/IEC 25010 sub-characteristic:** Testability
 
-**Scenario:** When a client sends a request with missing, invalid, or out-of-range fields to the `POST /solve` endpoint under any load condition, the API shall reject the request with an appropriate 4xx HTTP status code and a descriptive error message without crashing the application or corrupting the solver state.
+**Scenario:** When a developer changes a critical product module under the standard CI environment, the module shall have automated unit tests that achieve at least 30% line coverage for that module.
 
-**Why this matters:** The platform is consumed by external systems and users who may send malformed data. Unhandled invalid input can crash the solver, corrupt the input file, or leave the system in an inconsistent state. Graceful validation with clear error messages protects system integrity and helps API consumers fix their requests quickly.
+**Why this matters:** Critical product logic must be directly verifiable so defects can be detected before merge. Without measurable coverage expectations, untested code paths can introduce regressions in core solver, validation, or verification logic.
 
-**Linked quality requirement tests:** [QRT-003](quality-requirement-tests.md#qrt-003-fault-tolerance)
+**Linked quality requirement tests:** [QRT-003](quality-requirement-tests.md#qrt-003-critical-module-unit-coverage)
