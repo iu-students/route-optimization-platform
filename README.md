@@ -71,3 +71,4 @@ Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/rep
 
 Week 3: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week3/README.md
 
+Week 4: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week4/README.md
