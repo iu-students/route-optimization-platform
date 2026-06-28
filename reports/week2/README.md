@@ -22,7 +22,7 @@ For an API interface:
 
 
 6. Link to the Lychee configuration and latest successful protected-default-branch run. 
-Lychee configuration: https://github.com/iu-students/route-optimization-platform/blob/main/.github/workflows/link-check.yml 
+Lychee configuration: https://github.com/iu-students/route-optimization-platform/blob/main/.github/workflows/ci-link-check.yml 
 Latest successful protected-default-branch run: https://github.com/iu-students/route-optimization-platform/actions/runs/27647194214
 
 

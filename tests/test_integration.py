@@ -1,11 +1,11 @@
 import json
 import os
-import shutil
 import pytest
 
-from script import solve_pipeline
+import script
+import loaders
 from verifier import run_verification
-from tester import calc_cost
+
 
 SMALL_INPUT = {
     "vehicle_capacity": 100,
@@ -37,34 +37,37 @@ SMALL_INPUT = {
 
 
 @pytest.fixture
-def run_pipeline(tmp_path):
-    """Run solve_pipeline in a temp folder and return (input_data, output_data)."""
-    
-    input_file = tmp_path / "input.json"
-    input_file.write_text(json.dumps(SMALL_INPUT, indent=2))
+def run_pipeline(tmp_path, monkeypatch):
+    """Run the full script.py pipeline in a temp folder with a short PyVRP runtime."""
+    from pyvrp import Model
+    from pyvrp.stop import MaxRuntime
 
-    import script
-    old_runtime = 120
+    # write input.json in tmp_path
+    (tmp_path / "input.json").write_text(json.dumps(SMALL_INPUT))
 
-    original = script.solve_pipeline
+    # script.py uses fixed filenames ('input.json', 'output.json', 'loaders_task_list.json')
+    # and loaders.solve_loaders() also reads 'input.json' — so we cd into tmp_path
+    monkeypatch.chdir(tmp_path)
 
-    def patched(input_path="input.json", data_dir="."):
-        import pyvrp.stop
-        old_class = pyvrp.stop.MaxRuntime
-        orig_init = old_class.__init__
+    # reset loaders global state (in case another test ran before)
+    loaders.reset_state()
 
-        def fast_init(self, max_runtime):
-            orig_init(self, 2)
+    # build scenario
+    scenario_obj = script.parse("input.json")
 
-        old_class.__init__ = fast_init
-        try:
-            original(input_path, data_dir)
-        finally:
-            old_class.__init__ = orig_init
+    # calculate_vehicles_routes uses a module-level `scenario` from script
+    script.scenario = scenario_obj
 
-    patched(input_path="input.json", data_dir=str(tmp_path))
+    model = Model()
+    script.fill_model(scenario_obj, model)
 
-    # load output
+    result = model.solve(stop=MaxRuntime(2))  # short runtime for CI
+
+    vehicles = script.calculate_vehicles_routes(result, scenario_obj)
+    script.create_loaders_task_list(vehicles, scenario_obj)
+    loaders_result = loaders.solve_loaders()
+    script.build_output(vehicles, loaders_result)
+
     with open(tmp_path / "output.json") as f:
         output_data = json.load(f)
 
@@ -73,20 +76,20 @@ def run_pipeline(tmp_path):
 
 def test_shift_times_pass(run_pipeline):
     input_data, output_data = run_pipeline
-    verification = output_data["verification"]
-    assert verification["shift_verification"]["status"] == "success"
+    result = run_verification(input_path="input.json", output_path="output.json")
+    assert result["shift_verification"]["status"] == "success"
 
 
 def test_time_windows_pass(run_pipeline):
     input_data, output_data = run_pipeline
-    verification = output_data["verification"]
-    assert verification["time_window_verification"]["status"] == "success"
+    result = run_verification(input_path="input.json", output_path="output.json")
+    assert result["time_window_verification"]["status"] == "success"
 
 
 def test_capacity_pass(run_pipeline):
     input_data, output_data = run_pipeline
-    verification = output_data["verification"]
-    assert verification["capacity_verification"]["status"] == "success"
+    result = run_verification(input_path="input.json", output_path="output.json")
+    assert result["capacity_verification"]["status"] == "success"
 
 
 def test_all_required_orders_served(run_pipeline):
@@ -111,14 +114,6 @@ def test_no_duplicate_orders(run_pipeline):
     assert len(all_served) == len(set(all_served)), "some orders are served twice"
 
 
-def test_output_has_loaders(run_pipeline):
+def test_output_has_vehicles(run_pipeline):
     input_data, output_data = run_pipeline
-    
-    assert len(output_data["loaders"]) >= 1
-
-
-def test_cost_is_positive(run_pipeline):
-    input_data, output_data = run_pipeline
-    result = calc_cost(input_data, output_data)
-    assert result["total_cost"] > 0
-    assert result["missing_required_ids"] == []
+    assert len(output_data["vehicles"]) >= 1

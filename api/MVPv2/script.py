@@ -7,13 +7,15 @@ from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from models import Scenario, Depot, Weights, Order
 from verifier import run_verification
+from validator import validate_input
 
 
 def parse(path: str) -> Scenario:
     with open(path) as f:
         raw = json.load(f)
-        depot_raw = {k: v for k, v in raw["depot"].items() if k != "id"}
-        depot = Depot(**depot_raw)
+    validate_input(raw)
+    depot_raw = {k: v for k, v in raw["depot"].items() if k != "id"}
+    depot = Depot(**depot_raw)
     weights = Weights(**raw["weights"])
     orders = [Order(**o) for o in raw["orders"]]
 
@@ -116,7 +118,7 @@ def calculate_vehicles_routes(result, scenario):
     return vehicles
 
 
-def create_loaders_task_list(vehicles, scenario):
+def create_loaders_task_list(vehicles, scenario, data_dir="."):
     data = {
         "routes": []
     }
@@ -138,7 +140,8 @@ def create_loaders_task_list(vehicles, scenario):
                 "loader_cnt": order_data.loader_cnt,
                 "loader_service_time": order_data.loader_service_time,
                 "vehicle_time": i["time"][j - 1],
-                "end_time": order_data.time_window[1]
+                "end_time": order_data.time_window[1],
+                "mandatory": order_data.optional
             })
 
     filtered_routes = [r for r in data["routes"] if len(r["points"]) > 0]
@@ -147,11 +150,12 @@ def create_loaders_task_list(vehicles, scenario):
 
     data["routes"] = filtered_routes
 
-    with open('loaders_task_list.json', 'w', encoding='utf-8') as f:
+    path = os.path.join(data_dir, 'loaders_task_list.json')
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def build_output(vehicles, loaders_result):
+def build_output(vehicles, loaders_result, data_dir="."):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
         for v in vehicles
@@ -170,7 +174,8 @@ def build_output(vehicles, loaders_result):
         "loaders": loaders_output,
     }
 
-    with open('output.json', 'w', encoding='utf-8') as f:
+    path = os.path.join(data_dir, 'output.json')
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
