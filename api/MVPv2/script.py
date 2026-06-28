@@ -187,7 +187,7 @@ def solve_pipeline(input_path="input.json", data_dir="."):
         scenario = parse(input_path)
         model = Model()
         fill_model(scenario, model)
-        result = model.solve(stop=MaxRuntime(120))
+        result = model.solve(stop=MaxRuntime(60))
         vehicles = calculate_vehicles_routes(result, scenario)
         create_loaders_task_list(vehicles, scenario)
         loaders_result = solve_loaders()
