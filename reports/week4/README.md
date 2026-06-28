@@ -169,7 +169,7 @@ All tests, CI checks, quality requirement tests, and Definition of Done criteria
 
 ### 31. Link to reports/week4/presentation.pdf
 
-*   [presentation.pdf](./presentation.pdf)
+*  We don't public presentation
 
 ### 32. Public sanitized UAT results summary
 
