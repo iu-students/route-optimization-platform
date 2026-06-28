@@ -371,6 +371,14 @@ def solve_loaders():
     return loaders
 
 
+def clear_loaders_state():
+    global vehicles, unassigned_points, missed_points, loaders
+    vehicles.clear()
+    unassigned_points.clear()
+    missed_points.clear()
+    loaders.clear()
+
+
 if __name__ == "__main__":
     solve_loaders()
     print(f"\nИтого грузчиков: {len(loaders)}")

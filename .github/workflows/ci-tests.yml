@@ -1,0 +1,41 @@
+name: Tests & coverage
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+
+jobs:
+  logic-tests:
+    name: Unit & integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install flask flask-cors numpy pyvrp ortools openpyxl pytest
+      - name: Run logic tests
+        run: python -m pytest tests/ --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py -v
+
+  coverage:
+    name: Coverage report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install flask flask-cors numpy pyvrp ortools openpyxl pytest pytest-cov
+      - name: Run tests with coverage
+        run: python -m pytest tests/ --cov-config=coveragerc --cov -v
+      - name: Report coverage
+        run: python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing --cov-report=xml

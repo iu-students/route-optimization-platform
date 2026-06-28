@@ -80,7 +80,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"x\": 134,\r\n      \"y\": 6,\r\n      \"volume\": 20,\r\n      \"time_window\": [988, 1031],\r\n      \"vehicle_service_time\": 10,\r\n      \"loader_cnt\": 0,\r\n      \"loader_service_time\": 0,\r\n      \"optional\": 0\r\n    }\r\n  ],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+          "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"x\": 35,\r\n    \"y\": 35,\r\n    \"load_time\": 24\r\n  },\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"x\": 134,\r\n      \"y\": 6,\r\n      \"volume\": 20,\r\n      \"time_window\": [988, 1031],\r\n      \"vehicle_service_time\": 10,\r\n      \"loader_cnt\": 0,\r\n      \"loader_service_time\": 0,\r\n      \"optional\": 0\r\n    }\r\n  ],\r\n  \"weights\": {\r\n    \"vehicle_salary\": 380,\r\n    \"loader_salary\": 230,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1,\r\n    \"optional_order_penalty\": 164\r\n  }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -116,7 +116,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"x\": 134,\r\n      \"y\": 6,\r\n      \"volume\": 20,\r\n      \"time_window\": [988, 1031],\r\n      \"vehicle_service_time\": 10,\r\n      \"loader_cnt\": 0,\r\n      \"loader_service_time\": 0,\r\n      \"optional\": 0\r\n    }\r\n  ],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+              "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"x\": 35,\r\n    \"y\": 35,\r\n    \"load_time\": 24\r\n  },\r\n  \"orders\": [\r\n    {\r\n      \"id\": 1,\r\n      \"x\": 134,\r\n      \"y\": 6,\r\n      \"volume\": 20,\r\n      \"time_window\": [988, 1031],\r\n      \"vehicle_service_time\": 10,\r\n      \"loader_cnt\": 0,\r\n      \"loader_service_time\": 0,\r\n      \"optional\": 0\r\n    }\r\n  ],\r\n  \"weights\": {\r\n    \"vehicle_salary\": 380,\r\n    \"loader_salary\": 230,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1,\r\n    \"optional_order_penalty\": 164\r\n  }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -219,7 +219,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+          "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"x\": 35,\r\n    \"y\": 35,\r\n    \"load_time\": 24\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"vehicle_salary\": 380,\r\n    \"loader_salary\": 230,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1,\r\n    \"optional_order_penalty\": 164\r\n  }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -255,7 +255,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}",
+              "raw": "{\r\n  \"vehicle_capacity\": 1000,\r\n  \"vehicle_speed\": 3,\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"x\": 35,\r\n    \"y\": 35,\r\n    \"load_time\": 24\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"vehicle_salary\": 380,\r\n    \"loader_salary\": 230,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1,\r\n    \"optional_order_penalty\": 164\r\n  }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -376,7 +376,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"vehicle_speed\": 3\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}"
+          "raw": "{\r\n  \"vehicle_speed\": 3\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"x\": 35,\r\n    \"y\": 35,\r\n    \"load_time\": 24\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"vehicle_salary\": 380,\r\n    \"loader_salary\": 230,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1,\r\n    \"optional_order_penalty\": 164\r\n  }\r\n}"
         },
         "url": {
           "raw": "http://139.100.207.201:5000/solve",
@@ -407,7 +407,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"vehicle_speed\": 3\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"id\": 0,\r\n    \"x\": 100,\r\n    \"y\": 100,\r\n    \"load_time\": 40\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"order_penalty\": 250,\r\n    \"take_vehicle\": 200,\r\n    \"add_loader\": 200,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1\r\n  }\r\n}"
+              "raw": "{\r\n  \"vehicle_speed\": 3\r\n  \"loader_speed\": 1,\r\n  \"vehicle_shift_size\": 720,\r\n  \"loader_shift_size\": 720,\r\n  \"depot\": {\r\n    \"x\": 35,\r\n    \"y\": 35,\r\n    \"load_time\": 24\r\n  },\r\n  \"orders\": [],\r\n  \"weights\": {\r\n    \"vehicle_salary\": 380,\r\n    \"loader_salary\": 230,\r\n    \"fuel_cost\": 2,\r\n    \"loader_work\": 1,\r\n    \"optional_order_penalty\": 164\r\n  }\r\n}"
             },
             "url": {
               "raw": "http://139.100.207.201:5000/solve",

@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, abort, Response
+from flask_cors import CORS
 import json
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 API_KEY = os.environ.get("API_KEY", "")
 
@@ -24,11 +26,11 @@ def solve():
     key = request.headers.get("X-API-Key")
     if not key or key != API_KEY:
         abort(401, description="Invalid or missing API key")
-    data = request.get_json(force=True)
+    request.get_json(force=True)
     return jsonify(response_data)
 
 
-@app.route("/docs/")
+@app.route("/docs")
 def swagger_ui():
     return swagger_html
 
@@ -37,11 +39,13 @@ def swagger_ui():
 def openapi_spec():
     return Response(openapi_yaml, mimetype="text/yaml")
 
+
 @app.route("/health", methods=["GET"])
 def health():
     return {"status": "ok"}
 
 
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    host = os.environ.get("FLASK_HOST", "127.0.0.1")
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host=host, port=5000, debug=debug)
