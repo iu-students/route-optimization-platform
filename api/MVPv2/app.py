@@ -4,6 +4,7 @@ import json
 import threading
 from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
+from validator import ValidationError, validate_input
 
 app = Flask(__name__)
 CORS(app)
@@ -17,7 +18,7 @@ def require_api_key():
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, ".."))
+ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, "..", ".."))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 
 sys.path.insert(0, ROOT_DIR)
@@ -55,12 +56,15 @@ def solve():
 
     with solver_lock:
         if solver_state.get("status") == "computing":
-            return (
-                jsonify({"status": "computing", "message": "Already solving"}),
-                409,
-            )
+            return jsonify({"status": "computing",
+                            "message": "Already solving"}), 409
 
     data = request.get_json(force=True)
+
+    try:
+        validate_input(data)
+    except ValidationError as e:
+        return jsonify({"status": "error", "errors": e.errors}), 400
 
     with open(INPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
@@ -98,4 +102,4 @@ def solution():
 if __name__ == "__main__":
     host = os.environ.get("FLASK_HOST", "127.0.0.1")
     debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
-    app.run(host=host, port=5001, debug=debug)
+    app.run(host=host, port=5002, debug=debug)
