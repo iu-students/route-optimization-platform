@@ -1,7 +1,6 @@
 # Definition of Done
 
-This document defines the shared minimum completion standard for work in that repository. A Product Backlog Item (PBI) may be marked as **Done** only when its issue-specific acceptance criteria and
-the team Definition of Done are satisfied.
+This document defines the shared minimum completion standard for work in that repository. A Product Backlog Item (PBI) may be marked as **Done** only when its issue-specific acceptance criteria and the team Definition of Done are satisfied.
 
 ## Minimum Completion Standard
 
@@ -12,21 +11,38 @@ A PBI is considered "Done" when:
 
 2.  **Peer Review**
     - The work has been reviewed and approved by at least one other team member.
-    - For code changes, this is demonstrated through a reviewed and approved Pull Request (PR) or Merge Request (MR).
+    - Approval visible in PR/MR history
+  
+3.   **CI checks / Automated tests**
+    All CI checks pass:
+       - Linting
+       - Formatting
+       - Package
+       - Unit tests
+       - Integration tests
+       - Automated QRTs
+       - Line coverage reporting
+       - Additional QA check
+       - Lychee link checking
 
-3.  **Verification Evidence**
-    - For user stories, the linked supporting PBIs (e.g., implementation, testing) provide the required implementation, review, and verification evidence.
-    - Verification evidence is preserved in the normal workflow artifacts (e.g., PR comments, test reports, CI/CD logs).
+4.  **Quality Requirements**
+    - All quality requirements documented in `docs/quality-requirements.md` are satisfied
+    - Relevant automated QRTs from `docs/quality-requirement-tests.md` are passing
+    - Non-applicable QRTs are documented with rationale
+  
+5.  **Coverage expectations for critical modules**
+    - Each critical module must have automated line coverage ≥ 30%
+    - Exceptions require documented rationale and TA approval
 
-4.  **Required Tests or Checks Pass**
-    - All Continuous Integration (CI) or automated checks (e.g., linters, unit tests, integration tests, build steps) pass successfully.
-    - Relevant quality requirements (QRs) and automated quality requirement tests (QRTs) are satisfied or explicitly documented as not applicable.
-    - If manual testing is required, a summary of the test results is added to the PBI or PR.
+6.  **Verification and Testing Evidence**
+    - For user stories, the linked supporting PBIs provide the required implementation, review, and verification evidence.
+    - Verification evidence is preserved in the PR comments, test reports, CI/CD logs.
 
-5.  **Changelog Updated**
+7.  **Changelog Updated**
     - `CHANGELOG.md` has been updated in accordance with the [Repository Requirements](#repository-requirements).
     - A user-visible entry has been added under the `[Unreleased]` section using the appropriate category (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`).
     - This requirement is waived if the PR/MR template's changelog checklist explicitly selects "Not applicable because the change is not user-visible."
 
-6.  **Merged to Default Branch**
+8.  **Merged to Default Branch**
     - For supporting or implementation PBIs (e.g., code tasks), the issue-linked PR/MR is merged into the protected default branch (main).
+    
