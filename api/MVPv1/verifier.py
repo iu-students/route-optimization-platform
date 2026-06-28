@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 
@@ -41,7 +42,9 @@ def verify_shift_times(input_data: dict, vehicles: list) -> dict:
             vehicle_results.append({
                 "vehicle_id": vehicle["id"],
                 "status": "success",
-                "message": f"Route start {route_start_time} <= shift end {shift_end}",
+                "message": (
+                    f"Route start {route_start_time} <= shift end {shift_end}"
+                ),
                 "route_start_time": route_start_time,
                 "shift_end": shift_end,
             })
@@ -50,7 +53,9 @@ def verify_shift_times(input_data: dict, vehicles: list) -> dict:
             vehicle_results.append({
                 "vehicle_id": vehicle["id"],
                 "status": "error",
-                "message": f"Route start {route_start_time} > shift end {shift_end}",
+                "message": (
+                    f"Route start {route_start_time} > shift end {shift_end}"
+                ),
                 "route_start_time": route_start_time,
                 "shift_end": shift_end,
             })
@@ -107,7 +112,9 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
                     "arrival_time": arrival_time,
                     "time_window": [tw_start, tw_end],
                     "status": "error",
-                    "message": f"Arrival {arrival_time} before time window start {tw_start}",
+                    "message": (
+                        f"Arrival {arrival_time} before time window start {tw_start}"
+                    ),
                 })
             elif round(arrival_time, 2) > round(tw_end, 2):
                 vehicle_ok = False
@@ -117,7 +124,9 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
                     "arrival_time": arrival_time,
                     "time_window": [tw_start, tw_end],
                     "status": "error",
-                    "message": f"Arrival {arrival_time} after time window end {tw_end}",
+                    "message": (
+                        f"Arrival {arrival_time} after time window end {tw_end}"
+                    ),
                 })
             else:
                 point_details.append({
@@ -125,7 +134,9 @@ def verify_time_windows(input_data: dict, vehicles: list) -> dict:
                     "arrival_time": arrival_time,
                     "time_window": [tw_start, tw_end],
                     "status": "success",
-                    "message": f"Arrival {arrival_time} within [{tw_start}, {tw_end}]",
+                    "message": (
+                        f"Arrival {arrival_time} within [{tw_start}, {tw_end}]"
+                    ),
                 })
 
         vehicle_results.append({
@@ -187,7 +198,9 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
                     "total_volume": total_volume,
                     "capacity": vehicle_capacity,
                     "status": "error",
-                    "message": f"Volume {total_volume} exceeds capacity {vehicle_capacity}",
+                    "message": (
+                        f"Volume {total_volume} exceeds capacity {vehicle_capacity}"
+                    ),
                 })
             else:
                 segment_details.append({
@@ -196,7 +209,9 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
                     "total_volume": total_volume,
                     "capacity": vehicle_capacity,
                     "status": "success",
-                    "message": f"Volume {total_volume} <= capacity {vehicle_capacity}",
+                    "message": (
+                        f"Volume {total_volume} <= capacity {vehicle_capacity}"
+                    ),
                 })
 
         vehicle_results.append({
@@ -212,8 +227,10 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
     }
 
 
-def run_verification(input_path: str = "data/input.json", output_path: str = "data/output.json") -> dict:
-    import json
+def run_verification(
+    input_path: str = "data/input.json",
+    output_path: str = "data/output.json",
+) -> dict:
     with open(input_path) as f:
         input_data = json.load(f)
     with open(output_path) as f:

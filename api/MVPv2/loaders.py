@@ -33,8 +33,11 @@ class Point:
     assigned_loaders: List[Loader]
     mandatory: bool
 
-    def __init__(self, point_id: int, x: int, y: int, loader_service_time: int, vehicle: Vehicle, end_time: float,
-                 vehicle_time: float, loader_cnt: int, mandatory: bool):
+    def __init__(
+        self, point_id: int, x: int, y: int, loader_service_time: int,
+        vehicle: Vehicle, end_time: float, vehicle_time: float,
+        loader_cnt: int, mandatory: bool,
+    ):
         self.point_id = point_id
         self.x = x
         self.y = y
@@ -69,7 +72,9 @@ class Loader:
         self.available_points = []
         self.loader_shift_time_left = loader_shift_size
         self.loader_current_point = loader_home
-        self.loader_local_time = loader_home.vehicle_time + self.loader_current_point.loader_service_time
+        self.loader_local_time = (
+            loader_home.vehicle_time + self.loader_current_point.loader_service_time
+        )
         self.route = [loader_home]
 
     def work(self):
@@ -131,7 +136,11 @@ def build_distance_matrix():
 
 
 def get_distance(p1: Point, p2: Point):
-    return distance_matrix[convertion_dict[p1.point_id]][convertion_dict[p2.point_id]]
+    return distance_matrix[
+        convertion_dict[p1.point_id]
+    ][
+        convertion_dict[p2.point_id]
+    ]
 
 
 def parse(data):
@@ -161,16 +170,19 @@ def sort_points_by_vehicle_time(pts: List["Point"]) -> List["Point"]:
 def find_available(loader: Loader):
     loader.available_points = []
     for i in unassigned_points:
-        traveling_time = get_distance(loader.loader_current_point, i) / loader_speed
-        traveling_home_time = get_distance(loader.loader_home, i) / loader_speed
-        waiting_time = i.vehicle_time - loader.loader_local_time - traveling_time
-        if (
-                traveling_time + traveling_home_time + waiting_time + i.loader_service_time
-        ) < loader.loader_shift_time_left and waiting_time >= 0:
+        travel_time = get_distance(
+            loader.loader_current_point, i
+        ) / loader_speed
+        home_time = get_distance(loader.loader_home, i) / loader_speed
+        wait = i.vehicle_time - loader.loader_local_time - travel_time
+        total = travel_time + home_time + wait + i.loader_service_time
+        if total < loader.loader_shift_time_left and wait >= 0:
             loader.available_points.append(i)
             if i in missed_points:
                 missed_points.remove(i)
-    loader.available_points = sort_points_by_vehicle_time(loader.available_points)
+    loader.available_points = sort_points_by_vehicle_time(
+        loader.available_points
+    )
 
 
 def find_the_earliest_point():
@@ -198,7 +210,10 @@ def assign_loader_to_home_point(point: Point):
 def find_initial_distribution():
     while len(missed_points) > 0:
         the_earliest_point = find_the_earliest_point()
-        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        loader = Loader(
+            loader_home=the_earliest_point,
+            loader_shift_size=loader_shift_size,
+        )
         missed_points.remove(the_earliest_point)
         assign_loader_to_home_point(the_earliest_point)
         loaders.append(loader)
@@ -206,8 +221,12 @@ def find_initial_distribution():
 
 
 def move_loader_to(loader: Loader, point: Point):
-    traveling_time = get_distance(loader.loader_current_point, point) / loader_speed
-    waiting_time = max(0.0, point.vehicle_time - loader.loader_local_time - traveling_time)
+    travel_time = get_distance(
+        loader.loader_current_point, point
+    ) / loader_speed
+    waiting_time = max(
+        0.0, point.vehicle_time - loader.loader_local_time - travel_time
+    )
 
     spent_time = traveling_time + waiting_time
 
@@ -228,7 +247,9 @@ def move_loader_to(loader: Loader, point: Point):
 
 
 def return_loader_home(loader: Loader):
-    traveling_home_time = get_distance(loader.loader_current_point, loader.loader_home) / loader_speed
+    home_time = get_distance(
+        loader.loader_current_point, loader.loader_home
+    ) / loader_speed
     loader.loader_shift_time_left -= traveling_home_time
     loader.loader_local_time += traveling_home_time
     loader.loader_current_point = loader.loader_home
@@ -253,7 +274,10 @@ def calculate():
 
     while len(unassigned_points) > 0:
         the_earliest_point = find_the_earliest_unassigned_point()
-        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        loader = Loader(
+            loader_home=the_earliest_point,
+            loader_shift_size=loader_shift_size,
+        )
         loaders.append(loader)
         assign_loader_to_home_point(the_earliest_point)
         build_route_for_loader(loader)
@@ -269,7 +293,10 @@ def evaluate_disadvantageous(all_points: List[Point]):
         i.point_cost = 0.0
         for j in i.assigned_loaders:
             if not j.has_mandatory_point:
-                i.point_cost += i.loader_service_time * loader_work + loader_salary / max(len(j.route) - 1, 1)
+                i.point_cost += (
+                    i.loader_service_time * loader_work
+                    + loader_salary / max(len(j.route) - 1, 1)
+                )
                 path_cost = 0.0
                 if len(j.route) > 2:
                     idx = j.route.index(i)
@@ -295,14 +322,19 @@ def remove_disadvantageous_and_rerun(input_data: dict, bad_point_ids: set) -> di
     removed_count = 0
 
     for route in cleaned["routes"]:
-        new_points = [p for p in route["points"] if p["id"] not in bad_point_ids]
+        new_points = [
+            p for p in route["points"] if p["id"] not in bad_point_ids
+        ]
         removed_count += len(route["points"]) - len(new_points)
         if new_points:
             route["points"] = new_points
             new_routes.append(route)
 
     cleaned["routes"] = new_routes
-    print(f"[rerun] Удалено невыгодных точек: {removed_count}, осталось маршрутов: {len(new_routes)}")
+    print(
+        f"[rerun] Удалено невыгодных точек: {removed_count}, "
+        f"осталось маршрутов: {len(new_routes)}"
+    )
     return cleaned
 
 
@@ -319,7 +351,11 @@ def run_with_data(data: dict):
 
     # помечаем грузчиков с обязательными точками
     for loader in loaders:
-        loader.loader_full_salary = loader_salary + (loader_shift_size - loader_shift_time_left_snapshot(loader)) * loader_work
+        loader.loader_full_salary = (
+            loader_salary
+            + (loader_shift_size - loader_shift_time_left_snapshot(loader))
+            * loader_work
+        )
         for pt in loader.route:
             if pt.mandatory:
                 loader.has_mandatory_point = True
@@ -331,7 +367,8 @@ def loader_shift_time_left_snapshot(loader: Loader) -> float:
 
 
 def solve_loaders():
-    global loader_shift_size, loader_speed, loader_salary, loader_work, optional_point_penalty
+    global loader_shift_size, loader_speed, loader_salary, loader_work
+    global optional_point_penalty
 
     with open('loaders_task_list.json', 'r', encoding='utf-8') as f:
         input_data = json.load(f)
@@ -364,7 +401,9 @@ def solve_loaders():
         current_data = remove_disadvantageous_and_rerun(current_data, bad_ids)
         with open('loaders_task_list_cleaned.json', 'w', encoding='utf-8') as f:
             json.dump(current_data, f, ensure_ascii=False, indent=2)
-        print("[rerun] Очищенный файл сохранён: loaders_task_list_cleaned.json")
+        print(
+            "[rerun] Очищенный файл сохранён: loaders_task_list_cleaned.json"
+        )
 
         iteration += 1
 
@@ -372,7 +411,6 @@ def solve_loaders():
 
 
 def clear_loaders_state():
-    global vehicles, unassigned_points, missed_points, loaders
     vehicles.clear()
     unassigned_points.clear()
     missed_points.clear()

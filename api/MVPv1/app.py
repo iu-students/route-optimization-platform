@@ -55,7 +55,10 @@ def solve():
 
     with solver_lock:
         if solver_state.get("status") == "computing":
-            return jsonify({"status": "computing", "message": "Already solving"}), 409
+            return (
+                jsonify({"status": "computing", "message": "Already solving"}),
+                409,
+            )
 
     data = request.get_json(force=True)
 

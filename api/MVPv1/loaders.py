@@ -35,7 +35,7 @@ class Point:
     end_time = 0.0
     # машина которая прибудет
     vehicle: Vehicle
-    # время от момента прибытия машины до дедлайна (если вдруг придется бесцельно ждать на точке)
+    # время от прибытия машины до дедлайна (если придется ждать на точке)
     point_available_time = 0.0
     # срочность точки
     urgency: float
@@ -44,8 +44,10 @@ class Point:
     # все грузчики которые могут обработать заказ
     available_loaders: List[Loader]
 
-    def __init__(self, point_id: int, x: int, y: int, loader_service_time: int, vehicle: Vehicle, end_time: float,
-                 vehicle_time: float, loader_cnt: int):
+    def __init__(
+        self, point_id: int, x: int, y: int, loader_service_time: int,
+        vehicle: Vehicle, end_time: float, vehicle_time: float, loader_cnt: int,
+    ):
         self.point_id = point_id
         self.x = x
         self.y = y
@@ -67,7 +69,7 @@ class Loader:
     loader_shift_size: int
     # оставшееся время смены
     loader_shift_time_left: int
-    # точки на которых грузчик еще успеет поработать (с учетом времени доезда до точки, работы и возврата домой)
+    # точки, где грузчик еще успеет поработать (с учетом времени доезда, работы и возврата)
     available_points: List[Point]
     # время на часах грузчика
     loader_local_time: float
@@ -80,9 +82,11 @@ class Loader:
         self.available_points = []
         self.loader_shift_time_left = loader_shift_size
         self.loader_current_point = loader_home
-        # грузчик появляется (спавнится) в момент прибытия машины в его домашнюю точку
+        # грузчик спавнится в момент прибытия машины в его домашнюю точку
         # и сразу же отрабатывает на ней
-        self.loader_local_time = loader_home.vehicle_time + self.loader_current_point.loader_service_time
+        self.loader_local_time = (
+            loader_home.vehicle_time + self.loader_current_point.loader_service_time
+        )
         self.route = [loader_home]
 
     def work(self):
@@ -134,16 +138,23 @@ distance_matrix = None
 
 
 def get_distance(p1: Point, p2: Point):
-    return distance_matrix[convertion_dict[p1.point_id]][convertion_dict[p2.point_id]]
+    return distance_matrix[
+        convertion_dict[p1.point_id]
+    ][
+        convertion_dict[p2.point_id]
+    ]
 
 
 def parse(data):
     for i in data["routes"]:
         v = Vehicle(i["id"], i["car_extra_time"])
         for j in i["points"]:
-            current_point = Point(point_id=j["id"], x=j["x"], y=j["y"], loader_cnt=j["loader_cnt"],
-                                   loader_service_time=j["loader_service_time"], vehicle_time=j["vehicle_time"],
-                                   end_time=j["end_time"], vehicle=v)
+            current_point = Point(
+                point_id=j["id"], x=j["x"], y=j["y"], loader_cnt=j["loader_cnt"],
+                loader_service_time=j["loader_service_time"],
+                vehicle_time=j["vehicle_time"],
+                end_time=j["end_time"], vehicle=v,
+            )
             v.vehicle_points.append(current_point)
             unassigned_points.append(current_point)
         vehicles.append(v)
@@ -158,20 +169,21 @@ def sort_points_by_vehicle_time(points: List["Point"]) -> List["Point"]:
 
 
 def find_available(loader: Loader):
-    """
-    Пересчитывает available_points грузчика на основе ТЕКУЩЕГО unassigned_points
-    и текущего положения/времени грузчика (loader_current_point, loader_local_time).
-    """
+    """Пересчитывает available_points грузчика на основе unassigned_points
+    и текущего положения/времени (loader_current_point, loader_local_time)."""
     loader.available_points = []
     for i in unassigned_points:
-        traveling_time = get_distance(loader.loader_current_point, i) / loader_speed
-        traveling_home_time = get_distance(loader.loader_home, i) / loader_speed
-        waiting_time = i.vehicle_time - loader.loader_local_time - traveling_time
-        if (traveling_time + traveling_home_time + waiting_time + i.loader_service_time) < loader.loader_shift_time_left and waiting_time >= 0:
+        travel_time = get_distance(loader.loader_current_point, i) / loader_speed
+        home_time = get_distance(loader.loader_home, i) / loader_speed
+        wait = i.vehicle_time - loader.loader_local_time - travel_time
+        total = travel_time + home_time + wait + i.loader_service_time
+        if total < loader.loader_shift_time_left and wait >= 0:
             loader.available_points.append(i)
             if i in missed_points:
                 missed_points.remove(i)
-    loader.available_points = sort_points_by_vehicle_time(loader.available_points)
+    loader.available_points = sort_points_by_vehicle_time(
+        loader.available_points
+    )
 
 
 def find_the_earliest_point():
@@ -208,7 +220,10 @@ def assign_loader_to_home_point(point: Point):
 def find_initial_distribution():
     while len(missed_points) > 0:
         the_earliest_point = find_the_earliest_point()
-        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        loader = Loader(
+            loader_home=the_earliest_point,
+            loader_shift_size=loader_shift_size,
+        )
         missed_points.remove(the_earliest_point)
         assign_loader_to_home_point(the_earliest_point)
         loaders.append(loader)
@@ -221,8 +236,10 @@ def move_loader_to(loader: Loader, point: Point):
     оставшееся время смены, отрабатывает заказ и уменьшает loader_cnt точки.
     Если loader_cnt точки дошел до 0, точка убирается из unassigned_points.
     """
-    traveling_time = get_distance(loader.loader_current_point, point) / loader_speed
-    waiting_time = max(0.0, point.vehicle_time - loader.loader_local_time - traveling_time)
+    travel_time = get_distance(loader.loader_current_point, point) / loader_speed
+    waiting_time = max(
+        0.0, point.vehicle_time - loader.loader_local_time - travel_time
+    )
 
     spent_time = traveling_time + waiting_time
 
@@ -246,7 +263,9 @@ def return_loader_home(loader: Loader):
     Добавляет в маршрут возврат на домашнюю точку. Грузчик там не работает
     (он уже отработал на ней в момент своего появления), просто едет туда.
     """
-    traveling_home_time = get_distance(loader.loader_current_point, loader.loader_home) / loader_speed
+    home_time = get_distance(
+        loader.loader_current_point, loader.loader_home
+    ) / loader_speed
     loader.loader_shift_time_left -= traveling_home_time
     loader.loader_local_time += traveling_home_time
     loader.loader_current_point = loader.loader_home
@@ -263,7 +282,7 @@ def build_route_for_loader(loader: Loader):
     """
     find_available(loader)
     while len(loader.available_points) > 0:
-        next_point = loader.available_points[0]  # уже отсортированы по vehicle_time
+        next_point = loader.available_points[0]  # уже отсортированы
         move_loader_to(loader, next_point)
         find_available(loader)
 
@@ -281,10 +300,13 @@ def calculate():
     # только условная "точка дома", т.е. список пуст) - создаем новых грузчиков
     while len(unassigned_points) > 0:
         the_earliest_point = find_the_earliest_unassigned_point()
-        loader = Loader(loader_home=the_earliest_point, loader_shift_size=loader_shift_size)
+        loader = Loader(
+            loader_home=the_earliest_point,
+            loader_shift_size=loader_shift_size,
+        )
         loaders.append(loader)
 
-        # домашняя точка нового грузчика тоже считается обработанной им самим
+        # домашняя точка нового грузчика обрабатывается им самим
         assign_loader_to_home_point(the_earliest_point)
 
         build_route_for_loader(loader)
@@ -311,7 +333,6 @@ def solve_loaders():
 
 
 def clear_loaders_state():
-    global vehicles, unassigned_points, missed_points, loaders
     vehicles.clear()
     unassigned_points.clear()
     missed_points.clear()
