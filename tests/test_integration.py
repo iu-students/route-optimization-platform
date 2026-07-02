@@ -66,7 +66,7 @@ def run_pipeline(tmp_path, monkeypatch):
     vehicles = script.calculate_vehicles_routes(result, scenario_obj)
     script.create_loaders_task_list(vehicles, scenario_obj)
     loaders_result = loaders.solve_loaders()
-    script.build_output(vehicles, loaders_result)
+    script.build_output(vehicles, loaders_result, scenario_obj)
 
     with open(tmp_path / "output.json") as f:
         output_data = json.load(f)

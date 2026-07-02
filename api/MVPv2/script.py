@@ -155,7 +155,58 @@ def create_loaders_task_list(vehicles, scenario, data_dir="."):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def build_output(vehicles, loaders_result, data_dir="."):
+def compute_route_distance(route, scenario):
+    by_id = {order.id: order for order in scenario.orders}
+    total = 0.0
+    px, py = scenario.depot.x, scenario.depot.y
+    for order_id in route:
+        if order_id == 0:
+            continue
+        order = by_id[order_id]
+        total += find_distance(px, py, order.x, order.y)
+        px, py = order.x, order.y
+    total += find_distance(px, py, scenario.depot.x, scenario.depot.y)
+    return total
+
+
+def calculate_statistics(vehicles, loaders_result, scenario, missed_count=0):
+    w = scenario.weights
+
+    total_dist = sum(
+        compute_route_distance(v["route"], scenario) for v in vehicles
+    )
+    fuel_cost = total_dist * w.fuel_cost
+    vehicle_salaries = len(vehicles) * w.vehicle_salary
+
+    loader_shifts = []
+    for loader in loaders_result:
+        shift_used = loader.loader_shift_size - loader.loader_shift_time_left
+        loader_shifts.append(max(0, shift_used))
+
+    loader_salaries = len(loaders_result) * w.loader_salary
+    loader_work_cost = sum(loader_shifts) * w.loader_work
+
+    penalties = missed_count * w.optional_order_penalty
+
+    total_cost = (
+        fuel_cost
+        + vehicle_salaries
+        + loader_salaries
+        + loader_work_cost
+        + penalties
+    )
+
+    return {
+        "total_cost": round(total_cost, 2),
+        "fuel_cost": round(fuel_cost, 2),
+        "vehicle_salaries": round(vehicle_salaries, 2),
+        "loader_salaries": round(loader_salaries, 2),
+        "loader_work_cost": round(loader_work_cost, 2),
+        "penalties": round(penalties, 2),
+    }
+
+
+def build_output(vehicles, loaders_result, scenario, data_dir="."):
     vehicles_output = [
         {"id": v["id"], "route": v["route"], "time": v["time"]}
         for v in vehicles
@@ -191,7 +242,18 @@ def solve_pipeline(input_path="input.json", data_dir="."):
         vehicles = calculate_vehicles_routes(result, scenario)
         create_loaders_task_list(vehicles, scenario)
         loaders_result = solve_loaders()
-        build_output(vehicles, loaders_result)
+
+        served_ids = {oid for v in vehicles for oid in v["route"]}
+        missed_count = sum(
+            1 for o in scenario.orders if o.optional and o.id not in served_ids
+        )
+
+        stats = calculate_statistics(vehicles, loaders_result, scenario, missed_count)
+        path = os.path.join(data_dir, 'statistics.json')
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(stats, f, indent=2, ensure_ascii=False)
+
+        build_output(vehicles, loaders_result, scenario)
 
         verification = run_verification(
             input_path=os.path.basename(input_path),

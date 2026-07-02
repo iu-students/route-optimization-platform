@@ -56,7 +56,7 @@ def test_build_output(tmp_path):
     vehicles = [{"id": 1, "route": [0, 1, 0], "time": [5]}]
     loaders_result = [FakeLoader([1, 1])]
 
-    script.build_output(vehicles, loaders_result, data_dir=str(tmp_path))
+    script.build_output(vehicles, loaders_result, None, data_dir=str(tmp_path))
 
     with open(tmp_path / "output.json") as f:
         data = json.load(f)

@@ -11,7 +11,7 @@ servers:
     description: MVPv0
   - url: http://139.100.207.201:5001
     description: MVPv1
-  - url: http://139.100.207.201:5002
+  - url: http://localhost:5002
     description: MVPv2
 
 security:
@@ -118,6 +118,10 @@ paths:
                       status:
                         type: string
                         example: computing
+                      remaining_time_seconds:
+                        type: integer
+                        description: Estimated seconds until computation finishes
+                        example: 85
                   - type: object
                     properties:
                       status:
@@ -137,6 +141,105 @@ paths:
                     example: error
                   message:
                     type: string
+
+  /metrics:
+    get:
+      summary: Get computation statistics
+      description: |
+        Returns cost metrics if computation is done,
+        or current status (computing / idle / error).
+      operationId: getMetrics
+      responses:
+        '200':
+          description: Statistics or status
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: done
+                      statistics:
+                        $ref: '#/components/schemas/Statistics'
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: computing
+                      remaining_time_seconds:
+                        type: integer
+                        description: Estimated seconds until computation finishes
+                        example: 85
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: idle
+                      message:
+                        type: string
+        '500':
+          description: Computation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+
+  /validation:
+    post:
+      summary: Validate input scenario
+      description: |
+        Validates a CVRPTW scenario JSON without starting computation.
+        Returns errors with paths pointing to the invalid fields.
+      operationId: validateScenario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scenario'
+      responses:
+        '200':
+          description: Input is valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  errors:
+                    type: array
+                    description: List of validation errors
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                          description: Path to the invalid field (e.g. depot.x, orders[0].volume)
+                          example: depot.load_time
+                        message:
+                          type: string
+                          description: Error description
+                          example: Must be >= 0, got -1
 
   /health:
     get:
@@ -290,17 +393,20 @@ components:
     Solution:
       type: object
       required:
-        - loaders
         - vehicles
+        - loaders
+        - verification
       properties:
-        loaders:
-          type: array
-          items:
-            $ref: '#/components/schemas/LoaderRoute'
         vehicles:
           type: array
           items:
             $ref: '#/components/schemas/VehicleRoute'
+        loaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoaderRoute'
+        verification:
+          $ref: '#/components/schemas/Verification'
 
     VehicleRoute:
       type: object
@@ -342,6 +448,54 @@ components:
             type: integer
           description: Loader route (order IDs)
           example: [1, 2, 3]
+
+    Statistics:
+      type: object
+      required:
+        - total_cost
+        - fuel_cost
+        - vehicle_salaries
+        - loader_salaries
+        - loader_work_cost
+        - penalties
+      properties:
+        total_cost:
+          type: number
+          description: Total cost (sum of all components)
+          example: 14383.72
+        fuel_cost:
+          type: number
+          description: Fuel cost (total distance × fuel_cost)
+          example: 2452.88
+        vehicle_salaries:
+          type: number
+          description: Vehicle salaries (count × vehicle_salary)
+          example: 4940
+        loader_salaries:
+          type: number
+          description: Loader salaries (count × loader_salary)
+          example: 4140
+        loader_work_cost:
+          type: number
+          description: Loader work cost (total shift × loader_work)
+          example: 2194.84
+        penalties:
+          type: number
+          description: Penalties for missed optional orders
+          example: 656
+
+    Verification:
+      type: object
+      properties:
+        shift_verification:
+          type: object
+          description: Shift time verification results
+        time_window_verification:
+          type: object
+          description: Time window verification results
+        capacity_verification:
+          type: object
+          description: Capacity verification results
 
     Error:
       type: object
