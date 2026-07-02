@@ -11,7 +11,7 @@ servers:
     description: MVPv0
   - url: http://139.100.207.201:5001
     description: MVPv1
-  - url: ttp://139.100.207.201:5002
+  - url: http://139.100.207.201:5002
     description: MVPv2
 
 security:
