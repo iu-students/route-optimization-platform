@@ -30,7 +30,7 @@ def solve():
     return jsonify(response_data)
 
 
-@app.route("/docs")
+@app.route("/docs", strict_slashes=False)
 def swagger_ui():
     return swagger_html
 
