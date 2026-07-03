@@ -53,27 +53,28 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js"></script>
   <script>
+    // file-list
+    const DOC_FILES = [
+  "architecture/README.md",
+  "architecture/README.ru.md",
+  "architecture/adr/ADR-001-use-flask-framework.md",
+  "architecture/adr/ADR-002-use-docker-multi-service-deployment.md",
+  "architecture/adr/ADR-003-use-dual-solver-architecture.md",
+  "definition-of-done.md",
+  "quality-requirement-tests.md",
+  "quality-requirements.md",
+  "release.md",
+  "roadmap.md",
+  "testing.md",
+  "user-acceptance-tests.md",
+  "user-stories.md"
+];
+
     const GITHUB_OWNER = 'iu-students';
     const GITHUB_REPO = 'route-optimization-platform';
-    const DOCS_PREFIX = 'docs/';
     const BRANCH = 'main';
 
     let allFiles = [];
-
-    async function fetchTree() {
-      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${BRANCH}?recursive=1`;
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error(`GitHub API error: ${resp.status}`);
-      const data = await resp.json();
-      return data.tree.filter(item => 
-        item.type === 'blob' &&
-        item.path.startsWith(DOCS_PREFIX) &&
-        item.path.endsWith('.md')
-      ).map(item => ({
-        path: item.path.slice(DOCS_PREFIX.length),
-        url: item.url
-      }));
-    }
 
     function buildTree(files) {
       const tree = {};
@@ -86,7 +87,7 @@
         }
         const name = parts[parts.length - 1];
         if (!current._files) current._files = [];
-        current._files.push({ name, fullPath: f.path, apiUrl: f.url });
+        current._files.push({ name, fullPath: f.path });
       }
       return tree;
     }
@@ -122,8 +123,7 @@
           return aName.localeCompare(bName);
         });
         for (const f of sorted) {
-          const link = '#' + f.fullPath;
-          html += `<div class="file" data-path="${f.fullPath}"><a href="${link}">${displayName(f.name)}</a></div>`;
+          html += `<div class="file" data-path="${f.fullPath}"><a href="#${f.fullPath}">${displayName(f.name)}</a></div>`;
         }
       }
       return html;
@@ -142,7 +142,7 @@
       const contentDiv = document.getElementById('content');
       contentDiv.innerHTML = '<div class="loading">Loading...</div>';
       try {
-        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH}/${DOCS_PREFIX}${path}`;
+        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH}/docs/${path}`;
         const resp = await fetch(rawUrl);
         if (!resp.ok) throw new Error(`Failed to load: ${resp.status}`);
         const markdown = await resp.text();
@@ -173,35 +173,30 @@
       }
       resolved = resolved.replace(/\.md$/, '');
       for (const f of allFiles) {
-        const fClean = f.path.replace(/\.md$/, '');
-        if (fClean === resolved) return f.path;
+        const fClean = f.replace(/\.md$/, '');
+        if (fClean === resolved) return f;
       }
       return null;
     }
 
-    async function init() {
-      const navDiv = document.getElementById('nav-tree');
-      try {
-        const files = await fetchTree();
-        allFiles = files;
-        const tree = buildTree(files);
-        navDiv.innerHTML = renderNav(tree);
-        window.addEventListener('hashchange', () => {
-          const hash = window.location.hash.slice(1);
-          if (hash) loadContent(hash);
-          else {
-            document.getElementById('content').innerHTML = `<div class="home"><h1>Documentation</h1><p>Select a section from the sidebar</p></div>`;
-          }
-          highlightActive();
-        });
-        if (window.location.hash) {
-          const hash = window.location.hash.slice(1);
-          loadContent(hash);
+    function init() {
+      allFiles = DOC_FILES;
+      const tree = buildTree(DOC_FILES.map(f => ({ path: f })));
+      document.getElementById('nav-tree').innerHTML = renderNav(tree);
+
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.slice(1);
+        if (hash) loadContent(hash);
+        else {
+          document.getElementById('content').innerHTML = `<div class="home"><h1>Documentation</h1><p>Select a section from the sidebar</p></div>`;
         }
         highlightActive();
-      } catch (err) {
-        navDiv.innerHTML = `<div class="error">Failed to load documentation tree: ${err.message}</div>`;
+      });
+
+      if (window.location.hash) {
+        loadContent(window.location.hash.slice(1));
       }
+      highlightActive();
     }
 
     document.addEventListener('DOMContentLoaded', init);
