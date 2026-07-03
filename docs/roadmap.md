@@ -54,7 +54,7 @@ A public release (v0.2.0) will be created.
    - [TT-05](https://github.com/iu-students/route-optimization-platform/issues/64)
 
 # Sprint 3
-**Sprint Milestone:** 
+**Sprint Milestone:** https://github.com/iu-students/route-optimization-platform/milestone/3
 
 **Start date:** 29.06.2026
 
