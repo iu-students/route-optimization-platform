@@ -48,7 +48,7 @@
   <main class="content" id="content">
     <div class="home">
       <h1>Documentation</h1>
-      <p>Выберите раздел в боковом меню</p>
+      <p>Select a section from the sidebar</p>
     </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js"></script>
@@ -95,63 +95,32 @@
       return name
         .replace(/\.md$/, '')
         .replace(/^ADR-\d+-(.+)/, 'ADR $1')
-        .replace(/^README$/, 'Index')
-        .replace(/-/g, ' ')
+        .replace(/^README$/i, 'Index')
+        .replace(/\.(ru|en)$/, '')
+        .replace(/[-_]/g, ' ')
         .replace(/\b\w/g, c => c.toUpperCase());
     }
 
-    function sortFiles(files) {
-      const order = [
-        'README.md',
-        'architecture/README.md',
-        'roadmap.md',
-        'definition-of-done.md',
-        'development-process.md',
-        'user-stories.md',
-        'quality-requirements.md',
-        'quality-requirement-tests.md',
-        'user-acceptance-tests.md',
-        'testing.md',
-        'release.md'
-      ];
-      const known = {};
-      for (const f of files) known[f.path] = f;
-      const ordered = [];
-      const unordered = [];
-      for (const key of order) {
-        if (known[key]) { ordered.push(known[key]); delete known[key]; }
-      }
-      // Check architecture subfiles
-      const archOrder = [
-        'architecture/README.md',
-        'architecture/README.ru.md',
-      ];
-      for (const key of archOrder) {
-        if (known[key]) { ordered.push(known[key]); delete known[key]; }
-      }
-      // ADRs
-      const adrFiles = [];
-      for (const key in known) {
-        if (key.startsWith('architecture/adr/')) adrFiles.push(known[key]);
-      }
-      adrFiles.sort();
-      for (const f of adrFiles) { ordered.push(f); delete known[f.path]; }
-      // Remaining
-      for (const key in known) unordered.push(known[key]);
-      unordered.sort((a, b) => a.path.localeCompare(b.path));
-      return [...ordered, ...unordered];
-    }
-
-    function renderNav(tree, prefix) {
+    function renderNav(tree) {
       let html = '';
-      const keys = Object.keys(tree).filter(k => k !== '_files').sort();
+      const keys = Object.keys(tree).filter(k => k !== '_files').sort((a, b) => {
+        if (a.toLowerCase() === 'architecture') return -1;
+        if (b.toLowerCase() === 'architecture') return 1;
+        return a.localeCompare(b);
+      });
       for (const key of keys) {
         html += `<div class="folder"><div class="folder-label">${displayName(key)}</div>`;
-        html += renderNav(tree[key], prefix + key + '/');
+        html += renderNav(tree[key]);
         html += `</div>`;
       }
       if (tree._files) {
-        const sorted = sortFiles(tree._files);
+        const sorted = [...tree._files].sort((a, b) => {
+          const aName = a.name.toLowerCase();
+          const bName = b.name.toLowerCase();
+          if (aName === 'readme.md') return -1;
+          if (bName === 'readme.md') return 1;
+          return aName.localeCompare(bName);
+        });
         for (const f of sorted) {
           const link = '#' + f.fullPath;
           html += `<div class="file" data-path="${f.fullPath}"><a href="${link}">${displayName(f.name)}</a></div>`;
@@ -179,7 +148,6 @@
         const markdown = await resp.text();
         const html = marked.parse(markdown);
         contentDiv.innerHTML = html;
-        // Rewrite links to .md -> hash navigation
         contentDiv.querySelectorAll('a[href$=".md"]').forEach(a => {
           const href = a.getAttribute('href');
           const resolved = resolveMdLink(href, path);
@@ -204,7 +172,6 @@
         resolved = dir + clean;
       }
       resolved = resolved.replace(/\.md$/, '');
-      // Find matching file
       for (const f of allFiles) {
         const fClean = f.path.replace(/\.md$/, '');
         if (fClean === resolved) return f.path;
@@ -218,17 +185,15 @@
         const files = await fetchTree();
         allFiles = files;
         const tree = buildTree(files);
-        navDiv.innerHTML = renderNav(tree, '');
-        // Click handler via hashchange
+        navDiv.innerHTML = renderNav(tree);
         window.addEventListener('hashchange', () => {
           const hash = window.location.hash.slice(1);
           if (hash) loadContent(hash);
           else {
-            document.getElementById('content').innerHTML = `<div class="home"><h1>Documentation</h1><p>Выберите раздел в боковом меню</p></div>`;
+            document.getElementById('content').innerHTML = `<div class="home"><h1>Documentation</h1><p>Select a section from the sidebar</p></div>`;
           }
           highlightActive();
         });
-        // Load initial hash if present
         if (window.location.hash) {
           const hash = window.location.hash.slice(1);
           loadContent(hash);
