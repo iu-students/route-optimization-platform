@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Route Optimization Platform — Docs</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f8f9fa; }
+    .sidebar { width: 300px; background: #1a1a2e; color: #eee; padding: 20px; overflow-y: auto; flex-shrink: 0; }
+    .sidebar h1 { font-size: 16px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #333; color: #fff; }
+    .sidebar a { color: #a0c4ff; text-decoration: none; display: block; padding: 4px 8px; border-radius: 4px; font-size: 14px; }
+    .sidebar a:hover { background: #16213e; color: #fff; }
+    .sidebar .folder { margin-top: 6px; }
+    .sidebar .folder-label { font-weight: 600; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 8px 4px; }
+    .sidebar .file { padding-left: 16px; }
+    .sidebar .file.active a { background: #0f3460; color: #fff; }
+    .content { flex: 1; padding: 40px; max-width: 900px; overflow-y: auto; }
+    .content h1 { font-size: 28px; margin-bottom: 20px; }
+    .content h2 { font-size: 22px; margin: 24px 0 12px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+    .content h3 { font-size: 18px; margin: 20px 0 10px; }
+    .content p { margin: 10px 0; line-height: 1.7; }
+    .content ul, .content ol { margin: 10px 0; padding-left: 24px; }
+    .content li { margin: 4px 0; line-height: 1.6; }
+    .content table { border-collapse: collapse; margin: 16px 0; width: 100%; }
+    .content th, .content td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    .content th { background: #f0f0f0; }
+    .content code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 14px; }
+    .content pre { background: #f5f5f5; padding: 16px; border-radius: 6px; overflow-x: auto; margin: 16px 0; }
+    .content pre code { background: none; padding: 0; }
+    .content blockquote { border-left: 4px solid #007bff; padding: 8px 16px; margin: 16px 0; background: #f0f7ff; }
+    .content img { max-width: 100%; }
+    .content a { color: #007bff; }
+    .loading { text-align: center; padding: 40px; color: #666; }
+    .error { text-align: center; padding: 40px; color: #dc3545; }
+    .home { text-align: center; padding: 60px 20px; }
+    .home h1 { font-size: 32px; margin-bottom: 12px; }
+    .home p { color: #666; font-size: 16px; }
+    @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; max-height: 40vh; } .content { padding: 20px; } }
+    .sidebar .file a { word-break: break-all; }
+  </style>
+</head>
+<body>
+  <nav class="sidebar" id="sidebar">
+    <h1>Route Optimization Platform</h1>
+    <div id="nav-tree"></div>
+  </nav>
+  <main class="content" id="content">
+    <div class="home">
+      <h1>Documentation</h1>
+      <p>Выберите раздел в боковом меню</p>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js"></script>
+  <script>
+    const GITHUB_OWNER = 'iu-students';
+    const GITHUB_REPO = 'route-optimization-platform';
+    const DOCS_PREFIX = 'docs/';
+    const BRANCH = 'main';
+
+    let allFiles = [];
+
+    async function fetchTree() {
+      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${BRANCH}?recursive=1`;
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`GitHub API error: ${resp.status}`);
+      const data = await resp.json();
+      return data.tree.filter(item => 
+        item.type === 'blob' &&
+        item.path.startsWith(DOCS_PREFIX) &&
+        item.path.endsWith('.md')
+      ).map(item => ({
+        path: item.path.slice(DOCS_PREFIX.length),
+        url: item.url
+      }));
+    }
+
+    function buildTree(files) {
+      const tree = {};
+      for (const f of files) {
+        const parts = f.path.split('/');
+        let current = tree;
+        for (let i = 0; i < parts.length - 1; i++) {
+          if (!current[parts[i]]) current[parts[i]] = {};
+          current = current[parts[i]];
+        }
+        const name = parts[parts.length - 1];
+        if (!current._files) current._files = [];
+        current._files.push({ name, fullPath: f.path, apiUrl: f.url });
+      }
+      return tree;
+    }
+
+    function displayName(name) {
+      return name
+        .replace(/\.md$/, '')
+        .replace(/^ADR-\d+-(.+)/, 'ADR $1')
+        .replace(/^README$/, 'Index')
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function sortFiles(files) {
+      const order = [
+        'README.md',
+        'architecture/README.md',
+        'roadmap.md',
+        'definition-of-done.md',
+        'development-process.md',
+        'user-stories.md',
+        'quality-requirements.md',
+        'quality-requirement-tests.md',
+        'user-acceptance-tests.md',
+        'testing.md',
+        'release.md'
+      ];
+      const known = {};
+      for (const f of files) known[f.path] = f;
+      const ordered = [];
+      const unordered = [];
+      for (const key of order) {
+        if (known[key]) { ordered.push(known[key]); delete known[key]; }
+      }
+      // Check architecture subfiles
+      const archOrder = [
+        'architecture/README.md',
+        'architecture/README.ru.md',
+      ];
+      for (const key of archOrder) {
+        if (known[key]) { ordered.push(known[key]); delete known[key]; }
+      }
+      // ADRs
+      const adrFiles = [];
+      for (const key in known) {
+        if (key.startsWith('architecture/adr/')) adrFiles.push(known[key]);
+      }
+      adrFiles.sort();
+      for (const f of adrFiles) { ordered.push(f); delete known[f.path]; }
+      // Remaining
+      for (const key in known) unordered.push(known[key]);
+      unordered.sort((a, b) => a.path.localeCompare(b.path));
+      return [...ordered, ...unordered];
+    }
+
+    function renderNav(tree, prefix) {
+      let html = '';
+      const keys = Object.keys(tree).filter(k => k !== '_files').sort();
+      for (const key of keys) {
+        html += `<div class="folder"><div class="folder-label">${displayName(key)}</div>`;
+        html += renderNav(tree[key], prefix + key + '/');
+        html += `</div>`;
+      }
+      if (tree._files) {
+        const sorted = sortFiles(tree._files);
+        for (const f of sorted) {
+          const link = '#' + f.fullPath;
+          html += `<div class="file" data-path="${f.fullPath}"><a href="${link}">${displayName(f.name)}</a></div>`;
+        }
+      }
+      return html;
+    }
+
+    function highlightActive() {
+      const hash = window.location.hash.slice(1);
+      document.querySelectorAll('.file').forEach(el => el.classList.remove('active'));
+      if (hash) {
+        const active = document.querySelector(`.file[data-path="${hash}"]`);
+        if (active) active.classList.add('active');
+      }
+    }
+
+    async function loadContent(path) {
+      const contentDiv = document.getElementById('content');
+      contentDiv.innerHTML = '<div class="loading">Loading...</div>';
+      try {
+        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH}/${DOCS_PREFIX}${path}`;
+        const resp = await fetch(rawUrl);
+        if (!resp.ok) throw new Error(`Failed to load: ${resp.status}`);
+        const markdown = await resp.text();
+        const html = marked.parse(markdown);
+        contentDiv.innerHTML = html;
+        // Rewrite links to .md -> hash navigation
+        contentDiv.querySelectorAll('a[href$=".md"]').forEach(a => {
+          const href = a.getAttribute('href');
+          const resolved = resolveMdLink(href, path);
+          if (resolved) {
+            a.setAttribute('href', '#' + resolved);
+          }
+        });
+        highlightActive();
+      } catch (err) {
+        contentDiv.innerHTML = `<div class="error">Error loading ${path}: ${err.message}</div>`;
+      }
+    }
+
+    function resolveMdLink(href, currentPath) {
+      if (href.startsWith('http')) return null;
+      const clean = href.split('#')[0];
+      let resolved;
+      if (clean.startsWith('/')) {
+        resolved = clean.replace(/^\//, '');
+      } else {
+        const dir = currentPath.includes('/') ? currentPath.substring(0, currentPath.lastIndexOf('/') + 1) : '';
+        resolved = dir + clean;
+      }
+      resolved = resolved.replace(/\.md$/, '');
+      // Find matching file
+      for (const f of allFiles) {
+        const fClean = f.path.replace(/\.md$/, '');
+        if (fClean === resolved) return f.path;
+      }
+      return null;
+    }
+
+    async function init() {
+      const navDiv = document.getElementById('nav-tree');
+      try {
+        const files = await fetchTree();
+        allFiles = files;
+        const tree = buildTree(files);
+        navDiv.innerHTML = renderNav(tree, '');
+        // Click handler via hashchange
+        window.addEventListener('hashchange', () => {
+          const hash = window.location.hash.slice(1);
+          if (hash) loadContent(hash);
+          else {
+            document.getElementById('content').innerHTML = `<div class="home"><h1>Documentation</h1><p>Выберите раздел в боковом меню</p></div>`;
+          }
+          highlightActive();
+        });
+        // Load initial hash if present
+        if (window.location.hash) {
+          const hash = window.location.hash.slice(1);
+          loadContent(hash);
+        }
+        highlightActive();
+      } catch (err) {
+        navDiv.innerHTML = `<div class="error">Failed to load documentation tree: ${err.message}</div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
