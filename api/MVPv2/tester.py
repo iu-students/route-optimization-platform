@@ -1,18 +1,19 @@
 import json
 import math
-import os
-import sys
 from collections import Counter
-from openpyxl import Workbook
+import os
+from datetime import datetime
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 
-SOLUTIONS = {
-    'НАШЕ':     'vb_sol_{}.json',
-    'КОЛЛЕГА':  'va_sol_{}.json',
-    'BASELINE': 'sol_{}.json',
-}
+# ==== пути к файлам: меняешь тут ====
+INPUT_FILE = 'input.json'
+BASELINE_FILE = 'baseline.json'
+OUTPUT_FILE = 'output.json'
+
 REF_LABEL = 'BASELINE'
+OUR_LABEL = 'НАШЕ'
 
 
 def load_json(path):
@@ -21,7 +22,6 @@ def load_json(path):
 
 
 def get_coords(point_id, depot, orders_by_id):
-    """point_id == 0 -> depot, otherwise order id"""
     if point_id == 0:
         return depot['x'], depot['y']
     order = orders_by_id[point_id]
@@ -96,23 +96,26 @@ def calc_cost(input_data, output_data):
     }
 
 
-def analyze_scenario(name, dir_path='test_cases'):
-    inp = os.path.join(dir_path, f'{name}.json')
-    if not os.path.exists(inp):
-        return None, {}
-    input_data = load_json(inp)
+def analyze():
+    input_data = load_json(INPUT_FILE)
     results = {}
-    for label, pattern in SOLUTIONS.items():
-        path = os.path.join(dir_path, pattern.format(name))
-        if os.path.exists(path):
-            results[label] = calc_cost(input_data, load_json(path))
+
+    try:
+        results[REF_LABEL] = calc_cost(input_data, load_json(BASELINE_FILE))
+    except FileNotFoundError:
+        pass
+
+    try:
+        results[OUR_LABEL] = calc_cost(input_data, load_json(OUTPUT_FILE))
+    except FileNotFoundError:
+        pass
+
     return input_data, results
 
 
-def print_scenario(name, results):
-    print(f"\n{'='*70}\nСЦЕНАРИЙ {name.upper()}\n{'='*70}")
+def print_results(results):
     if not results:
-        print("  нет решений")
+        print("нет решений")
         return
 
     for label, r in results.items():
@@ -134,18 +137,16 @@ def print_scenario(name, results):
         print(f"  длины маршрутов: {r['route_lens']}")
         print(f"  длины цепочек:   {r['chain_lens']}")
 
-    if REF_LABEL in results:
+    if REF_LABEL in results and OUR_LABEL in results:
         ref = results[REF_LABEL]
-        for label, r in results.items():
-            if label == REF_LABEL:
-                continue
-            dt = r['cost']['total'] - ref['cost']['total']
-            base = ref['cost']['total']
-            pct = dt / base * 100 if base else 0
-            print(f"\n  Δ {label} − {REF_LABEL}: "
-                  f"total {dt:+.2f} ({pct:+.1f}%), "
-                  f"машин {r['n_vehicles']-ref['n_vehicles']:+d}, "
-                  f"грузч {r['n_loaders']-ref['n_loaders']:+d}")
+        r = results[OUR_LABEL]
+        dt = r['cost']['total'] - ref['cost']['total']
+        base = ref['cost']['total']
+        pct = dt / base * 100 if base else 0
+        print(f"\n  Δ {OUR_LABEL} − {REF_LABEL}: "
+              f"total {dt:+.2f} ({pct:+.1f}%), "
+              f"машин {r['n_vehicles']-ref['n_vehicles']:+d}, "
+              f"грузч {r['n_loaders']-ref['n_loaders']:+d}")
 
 
 THIN = Side(border_style='thin', color='CCCCCC')
@@ -174,69 +175,29 @@ def _c(cell, val, fmt=None, bold=False, fill=None):
         cell.fill = fill
 
 
-def _write_summary(ws, all_data):
-    headers = ['Сценарий', 'Решение', 'Машин', 'Грузчиков',
-               'Топливо', 'Работа гр.', 'Штраф', 'ИТОГО',
-               'Обяз', 'Опц', 'Пропущ. опц']
-    for col, h in enumerate(headers, 1):
-        _h(ws.cell(1, col), h)
-
-    row = 2
-    for name, (_, results) in all_data.items():
-        ref_total = (
-            results[REF_LABEL]['cost']['total']
-            if REF_LABEL in results else None)
-        for label, r in results.items():
-            c = r['cost']
-            is_ref = (label == REF_LABEL)
-            fill = SUB_FILL if is_ref else None
-
-            _c(ws.cell(row, 1), name.upper(), bold=True, fill=fill)
-            _c(ws.cell(row, 2), label, bold=is_ref, fill=fill)
-            _c(ws.cell(row, 3), r['n_vehicles'], fill=fill)
-            _c(ws.cell(row, 4), r['n_loaders'], fill=fill)
-            _c(ws.cell(row, 5), c['fuel'], fmt='#,##0.00', fill=fill)
-            _c(ws.cell(row, 6), c['loader_w'], fmt='#,##0.00', fill=fill)
-            _c(ws.cell(row, 7), c['penalty'], fmt='#,##0.00', fill=fill)
-
-            total_fill = fill
-            if not is_ref and ref_total is not None:
-                total_fill = WIN_FILL if c['total'] < ref_total else LOSE_FILL
-            _c(ws.cell(row, 8), c['total'], fmt='#,##0.00',
-               bold=True, fill=total_fill)
-
-            mand = f"{r['served_mandatory']}/{r['total_mandatory']}"
-            opt = f"{r['served_optional']}/{r['total_optional']}"
-            missed = ', '.join(map(str, r['missed_optional'])) or '—'
-            _c(ws.cell(row, 9), mand, fill=fill)
-            _c(ws.cell(row, 10), opt, fill=fill)
-            _c(ws.cell(row, 11), missed, fill=fill)
-            row += 1
-        row += 1
-
-    for col, w in enumerate([10, 12, 8, 10, 12, 12, 12, 14, 8, 8, 22], 1):
-        ws.column_dimensions[ws.cell(1, col).column_letter].width = w
-
-
-def _write_scenario(ws, name, results):
+def export_excel(results, out_path):
     labels = list(results.keys())
 
-    _h(ws.cell(1, 1), f'Метрика — {name.upper()}')
+    if os.path.exists(out_path):
+        wb = load_workbook(out_path)
+        sheet_name = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+        ws = wb.create_sheet(sheet_name)
+    else:
+        wb = Workbook()
+        ws = wb.active
+        ws.title = 'Сравнение'
+
+    _h(ws.cell(1, 1), 'Метрика')
     for col, label in enumerate(labels, 2):
         fill = SUB_FILL if label == REF_LABEL else HEADER_FILL
         color = '000000' if label == REF_LABEL else 'FFFFFF'
         _h(ws.cell(1, col), label, fill=fill, color=color)
 
-    diff_cols = {}
-    if REF_LABEL in results:
-        next_col = len(labels) + 2
-        for label in labels:
-            if label == REF_LABEL:
-                continue
-            _h(ws.cell(1, next_col),
-               f'Δ {label}−{REF_LABEL}', fill=HEADER_FILL)
-            diff_cols[label] = next_col
-            next_col += 1
+    diff_col = None
+    if REF_LABEL in results and OUR_LABEL in results:
+        diff_col = len(labels) + 2
+        _h(ws.cell(1, diff_col), f'Δ {OUR_LABEL}−{REF_LABEL}',
+           fill=HEADER_FILL)
 
     rows = [
         ('Машин', lambda r: r['n_vehicles'],          '0',          False),
@@ -301,49 +262,24 @@ def _write_scenario(ws, name, results):
                 highlight = WIN_FILL if val < ref_val else LOSE_FILL
             _c(ws.cell(row, col), val, fmt=fmt, bold=bold, fill=highlight)
 
-        if REF_LABEL in results and isinstance(ref_val, (int, float)):
-            for label, col in diff_cols.items():
-                val = fn(results[label])
-                if isinstance(val, (int, float)):
-                    d = val - ref_val
-                    fill = (WIN_FILL if d < 0
-                            else LOSE_FILL if d > 0
-                            else None)
-                    _c(ws.cell(row, col), d, fmt=fmt, fill=fill)
+        if diff_col is not None and isinstance(ref_val, (int, float)):
+            val = fn(results[OUR_LABEL])
+            if isinstance(val, (int, float)):
+                d = val - ref_val
+                fill = WIN_FILL if d < 0 else LOSE_FILL if d > 0 else None
+                _c(ws.cell(row, diff_col), d, fmt=fmt, fill=fill)
         row += 1
 
     ws.column_dimensions['A'].width = 22
-    for col in range(2, len(labels) + 2 + len(diff_cols)):
+    for col in range(2, len(labels) + 2 + (1 if diff_col else 0)):
         ws.column_dimensions[ws.cell(1, col).column_letter].width = 16
-
-
-def export_excel(all_data, out_path):
-    wb = Workbook()
-    ws_summary = wb.active
-    ws_summary.title = 'Сводка'
-    _write_summary(ws_summary, all_data)
-
-    for name, (_, results) in all_data.items():
-        if not results:
-            continue
-        ws = wb.create_sheet(name.upper())
-        _write_scenario(ws, name, results)
 
     wb.save(out_path)
     print(f"\n[excel] сохранено: {out_path}")
 
 
 if __name__ == '__main__':
-    names = sys.argv[1:] if len(sys.argv) >= 2 else ['t1', 't2', 't3']
-
-    all_data = {}
-    for n in names:
-        inp, res = analyze_scenario(n)
-        if inp is None:
-            print(f"[пропуск] {n}: нет входного файла")
-            continue
-        all_data[n] = (inp, res)
-        print_scenario(n, res)
-
-    if all_data:
-        export_excel(all_data, 'comparison.xlsx')
+    inp, results = analyze()
+    print_results(results)
+    if results:
+        export_excel(results, 'comparison.xlsx')

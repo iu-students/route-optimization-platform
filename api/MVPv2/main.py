@@ -181,4 +181,4 @@ def solve_pipeline(
 
 
 if __name__ == "__main__":
-    solve_pipeline(input_path="data/input.json", output_path="data/output.json")
+    solve_pipeline(input_path="../../instances/i7.json", output_path="../../instances/output_i7.json")
