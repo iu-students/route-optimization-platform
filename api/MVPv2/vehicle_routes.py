@@ -48,7 +48,7 @@ def build_solution(routes, solver, x):
         if solver.Value(x[i]) == 1:
             solution["vehicles"].append(
                 {
-                    "vehicle_id": vehicle_id,
+                    "id": vehicle_id,
                     "route": [0] + route["order_ids"] + [0],
                     "time": route["arrival_times"],
                     "cost": route["cost"],

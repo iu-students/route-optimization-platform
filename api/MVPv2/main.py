@@ -4,7 +4,7 @@ from models import Scenario, Depot, Weights, Order
 from validator import validate_input
 from vehicle_routes import find_vehicles_routes
 from loader_routes import find_loaders_routes
-
+from verifier import run_verification
 
 def parse(path):
     with open(path) as f:
@@ -162,9 +162,18 @@ def solve_pipeline(
     print(f"  loader_work_cost: {stats['loader_work_cost']:.2f}")
     print(f"  penalties:        {stats['penalties']:.2f}")
     print(f"  total_cost:       {stats['total_cost']:.2f}")
+    
     with open(output_path, "w") as f:
         json.dump(solution, f, indent=4)
+
+    verification = run_verification(input_path=input_path, output_path=output_path)
+    solution["verification"] = verification
+
+    with open(output_path, "w") as f:
+        json.dump(solution, f, indent=4)
+
     stage("done")
+    
     print(
         f"\n[ИТОГО] {time.time() - t_start:.1f}s, машин={len(solution['vehicles'])}, грузчиков={len(solution['loaders'])}"
     )
