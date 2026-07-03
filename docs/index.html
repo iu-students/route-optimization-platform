@@ -55,7 +55,6 @@
   <script>
     const GITHUB_OWNER = 'iu-students';
     const GITHUB_REPO = 'route-optimization-platform';
-    const DOCS_PREFIX = 'docs/';
     const BRANCH = 'main';
 
     let allFiles = [];
@@ -65,28 +64,26 @@
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(`GitHub API error: ${resp.status}`);
       const data = await resp.json();
-      return data.tree.filter(item => 
-        item.type === 'blob' &&
-        item.path.startsWith(DOCS_PREFIX) &&
-        item.path.endsWith('.md')
-      ).map(item => ({
-        path: item.path.slice(DOCS_PREFIX.length),
-        url: item.url
-      }));
+      if (data.truncated) {
+        console.warn('GitHub tree truncated, some files may be missing');
+      }
+      return data.tree
+        .filter(item => item.type === 'blob' && item.path.startsWith('docs/') && item.path.endsWith('.md'))
+        .map(item => item.path.slice('docs/'.length))
+        .sort();
     }
 
-    function buildTree(files) {
+    function buildTree(paths) {
       const tree = {};
-      for (const f of files) {
-        const parts = f.path.split('/');
-        let current = tree;
+      for (const full of paths) {
+        const parts = full.split('/');
+        let node = tree;
         for (let i = 0; i < parts.length - 1; i++) {
-          if (!current[parts[i]]) current[parts[i]] = {};
-          current = current[parts[i]];
+          if (!node[parts[i]]) node[parts[i]] = {};
+          node = node[parts[i]];
         }
-        const name = parts[parts.length - 1];
-        if (!current._files) current._files = [];
-        current._files.push({ name, fullPath: f.path, apiUrl: f.url });
+        if (!node._files) node._files = [];
+        node._files.push({ name: parts[parts.length - 1], full });
       }
       return tree;
     }
@@ -103,27 +100,22 @@
 
     function renderNav(tree) {
       let html = '';
-      const keys = Object.keys(tree).filter(k => k !== '_files').sort((a, b) => {
-        if (a.toLowerCase() === 'architecture') return -1;
-        if (b.toLowerCase() === 'architecture') return 1;
-        return a.localeCompare(b);
-      });
-      for (const key of keys) {
+      const dirs = Object.keys(tree).filter(k => k !== '_files').sort();
+      for (const key of dirs) {
         html += `<div class="folder"><div class="folder-label">${displayName(key)}</div>`;
         html += renderNav(tree[key]);
         html += `</div>`;
       }
       if (tree._files) {
         const sorted = [...tree._files].sort((a, b) => {
-          const aName = a.name.toLowerCase();
-          const bName = b.name.toLowerCase();
-          if (aName === 'readme.md') return -1;
-          if (bName === 'readme.md') return 1;
-          return aName.localeCompare(bName);
+          const aNorm = a.name.toLowerCase();
+          const bNorm = b.name.toLowerCase();
+          if (aNorm === 'readme.md') return -1;
+          if (bNorm === 'readme.md') return 1;
+          return aNorm.localeCompare(bNorm);
         });
         for (const f of sorted) {
-          const link = '#' + f.fullPath;
-          html += `<div class="file" data-path="${f.fullPath}"><a href="${link}">${displayName(f.name)}</a></div>`;
+          html += `<div class="file" data-path="${f.full}"><a href="#${f.full}">${displayName(f.name)}</a></div>`;
         }
       }
       return html;
@@ -133,31 +125,28 @@
       const hash = window.location.hash.slice(1);
       document.querySelectorAll('.file').forEach(el => el.classList.remove('active'));
       if (hash) {
-        const active = document.querySelector(`.file[data-path="${hash}"]`);
-        if (active) active.classList.add('active');
+        const el = document.querySelector(`.file[data-path="${hash}"]`);
+        if (el) el.classList.add('active');
       }
     }
 
     async function loadContent(path) {
-      const contentDiv = document.getElementById('content');
-      contentDiv.innerHTML = '<div class="loading">Loading...</div>';
+      const div = document.getElementById('content');
+      div.innerHTML = '<div class="loading">Loading...</div>';
       try {
-        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH}/${DOCS_PREFIX}${path}`;
-        const resp = await fetch(rawUrl);
+        const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH}/docs/${path}`;
+        const resp = await fetch(url);
         if (!resp.ok) throw new Error(`Failed to load: ${resp.status}`);
-        const markdown = await resp.text();
-        const html = marked.parse(markdown);
-        contentDiv.innerHTML = html;
-        contentDiv.querySelectorAll('a[href$=".md"]').forEach(a => {
+        const html = marked.parse(await resp.text());
+        div.innerHTML = html;
+        div.querySelectorAll('a[href$=".md"]').forEach(a => {
           const href = a.getAttribute('href');
           const resolved = resolveMdLink(href, path);
-          if (resolved) {
-            a.setAttribute('href', '#' + resolved);
-          }
+          if (resolved) a.setAttribute('href', '#' + resolved);
         });
         highlightActive();
       } catch (err) {
-        contentDiv.innerHTML = `<div class="error">Error loading ${path}: ${err.message}</div>`;
+        div.innerHTML = `<div class="error">Error loading ${path}: ${err.message}</div>`;
       }
     }
 
@@ -166,26 +155,23 @@
       const clean = href.split('#')[0];
       let resolved;
       if (clean.startsWith('/')) {
-        resolved = clean.replace(/^\//, '');
+        resolved = clean.slice(1);
       } else {
         const dir = currentPath.includes('/') ? currentPath.substring(0, currentPath.lastIndexOf('/') + 1) : '';
         resolved = dir + clean;
       }
       resolved = resolved.replace(/\.md$/, '');
-      for (const f of allFiles) {
-        const fClean = f.path.replace(/\.md$/, '');
-        if (fClean === resolved) return f.path;
-      }
-      return null;
+      return allFiles.find(f => f.replace(/\.md$/, '') === resolved) || null;
     }
 
     async function init() {
       const navDiv = document.getElementById('nav-tree');
       try {
-        const files = await fetchTree();
-        allFiles = files;
-        const tree = buildTree(files);
+        const paths = await fetchTree();
+        allFiles = paths;
+        const tree = buildTree(paths);
         navDiv.innerHTML = renderNav(tree);
+
         window.addEventListener('hashchange', () => {
           const hash = window.location.hash.slice(1);
           if (hash) loadContent(hash);
@@ -194,9 +180,9 @@
           }
           highlightActive();
         });
+
         if (window.location.hash) {
-          const hash = window.location.hash.slice(1);
-          loadContent(hash);
+          loadContent(window.location.hash.slice(1));
         }
         highlightActive();
       } catch (err) {
