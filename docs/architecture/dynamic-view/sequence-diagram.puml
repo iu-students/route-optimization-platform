@@ -1,0 +1,76 @@
+@startuml sequence-diagram
+title Route Optimization Platform — Sequence Diagram (Dynamic View): POST /solve → GET /solution
+
+actor "API Client" as Client
+participant "Flask API\n(app.py)" as API
+participant "Validator\n(validator.py)" as Validator
+participant "Solver Thread" as Thread
+participant "Orchestrator\n(main.py)" as Orchestrator
+participant "Vehicle Routes Solver\n(vehicle_routes.py)" as VehicleSolver
+participant "Loader Routes Solver\n(loader_routes.py)" as LoaderSolver
+participant "Verifier\n(verifier.py)" as Verifier
+database "Data Storage\n(input.json / output.json)" as Storage
+
+Client -> API : POST /solve\n(X-API-Key, JSON payload)
+activate API
+API -> API : require_api_key()
+API -> Validator : validate_input(data)
+activate Validator
+Validator --> API : ok / ValidationError
+deactivate Validator
+
+alt validation failed
+  API --> Client : 400 {status: error, errors}
+else validation ok
+  API -> Storage : write input.json
+  API -> Thread : start(target=run_solve)
+  activate Thread
+  API --> Client : 202 {status: started}
+  deactivate API
+
+  Thread -> Orchestrator : solve_pipeline(input_path, data_dir)
+  activate Orchestrator
+  Orchestrator -> Orchestrator : parse(input.json)
+  Orchestrator -> VehicleSolver : find_vehicles_routes(scenario)
+  activate VehicleSolver
+  VehicleSolver --> Orchestrator : solution, missed_count
+  deactivate VehicleSolver
+  Orchestrator -> LoaderSolver : find_loaders_routes(solution, scenario)
+  activate LoaderSolver
+  LoaderSolver --> Orchestrator : loaders
+  deactivate LoaderSolver
+  Orchestrator -> Orchestrator : calculate_statistics(solution)
+  Orchestrator -> Storage : write output.json
+
+  Orchestrator -> Verifier : run_verification(input_path, output_path)
+  activate Verifier
+  Verifier -> Storage : read input.json
+  Verifier -> Storage : read output.json
+  Verifier --> Orchestrator : verification result
+  deactivate Verifier
+  Orchestrator -> Orchestrator : solution["verification"] = verification
+  Orchestrator -> Storage : write output.json
+
+  Orchestrator --> Thread : solution
+  deactivate Orchestrator
+  Thread -> Thread : solver_state = {status: done}
+  deactivate Thread
+end
+
+... later, client polls ...
+
+Client -> API : GET /solution
+activate API
+API -> API : require_api_key()
+alt status == computing
+  API --> Client : 200 {status: computing}
+else status == done
+  API -> Storage : read output.json
+  Storage --> API : solution JSON
+  API --> Client : 200 {status: done, solution}
+else status == error
+  API --> Client : 500 {status: error, message}
+end
+deactivate API
+
+@enduml

@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-- v0.2.0 - MVPv2, optional order handling, separate vehicle/loader routing, input validation
+- v0.2.0 - MVPv1.1, optional order handling, separate vehicle/loader routing, input validation
 
 ### Added
 
@@ -71,3 +71,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 ## [Unreleased]
+
+- v0.3.0 - MVPv2, metrics, statistics
+
+### Added
+
+- Implemented Clarke-Wright savings algorithm for vehicle minimization ([TT-3](https://github.com/iu-students/route-optimization-platform/issues/79))
+  - Initial state creates N separate routes, one per order, each served by a dedicated vehicle
+  - Evaluates route merges by calculating savings from `take_vehicle` penalty saved and `fuel_cost` for distance reduction
+  - Merges routes when positive savings are detected, reducing active vehicle count by 1 per merge
+- Added time window and capacity constraint enforcement during route merging ([TT-4](https://github.com/iu-students/route-optimization-platform/issues/80))
+  - Combined order volume is validated against `vehicle_capacity` before merge is accepted
+  - Delivery sequence arrival times are recalculated and checked against each order's `time_window`
+  - Merge is rejected immediately if any capacity or time window violation is detected
+  - Final optimized route plan guarantees minimum vehicle count without violating constraints
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security

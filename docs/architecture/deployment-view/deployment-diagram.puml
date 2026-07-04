@@ -1,0 +1,35 @@
+@startuml deployment-diagram
+title Route Optimization Platform — Deployment Diagram (Deployment View)
+
+node "Client Machine" as ClientNode {
+  [API Client] as Client
+}
+
+node "Docker Host (VPS)" as Host {
+  node "Docker Container\n(python:3.12-slim)" as Container {
+    component "Flask API Process\n(app.py, port 5002)" as API
+    component "Solver Pipeline\n(main.py + vehicle_routes.py + loader_routes.py)" as Pipeline
+    folder "/ROP/data/\n(input.json, output.json)" as DataDir
+  }
+}
+
+Client -down-> API : HTTP\n(port 5002, X-API-Key header)
+API -right-> Pipeline : in-process call\n(background thread)
+Pipeline -down-> DataDir : read/write JSON
+API -down-> DataDir : read/write JSON
+
+note bottom of DataDir
+  data/ is COPY'd into the image at build time
+  (Dockerfile: COPY data/ data/).
+  Not a mounted volume: writes to output.json
+  do not persist across container rebuilds
+  unless a volume is added.
+end note
+
+note right of Container
+  Single container, single process.
+  No reverse proxy, load balancer,
+  or orchestration layer defined.
+end note
+
+@enduml
