@@ -228,8 +228,7 @@ def verify_truck_capacity(input_data: dict, vehicles: list) -> dict:
 
 def run_verification(
     input_path: str = "data/input.json",
-    output_path: str = "data/output.json",
-) -> dict:
+    output_path: str = "data/output.json") -> dict:
     import json
     with open(input_path) as f:
         input_data = json.load(f)

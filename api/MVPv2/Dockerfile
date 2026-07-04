@@ -10,4 +10,4 @@ COPY api/MVPv2/ MVPv2/
 
 EXPOSE 5002
 
-CMD ["python", "MVPv2/app.py"]
+CMD ["python", "MVPv2/Web/app.py"]

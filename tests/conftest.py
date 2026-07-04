@@ -10,7 +10,7 @@ sys.path.insert(0, PROJECT_ROOT)
 MVPv2_PATH = os.path.join(PROJECT_ROOT, "api", "MVPv2")
 sys.path.insert(1, MVPv2_PATH)
 
-from models import Scenario, Depot, Weights, Order
+from Shared.models import Scenario, Depot, Weights, Order
 
 
 @pytest.fixture

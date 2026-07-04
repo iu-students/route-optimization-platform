@@ -1,27 +1,24 @@
 import os
 import sys
+
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+_MVPv2_DIR = os.path.normpath(os.path.join(_BASE_DIR, ".."))
+sys.path.insert(0, _MVPv2_DIR)
+
 import json
 import threading
+import importlib
 from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
-from validator import ValidationError, validate_input
+from Web.validator import ValidationError, validate_input
 
 app = Flask(__name__)
 CORS(app)
 
-API_KEY = os.environ.get("API_KEY", "")
-
-
-def require_api_key():
-    if API_KEY and request.headers.get("X-API-Key") != API_KEY:
-        abort(401, description="Invalid or missing API key")
-
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, "..", ".."))
-DATA_DIR = os.path.join(ROOT_DIR, "data")
-
-sys.path.insert(0, ROOT_DIR)
+BASE_DIR = _BASE_DIR
+MVPv2_DIR = _MVPv2_DIR
+PROJ_ROOT = os.path.normpath(os.path.join(BASE_DIR, "..", "..", ".."))
+DATA_DIR = os.path.join(PROJ_ROOT, "data")
 
 os.makedirs(DATA_DIR, exist_ok=True)
 
@@ -31,12 +28,19 @@ solver_lock = threading.Lock()
 SOLUTION_PATH = os.path.join(DATA_DIR, "output.json")
 INPUT_PATH = os.path.join(DATA_DIR, "input.json")
 
+API_KEY = os.environ.get("API_KEY", "")
+
+
+def require_api_key():
+    if API_KEY and request.headers.get("X-API-Key") != API_KEY:
+        abort(401, description="Invalid or missing API key")
+
 
 def run_solve():
     global solver_state
     try:
-        from script import solve_pipeline
-        solve_pipeline(input_path=INPUT_PATH, data_dir=DATA_DIR)
+        cpsat = importlib.import_module("CP-SAT.main")
+        cpsat.solve_pipeline(input_path=INPUT_PATH, output_path=SOLUTION_PATH)
         with solver_lock:
             solver_state = {"status": "done"}
     except Exception as e:

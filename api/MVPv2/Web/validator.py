@@ -20,7 +20,8 @@ def validate_input(data) -> dict:
     if not isinstance(data, dict):
         raise ValidationError([{"path": "", "message": "Root must be an object"}])
 
-    top_fields = ["depot", "orders", "weights", "vehicle_capacity", "vehicle_speed", "loader_speed", "vehicle_shift_size", "loader_shift_size"]
+    top_fields = ["depot", "orders", "weights", "vehicle_capacity", "vehicle_speed", "loader_speed",
+                  "vehicle_shift_size", "loader_shift_size"]
 
     for f in top_fields:
         if f not in data:
@@ -31,7 +32,7 @@ def validate_input(data) -> dict:
         if not isinstance(depot, dict):
             errors.append({"path": "depot", "message": "Must be an object"})
         else:
-            for f in ["id", "x", "y", "load_time"]:
+            for f in ["x", "y", "load_time"]:
                 if f not in depot:
                     errors.append({"path": f"depot.{f}", "message": "Missing required field"})
 
@@ -47,7 +48,7 @@ def validate_input(data) -> dict:
 
     if "weights" in data:
         weights = data["weights"]
-        weights_fields = ["order_penalty", "take_vehicle", "add_loader", "fuel_cost", "loader_work"]
+        weights_fields = ["optional_order_penalty", "vehicle_salary", "loader_salary", "fuel_cost", "loader_work"]
 
         if not isinstance(weights, dict):
             errors.append({"path": "weights", "message": "Must be an object"})
@@ -62,7 +63,8 @@ def validate_input(data) -> dict:
 
     if "orders" in data:
         orders = data["orders"]
-        order_fields = ["id", "x", "y", "volume", "time_window", "vehicle_service_time", "loader_cnt", "loader_service_time", "optional"]
+        order_fields = ["id", "x", "y", "volume", "time_window", "vehicle_service_time", "loader_cnt",
+                        "loader_service_time", "optional"]
 
         if not isinstance(orders, list):
             errors.append({"path": "orders", "message": "Must be a list"})
@@ -140,14 +142,6 @@ def validate_file(path: str) -> dict:
             raise ValidationError([{"path": "", "message": f"Invalid JSON: {e}"}])
 
     return validate_input(data)
-
-
-def validate_or_400(data) -> dict:
-    try:
-        return validate_input(data)
-    except ValidationError as e:
-        from fastapi import HTTPException
-        raise HTTPException(status_code=400, detail=e.to_dict())
 
 
 if __name__ == "__main__":

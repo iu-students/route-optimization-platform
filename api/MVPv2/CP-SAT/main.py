@@ -1,10 +1,20 @@
 import json
 import time
-from models import Scenario, Depot, Weights, Order
-from validator import validate_input
+import sys
+import os
+
+_PARENT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+if _PARENT not in sys.path:
+    sys.path.insert(0, _PARENT)
+_SELF = os.path.dirname(os.path.abspath(__file__))
+if _SELF not in sys.path:
+    sys.path.insert(0, _SELF)
+
+from Shared.models import Scenario, Depot, Weights, Order
+from Web.validator import validate_input
 from vehicle_routes import find_vehicles_routes
 from loader_routes import find_loaders_routes
-from verifier import run_verification
+from Shared.verifier import run_verification
 
 def parse(path):
     with open(path) as f:
@@ -131,9 +141,7 @@ def calculate_statistics(solution, scenario):
     }
 
 
-def solve_pipeline(
-    input_path="data/input.json", output_path="data/output.json", on_stage=None
-):
+def solve_pipeline(input_path="data/input.json", output_path="data/output.json", on_stage=None):
 
     def stage(name):
         if on_stage:

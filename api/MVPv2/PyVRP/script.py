@@ -1,13 +1,18 @@
 import json
 import math
 import os
+import sys
+
+_PARENT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+if _PARENT not in sys.path:
+    sys.path.insert(0, _PARENT)
 
 from loaders import solve_loaders, clear_loaders_state
 from pyvrp import Model
 from pyvrp.stop import MaxRuntime
-from models import Scenario, Depot, Weights, Order
-from verifier import run_verification
-from validator import validate_input
+from Shared.models import Scenario, Depot, Weights, Order
+from Shared.verifier import run_verification
+from Web.validator import validate_input
 
 
 def parse(path: str) -> Scenario:

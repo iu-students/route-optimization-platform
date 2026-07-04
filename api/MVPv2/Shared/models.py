@@ -3,7 +3,6 @@ from typing import Tuple, List
 
 
 # Классы необходимые для понятной работы алгоритма
-
 @dataclass
 class Depot:
     x: int
