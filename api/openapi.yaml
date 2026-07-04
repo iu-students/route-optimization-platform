@@ -11,6 +11,8 @@ servers:
     description: MVPv0
   - url: http://139.100.207.201:5001
     description: MVPv1
+  - url: http://139.100.207.201:5011
+    description: MVPv1.2
   - url: http://139.100.207.201:5002
     description: MVPv2
 
@@ -118,6 +120,9 @@ paths:
                       status:
                         type: string
                         example: computing
+                      stage:
+                        type: string
+                        example: solving_vehicles
                   - type: object
                     properties:
                       status:
@@ -137,6 +142,100 @@ paths:
                     example: error
                   message:
                     type: string
+
+  /metrics:
+    get:
+      summary: Get route metrics
+      description: |
+        Returns cost breakdown and summary metrics for the computed solution,
+        or current status (computing / idle / error).
+      operationId: getMetrics
+      responses:
+        '200':
+          description: Metrics or status
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: done
+                      metrics:
+                        $ref: '#/components/schemas/Metrics'
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: computing
+                      stage:
+                        type: string
+                        example: solving_vehicles
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: idle
+                      message:
+                        type: string
+        '500':
+          description: Computation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+
+  /validate:
+    post:
+      summary: Validate input scenario
+      description: |
+        Accepts a CVRPTW scenario and validates it without solving.
+        Returns ok or a list of validation errors.
+      operationId: validateScenario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scenario'
+      responses:
+        '200':
+          description: Input is valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                          example: depot.x
+                        message:
+                          type: string
 
   /health:
     get:
@@ -342,6 +441,34 @@ components:
             type: integer
           description: Loader route (order IDs)
           example: [1, 2, 3]
+
+    Metrics:
+      type: object
+      properties:
+        total_cost:
+          type: number
+          example: 1234.56
+        fuel_cost:
+          type: number
+          example: 500.00
+        vehicle_salaries:
+          type: number
+          example: 380.00
+        loader_salaries:
+          type: number
+          example: 230.00
+        loader_work_cost:
+          type: number
+          example: 120.00
+        penalties:
+          type: number
+          example: 0
+        vehicles_used:
+          type: integer
+          example: 3
+        loaders_used:
+          type: integer
+          example: 2
 
     Error:
       type: object

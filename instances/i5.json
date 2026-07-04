@@ -1,0 +1,5355 @@
+{
+  "vehicle_capacity": 300,
+  "vehicle_speed": 1,
+  "loader_speed": 0.7,
+  "vehicle_shift_size": 3850,
+  "loader_shift_size": 4000,
+  "depot": {
+    "x": 100,
+    "y": 100,
+    "load_time": 385.0
+  },
+  "orders": [
+    {
+      "id": 1,
+      "x": 27,
+      "y": 49,
+      "volume": 10,
+      "time_window": [
+        81,
+        708
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 0
+    },
+    {
+      "id": 2,
+      "x": 37,
+      "y": 94,
+      "volume": 30,
+      "time_window": [
+        461,
+        989
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 1
+    },
+    {
+      "id": 3,
+      "x": 132,
+      "y": 24,
+      "volume": 10,
+      "time_window": [
+        1548,
+        2878
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 0
+    },
+    {
+      "id": 4,
+      "x": 108,
+      "y": 18,
+      "volume": 20,
+      "time_window": [
+        1647,
+        2550
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 1
+    },
+    {
+      "id": 5,
+      "x": 10,
+      "y": 162,
+      "volume": 10,
+      "time_window": [
+        1361,
+        2567
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 6,
+      "x": 143,
+      "y": 143,
+      "volume": 20,
+      "time_window": [
+        2551,
+        3399
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 7,
+      "x": 43,
+      "y": 93,
+      "volume": 10,
+      "time_window": [
+        772,
+        1238
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 1
+    },
+    {
+      "id": 8,
+      "x": 133,
+      "y": 175,
+      "volume": 20,
+      "time_window": [
+        1833,
+        2717
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 9,
+      "x": 40,
+      "y": 179,
+      "volume": 20,
+      "time_window": [
+        263,
+        1628
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 0
+    },
+    {
+      "id": 10,
+      "x": 19,
+      "y": 162,
+      "volume": 10,
+      "time_window": [
+        1746,
+        2785
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 11,
+      "x": 145,
+      "y": 153,
+      "volume": 40,
+      "time_window": [
+        1165,
+        2177
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 1
+    },
+    {
+      "id": 12,
+      "x": 93,
+      "y": 174,
+      "volume": 10,
+      "time_window": [
+        1344,
+        2051
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 13,
+      "x": 175,
+      "y": 79,
+      "volume": 30,
+      "time_window": [
+        1663,
+        2566
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 14,
+      "x": 75,
+      "y": 22,
+      "volume": 20,
+      "time_window": [
+        1196,
+        1828
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 1
+    },
+    {
+      "id": 15,
+      "x": 81,
+      "y": 109,
+      "volume": 10,
+      "time_window": [
+        29,
+        721
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 16,
+      "x": 87,
+      "y": 77,
+      "volume": 10,
+      "time_window": [
+        2175,
+        3302
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 0
+    },
+    {
+      "id": 17,
+      "x": 117,
+      "y": 57,
+      "volume": 10,
+      "time_window": [
+        1913,
+        2189
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 18,
+      "x": 75,
+      "y": 75,
+      "volume": 20,
+      "time_window": [
+        424,
+        1414
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 19,
+      "x": 60,
+      "y": 105,
+      "volume": 40,
+      "time_window": [
+        1696,
+        2267
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 20,
+      "x": 44,
+      "y": 167,
+      "volume": 30,
+      "time_window": [
+        97,
+        1008
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 21,
+      "x": 43,
+      "y": 80,
+      "volume": 30,
+      "time_window": [
+        56,
+        344
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 22,
+      "x": 52,
+      "y": 103,
+      "volume": 10,
+      "time_window": [
+        394,
+        991
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 23,
+      "x": 57,
+      "y": 167,
+      "volume": 20,
+      "time_window": [
+        315,
+        1382
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 24,
+      "x": 134,
+      "y": 35,
+      "volume": 10,
+      "time_window": [
+        1659,
+        2384
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 1
+    },
+    {
+      "id": 25,
+      "x": 114,
+      "y": 76,
+      "volume": 30,
+      "time_window": [
+        27,
+        730
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 0
+    },
+    {
+      "id": 26,
+      "x": 44,
+      "y": 81,
+      "volume": 20,
+      "time_window": [
+        1154,
+        2150
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 27,
+      "x": 77,
+      "y": 111,
+      "volume": 10,
+      "time_window": [
+        353,
+        826
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 28,
+      "x": 72,
+      "y": 127,
+      "volume": 20,
+      "time_window": [
+        703,
+        1562
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 1
+    },
+    {
+      "id": 29,
+      "x": 73,
+      "y": 139,
+      "volume": 20,
+      "time_window": [
+        870,
+        1973
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 30,
+      "x": 27,
+      "y": 94,
+      "volume": 10,
+      "time_window": [
+        2440,
+        2855
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 31,
+      "x": 93,
+      "y": 125,
+      "volume": 10,
+      "time_window": [
+        36,
+        423
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 32,
+      "x": 182,
+      "y": 60,
+      "volume": 40,
+      "time_window": [
+        1191,
+        2453
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 1
+    },
+    {
+      "id": 33,
+      "x": 136,
+      "y": 46,
+      "volume": 20,
+      "time_window": [
+        2595,
+        3373
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 2,
+      "loader_service_time": 125,
+      "optional": 1
+    },
+    {
+      "id": 34,
+      "x": 27,
+      "y": 89,
+      "volume": 20,
+      "time_window": [
+        72,
+        1063
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 35,
+      "x": 102,
+      "y": 46,
+      "volume": 20,
+      "time_window": [
+        86,
+        563
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 1
+    },
+    {
+      "id": 36,
+      "x": 66,
+      "y": 174,
+      "volume": 20,
+      "time_window": [
+        73,
+        960
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 37,
+      "x": 96,
+      "y": 50,
+      "volume": 10,
+      "time_window": [
+        124,
+        139
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 38,
+      "x": 71,
+      "y": 89,
+      "volume": 10,
+      "time_window": [
+        2076,
+        3022
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 165,
+      "optional": 0
+    },
+    {
+      "id": 39,
+      "x": 51,
+      "y": 175,
+      "volume": 10,
+      "time_window": [
+        1017,
+        2050
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 40,
+      "x": 138,
+      "y": 131,
+      "volume": 10,
+      "time_window": [
+        2981,
+        3348
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 41,
+      "x": 166,
+      "y": 165,
+      "volume": 10,
+      "time_window": [
+        1712,
+        2619
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 42,
+      "x": 110,
+      "y": 167,
+      "volume": 20,
+      "time_window": [
+        1770,
+        2583
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 43,
+      "x": 56,
+      "y": 200,
+      "volume": 20,
+      "time_window": [
+        1998,
+        2934
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 44,
+      "x": 113,
+      "y": 74,
+      "volume": 30,
+      "time_window": [
+        987,
+        1892
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 45,
+      "x": 19,
+      "y": 163,
+      "volume": 20,
+      "time_window": [
+        2210,
+        3091
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 1
+    },
+    {
+      "id": 46,
+      "x": 90,
+      "y": 11,
+      "volume": 10,
+      "time_window": [
+        1376,
+        2213
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 1
+    },
+    {
+      "id": 47,
+      "x": 165,
+      "y": 68,
+      "volume": 20,
+      "time_window": [
+        1641,
+        2807
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 1
+    },
+    {
+      "id": 48,
+      "x": 142,
+      "y": 139,
+      "volume": 10,
+      "time_window": [
+        2213,
+        3546
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 49,
+      "x": 80,
+      "y": 133,
+      "volume": 20,
+      "time_window": [
+        37,
+        1172
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 0
+    },
+    {
+      "id": 50,
+      "x": 21,
+      "y": 173,
+      "volume": 30,
+      "time_window": [
+        814,
+        1330
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 0
+    },
+    {
+      "id": 51,
+      "x": 99,
+      "y": 129,
+      "volume": 10,
+      "time_window": [
+        272,
+        1208
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 52,
+      "x": 153,
+      "y": 122,
+      "volume": 30,
+      "time_window": [
+        2074,
+        3478
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 53,
+      "x": 24,
+      "y": 50,
+      "volume": 30,
+      "time_window": [
+        83,
+        1134
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 54,
+      "x": 17,
+      "y": 76,
+      "volume": 20,
+      "time_window": [
+        1534,
+        1546
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 55,
+      "x": 35,
+      "y": 175,
+      "volume": 20,
+      "time_window": [
+        2331,
+        3156
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 56,
+      "x": 88,
+      "y": 184,
+      "volume": 20,
+      "time_window": [
+        2797,
+        3108
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 57,
+      "x": 24,
+      "y": 76,
+      "volume": 20,
+      "time_window": [
+        2289,
+        3198
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 1
+    },
+    {
+      "id": 58,
+      "x": 137,
+      "y": 56,
+      "volume": 30,
+      "time_window": [
+        1290,
+        1807
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 59,
+      "x": 52,
+      "y": 96,
+      "volume": 10,
+      "time_window": [
+        1115,
+        2650
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 1
+    },
+    {
+      "id": 60,
+      "x": 169,
+      "y": 40,
+      "volume": 30,
+      "time_window": [
+        172,
+        1738
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 61,
+      "x": 107,
+      "y": 139,
+      "volume": 20,
+      "time_window": [
+        2703,
+        3449
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 62,
+      "x": 80,
+      "y": 159,
+      "volume": 10,
+      "time_window": [
+        58,
+        892
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 63,
+      "x": 64,
+      "y": 191,
+      "volume": 30,
+      "time_window": [
+        1846,
+        2900
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 1
+    },
+    {
+      "id": 64,
+      "x": 70,
+      "y": 165,
+      "volume": 20,
+      "time_window": [
+        210,
+        689
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 65,
+      "x": 107,
+      "y": 44,
+      "volume": 10,
+      "time_window": [
+        1874,
+        2422
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 66,
+      "x": 90,
+      "y": 116,
+      "volume": 10,
+      "time_window": [
+        2127,
+        3054
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 67,
+      "x": 20,
+      "y": 53,
+      "volume": 10,
+      "time_window": [
+        264,
+        899
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 68,
+      "x": 100,
+      "y": 173,
+      "volume": 20,
+      "time_window": [
+        1132,
+        2452
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 69,
+      "x": 146,
+      "y": 132,
+      "volume": 20,
+      "time_window": [
+        689,
+        1145
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 1
+    },
+    {
+      "id": 70,
+      "x": 133,
+      "y": 126,
+      "volume": 10,
+      "time_window": [
+        2183,
+        3554
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 71,
+      "x": 125,
+      "y": 145,
+      "volume": 10,
+      "time_window": [
+        2834,
+        3105
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 72,
+      "x": 71,
+      "y": 96,
+      "volume": 10,
+      "time_window": [
+        2451,
+        3580
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 73,
+      "x": 170,
+      "y": 35,
+      "volume": 20,
+      "time_window": [
+        247,
+        889
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 0
+    },
+    {
+      "id": 74,
+      "x": 170,
+      "y": 65,
+      "volume": 20,
+      "time_window": [
+        2422,
+        3144
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 75,
+      "x": 106,
+      "y": 85,
+      "volume": 20,
+      "time_window": [
+        9,
+        963
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 1
+    },
+    {
+      "id": 76,
+      "x": 84,
+      "y": 94,
+      "volume": 20,
+      "time_window": [
+        2147,
+        3576
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 77,
+      "x": 122,
+      "y": 21,
+      "volume": 20,
+      "time_window": [
+        1649,
+        2967
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 180,
+      "optional": 1
+    },
+    {
+      "id": 78,
+      "x": 24,
+      "y": 154,
+      "volume": 10,
+      "time_window": [
+        1891,
+        2438
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 79,
+      "x": 85,
+      "y": 12,
+      "volume": 10,
+      "time_window": [
+        2571,
+        2783
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 80,
+      "x": 22,
+      "y": 92,
+      "volume": 20,
+      "time_window": [
+        1564,
+        2541
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 81,
+      "x": 39,
+      "y": 162,
+      "volume": 20,
+      "time_window": [
+        2630,
+        3243
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 82,
+      "x": 85,
+      "y": 172,
+      "volume": 20,
+      "time_window": [
+        2404,
+        3535
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 83,
+      "x": 71,
+      "y": 4,
+      "volume": 20,
+      "time_window": [
+        760,
+        1694
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 84,
+      "x": 46,
+      "y": 163,
+      "volume": 10,
+      "time_window": [
+        75,
+        1578
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 85,
+      "x": 70,
+      "y": 179,
+      "volume": 30,
+      "time_window": [
+        2198,
+        2924
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 86,
+      "x": 165,
+      "y": 119,
+      "volume": 20,
+      "time_window": [
+        2515,
+        2855
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 0
+    },
+    {
+      "id": 87,
+      "x": 27,
+      "y": 102,
+      "volume": 20,
+      "time_window": [
+        1237,
+        2497
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 88,
+      "x": 80,
+      "y": 82,
+      "volume": 20,
+      "time_window": [
+        2530,
+        3137
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 89,
+      "x": 73,
+      "y": 156,
+      "volume": 20,
+      "time_window": [
+        61,
+        673
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 175,
+      "optional": 0
+    },
+    {
+      "id": 90,
+      "x": 77,
+      "y": 204,
+      "volume": 30,
+      "time_window": [
+        2379,
+        3327
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 90,
+      "optional": 1
+    },
+    {
+      "id": 91,
+      "x": 80,
+      "y": 9,
+      "volume": 10,
+      "time_window": [
+        1987,
+        2801
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 92,
+      "x": 83,
+      "y": 91,
+      "volume": 20,
+      "time_window": [
+        1742,
+        3171
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 93,
+      "x": 134,
+      "y": 138,
+      "volume": 20,
+      "time_window": [
+        468,
+        1928
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 94,
+      "x": 123,
+      "y": 56,
+      "volume": 10,
+      "time_window": [
+        817,
+        1491
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 95,
+      "x": 7,
+      "y": 173,
+      "volume": 10,
+      "time_window": [
+        1663,
+        1875
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 96,
+      "x": 82,
+      "y": 53,
+      "volume": 20,
+      "time_window": [
+        2711,
+        2818
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 97,
+      "x": 166,
+      "y": 34,
+      "volume": 10,
+      "time_window": [
+        191,
+        1527
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 1
+    },
+    {
+      "id": 98,
+      "x": 89,
+      "y": 109,
+      "volume": 10,
+      "time_window": [
+        1957,
+        3432
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 1
+    },
+    {
+      "id": 99,
+      "x": 98,
+      "y": 76,
+      "volume": 30,
+      "time_window": [
+        2548,
+        3585
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 1
+    },
+    {
+      "id": 100,
+      "x": 36,
+      "y": 98,
+      "volume": 10,
+      "time_window": [
+        424,
+        1397
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 101,
+      "x": 68,
+      "y": 123,
+      "volume": 30,
+      "time_window": [
+        837,
+        1227
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 102,
+      "x": 96,
+      "y": 9,
+      "volume": 20,
+      "time_window": [
+        1473,
+        2505
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 0
+    },
+    {
+      "id": 103,
+      "x": 154,
+      "y": 58,
+      "volume": 30,
+      "time_window": [
+        1127,
+        1773
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 104,
+      "x": 30,
+      "y": 49,
+      "volume": 20,
+      "time_window": [
+        120,
+        1240
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 0
+    },
+    {
+      "id": 105,
+      "x": 30,
+      "y": 196,
+      "volume": 10,
+      "time_window": [
+        113,
+        920
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 106,
+      "x": 148,
+      "y": 68,
+      "volume": 20,
+      "time_window": [
+        2889,
+        3273
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 107,
+      "x": 67,
+      "y": 199,
+      "volume": 20,
+      "time_window": [
+        1970,
+        2593
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 108,
+      "x": 147,
+      "y": 55,
+      "volume": 10,
+      "time_window": [
+        1519,
+        1987
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 109,
+      "x": 118,
+      "y": 137,
+      "volume": 20,
+      "time_window": [
+        2160,
+        3568
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 180,
+      "optional": 0
+    },
+    {
+      "id": 110,
+      "x": 31,
+      "y": 197,
+      "volume": 10,
+      "time_window": [
+        113,
+        1448
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 111,
+      "x": 24,
+      "y": 171,
+      "volume": 30,
+      "time_window": [
+        2382,
+        3295
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 112,
+      "x": 127,
+      "y": 72,
+      "volume": 10,
+      "time_window": [
+        1081,
+        1415
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 113,
+      "x": 12,
+      "y": 190,
+      "volume": 10,
+      "time_window": [
+        947,
+        2195
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 1
+    },
+    {
+      "id": 114,
+      "x": 128,
+      "y": 49,
+      "volume": 10,
+      "time_window": [
+        720,
+        1213
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 115,
+      "x": 91,
+      "y": 67,
+      "volume": 10,
+      "time_window": [
+        27,
+        1382
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 2,
+      "loader_service_time": 155,
+      "optional": 1
+    },
+    {
+      "id": 116,
+      "x": 166,
+      "y": 152,
+      "volume": 20,
+      "time_window": [
+        1727,
+        2221
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 165,
+      "optional": 1
+    },
+    {
+      "id": 117,
+      "x": 119,
+      "y": 74,
+      "volume": 20,
+      "time_window": [
+        683,
+        2004
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 195,
+      "optional": 0
+    },
+    {
+      "id": 118,
+      "x": 182,
+      "y": 132,
+      "volume": 30,
+      "time_window": [
+        1853,
+        3128
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 0
+    },
+    {
+      "id": 119,
+      "x": 64,
+      "y": 69,
+      "volume": 10,
+      "time_window": [
+        442,
+        976
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 120,
+      "x": 73,
+      "y": 54,
+      "volume": 10,
+      "time_window": [
+        1227,
+        1837
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 121,
+      "x": 159,
+      "y": 48,
+      "volume": 30,
+      "time_window": [
+        2158,
+        3040
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 122,
+      "x": 176,
+      "y": 46,
+      "volume": 20,
+      "time_window": [
+        696,
+        1594
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 123,
+      "x": 176,
+      "y": 77,
+      "volume": 20,
+      "time_window": [
+        1270,
+        2759
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 0
+    },
+    {
+      "id": 124,
+      "x": 86,
+      "y": 64,
+      "volume": 40,
+      "time_window": [
+        573,
+        1843
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 3,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 125,
+      "x": 132,
+      "y": 79,
+      "volume": 30,
+      "time_window": [
+        1467,
+        1821
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 126,
+      "x": 71,
+      "y": 187,
+      "volume": 20,
+      "time_window": [
+        2088,
+        3511
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 2,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 127,
+      "x": 111,
+      "y": 32,
+      "volume": 30,
+      "time_window": [
+        63,
+        1298
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 128,
+      "x": 26,
+      "y": 178,
+      "volume": 20,
+      "time_window": [
+        282,
+        1272
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 129,
+      "x": 100,
+      "y": 60,
+      "volume": 20,
+      "time_window": [
+        596,
+        758
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 0
+    },
+    {
+      "id": 130,
+      "x": 174,
+      "y": 127,
+      "volume": 20,
+      "time_window": [
+        2255,
+        2926
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 131,
+      "x": 131,
+      "y": 129,
+      "volume": 20,
+      "time_window": [
+        3021,
+        3495
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 132,
+      "x": 135,
+      "y": 39,
+      "volume": 20,
+      "time_window": [
+        1449,
+        2212
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 1
+    },
+    {
+      "id": 133,
+      "x": 68,
+      "y": 75,
+      "volume": 30,
+      "time_window": [
+        256,
+        978
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 134,
+      "x": 65,
+      "y": 182,
+      "volume": 10,
+      "time_window": [
+        1512,
+        2865
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 135,
+      "x": 62,
+      "y": 185,
+      "volume": 20,
+      "time_window": [
+        1972,
+        2217
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 2,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 136,
+      "x": 26,
+      "y": 77,
+      "volume": 30,
+      "time_window": [
+        2034,
+        2651
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 1
+    },
+    {
+      "id": 137,
+      "x": 48,
+      "y": 63,
+      "volume": 30,
+      "time_window": [
+        50,
+        986
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 195,
+      "optional": 0
+    },
+    {
+      "id": 138,
+      "x": 85,
+      "y": 35,
+      "volume": 10,
+      "time_window": [
+        3089,
+        3401
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 139,
+      "x": -4,
+      "y": 68,
+      "volume": 20,
+      "time_window": [
+        747,
+        1380
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 140,
+      "x": 77,
+      "y": 67,
+      "volume": 20,
+      "time_window": [
+        337,
+        1301
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 195,
+      "optional": 1
+    },
+    {
+      "id": 141,
+      "x": 179,
+      "y": 60,
+      "volume": 20,
+      "time_window": [
+        984,
+        2075
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 142,
+      "x": 19,
+      "y": 196,
+      "volume": 30,
+      "time_window": [
+        1049,
+        1886
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 143,
+      "x": 70,
+      "y": 147,
+      "volume": 30,
+      "time_window": [
+        1284,
+        1961
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 144,
+      "x": 101,
+      "y": 74,
+      "volume": 10,
+      "time_window": [
+        29,
+        1242
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 145,
+      "x": 42,
+      "y": 89,
+      "volume": 20,
+      "time_window": [
+        2676,
+        2971
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 146,
+      "x": 157,
+      "y": 38,
+      "volume": 10,
+      "time_window": [
+        82,
+        930
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 147,
+      "x": 149,
+      "y": 99,
+      "volume": 20,
+      "time_window": [
+        55,
+        1208
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 3,
+      "loader_service_time": 115,
+      "optional": 0
+    },
+    {
+      "id": 148,
+      "x": 148,
+      "y": 153,
+      "volume": 20,
+      "time_window": [
+        1069,
+        2672
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 1
+    },
+    {
+      "id": 149,
+      "x": 58,
+      "y": 192,
+      "volume": 20,
+      "time_window": [
+        677,
+        1611
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 3,
+      "loader_service_time": 95,
+      "optional": 0
+    },
+    {
+      "id": 150,
+      "x": 87,
+      "y": 104,
+      "volume": 10,
+      "time_window": [
+        3327,
+        3489
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 151,
+      "x": 34,
+      "y": 106,
+      "volume": 20,
+      "time_window": [
+        800,
+        1783
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 152,
+      "x": 97,
+      "y": 144,
+      "volume": 20,
+      "time_window": [
+        570,
+        1482
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 0
+    },
+    {
+      "id": 153,
+      "x": 25,
+      "y": 81,
+      "volume": 10,
+      "time_window": [
+        2001,
+        2896
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 154,
+      "x": 26,
+      "y": 100,
+      "volume": 20,
+      "time_window": [
+        68,
+        1080
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 155,
+      "x": 69,
+      "y": 142,
+      "volume": 20,
+      "time_window": [
+        1720,
+        2468
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 156,
+      "x": 26,
+      "y": 177,
+      "volume": 10,
+      "time_window": [
+        512,
+        1437
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 157,
+      "x": 25,
+      "y": 182,
+      "volume": 30,
+      "time_window": [
+        698,
+        1838
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 158,
+      "x": 16,
+      "y": 96,
+      "volume": 30,
+      "time_window": [
+        1867,
+        3219
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 159,
+      "x": 129,
+      "y": 81,
+      "volume": 10,
+      "time_window": [
+        1236,
+        1840
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 0
+    },
+    {
+      "id": 160,
+      "x": 174,
+      "y": 52,
+      "volume": 20,
+      "time_window": [
+        2047,
+        2776
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 161,
+      "x": 24,
+      "y": 89,
+      "volume": 10,
+      "time_window": [
+        2779,
+        3085
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 162,
+      "x": 79,
+      "y": 100,
+      "volume": 10,
+      "time_window": [
+        18,
+        1182
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 0
+    },
+    {
+      "id": 163,
+      "x": 172,
+      "y": 30,
+      "volume": 40,
+      "time_window": [
+        88,
+        1619
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 164,
+      "x": 148,
+      "y": 126,
+      "volume": 10,
+      "time_window": [
+        2933,
+        3554
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 1
+    },
+    {
+      "id": 165,
+      "x": 75,
+      "y": 172,
+      "volume": 20,
+      "time_window": [
+        765,
+        2104
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 0
+    },
+    {
+      "id": 166,
+      "x": 59,
+      "y": 177,
+      "volume": 20,
+      "time_window": [
+        82,
+        264
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 167,
+      "x": 105,
+      "y": 52,
+      "volume": 10,
+      "time_window": [
+        2181,
+        3215
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 1
+    },
+    {
+      "id": 168,
+      "x": 14,
+      "y": 156,
+      "volume": 30,
+      "time_window": [
+        2276,
+        2453
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 0
+    },
+    {
+      "id": 169,
+      "x": 74,
+      "y": 11,
+      "volume": 20,
+      "time_window": [
+        1138,
+        1687
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 170,
+      "x": 116,
+      "y": 79,
+      "volume": 10,
+      "time_window": [
+        28,
+        1101
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 171,
+      "x": 105,
+      "y": 151,
+      "volume": 10,
+      "time_window": [
+        429,
+        1437
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 172,
+      "x": 150,
+      "y": 34,
+      "volume": 30,
+      "time_window": [
+        763,
+        1682
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 173,
+      "x": 100,
+      "y": 13,
+      "volume": 20,
+      "time_window": [
+        1564,
+        2214
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 174,
+      "x": 69,
+      "y": 110,
+      "volume": 10,
+      "time_window": [
+        27,
+        998
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 175,
+      "x": 50,
+      "y": 199,
+      "volume": 30,
+      "time_window": [
+        102,
+        575
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 176,
+      "x": 107,
+      "y": 122,
+      "volume": 30,
+      "time_window": [
+        3002,
+        3157
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 165,
+      "optional": 1
+    },
+    {
+      "id": 177,
+      "x": 90,
+      "y": 78,
+      "volume": 10,
+      "time_window": [
+        125,
+        713
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 1
+    },
+    {
+      "id": 178,
+      "x": 139,
+      "y": 31,
+      "volume": 30,
+      "time_window": [
+        501,
+        1550
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 0
+    },
+    {
+      "id": 179,
+      "x": 74,
+      "y": 183,
+      "volume": 40,
+      "time_window": [
+        1418,
+        2207
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 2,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 180,
+      "x": 85,
+      "y": 26,
+      "volume": 30,
+      "time_window": [
+        561,
+        1514
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 181,
+      "x": 168,
+      "y": 56,
+      "volume": 10,
+      "time_window": [
+        2291,
+        3089
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 182,
+      "x": 93,
+      "y": 68,
+      "volume": 10,
+      "time_window": [
+        502,
+        1718
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 183,
+      "x": 116,
+      "y": 53,
+      "volume": 20,
+      "time_window": [
+        1568,
+        2151
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 190,
+      "optional": 0
+    },
+    {
+      "id": 184,
+      "x": 82,
+      "y": 128,
+      "volume": 10,
+      "time_window": [
+        1235,
+        2391
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 180,
+      "optional": 1
+    },
+    {
+      "id": 185,
+      "x": 100,
+      "y": 159,
+      "volume": 40,
+      "time_window": [
+        891,
+        1557
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 186,
+      "x": 172,
+      "y": 64,
+      "volume": 20,
+      "time_window": [
+        1099,
+        1562
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 187,
+      "x": 127,
+      "y": 60,
+      "volume": 20,
+      "time_window": [
+        1582,
+        1888
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 188,
+      "x": 107,
+      "y": 150,
+      "volume": 10,
+      "time_window": [
+        540,
+        1143
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 189,
+      "x": 44,
+      "y": 92,
+      "volume": 10,
+      "time_window": [
+        64,
+        1153
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 190,
+      "x": 1,
+      "y": 52,
+      "volume": 20,
+      "time_window": [
+        516,
+        1794
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 191,
+      "x": 92,
+      "y": 55,
+      "volume": 30,
+      "time_window": [
+        38,
+        1303
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 192,
+      "x": 64,
+      "y": 190,
+      "volume": 30,
+      "time_window": [
+        98,
+        958
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 193,
+      "x": 143,
+      "y": 61,
+      "volume": 30,
+      "time_window": [
+        1120,
+        2163
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 194,
+      "x": 14,
+      "y": 58,
+      "volume": 20,
+      "time_window": [
+        518,
+        2166
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 195,
+      "x": 79,
+      "y": 115,
+      "volume": 30,
+      "time_window": [
+        2517,
+        3246
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 190,
+      "optional": 0
+    },
+    {
+      "id": 196,
+      "x": 28,
+      "y": 82,
+      "volume": 20,
+      "time_window": [
+        1276,
+        2233
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 165,
+      "optional": 0
+    },
+    {
+      "id": 197,
+      "x": 140,
+      "y": 144,
+      "volume": 10,
+      "time_window": [
+        964,
+        1250
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 198,
+      "x": 15,
+      "y": 179,
+      "volume": 20,
+      "time_window": [
+        863,
+        1470
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 199,
+      "x": 137,
+      "y": 39,
+      "volume": 30,
+      "time_window": [
+        1466,
+        2387
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 200,
+      "x": 20,
+      "y": 92,
+      "volume": 20,
+      "time_window": [
+        1191,
+        2355
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 2,
+      "loader_service_time": 180,
+      "optional": 1
+    },
+    {
+      "id": 201,
+      "x": 173,
+      "y": 65,
+      "volume": 10,
+      "time_window": [
+        1668,
+        1788
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 202,
+      "x": 28,
+      "y": 180,
+      "volume": 30,
+      "time_window": [
+        1061,
+        1658
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 203,
+      "x": 37,
+      "y": 37,
+      "volume": 10,
+      "time_window": [
+        107,
+        836
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 204,
+      "x": 60,
+      "y": 188,
+      "volume": 10,
+      "time_window": [
+        809,
+        1863
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 205,
+      "x": 73,
+      "y": 150,
+      "volume": 20,
+      "time_window": [
+        1404,
+        1629
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 1
+    },
+    {
+      "id": 206,
+      "x": -5,
+      "y": 175,
+      "volume": 10,
+      "time_window": [
+        1171,
+        2175
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 207,
+      "x": 40,
+      "y": 80,
+      "volume": 20,
+      "time_window": [
+        2040,
+        3048
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 208,
+      "x": 144,
+      "y": 150,
+      "volume": 20,
+      "time_window": [
+        1322,
+        1822
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 209,
+      "x": 156,
+      "y": 156,
+      "volume": 10,
+      "time_window": [
+        2123,
+        3215
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 210,
+      "x": 115,
+      "y": 156,
+      "volume": 20,
+      "time_window": [
+        1056,
+        1190
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 211,
+      "x": 85,
+      "y": 140,
+      "volume": 20,
+      "time_window": [
+        51,
+        1049
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 212,
+      "x": 47,
+      "y": 110,
+      "volume": 20,
+      "time_window": [
+        727,
+        1662
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 1
+    },
+    {
+      "id": 213,
+      "x": 77,
+      "y": 107,
+      "volume": 10,
+      "time_window": [
+        18,
+        457
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 180,
+      "optional": 0
+    },
+    {
+      "id": 214,
+      "x": 14,
+      "y": 79,
+      "volume": 20,
+      "time_window": [
+        1606,
+        2257
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 3,
+      "loader_service_time": 135,
+      "optional": 1
+    },
+    {
+      "id": 215,
+      "x": 47,
+      "y": 88,
+      "volume": 20,
+      "time_window": [
+        2553,
+        2909
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 216,
+      "x": 95,
+      "y": 69,
+      "volume": 30,
+      "time_window": [
+        26,
+        1266
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 217,
+      "x": 78,
+      "y": 138,
+      "volume": 20,
+      "time_window": [
+        1959,
+        2613
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 218,
+      "x": 76,
+      "y": 101,
+      "volume": 20,
+      "time_window": [
+        172,
+        630
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 219,
+      "x": 83,
+      "y": 133,
+      "volume": 20,
+      "time_window": [
+        1650,
+        2349
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 220,
+      "x": 96,
+      "y": 7,
+      "volume": 20,
+      "time_window": [
+        1896,
+        2699
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 221,
+      "x": 96,
+      "y": 65,
+      "volume": 10,
+      "time_window": [
+        2573,
+        3153
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 222,
+      "x": 120,
+      "y": 40,
+      "volume": 10,
+      "time_window": [
+        60,
+        1101
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 2,
+      "loader_service_time": 165,
+      "optional": 1
+    },
+    {
+      "id": 223,
+      "x": 10,
+      "y": 170,
+      "volume": 30,
+      "time_window": [
+        1715,
+        2400
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 224,
+      "x": 14,
+      "y": 62,
+      "volume": 40,
+      "time_window": [
+        540,
+        1005
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 2,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 225,
+      "x": 94,
+      "y": 51,
+      "volume": 10,
+      "time_window": [
+        60,
+        720
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 0
+    },
+    {
+      "id": 226,
+      "x": 22,
+      "y": 89,
+      "volume": 20,
+      "time_window": [
+        1785,
+        2137
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 227,
+      "x": 68,
+      "y": 16,
+      "volume": 10,
+      "time_window": [
+        514,
+        1375
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 1
+    },
+    {
+      "id": 228,
+      "x": 103,
+      "y": 11,
+      "volume": 30,
+      "time_window": [
+        1910,
+        2494
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 229,
+      "x": 23,
+      "y": 97,
+      "volume": 10,
+      "time_window": [
+        1438,
+        2858
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 230,
+      "x": 117,
+      "y": 27,
+      "volume": 30,
+      "time_window": [
+        2085,
+        2718
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 231,
+      "x": 121,
+      "y": 163,
+      "volume": 10,
+      "time_window": [
+        2146,
+        2594
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 232,
+      "x": 82,
+      "y": 148,
+      "volume": 30,
+      "time_window": [
+        1449,
+        1984
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 233,
+      "x": 109,
+      "y": 42,
+      "volume": 20,
+      "time_window": [
+        2570,
+        2623
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 195,
+      "optional": 0
+    },
+    {
+      "id": 234,
+      "x": 140,
+      "y": 168,
+      "volume": 10,
+      "time_window": [
+        2430,
+        3117
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 235,
+      "x": 65,
+      "y": 31,
+      "volume": 10,
+      "time_window": [
+        73,
+        951
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 236,
+      "x": 99,
+      "y": 24,
+      "volume": 20,
+      "time_window": [
+        604,
+        637
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 237,
+      "x": 35,
+      "y": 109,
+      "volume": 20,
+      "time_window": [
+        1082,
+        2068
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 238,
+      "x": 89,
+      "y": 69,
+      "volume": 10,
+      "time_window": [
+        29,
+        870
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 239,
+      "x": 73,
+      "y": 141,
+      "volume": 20,
+      "time_window": [
+        49,
+        1586
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 240,
+      "x": 44,
+      "y": 91,
+      "volume": 10,
+      "time_window": [
+        62,
+        1138
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 241,
+      "x": 139,
+      "y": 152,
+      "volume": 10,
+      "time_window": [
+        945,
+        2013
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 1
+    },
+    {
+      "id": 242,
+      "x": 97,
+      "y": 122,
+      "volume": 40,
+      "time_window": [
+        1969,
+        3585
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 1
+    },
+    {
+      "id": 243,
+      "x": 131,
+      "y": 156,
+      "volume": 10,
+      "time_window": [
+        2545,
+        3206
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 244,
+      "x": 105,
+      "y": 48,
+      "volume": 20,
+      "time_window": [
+        2172,
+        2834
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 245,
+      "x": 79,
+      "y": 132,
+      "volume": 20,
+      "time_window": [
+        1338,
+        2475
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 246,
+      "x": 94,
+      "y": 107,
+      "volume": 20,
+      "time_window": [
+        2433,
+        3139
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 247,
+      "x": 142,
+      "y": 128,
+      "volume": 10,
+      "time_window": [
+        2685,
+        3454
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 248,
+      "x": 138,
+      "y": 26,
+      "volume": 30,
+      "time_window": [
+        871,
+        1379
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 249,
+      "x": 148,
+      "y": 149,
+      "volume": 20,
+      "time_window": [
+        590,
+        1434
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 250,
+      "x": 74,
+      "y": 75,
+      "volume": 30,
+      "time_window": [
+        1085,
+        1543
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 251,
+      "x": 89,
+      "y": 166,
+      "volume": 20,
+      "time_window": [
+        1207,
+        1988
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 252,
+      "x": 143,
+      "y": 106,
+      "volume": 20,
+      "time_window": [
+        47,
+        752
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 195,
+      "optional": 1
+    },
+    {
+      "id": 253,
+      "x": 124,
+      "y": 4,
+      "volume": 10,
+      "time_window": [
+        378,
+        1264
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 254,
+      "x": 127,
+      "y": 16,
+      "volume": 10,
+      "time_window": [
+        492,
+        1350
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 255,
+      "x": 81,
+      "y": 102,
+      "volume": 20,
+      "time_window": [
+        2546,
+        3491
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 256,
+      "x": 141,
+      "y": 54,
+      "volume": 10,
+      "time_window": [
+        64,
+        561
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 257,
+      "x": 91,
+      "y": 37,
+      "volume": 20,
+      "time_window": [
+        2281,
+        3453
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 258,
+      "x": 164,
+      "y": 163,
+      "volume": 20,
+      "time_window": [
+        1789,
+        2351
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 0
+    },
+    {
+      "id": 259,
+      "x": 65,
+      "y": 98,
+      "volume": 20,
+      "time_window": [
+        2125,
+        2592
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 260,
+      "x": 22,
+      "y": 97,
+      "volume": 10,
+      "time_window": [
+        1430,
+        1539
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 261,
+      "x": 16,
+      "y": 100,
+      "volume": 10,
+      "time_window": [
+        1746,
+        2887
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 262,
+      "x": 91,
+      "y": 86,
+      "volume": 20,
+      "time_window": [
+        219,
+        423
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 263,
+      "x": 74,
+      "y": 22,
+      "volume": 20,
+      "time_window": [
+        941,
+        1320
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 264,
+      "x": 12,
+      "y": 55,
+      "volume": 20,
+      "time_window": [
+        706,
+        1235
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 265,
+      "x": 74,
+      "y": 54,
+      "volume": 30,
+      "time_window": [
+        2523,
+        2616
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 1
+    },
+    {
+      "id": 266,
+      "x": 83,
+      "y": 96,
+      "volume": 20,
+      "time_window": [
+        2497,
+        3353
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 267,
+      "x": 14,
+      "y": 88,
+      "volume": 30,
+      "time_window": [
+        1745,
+        2300
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 268,
+      "x": 29,
+      "y": 68,
+      "volume": 10,
+      "time_window": [
+        1108,
+        2180
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 269,
+      "x": 159,
+      "y": 128,
+      "volume": 10,
+      "time_window": [
+        70,
+        1066
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 270,
+      "x": 146,
+      "y": 130,
+      "volume": 20,
+      "time_window": [
+        2647,
+        3113
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 271,
+      "x": 159,
+      "y": 143,
+      "volume": 20,
+      "time_window": [
+        568,
+        890
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 0
+    },
+    {
+      "id": 272,
+      "x": 160,
+      "y": 48,
+      "volume": 10,
+      "time_window": [
+        969,
+        1131
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 273,
+      "x": 15,
+      "y": 98,
+      "volume": 20,
+      "time_window": [
+        1755,
+        2681
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 274,
+      "x": 41,
+      "y": 54,
+      "volume": 20,
+      "time_window": [
+        904,
+        1944
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 275,
+      "x": 38,
+      "y": 106,
+      "volume": 20,
+      "time_window": [
+        361,
+        1248
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 1
+    },
+    {
+      "id": 276,
+      "x": 98,
+      "y": 34,
+      "volume": 10,
+      "time_window": [
+        57,
+        567
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 277,
+      "x": 63,
+      "y": 206,
+      "volume": 20,
+      "time_window": [
+        2151,
+        3168
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 180,
+      "optional": 1
+    },
+    {
+      "id": 278,
+      "x": 13,
+      "y": 73,
+      "volume": 20,
+      "time_window": [
+        1247,
+        1636
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 0
+    },
+    {
+      "id": 279,
+      "x": 100,
+      "y": 161,
+      "volume": 10,
+      "time_window": [
+        1651,
+        2121
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 280,
+      "x": 152,
+      "y": 153,
+      "volume": 20,
+      "time_window": [
+        1470,
+        2068
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 0
+    },
+    {
+      "id": 281,
+      "x": 10,
+      "y": 75,
+      "volume": 10,
+      "time_window": [
+        1775,
+        2715
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 282,
+      "x": 125,
+      "y": 48,
+      "volume": 20,
+      "time_window": [
+        2819,
+        3347
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 0
+    },
+    {
+      "id": 283,
+      "x": 41,
+      "y": 93,
+      "volume": 10,
+      "time_window": [
+        1155,
+        1617
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 165,
+      "optional": 0
+    },
+    {
+      "id": 284,
+      "x": 41,
+      "y": 92,
+      "volume": 30,
+      "time_window": [
+        528,
+        1674
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 285,
+      "x": 170,
+      "y": 73,
+      "volume": 20,
+      "time_window": [
+        1466,
+        2365
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 286,
+      "x": 112,
+      "y": 144,
+      "volume": 20,
+      "time_window": [
+        2948,
+        3404
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 287,
+      "x": 72,
+      "y": 18,
+      "volume": 10,
+      "time_window": [
+        560,
+        1136
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 195,
+      "optional": 1
+    },
+    {
+      "id": 288,
+      "x": 92,
+      "y": 25,
+      "volume": 20,
+      "time_window": [
+        2604,
+        3510
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 289,
+      "x": 166,
+      "y": 57,
+      "volume": 10,
+      "time_window": [
+        2044,
+        2962
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 290,
+      "x": 70,
+      "y": 40,
+      "volume": 10,
+      "time_window": [
+        72,
+        1026
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 291,
+      "x": 69,
+      "y": 187,
+      "volume": 20,
+      "time_window": [
+        1657,
+        2338
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 1
+    },
+    {
+      "id": 292,
+      "x": 84,
+      "y": 165,
+      "volume": 30,
+      "time_window": [
+        171,
+        902
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 293,
+      "x": 83,
+      "y": 73,
+      "volume": 30,
+      "time_window": [
+        347,
+        1688
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 294,
+      "x": 94,
+      "y": 50,
+      "volume": 10,
+      "time_window": [
+        2958,
+        3551
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 295,
+      "x": 64,
+      "y": 18,
+      "volume": 20,
+      "time_window": [
+        859,
+        1778
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 296,
+      "x": 117,
+      "y": 72,
+      "volume": 30,
+      "time_window": [
+        19,
+        659
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 297,
+      "x": 79,
+      "y": 114,
+      "volume": 20,
+      "time_window": [
+        972,
+        1661
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 298,
+      "x": 58,
+      "y": 3,
+      "volume": 30,
+      "time_window": [
+        93,
+        1637
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 190,
+      "optional": 0
+    },
+    {
+      "id": 299,
+      "x": 36,
+      "y": 68,
+      "volume": 20,
+      "time_window": [
+        1273,
+        2201
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 300,
+      "x": 73,
+      "y": 185,
+      "volume": 10,
+      "time_window": [
+        1598,
+        2213
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 0
+    },
+    {
+      "id": 301,
+      "x": 102,
+      "y": 123,
+      "volume": 30,
+      "time_window": [
+        2021,
+        2963
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 1
+    },
+    {
+      "id": 302,
+      "x": 114,
+      "y": 66,
+      "volume": 10,
+      "time_window": [
+        99,
+        1630
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 303,
+      "x": 39,
+      "y": 96,
+      "volume": 10,
+      "time_window": [
+        2213,
+        3058
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 304,
+      "x": 87,
+      "y": 23,
+      "volume": 10,
+      "time_window": [
+        1102,
+        2112
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 0
+    },
+    {
+      "id": 305,
+      "x": 143,
+      "y": 167,
+      "volume": 10,
+      "time_window": [
+        1851,
+        3088
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 306,
+      "x": 20,
+      "y": 83,
+      "volume": 20,
+      "time_window": [
+        1324,
+        2356
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 307,
+      "x": 64,
+      "y": 87,
+      "volume": 30,
+      "time_window": [
+        1998,
+        2533
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 308,
+      "x": 59,
+      "y": 94,
+      "volume": 10,
+      "time_window": [
+        1500,
+        2836
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 1
+    },
+    {
+      "id": 309,
+      "x": 61,
+      "y": 34,
+      "volume": 10,
+      "time_window": [
+        86,
+        995
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 310,
+      "x": 18,
+      "y": 112,
+      "volume": 20,
+      "time_window": [
+        2098,
+        2767
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 311,
+      "x": 78,
+      "y": 167,
+      "volume": 30,
+      "time_window": [
+        1183,
+        2260
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 185,
+      "optional": 1
+    },
+    {
+      "id": 312,
+      "x": 194,
+      "y": 124,
+      "volume": 10,
+      "time_window": [
+        2168,
+        2422
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 90,
+      "optional": 1
+    },
+    {
+      "id": 313,
+      "x": 100,
+      "y": 69,
+      "volume": 10,
+      "time_window": [
+        191,
+        1354
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 0
+    },
+    {
+      "id": 314,
+      "x": 126,
+      "y": 46,
+      "volume": 20,
+      "time_window": [
+        2231,
+        3352
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 315,
+      "x": 80,
+      "y": 27,
+      "volume": 10,
+      "time_window": [
+        2117,
+        3427
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 155,
+      "optional": 0
+    },
+    {
+      "id": 316,
+      "x": 100,
+      "y": 164,
+      "volume": 10,
+      "time_window": [
+        1818,
+        2153
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 317,
+      "x": 127,
+      "y": 40,
+      "volume": 10,
+      "time_window": [
+        2666,
+        3106
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 0
+    },
+    {
+      "id": 318,
+      "x": 54,
+      "y": 74,
+      "volume": 20,
+      "time_window": [
+        2718,
+        3551
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 319,
+      "x": 73,
+      "y": 106,
+      "volume": 10,
+      "time_window": [
+        1848,
+        2302
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 320,
+      "x": 84,
+      "y": 42,
+      "volume": 10,
+      "time_window": [
+        3133,
+        3175
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 321,
+      "x": 98,
+      "y": 27,
+      "volume": 10,
+      "time_window": [
+        74,
+        1255
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 0
+    },
+    {
+      "id": 322,
+      "x": 106,
+      "y": 181,
+      "volume": 20,
+      "time_window": [
+        1669,
+        2496
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 1
+    },
+    {
+      "id": 323,
+      "x": 66,
+      "y": 172,
+      "volume": 20,
+      "time_window": [
+        72,
+        714
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 1
+    },
+    {
+      "id": 324,
+      "x": 104,
+      "y": 93,
+      "volume": 20,
+      "time_window": [
+        18,
+        464
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 325,
+      "x": 50,
+      "y": 93,
+      "volume": 20,
+      "time_window": [
+        45,
+        1402
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 326,
+      "x": 43,
+      "y": 84,
+      "volume": 10,
+      "time_window": [
+        2625,
+        3218
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 327,
+      "x": 13,
+      "y": 168,
+      "volume": 30,
+      "time_window": [
+        1244,
+        2488
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 328,
+      "x": 90,
+      "y": 34,
+      "volume": 10,
+      "time_window": [
+        2153,
+        2759
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 1
+    },
+    {
+      "id": 329,
+      "x": 154,
+      "y": 145,
+      "volume": 20,
+      "time_window": [
+        69,
+        1524
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 330,
+      "x": 104,
+      "y": 48,
+      "volume": 20,
+      "time_window": [
+        1751,
+        2740
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 190,
+      "optional": 1
+    },
+    {
+      "id": 331,
+      "x": 146,
+      "y": 60,
+      "volume": 20,
+      "time_window": [
+        59,
+        774
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 0
+    },
+    {
+      "id": 332,
+      "x": 83,
+      "y": 206,
+      "volume": 20,
+      "time_window": [
+        2529,
+        2995
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 333,
+      "x": 102,
+      "y": 146,
+      "volume": 30,
+      "time_window": [
+        522,
+        753
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 334,
+      "x": 17,
+      "y": 162,
+      "volume": 20,
+      "time_window": [
+        2245,
+        2675
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 1
+    },
+    {
+      "id": 335,
+      "x": 163,
+      "y": 132,
+      "volume": 20,
+      "time_window": [
+        376,
+        893
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 3,
+      "loader_service_time": 130,
+      "optional": 1
+    },
+    {
+      "id": 336,
+      "x": 84,
+      "y": 129,
+      "volume": 20,
+      "time_window": [
+        1548,
+        2833
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 100,
+      "optional": 0
+    },
+    {
+      "id": 337,
+      "x": 59,
+      "y": 77,
+      "volume": 10,
+      "time_window": [
+        156,
+        893
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 338,
+      "x": 126,
+      "y": 28,
+      "volume": 20,
+      "time_window": [
+        2038,
+        2199
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 339,
+      "x": 95,
+      "y": 156,
+      "volume": 20,
+      "time_window": [
+        578,
+        2054
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 110,
+      "optional": 0
+    },
+    {
+      "id": 340,
+      "x": 85,
+      "y": 84,
+      "volume": 20,
+      "time_window": [
+        2523,
+        3409
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 341,
+      "x": 148,
+      "y": 116,
+      "volume": 30,
+      "time_window": [
+        149,
+        545
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 0
+    },
+    {
+      "id": 342,
+      "x": 75,
+      "y": 28,
+      "volume": 20,
+      "time_window": [
+        2150,
+        3018
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 343,
+      "x": 189,
+      "y": 117,
+      "volume": 10,
+      "time_window": [
+        1697,
+        3093
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 344,
+      "x": 41,
+      "y": 83,
+      "volume": 30,
+      "time_window": [
+        2927,
+        3300
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 345,
+      "x": 59,
+      "y": 37,
+      "volume": 30,
+      "time_window": [
+        74,
+        1419
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 120,
+      "optional": 1
+    },
+    {
+      "id": 346,
+      "x": 35,
+      "y": 193,
+      "volume": 10,
+      "time_window": [
+        631,
+        737
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 347,
+      "x": 27,
+      "y": 174,
+      "volume": 30,
+      "time_window": [
+        468,
+        1277
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 348,
+      "x": 47,
+      "y": 196,
+      "volume": 10,
+      "time_window": [
+        759,
+        1334
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 349,
+      "x": 176,
+      "y": 44,
+      "volume": 10,
+      "time_window": [
+        583,
+        941
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 350,
+      "x": 180,
+      "y": 37,
+      "volume": 30,
+      "time_window": [
+        941,
+        1918
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 145,
+      "optional": 0
+    },
+    {
+      "id": 351,
+      "x": 64,
+      "y": 115,
+      "volume": 20,
+      "time_window": [
+        922,
+        1525
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 0
+    },
+    {
+      "id": 352,
+      "x": 19,
+      "y": 113,
+      "volume": 20,
+      "time_window": [
+        1055,
+        2286
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 353,
+      "x": 19,
+      "y": 61,
+      "volume": 10,
+      "time_window": [
+        389,
+        1348
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 160,
+      "optional": 1
+    },
+    {
+      "id": 354,
+      "x": 61,
+      "y": 80,
+      "volume": 30,
+      "time_window": [
+        2474,
+        3550
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 355,
+      "x": 59,
+      "y": 143,
+      "volume": 30,
+      "time_window": [
+        61,
+        1249
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 356,
+      "x": 83,
+      "y": 25,
+      "volume": 20,
+      "time_window": [
+        2716,
+        3207
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 357,
+      "x": 46,
+      "y": 97,
+      "volume": 10,
+      "time_window": [
+        415,
+        852
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 358,
+      "x": 106,
+      "y": 27,
+      "volume": 10,
+      "time_window": [
+        76,
+        1568
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 359,
+      "x": 54,
+      "y": 124,
+      "volume": 30,
+      "time_window": [
+        492,
+        1356
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 360,
+      "x": 184,
+      "y": 47,
+      "volume": 10,
+      "time_window": [
+        938,
+        1540
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 105,
+      "optional": 0
+    },
+    {
+      "id": 361,
+      "x": 128,
+      "y": 144,
+      "volume": 10,
+      "time_window": [
+        2541,
+        3553
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 362,
+      "x": 106,
+      "y": 67,
+      "volume": 40,
+      "time_window": [
+        370,
+        800
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 190,
+      "optional": 1
+    },
+    {
+      "id": 363,
+      "x": 92,
+      "y": 106,
+      "volume": 30,
+      "time_window": [
+        2837,
+        3124
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 364,
+      "x": 85,
+      "y": 76,
+      "volume": 20,
+      "time_window": [
+        2204,
+        3079
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 365,
+      "x": 149,
+      "y": 64,
+      "volume": 30,
+      "time_window": [
+        2871,
+        2890
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 366,
+      "x": 96,
+      "y": 40,
+      "volume": 10,
+      "time_window": [
+        2279,
+        3058
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 367,
+      "x": 78,
+      "y": 38,
+      "volume": 10,
+      "time_window": [
+        70,
+        890
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 3,
+      "loader_service_time": 190,
+      "optional": 1
+    },
+    {
+      "id": 368,
+      "x": 57,
+      "y": 73,
+      "volume": 10,
+      "time_window": [
+        2123,
+        3547
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 130,
+      "optional": 0
+    },
+    {
+      "id": 369,
+      "x": 128,
+      "y": 60,
+      "volume": 10,
+      "time_window": [
+        354,
+        1765
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 95,
+      "optional": 1
+    },
+    {
+      "id": 370,
+      "x": 47,
+      "y": 104,
+      "volume": 30,
+      "time_window": [
+        384,
+        1252
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 371,
+      "x": 103,
+      "y": 58,
+      "volume": 30,
+      "time_window": [
+        45,
+        921
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 115,
+      "optional": 1
+    },
+    {
+      "id": 372,
+      "x": 21,
+      "y": 69,
+      "volume": 30,
+      "time_window": [
+        78,
+        615
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 170,
+      "optional": 0
+    },
+    {
+      "id": 373,
+      "x": 137,
+      "y": 139,
+      "volume": 10,
+      "time_window": [
+        587,
+        2182
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 150,
+      "optional": 1
+    },
+    {
+      "id": 374,
+      "x": 65,
+      "y": 185,
+      "volume": 20,
+      "time_window": [
+        974,
+        1500
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 1,
+      "loader_service_time": 135,
+      "optional": 0
+    },
+    {
+      "id": 375,
+      "x": 102,
+      "y": 162,
+      "volume": 20,
+      "time_window": [
+        799,
+        2025
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 1,
+      "loader_service_time": 125,
+      "optional": 0
+    },
+    {
+      "id": 376,
+      "x": 25,
+      "y": 95,
+      "volume": 20,
+      "time_window": [
+        2558,
+        3117
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 2,
+      "loader_service_time": 195,
+      "optional": 1
+    },
+    {
+      "id": 377,
+      "x": 23,
+      "y": 194,
+      "volume": 30,
+      "time_window": [
+        110,
+        1371
+      ],
+      "vehicle_service_time": 90,
+      "loader_cnt": 1,
+      "loader_service_time": 140,
+      "optional": 0
+    },
+    {
+      "id": 378,
+      "x": 149,
+      "y": 74,
+      "volume": 10,
+      "time_window": [
+        2641,
+        3310
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 379,
+      "x": 161,
+      "y": 51,
+      "volume": 30,
+      "time_window": [
+        126,
+        619
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 0
+    },
+    {
+      "id": 380,
+      "x": 165,
+      "y": 61,
+      "volume": 20,
+      "time_window": [
+        2105,
+        2526
+      ],
+      "vehicle_service_time": 100,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    },
+    {
+      "id": 381,
+      "x": 137,
+      "y": 160,
+      "volume": 30,
+      "time_window": [
+        2049,
+        3081
+      ],
+      "vehicle_service_time": 95,
+      "loader_cnt": 0,
+      "loader_service_time": 0,
+      "optional": 1
+    }
+  ],
+  "weights": {
+    "vehicle_salary": 600,
+    "loader_salary": 400,
+    "fuel_cost": 1.2,
+    "loader_work": 0.75,
+    "optional_order_penalty": 400
+  }
+}

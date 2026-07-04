@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  logic-tests:
+  logic-tests-mvpv1:
     name: Unit & integration
     runs-on: ubuntu-latest
     steps:
@@ -20,8 +20,25 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install flask flask-cors numpy pyvrp ortools openpyxl pytest
-      - name: Run logic tests
+      - name: Run logic tests (MVPv1)
         run: python -m pytest tests/ --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
+
+  logic-tests-mvpv2:
+    name: Unit & integration (MVPv2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install flask flask-cors numpy pyvrp ortools openpyxl pytest
+      - name: Run logic tests (MVPv2)
+        env:
+          TEST_TARGET: v2
+        run: python -m pytest tests/ --ignore=tests/test_main.py --ignore=tests/test_integration_cpsat.py --ignore=tests/test_tester.py --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
 
   coverage:
     name: Coverage report

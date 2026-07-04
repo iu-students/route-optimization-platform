@@ -1,0 +1,84 @@
+@startuml component-diagram
+title Route Optimization Platform — Component Diagram (Static View)
+
+skinparam componentStyle rectangle
+skinparam wrapWidth 200
+skinparam shadowing false
+
+actor "API Client" as Client
+actor "Developer (CLI)" as Developer
+
+package "API Layer" {
+  [Flask API\n(app.py)] as API
+  [Validator\n(validator.py)] as Validator
+}
+
+package "Pipeline A — CP-SAT (active, wired to API)" {
+  [Orchestrator\n(main.py)] as MainOrchestrator
+  [Vehicle Routes Solver\n(vehicle_routes.py)] as VehicleRoutesSolver
+  [Loader Routes Solver\n(loader_routes.py)] as LoaderRoutesSolver
+  [Common Utils\n(common_functions.py)] as CommonUtils
+}
+
+package "Pipeline B — PyVRP (alternative, CLI-only)" {
+  [Orchestrator\n(script.py)] as ScriptOrchestrator
+  [PyVRP Model] as PyVRPModel <<external library>>
+  [Loaders Solver\n(loaders.py)] as LoadersSolver
+}
+
+package "Shared" {
+  [Models / Dataclasses\n(models.py)] as Models
+  [Verifier\n(verifier.py)] as Verifier
+  database "Data Storage\n(input.json / output.json)" as DataStorage
+}
+
+package "Offline Comparison Tool" {
+  [Tester\n(tester.py)] as Tester
+  folder "test_cases/\n(baseline + generated solutions)" as TestCases
+  file "comparison.xlsx" as ComparisonFile
+}
+
+' --- layout hint: force CLI-driven flow below the API-driven flow ---
+Models -[hidden]d-> Developer
+
+' --- API-driven flow (Pipeline A) ---
+Client --> API : HTTP POST /solve\nHTTP GET /solution
+API --> Validator : validate_input()
+API --> MainOrchestrator : solve_pipeline()
+MainOrchestrator --> VehicleRoutesSolver
+MainOrchestrator --> LoaderRoutesSolver
+VehicleRoutesSolver --> CommonUtils
+LoaderRoutesSolver --> CommonUtils
+MainOrchestrator --> Models
+VehicleRoutesSolver --> Models
+LoaderRoutesSolver --> Models
+MainOrchestrator --> DataStorage : read input.json\nwrite output.json
+MainOrchestrator --> Verifier : run_verification()
+
+' --- CLI-driven flow (Pipeline B, not wired to API) ---
+Developer --> ScriptOrchestrator : python script.py
+ScriptOrchestrator --> PyVRPModel
+ScriptOrchestrator --> LoadersSolver
+ScriptOrchestrator --> Verifier
+ScriptOrchestrator --> Models
+LoadersSolver --> Models
+ScriptOrchestrator --> DataStorage : read input.json\nwrite output.json
+
+' --- Offline comparison tool, file-based only ---
+Developer --> Tester : python tester.py
+Tester ..> TestCases : reads
+Tester ..> ComparisonFile : writes
+
+note bottom of ScriptOrchestrator
+  Pipeline B is not reachable through app.py.
+  Invoked manually via CLI for offline
+  comparison against Pipeline A.
+end note
+
+note bottom of Verifier
+  Shared between Pipeline A and Pipeline B.
+  Verifies shift times, time windows,
+  and vehicle capacity against the solution.
+end note
+
+@enduml

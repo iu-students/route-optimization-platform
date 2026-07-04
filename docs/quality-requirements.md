@@ -13,6 +13,8 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 **Linked quality requirement tests:** [QRT-001](quality-requirement-tests.md#qrt-001-api-responsiveness)
 
+**Linked ADRs:** [ADR-002](architecture/adr/ADR-002-async-solve-with-polling.md)
+
 ---
 
 ## QR-002: Route data confidentiality
@@ -36,3 +38,5 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 **Why this matters:** Critical product logic must be directly verifiable so defects can be detected before merge. Without measurable coverage expectations, untested code paths can introduce regressions in core solver, validation, or verification logic.
 
 **Linked quality requirement tests:** [QRT-003](quality-requirement-tests.md#qrt-003-critical-module-unit-coverage)
+
+**Linked ADRs:** [ADR-001](architecture/adr/ADR-001-dual-solver-pipelines.md), [ADR-003](architecture/adr/ADR-003-shared-verifier.md)

@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-- v0.2.0 - MVPv2, optional order handling, separate vehicle/loader routing, input validation
+- v0.2.0 - MVPv1.1, optional order handling, separate vehicle/loader routing, input validation
 
 ### Added
 
@@ -71,3 +71,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 ## [Unreleased]
+
+- v0.3.0 - MVPv2, metrics, statistics
+
+### Added
+
+- Implemented Clarke-Wright savings algorithm for vehicle minimization ([TT-3](https://github.com/iu-students/route-optimization-platform/issues/79))
+  - Initial state creates N separate routes, one per order, each served by a dedicated vehicle
+  - Evaluates route merges by calculating savings from `take_vehicle` penalty saved and `fuel_cost` for distance reduction
+  - Merges routes when positive savings are detected, reducing active vehicle count by 1 per merge
+- Added time window and capacity constraint enforcement during route merging ([TT-4](https://github.com/iu-students/route-optimization-platform/issues/80))
+  - Combined order volume is validated against `vehicle_capacity` before merge is accepted
+  - Delivery sequence arrival times are recalculated and checked against each order's `time_window`
+  - Merge is rejected immediately if any capacity or time window violation is detected
+  - Final optimized route plan guarantees minimum vehicle count without violating constraints
+- Implemented objective function calculation based on final routes and weights ([#TT-7](https://github.com/iu-students/route-optimization-platform/issues/78))
+  - Fuel cost: total distance traveled by all vehicles multiplied by `fuel_cost`
+  - Vehicle and loader salaries: count of unique vehicles × `take_vehicle`, count of unique loaders × `add_loader`
+  - Loader work cost: total time (travel + waiting + service) spent by all loaders multiplied by `loader_work`
+  - Penalties: number of skipped optional orders multiplied by `order_penalty`
+- Added statistics object to API and output JSON response ([#TT-6](https://github.com/iu-students/route-optimization-platform/issues/77))
+  - Response includes a `statistics` block with keys: `total_cost`, `fuel_cost`, `vehicle_salaries`, `loader_salaries`, `loader_work_cost`, `penalties`
+  - `total_cost` equals the exact sum of all component costs
+  - Statistics are persisted inside the output JSON file and returned via `GET /solution` and `GET /metrics`
+- Added `GET /metrics` endpoint returning cost breakdown and summary metrics ([#TT-6](https://github.com/iu-students/route-optimization-platform/issues/77))
+- Added `POST /validate` endpoint to validate input scenario without solving ([#TT-5](https://github.com/iu-students/route-optimization-platform/issues/81))
+  - Returns `{"status": "ok"}` on valid input
+  - Returns `{"status": "error", "errors": [...]}` with detailed field-level messages on invalid input
+- Computation endpoints now report detailed stage during solving ([#TT-6](https://github.com/iu-students/route-optimization-platform/issues/77))
+  - `GET /solution` and `GET /metrics` return `"stage": "parsing"`, `"stage": "solving_vehicles"`, `"stage": "solving_loaders"`, etc. instead of plain `"status": "computing"`
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
