@@ -98,6 +98,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `POST /validate` endpoint to validate input scenario without solving ([#TT-5](https://github.com/iu-students/route-optimization-platform/issues/81))
   - Returns `{"status": "ok"}` on valid input
   - Returns `{"status": "error", "errors": [...]}` with detailed field-level messages on invalid input
+- Computation endpoints now report detailed stage during solving ([#TT-6](https://github.com/iu-students/route-optimization-platform/issues/77))
+  - `GET /solution` and `GET /metrics` return `"stage": "parsing"`, `"stage": "solving_vehicles"`, `"stage": "solving_loaders"`, etc. instead of plain `"status": "computing"`
 
 ### Changed
 
