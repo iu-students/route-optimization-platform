@@ -186,6 +186,51 @@ paths:
                   message:
                     type: string
 
+  /validate:
+    post:
+      summary: Validate input scenario
+      description: |
+        Accepts a CVRPTW scenario and validates it without solving.
+        Returns ok or a list of validation errors.
+      operationId: validateScenario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scenario'
+      responses:
+        '200':
+          description: Input is valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                          example: depot.x
+                        message:
+                          type: string
+
   /health:
     get:
       summary: Service health check

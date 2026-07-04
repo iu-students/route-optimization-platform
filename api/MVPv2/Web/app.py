@@ -104,6 +104,16 @@ def solution():
     return jsonify({"status": "idle", "message": "No computation started yet"})
 
 
+@app.route("/validate", methods=["POST"])
+def validate():
+    data = request.get_json(force=True)
+    try:
+        result = validate_input(data)
+        return jsonify(result)
+    except ValidationError as e:
+        return jsonify({"status": "error", "errors": e.errors}), 400
+
+
 @app.route("/metrics", methods=["GET"])
 def metrics():
     require_api_key()
