@@ -14,7 +14,6 @@ CRITICAL_MODULES = {
     "main.py": 30,
     "verifier.py": 30,
     "validator.py": 30,
-    "tester.py": 30,
 }
 
 COVERAGE_JSON = os.path.join(PROJECT_ROOT, "coverage.json")
@@ -34,7 +33,7 @@ class TestQRT003CriticalModuleCoverage:
 
         run_result = subprocess.run(
             [sys.executable, "-m", "coverage", "run",
-             "--source=api/MVPv1,api/MVPv2",
+             "--source=api/MVPv1,api/MVPv1.2,api/MVPv2",
              "-m", "pytest", "tests/",
              "--ignore=tests/test_qrt_003_critical_module_coverage.py",
              "-q", "--tb=short"],

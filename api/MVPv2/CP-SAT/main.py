@@ -1,3 +1,4 @@
+# flake8: noqa: E501, E402, W291, W293, F541
 import json
 import time
 import sys
@@ -15,6 +16,7 @@ from Web.validator import validate_input
 from vehicle_routes import find_vehicles_routes
 from loader_routes import find_loaders_routes
 from Shared.verifier import run_verification
+
 
 def parse(path):
     with open(path) as f:

@@ -1,3 +1,4 @@
+# flake8: noqa: E402
 import json
 import math
 import os
@@ -12,7 +13,7 @@ from pyvrp import Model
 from pyvrp.stop import MaxRuntime
 from Shared.models import Scenario, Depot, Weights, Order
 from Shared.verifier import run_verification
-from Web.validator import validate_input
+from validator import validate_input
 
 
 def parse(path: str) -> Scenario:

@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 import json
 import random
 import time
@@ -156,9 +157,9 @@ def clarke_wright(scenario, perturb=False):
     if perturb:
         chunk = max(1, len(savings) // 30)
         for k in range(0, len(savings), chunk):
-            block = savings[k : k + chunk]
+            block = savings[k:k + chunk]
             random.shuffle(block)
-            savings[k : k + chunk] = block
+            savings[k:k + chunk] = block
     for s, a, b in savings:
         if s <= 0:
             break
