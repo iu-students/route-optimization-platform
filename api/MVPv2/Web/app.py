@@ -40,8 +40,12 @@ def require_api_key():
 def run_solve():
     global solver_state
     try:
+        def on_stage(name):
+            with solver_lock:
+                solver_state = {"status": "computing", "stage": name}
+
         cpsat = importlib.import_module("CP-SAT.main")
-        cpsat.solve_pipeline(input_path=INPUT_PATH, output_path=SOLUTION_PATH)
+        cpsat.solve_pipeline(input_path=INPUT_PATH, output_path=SOLUTION_PATH, on_stage=on_stage)
         with solver_lock:
             solver_state = {"status": "done"}
     except Exception as e:
@@ -91,7 +95,11 @@ def solution():
         status = solver_state.get("status")
 
     if status == "computing":
-        return jsonify({"status": "computing"})
+        with solver_lock:
+            resp = {"status": "computing"}
+            if "stage" in solver_state:
+                resp["stage"] = solver_state["stage"]
+            return jsonify(resp)
 
     if status == "error":
         with solver_lock:
@@ -122,7 +130,11 @@ def metrics():
         status = solver_state.get("status")
 
     if status == "computing":
-        return jsonify({"status": "computing"})
+        with solver_lock:
+            resp = {"status": "computing"}
+            if "stage" in solver_state:
+                resp["stage"] = solver_state["stage"]
+            return jsonify(resp)
 
     if status == "error":
         with solver_lock:

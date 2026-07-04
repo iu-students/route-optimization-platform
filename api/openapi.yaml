@@ -120,6 +120,9 @@ paths:
                       status:
                         type: string
                         example: computing
+                      stage:
+                        type: string
+                        example: solving_vehicles
                   - type: object
                     properties:
                       status:
@@ -166,6 +169,9 @@ paths:
                       status:
                         type: string
                         example: computing
+                      stage:
+                        type: string
+                        example: solving_vehicles
                   - type: object
                     properties:
                       status:
