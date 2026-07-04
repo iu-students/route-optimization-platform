@@ -104,6 +104,41 @@ def solution():
     return jsonify({"status": "idle", "message": "No computation started yet"})
 
 
+@app.route("/metrics", methods=["GET"])
+def metrics():
+    require_api_key()
+
+    with solver_lock:
+        status = solver_state.get("status")
+
+    if status == "computing":
+        return jsonify({"status": "computing"})
+
+    if status == "error":
+        with solver_lock:
+            return jsonify(solver_state), 500
+
+    if os.path.exists(SOLUTION_PATH):
+        with open(SOLUTION_PATH, encoding="utf-8") as f:
+            sol = json.load(f)
+        stats = sol.get("statistics", {})
+        return jsonify({
+            "status": "done",
+            "metrics": {
+                "total_cost": stats.get("total_cost", 0),
+                "fuel_cost": stats.get("fuel_cost", 0),
+                "vehicle_salaries": stats.get("vehicle_salaries", 0),
+                "loader_salaries": stats.get("loader_salaries", 0),
+                "loader_work_cost": stats.get("loader_work_cost", 0),
+                "penalties": stats.get("penalties", 0),
+                "vehicles_used": len(sol.get("vehicles", [])),
+                "loaders_used": len(sol.get("loaders", [])),
+            }
+        })
+
+    return jsonify({"status": "idle", "message": "No computation started yet"})
+
+
 if __name__ == "__main__":
     host = os.environ.get("FLASK_HOST", "127.0.0.1")
     debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
