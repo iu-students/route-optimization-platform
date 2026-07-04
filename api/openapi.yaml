@@ -140,6 +140,52 @@ paths:
                   message:
                     type: string
 
+  /metrics:
+    get:
+      summary: Get route metrics
+      description: |
+        Returns cost breakdown and summary metrics for the computed solution,
+        or current status (computing / idle / error).
+      operationId: getMetrics
+      responses:
+        '200':
+          description: Metrics or status
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: done
+                      metrics:
+                        $ref: '#/components/schemas/Metrics'
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: computing
+                  - type: object
+                    properties:
+                      status:
+                        type: string
+                        example: idle
+                      message:
+                        type: string
+        '500':
+          description: Computation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+
   /health:
     get:
       summary: Service health check
@@ -344,6 +390,34 @@ components:
             type: integer
           description: Loader route (order IDs)
           example: [1, 2, 3]
+
+    Metrics:
+      type: object
+      properties:
+        total_cost:
+          type: number
+          example: 1234.56
+        fuel_cost:
+          type: number
+          example: 500.00
+        vehicle_salaries:
+          type: number
+          example: 380.00
+        loader_salaries:
+          type: number
+          example: 230.00
+        loader_work_cost:
+          type: number
+          example: 120.00
+        penalties:
+          type: number
+          example: 0
+        vehicles_used:
+          type: integer
+          example: 3
+        loaders_used:
+          type: integer
+          example: 2
 
     Error:
       type: object
