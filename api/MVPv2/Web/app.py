@@ -41,6 +41,7 @@ def run_solve():
     global solver_state
     try:
         def on_stage(name):
+            global solver_state
             with solver_lock:
                 solver_state = {"status": "computing", "stage": name}
 
@@ -79,7 +80,7 @@ def solve():
         json.dump(data, f, indent=2, ensure_ascii=False)
 
     with solver_lock:
-        solver_state = {"status": "computing"}
+        solver_state = {"status": "computing", "stage": "starting"}
 
     thread = threading.Thread(target=run_solve)
     thread.start()
