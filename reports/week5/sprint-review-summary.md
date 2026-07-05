@@ -23,7 +23,7 @@ Empower managers with full visibility into route economics by delivering cost br
 - **Metrics endpoint:** A separate endpoint now returns route metrics and objective function results, allowing the customer to view and compare results with the baseline from the service.
 - **Input validation endpoint (`/valid`):** New endpoint accepts an input JSON file, runs validation, and returns which rules are violated.
 - **Architecture review:** The team reviewed and cleaned up the project architecture and component connections.
-- **Algorithm updates:** Two parallel algorithm versions continue development. The new algorithm version (no PyVRP, parallel vehicle and loader planning with iterative point removal and reinsertion) now outperforms the baseline on 7–8 out of 10 test cases within 15 minutes. The CP-solver version is being extended to account for loader costs when evaluating optional order removal.
+- **Algorithm updates:** Two parallel algorithm versions continue development. The new algorithm version (no PyVRP, parallel vehicle and loader planning with iterative point removal and reinsertion) now outperforms the baseline on 8 out of 10 test cases within 15 minutes. The CP-solver version is being extended to account for loader costs when evaluating optional order removal.
 - **User stories updated:** Two user stories taken into the sprint - manager metrics display and vehicle minimization. Two technical tasks added - progress display and validation endpoint.
 
 ---
@@ -92,7 +92,7 @@ The customer noted the system shows no progress during long calculations — "ch
 | Risk | Mitigation |
 |---|---|
 | CP-solver version currently exceeds the 15-minute time limit on some test cases. | Team is restructuring the algorithm and reviewing time budget management. |
-| New algorithm version (7–8/10) is not yet the stable production version. | Continue development; keep current version as fallback until the new version is stable. |
+| New algorithm version (8/10) is not yet the stable production version. | Continue development; keep current version as fallback until the new version is stable. |
 |The stage-based progress bar has not yet been implemented - the system currently shows how many seconds are left. The client requested a step-by-step progress bar instead. | Plan algorithm stages and implement stage-based status reporting. |
 | Multi-route per vehicle logic not yet implemented. | Investigate short-route frequency in test data first; implement only if data shows it is beneficial. |
 
