@@ -9,7 +9,7 @@ on:
 
 jobs:
   quality-tests:
-    name: API, confidentiality, coverage & docs availability
+    name: API, confidentiality & coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

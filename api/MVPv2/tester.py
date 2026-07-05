@@ -285,7 +285,7 @@ def print_scenario(name, results):
 
 
 def analyze_scenario(name, dir_path='.'):
-    """Compatibility shim: loads a single scenario from {dir_path}/{name}.json."""
+    """Compatibility: loads json from dir_path/name for a single scenario."""
     inp = os.path.join(dir_path, f'{name}.json')
     if not os.path.exists(inp):
         return None, {}
