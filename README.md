@@ -40,7 +40,7 @@ docker compose up --build -d
 
 4. Verify :
 ```
-curl http://localhost:5000/health
+curl http://localhost:5002/health
 ```
 
 # Swagger UI
@@ -53,11 +53,11 @@ Use the dropdown at the top of Swagger UI to switch between MVP versions. Curren
 
 ## Available Endpoints
 
-**POST /solve** — Start route optimization calculation. Sends route parameters to the server.
-
-**GET /solution** — Get the computed optimal route after `/solve` completes.
-
-**GET /health** — Check server status.
+- **POST /solve** — Start route optimization calculation.
+- **GET /solution** — Get the computed optimal route after `/solve` completes.
+- **GET /metrics** — Get cost breakdown statistics for the last completed solution.
+- **POST /validate** — Validate input JSON without solving.
+- **GET /health** — Check server status.
 
 ## Authentication
 
@@ -72,3 +72,5 @@ Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/rep
 Week 3: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week3/README.md
 
 Week 4: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week4/README.md
+
+Week 5: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week5/README.md
