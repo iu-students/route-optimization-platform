@@ -31,6 +31,7 @@ def solve():
 
 
 @app.route("/docs")
+@app.route("/docs/")
 def swagger_ui():
     return swagger_html
 
