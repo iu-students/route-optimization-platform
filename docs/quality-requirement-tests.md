@@ -62,12 +62,66 @@ python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing
 
 ---
 
+---
+
+## QRT-004: Solver completion time
+
+**Linked quality requirement:** [QR-004](quality-requirements.md#qr-004-solver-completion-time)
+
+**Verification method:** Automated integration test that runs the CP-SAT solver on a small test instance with a 15-minute wall-clock timeout.
+
+**Test data, setup, or environment:** Standard CI environment. Uses a realistic test instance (5 orders, standard weights) loaded from `api/data/input.json`. The solver runs in-process via `api/MVPv2/script.py`.
+
+**Automated command or CI check:**
+
+```bash
+python -m pytest tests/test_qrt_004_solver_completion_time.py -v --timeout=950
+```
+
+**Expected measurable result:** The solver completes within 900 seconds and the output JSON contains a valid solution with status `done`.
+
+**Evidence link:** `tests/test_qrt_004_solver_completion_time.py`
+
+---
+
+## QRT-005: Hosted documentation availability
+
+**Linked quality requirement:** [QR-005](quality-requirements.md#qr-005-hosted-documentation-availability)
+
+**Verification method:** Automated HTTP health check against the hosted documentation site.
+
+**Test data, setup, or environment:** CI environment with network access. Checks the GitHub Pages URL directly.
+
+**Automated command or CI check:**
+
+```bash
+python -m pytest tests/test_qrt_005_docs_availability.py -v
+```
+
+**Expected measurable result:** The URL `https://iu-students.github.io/route-optimization-platform/` returns HTTP 200 and the response body contains `Route Optimization Platform`.
+
+**Evidence link:** `tests/test_qrt_005_docs_availability.py`
+
+---
+
 ## Test Execution
 
 Run all automated quality requirement tests together:
 
 ```bash
-python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py -v
+python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_004_solver_completion_time.py tests/test_qrt_005_docs_availability.py -v
+```
+
+QRT-004 (solver completion time) may require a longer timeout:
+
+```bash
+python -m pytest tests/test_qrt_004_solver_completion_time.py -v --timeout=950
+```
+
+QRT-005 (hosted docs availability) requires network access:
+
+```bash
+python -m pytest tests/test_qrt_005_docs_availability.py -v
 ```
 
 Or run the entire test suite:

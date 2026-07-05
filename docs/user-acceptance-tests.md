@@ -16,11 +16,12 @@
 
 **Expected Result:** The user receives a response with HTTP status code 200 and status "ok".
 
-**Execution Results (Week 4):**
+**Execution Results:**
 
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
-| 2026-06-07 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
+| 27.06.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
+| 4.07.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 
 **Customer Comments / Issues:**
 All systems operational. Service is accessible and responsive.
@@ -47,11 +48,12 @@ None.
 
 **Expected Result:** `POST /solve` returns `{ "status": "started" }` with status code 202.
 
-**Execution Results (Week 4):**
+**Execution Results:**
 
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
-| 2026-06-07 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
+| 27.06.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
+| 04.07.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 
 **Customer Comments / Issues:**
 Authentication successful. Background process initiated without errors.
@@ -91,14 +93,15 @@ None.
   - `shift_verification`
   - `time_window_verification`
   
-**Execution Results (Week 4):**
+**Execution Results:**
 
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
-|2026-06-27 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
+|27.06.2026 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
+|4.07.2026 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
 
 **Customer Comments / Issues:**
-The solution was successfully retrieved and all validation checks passed. However, the user experience during the computation process needs improvement. The calculation lacks interactivity. The "processing" status is visible, but it is unclear when the calculations will be completed and the estimated waiting time.
+The customer noted the system shows no progress during long calculations - "check status" returns only "processing" indefinitely. The customer requested a stage-based progress indicator rather than a simple time estimate - showing which algorithm stage is currently in progress and how many stages remain. This helps distinguish between "computing" and "crashed/frozen".
 
 **Resulting PBIs / Backlog Items:**
 
@@ -106,10 +109,101 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 
 ---
 
+## UAT-004: Retrieving Computational Metrics (NEW)
+
+**Status:** Active
+
+**User Goal:** The user wants to obtain metrics for the computed route.
+
+**Preconditions:**
+- API server is available at `http://139.100.207.201:5000/docs`
+- The user is authenticated in the system
+- Target server selected: `http://139.100.207.201:5002` - MVPv2
+- The user has a prepared JSON scenario file
+- The user has started the solution in background mode and received a "started" status response
+
+**Steps:**
+1. Send a GET request to the `/metrics` endpoint.
+2. During computation, receive a response with status "computing" and the remaining time to wait for the response.
+3. After that time elapses, send a repeat request and receive a response with status "done" and the metrics of the computed route.
+
+**Expected Result:** `GET /metrics` after completion returns status code 200 and a JSON with the following metrics:
+- `total_cost`
+- `fuel_cost`
+- `vehicle_salaries`
+- `loader_salaries`
+- `loader_work_cost`
+- `penalties`
+
+**Execution Results:**
+
+| Execution Date | Tester | Result | Notes |
+|----------------|--------|--------|-------|
+| 4.07.2026 | Customer | PASS | All metrics returned successfully. Status "computing" received with estimated wait time, followed by status "done" with complete metrics. |
+
+
+**Customer Comments / Issues:**
+
+All test cases passed. The metrics endpoint works as expected. The estimated wait time during "computing" status is accurate and helpful for managing user expectations.
+
+**Resulting PBIs / Backlog Items:**
+https://github.com/iu-students/route-optimization-platform/issues/77
+https://github.com/iu-students/route-optimization-platform/issues/78
+https://github.com/iu-students/route-optimization-platform/issues/58
+
+---
+
+## UAT-005: Input Data Validation Check (NEW)
+
+**Status:** Active
+
+**User Goal:** The user wants to ensure that the input data is valid before requesting a solution.
+
+**Preconditions:**
+- API server is available at `http://139.100.207.201:5000/docs`
+- The user is authenticated in the system
+- Target server selected: `http://139.100.207.201:5002` - MVPv2
+- The user has prepared JSON scenario files
+
+**Steps:**
+1. Send a POST request to the `/validation` endpoint with a default valid JSON request body.
+2. Receive a response with HTTP status code 200 and status "ok".
+3. Change any number in the request body to a negative value and send a repeat POST request.
+4. Receive a response with HTTP status code 400 and an error description.
+5. Change the syntax in the request body (remove quotes and/or brackets and/or commas and/or colons) and send a repeat POST request.
+6. Receive a response with HTTP status code 400 and an error description.
+
+**Expected Result:**
+- On the first (valid) request, the user receives a response with HTTP status code 200 and status "ok".
+- On the second (invalid) request, the user receives a response with HTTP status code 400 and an error description - a message about the negative number and the path where it was found.
+- On the third (invalid) request, the user receives a response with HTTP status code 400 and an error description - does not conform to JSON format.
+
+**Execution Results:**
+
+| Execution Date | Tester | Result | Notes |
+|----------------|--------|--------|-------|
+| 4.07.2026 | Customer | PASS | Valid request returned 200 OK with status "ok". Negative value test returned 400 with clear error message identifying the negative number and its exact path in the JSON structure. Malformed JSON test returned 400 with appropriate error description indicating JSON format violation. |
+
+**Customer Comments / Issues:**
+
+All validation scenarios passed successfully. The error messages are clear and informative, making it easy for users to identify and fix issues in their input data. The validation endpoint effectively prevents invalid requests from reaching the computation engine.
+
+**Resulting PBIs / Backlog Items:**
+
+https://github.com/iu-students/route-optimization-platform/issues/81
+
+---
+
 ## Execution History
 
 | Scenario ID | Tester | Date | Result |
 |-------------|--------|------|--------|
-| UAT-001 | Customer | 2026-07-27 | PASS |
-| UAT-002 | Customer | 2026-07-27 | PASS |
-| UAT-003 | Customer | 2026-07-27 | PASS (with comments) |
+| UAT-001 | Customer | 27.06.2026 | PASS |
+| UAT-002 | Customer | 27.06.2026 | PASS |
+| UAT-003 | Customer | 27.06.2026 | PASS (with comments) |
+| UAT-001 | Customer | 4.07.2026 | PASS |
+| UAT-002 | Customer | 4.07.2026 | PASS |
+| UAT-003 | Customer | 4.07.2026 | PASS (with comments) |
+| UAT-004 | Customer | 4.07.2026 | PASS |
+| UAT-005 | Customer | 4.07.2026 | PASS |
+

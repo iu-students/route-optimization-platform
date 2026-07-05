@@ -29,20 +29,24 @@ A PBI is considered "Done" when:
     - All quality requirements documented in `docs/quality-requirements.md` are satisfied
     - Relevant automated QRTs from `docs/quality-requirement-tests.md` are passing
     - Non-applicable QRTs are documented with rationale
-  
-5.  **Coverage expectations for critical modules**
+
+5.  **Architecture Documentation**
+    - Relevant architecture documentation in `docs/architecture/README.md` and related ADRs is satisfied
+    - If architecture documentation is not applicable to the PBI, this must be explicitly documented with rationale
+
+6.  **Coverage expectations for critical modules**
     - Each critical module must have automated line coverage ≥ 30%
     - Exceptions require documented rationale and TA approval
 
-6.  **Verification and Testing Evidence**
+7.  **Verification and Testing Evidence**
     - For user stories, the linked supporting PBIs provide the required implementation, review, and verification evidence.
     - Verification evidence is preserved in the PR comments, test reports, CI/CD logs.
 
-7.  **Changelog Updated**
+8.  **Changelog Updated**
     - `CHANGELOG.md` has been updated in accordance with the [Repository Requirements](#repository-requirements).
     - A user-visible entry has been added under the `[Unreleased]` section using the appropriate category (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`).
     - This requirement is waived if the PR/MR template's changelog checklist explicitly selects "Not applicable because the change is not user-visible."
 
-8.  **Merged to Default Branch**
+9.  **Merged to Default Branch**
     - For supporting or implementation PBIs (e.g., code tasks), the issue-linked PR/MR is merged into the protected default branch (main).
     

@@ -156,8 +156,11 @@ def test_export_excel(tmp_path):
         "loaders": [{"id": 1, "route": [1, 2]}],
     }
     result = tester.calc_cost(data, output)
-    all_data = {"t1": (data, {"BASELINE": result, "НАШЕ": result})}
+    results_dict = {"BASELINE": result, "НАШЕ": result}
     out_path = tmp_path / "report.xlsx"
-    tester.export_excel(all_data, str(out_path))
+    if hasattr(tester, 'print_results'):
+        tester.export_excel(results_dict, str(out_path))
+    else:
+        tester.export_excel({"t1": (data, results_dict)}, str(out_path))
     assert out_path.exists()
     assert out_path.stat().st_size > 0

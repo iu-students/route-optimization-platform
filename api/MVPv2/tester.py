@@ -278,6 +278,21 @@ def export_excel(results, out_path):
     print(f"\n[excel] сохранено: {out_path}")
 
 
+def print_scenario(name, results):
+    """Compatibility shim: delegates to print_results (ignores name)."""
+    print(f"\n{'='*70}\nСЦЕНАРИЙ {name.upper()}\n{'='*70}")
+    print_results(results)
+
+
+def analyze_scenario(name, dir_path='.'):
+    """Compatibility: loads json from dir_path/name for a single scenario."""
+    inp = os.path.join(dir_path, f'{name}.json')
+    if not os.path.exists(inp):
+        return None, {}
+    input_data = load_json(inp)
+    return input_data, {}
+
+
 if __name__ == '__main__':
     inp, results = analyze()
     print_results(results)
