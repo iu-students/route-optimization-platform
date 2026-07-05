@@ -39,6 +39,10 @@ result or the baseline comparison:
   reject requests without a valid API key (QRT-001, QRT-002).
 - **Critical module testability:** each critical module must have at least
   30% automated line coverage (QRT-003, QR-003).
+- **Solver completion time:** the CP-SAT solver must complete within 15 minutes
+  on a realistic test instance (QRT-004, QR-004).
+- **Docs availability:** the hosted documentation site must be reachable and
+  serve the entry page (QRT-005, QR-005).
 
 PyVRP and CP-SAT can both give different results on every run. So we only run them in integration tests, with a short runtime and a small instance. Each integration test runs in its own temporary folder, because the
 code writes files with fixed names.
@@ -69,7 +73,7 @@ code writes files with fixed names.
 | Unit tests (solution B) | `main.py` (`find_distance`, `eval_route`, `best_insertion_pos`, `insertion_construct`, `clarke_wright`, `build_slots`, `eval_chain`, `chains_insertion_construct`) | `pytest tests/test_main.py` | 22 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
 | Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
 | Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Automated QRTs | `app.py` (API responsiveness, confidentiality), critical module coverage | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py` | 11 QRTs + coverage check | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689676) |
+| Automated QRTs | QR-001 (responsiveness), QR-002 (confidentiality), QR-003 (coverage), QR-004 (solver timing), QR-005 (docs availability) | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_004_solver_completion_time.py tests/test_qrt_005_docs_availability.py` | 5 QRT suites | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689676) |
 
 ## CI and QA Check Status
 
@@ -119,7 +123,8 @@ Other options considered:
 - Unit and integration tests for **both** solutions must keep passing on
   every merge to `main`.
 - Line coverage for critical modules must stay above 30%.
-- QRT-001, QRT-002, QRT-003 run in CI on every PR and push to `main`.
+- QRT-001, QRT-002, QRT-003, QRT-005 run in CI on every PR and push to `main`.
+- QRT-004 (solver completion time) runs in CI on every PR and push to `main` with a 16-minute workflow timeout.
 - `pip-audit` must keep running in CI.
 - If any gate is replaced, the replacement must be documented and provide
   equal or stronger coverage.

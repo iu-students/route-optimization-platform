@@ -61,7 +61,10 @@ Source: [deployment-diagram.puml](deployment-view/deployment-diagram.puml)
 See [docs/architecture/adr/](adr/) for the full ADR set.
 
 | ADR | Decision | Related QR |
-|---|---|---|
+|---|---|---|---|
 | [ADR-001](adr/ADR-001-dual-solver-pipelines.md) | Maintain two independent solver pipelines (CP-SAT and PyVRP) instead of a shared abstraction | QR-003 |
-| [ADR-002](adr/ADR-002-async-solve-with-polling.md) | Run `/solve` asynchronously via background thread with `/solution` polling instead of a synchronous request | QR-001 |
+| [ADR-002](adr/ADR-002-async-solve-with-polling.md) | Run `/solve` asynchronously via background thread with `/solution` polling instead of a synchronous request | QR-001, QR-004 |
 | [ADR-003](adr/ADR-003-shared-verifier.md) | Share `verifier.py` between both pipelines instead of duplicating or omitting verification for Pipeline A | QR-003 |
+| [ADR-004](adr/ADR-004-api-key-authentication.md) | Enforce access control via a shared API key checked at every protected endpoint | QR-002 |
+| [ADR-005](adr/ADR-005-solver-time-limits.md) | Configure CP-SAT `max_time_in_seconds` to bound solver runtime | QR-004 |
+| [ADR-006](adr/ADR-006-hosted-documentation.md) | Publish maintained documentation via GitHub Pages from `docs/` | QR-005 |

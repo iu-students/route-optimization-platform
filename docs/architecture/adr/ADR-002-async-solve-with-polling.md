@@ -2,7 +2,7 @@
 
 **Status:** Accepted
 
-**Quality requirements addressed:** QR-001
+**Quality requirements addressed:** QR-001, QR-004
 
 ## Context
 
@@ -59,5 +59,6 @@ based on in-memory `solver_state`, guarded by `solver_lock`.
 ## Links
 
 - [QR-001: API responsiveness](../../quality-requirements.md#qr-001-api-responsiveness)
+- [QR-004: Solver completion time](../../quality-requirements.md#qr-004-solver-completion-time)
 - [Sequence Diagram](../dynamic-view/sequence-diagram.puml)
 - [Deployment Diagram](../deployment-view/deployment-diagram.puml)
