@@ -185,7 +185,7 @@ Progress visibility during computation (UAT-003): The customer noted the system 
 *  [documentation](https://iu-students.github.io/route-optimization-platform/)
 
 ### 32. Link to the published Sprint Review transcript
-*   [customer-review-transcript.md](./customer-review-transcript.md)
+*   [sprint-review-transcript.md](./sprint-review-transcript.md)
 
 
 ### 33. If any artifact, evidence pattern, or access arrangement differs from the expected default, justify that deviation explicitly.
