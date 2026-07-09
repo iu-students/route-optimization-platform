@@ -51,8 +51,13 @@ bandit -r api/ -ll
 
 1. Create a branch named `<issue-number>-<short-slug>` (e.g. `94-course-task-documentation-week-6`), tied to a GitHub issue.
 2. Commit your changes and open a PR against `main`.
-3. CI runs automatically on every PR and on push to `main`, and must pass before merge: linting and security audit, unit/integration tests with coverage, quality requirement tests, markdown link check.
-4. At least one other team member must approve the PR before merging.
+3. CI runs automatically on every PR and on push to `main`: linting and security audit, unit/integration tests with coverage, quality requirement tests, markdown link check.
+
+## Review and merge requirements
+
+- All CI checks must pass before merge (see workflow list above).
+- At least one other team member must approve the PR.
+- Both requirements are enforced by branch protection rules on `main`.
 
 ## Further reading
 
