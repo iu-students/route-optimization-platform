@@ -39,24 +39,23 @@ paths:
               simple:
                 summary: сценарий 1
                 value:
-                  vehicle_capacity: 1000
-                  vehicle_speed: 3
-                  loader_speed: 1
-                  vehicle_shift_size: 720
-                  loader_shift_size: 720
+                  vehicle_capacity: 91
+                  vehicle_speed: 1
+                  loader_speed: 0.7
+                  vehicle_shift_size: 240
+                  loader_shift_size: 240
                   depot:
-                    id: 0
-                    x: 100
-                    y: 100
-                    load_time: 40
+                    x: 35
+                    y: 35
+                    load_time: 24.0
                   orders:
                     - id: 1
-                      x: 134
-                      y: 6
-                      volume: 20
-                      time_window: [988, 1031]
+                      x: 37
+                      y: 56
+                      volume: 10
+                      time_window: [0, 204]
                       vehicle_service_time: 10
-                      loader_cnt: 0
+                      loader_cnt: 1
                       loader_service_time: 0
                       optional: 0
                   weights:
