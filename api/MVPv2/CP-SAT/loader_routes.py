@@ -10,15 +10,31 @@ def build_slots(solution, scenario):
     by_id = {order.id: order for order in scenario.orders}
     slots = []
     for vehicle in solution["vehicles"]:
-        order_ids = vehicle["route"][1:-1]
+        # route: [0, заказы_рейса_1, 0, заказы_рейса_2, 0, ...] — при
+        # multi-trip внутри могут быть ДОПОЛНИТЕЛЬНЫЕ "0" (возврат в депо
+        # между рейсами). Каждому такому внутреннему "0" соответствует
+        # ОДНА запись в times — метка начала загрузки в депо (см. PDF),
+        # а не время прибытия на заказ. Наивный route[1:-1]/zip(times)
+        # (без учёта внутренних "0") даёт по_id[0] KeyError на
+        # multi-trip машинах — 0 не заказ, а депо.
+        route = vehicle["route"]
         times = vehicle["time"]
-        for order_id, arrival in zip(order_ids, times):
-            order = by_id[order_id]
+        ti = 0
+        for i in range(1, len(route) - 1):
+            pid = route[i]
+            if pid == 0:
+                # служебная метка начала загрузки в депо — пропускаем,
+                # она не заказ и грузчиков на ней не бывает
+                ti += 1
+                continue
+            arrival = times[ti]
+            ti += 1
+            order = by_id[pid]
             for k in range(order.loader_cnt):
                 slots.append(
                     {
                         "slot_id": len(slots),
-                        "order_id": order_id,
+                        "order_id": pid,
                         "x": order.x,
                         "y": order.y,
                         "start": arrival,
@@ -88,7 +104,7 @@ def chains_insertion_construct(slots, scenario, jitter=0.0):
     return list(zip(chains, chain_costs))
 
 
-def generate_loader_pool(slots, scenario, num_restarts=100):
+def generate_loader_pool(slots, scenario, num_restarts=100, deadline=None):
     pool = []
     seen = set()
 
@@ -114,11 +130,28 @@ def generate_loader_pool(slots, scenario, num_restarts=100):
             add([sid], res[0], res[1])
     for chain, (cost, shift) in chains_insertion_construct(slots, scenario, jitter=0.0):
         add(chain, cost, shift)
+    STALE_LIMIT = 15
+    stale_rounds = 0
+    last_size = len(pool)
     for i in range(num_restarts):
+        if deadline is not None and time.time() >= deadline:
+            print(f"[pool/loaders] дедлайн достигнут на рестарте {i + 1}/{num_restarts}, прерываем")
+            break
         for chain, (cost, shift) in chains_insertion_construct(
             slots, scenario, jitter=10.0
         ):
             add(chain, cost, shift)
+        if len(pool) == last_size:
+            stale_rounds += 1
+            if stale_rounds >= STALE_LIMIT:
+                print(
+                    f"[pool/loaders] пул не растёт {STALE_LIMIT} рестартов подряд, "
+                    f"останавливаем досрочно (рестарт {i + 1}, пул={len(pool)})"
+                )
+                break
+        else:
+            stale_rounds = 0
+            last_size = len(pool)
         if (i + 1) % 25 == 0:
             print(f"[pool/loaders] рестарт {i + 1}/{num_restarts}, пул={len(pool)}")
     print(f"[pool/loaders] итого: {len(pool)} цепочек ({time.time() - t0:.1f}s)")
@@ -137,18 +170,36 @@ def find_best_loaders(pool, slots, time_limit=300):
     objective = sum((int(chain["cost"] * 100) * y[i] for i, chain in enumerate(pool)))
     model.Minimize(objective)
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = time_limit
-    print(f"[cp-sat/loaders] решаем: {len(pool)} цепочек (лимит={time_limit}s)...")
-    t0 = time.time()
-    status = solver.Solve(model)
-    print(
-        f"[cp-sat/loaders] {solver.StatusName(status)}, objective={solver.ObjectiveValue() / 100:.2f}, {time.time() - t0:.1f}s"
-    )
-    if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        raise RuntimeError(
-            f"loader CP-SAT не нашёл решения: status={solver.StatusName(status)}. Скорее всего пул не покрывает все слоты."
+
+    # Если урезанный дедлайном time_limit слишком мал, чтобы CP-SAT успел
+    # найти ХОТЬ КАКОЕ-ТО допустимое решение (status=UNKNOWN), не падаем
+    # сразу — крах пайплайна без единого выходного файла хуже, чем
+    # превышение бюджета времени. Даём больше времени по нарастающей.
+    attempt_time_limit = max(time_limit, 1)
+    status = None
+    for attempt in range(4):
+        solver.parameters.max_time_in_seconds = attempt_time_limit
+        print(
+            f"[cp-sat/loaders] решаем: {len(pool)} цепочек "
+            f"(лимит={attempt_time_limit}s, попытка {attempt + 1})..."
         )
-    return (solver, y)
+        t0 = time.time()
+        status = solver.Solve(model)
+        print(
+            f"[cp-sat/loaders] {solver.StatusName(status)}, objective={solver.ObjectiveValue() / 100:.2f}, {time.time() - t0:.1f}s"
+        )
+        if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            return (solver, y)
+        attempt_time_limit *= 5
+        print(
+            f"[cp-sat/loaders] status={solver.StatusName(status)}, "
+            f"не нашли допустимого решения — пробуем с бОльшим лимитом"
+        )
+
+    raise RuntimeError(
+        f"loader CP-SAT не нашёл решения даже после нескольких попыток: "
+        f"status={solver.StatusName(status)}. Скорее всего пул не покрывает все слоты."
+    )
 
 
 def build_loaders(pool, solver, y):
@@ -165,14 +216,21 @@ def build_loaders(pool, solver, y):
 
 
 
-def find_loaders_routes(solution, scenario, num_restarts=100, time_limit=300):
+def find_loaders_routes(solution, scenario, num_restarts=100, time_limit=300, deadline=None,
+                         reserve_after=0, pool_deadline=None):
     slots = build_slots(solution, scenario)
     if not slots:
         return []
-    pool = generate_loader_pool(slots, scenario, num_restarts)
+    effective_pool_deadline = pool_deadline if pool_deadline is not None else deadline
+    pool = generate_loader_pool(slots, scenario, num_restarts, deadline=effective_pool_deadline)
     with open("all_possible_loaders_routes.json", "w") as f:
         json.dump(pool, f, indent=4)
-    solver, y = find_best_loaders(pool, slots, time_limit=time_limit)
+
+    cpsat_time_limit = time_limit
+    if deadline is not None:
+        cpsat_time_limit = max(2, min(time_limit, deadline - time.time() - reserve_after))
+
+    solver, y = find_best_loaders(pool, slots, time_limit=cpsat_time_limit)
     loaders = build_loaders(pool, solver, y)
     print(f"[loaders] выбрано грузчиков: {len(loaders)}")
     return loaders
