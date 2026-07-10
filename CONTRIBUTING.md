@@ -40,6 +40,16 @@ Coverage:
 python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing -v
 ```
 
+Quality requirement tests (QRT):
+
+```bash
+python -m pytest tests/test_qrt_001_api_responsiveness.py \
+  tests/test_qrt_002_api_confidentiality.py \
+  tests/test_qrt_003_critical_module_coverage.py \
+  tests/test_qrt_004_solver_completion_time.py \
+  tests/test_qrt_005_docs_availability.py -v
+```
+
 Lint and security checks:
 
 ```bash
