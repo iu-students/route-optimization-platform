@@ -15,6 +15,8 @@ servers:
     description: MVPv1.2
   - url: http://139.100.207.201:5002
     description: MVPv2
+  - url: http://139.100.207.201:5022
+    description: MVPv2.2
 
 security:
   - Auth: []
@@ -253,6 +255,69 @@ paths:
                     type: string
                     example: ok
 
+  /history:
+    get:
+      summary: List calculation history
+      description: |
+        Returns a list of past calculations with their key metadata
+        (ID, timestamp, execution time, objective function cost, status).
+      operationId: listHistory
+      security:
+        - Auth: []
+      responses:
+        '200':
+          description: List of past calculations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  history:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HistoryRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /history/{calculation_id}:
+    get:
+      summary: Get calculation details
+      description: |
+        Returns full details of a specific past calculation,
+        including the original input data and the resulting output
+        solution (or error details).
+      operationId: getHistoryDetail
+      security:
+        - Auth: []
+      parameters:
+        - name: calculation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Calculation details with input/output data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryDetail'
+        '404':
+          description: Calculation not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Not found
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
 components:
   schemas:
     Scenario:
@@ -470,6 +535,57 @@ components:
           type: integer
           example: 2
 
+    HistoryRecord:
+      type: object
+      properties:
+        calculation_id:
+          type: integer
+          example: 1
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-07-10T12:00:00+00:00"
+        execution_time:
+          type: number
+          nullable: true
+          description: Duration of calculation in seconds
+          example: 12.34
+        objective_function_cost:
+          type: number
+          nullable: true
+          description: Total cost of the solution
+          example: 1234.56
+        status:
+          type: string
+          enum: [processing, success, error]
+          example: success
+
+    HistoryDetail:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/HistoryRecord'
+        - type: object
+          properties:
+            input_json_path:
+              type: string
+              description: Path to the saved input JSON file
+            output_json_path:
+              type: string
+              nullable: true
+              description: Path to the saved output JSON file
+            input:
+              $ref: '#/components/schemas/Scenario'
+              nullable: true
+            output:
+              oneOf:
+                - $ref: '#/components/schemas/Solution'
+                - type: object
+                  properties:
+                    error:
+                      type: string
+                  description: Error details if status is error
+              nullable: true
+
     Error:
       type: object
       properties:
@@ -482,6 +598,18 @@ components:
         code:
           type: integer
           example: 400
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Invalid or missing API key
 
   securitySchemes:
     Auth:
