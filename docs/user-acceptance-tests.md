@@ -8,7 +8,7 @@
 
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
-- Target server selected: `http://139.100.207.201:5001` - MVPv1
+- Target server selected: Latest MVP version
 
 **Steps:**
 1. Send a GET request to the `/health` endpoint.
@@ -22,6 +22,7 @@
 |----------------|--------|--------|-------|
 | 27.06.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 | 4.07.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
+| 10.07.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 
 **Customer Comments / Issues:**
 All systems operational. Service is accessible and responsive.
@@ -39,14 +40,14 @@ None.
 
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
-- Target server selected: `http://139.100.207.201:5001` - MVPv1
+- Target server selected: Latest MVP version
 - The user has a prepared JSON scenario file
 
 **Steps:**
 1. Authenticate with the server — enter the API key in the Authorize section.
 2. Send a POST request to the `/solve` endpoint with the JSON scenario as the request body.
 
-**Expected Result:** `POST /solve` returns `{ "status": "started" }` with status code 202.
+**Expected Result:** `POST /solve` returns `"calculation_id"` and `"status": "started"` with status code 202.
 
 **Execution Results:**
 
@@ -54,6 +55,7 @@ None.
 |----------------|--------|--------|-------|
 | 27.06.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 | 04.07.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
+| 10.07.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 
 **Customer Comments / Issues:**
 Authentication successful. Background process initiated without errors.
@@ -63,7 +65,7 @@ None.
 
 ---
 
-## UAT-003: Retrieve Solution
+## UAT-003: Retrieve Solution (UPDATED)
 
 **Status:** Active
 
@@ -71,13 +73,14 @@ None.
 
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
-- Target server selected: `http://139.100.207.201:5001` - MVPv1
+- The user is authenticated in the system
+- Target server selected: Latest MVP version
 - The user has a prepared JSON scenario file
 - The user has started the solution in background mode and received a "started" status response
 
 **Steps:**
-1. Wait 2 minutes after starting the solution, then send GET requests to the `/solution` endpoint until the status returns "done".
-2. Verify the solution structure:
+1.  Send a GET request to the `/solution` endpoint. During computation, receive a response with status "computing" and the solution stage (one of: starting, parsing, solving, solving_vehicles, solving_loaders, feedback_iteration).
+2. Receive a response with status "done" and the solution. Verify the solution structure:
    - Solution contains routes for loaders
    - Solution contains routes for vehicles with depot arrival times
 3. Verify strict constraint compliance:
@@ -99,9 +102,11 @@ None.
 |----------------|--------|--------|-------|
 |27.06.2026 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
 |4.07.2026 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
+|10.07.2026 | Customer | PASS | Solution retrieved successfully. All validation checks passed. |
 
 **Customer Comments / Issues:**
-The customer noted the system shows no progress during long calculations - "check status" returns only "processing" indefinitely. The customer requested a stage-based progress indicator rather than a simple time estimate - showing which algorithm stage is currently in progress and how many stages remain. This helps distinguish between "computing" and "crashed/frozen".
+
+All test cases passed. The stage-based progress indicator added in v0.4.0 effectively addresses the previous concern about distinguishing between "computing" and "crashed/frozen" states.
 
 **Resulting PBIs / Backlog Items:**
 
@@ -109,7 +114,7 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 
 ---
 
-## UAT-004: Retrieving Computational Metrics (NEW)
+## UAT-004: Retrieving Computational Metrics
 
 **Status:** Active
 
@@ -118,7 +123,7 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: `http://139.100.207.201:5002` - MVPv2
+- Target server selected: Latest MVP version
 - The user has a prepared JSON scenario file
 - The user has started the solution in background mode and received a "started" status response
 
@@ -140,6 +145,7 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
 | 4.07.2026 | Customer | PASS | All metrics returned successfully. Status "computing" received with estimated wait time, followed by status "done" with complete metrics. |
+| 10.07.2026 | Customer | PASS | All metrics returned successfully. Status "computing" received with estimated wait time, followed by status "done" with complete metrics. |
 
 
 **Customer Comments / Issues:**
@@ -153,7 +159,7 @@ https://github.com/iu-students/route-optimization-platform/issues/58
 
 ---
 
-## UAT-005: Input Data Validation Check (NEW)
+## UAT-005: Input Data Validation Check
 
 **Status:** Active
 
@@ -162,7 +168,7 @@ https://github.com/iu-students/route-optimization-platform/issues/58
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: `http://139.100.207.201:5002` - MVPv2
+- Target server selected: Latest MVP version
 - The user has prepared JSON scenario files
 
 **Steps:**
@@ -183,6 +189,7 @@ https://github.com/iu-students/route-optimization-platform/issues/58
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
 | 4.07.2026 | Customer | PASS | Valid request returned 200 OK with status "ok". Negative value test returned 400 with clear error message identifying the negative number and its exact path in the JSON structure. Malformed JSON test returned 400 with appropriate error description indicating JSON format violation. |
+| 10.07.2026 | Customer | PASS | Valid request returned 200 OK with status "ok". Negative value test returned 400 with clear error message identifying the negative number and its exact path in the JSON structure. Malformed JSON test returned 400 with appropriate error description indicating JSON format violation. |
 
 **Customer Comments / Issues:**
 
@@ -191,6 +198,73 @@ All validation scenarios passed successfully. The error messages are clear and i
 **Resulting PBIs / Backlog Items:**
 
 https://github.com/iu-students/route-optimization-platform/issues/81
+
+---
+
+## UAT-006: View Calculation History (NEW)
+
+**Status:** Active
+
+**User Goal:** The user wants to view the calculation history.
+
+**Preconditions:**
+- API server is available at `http://139.100.207.201:5000/docs`
+- The user is authenticated in the system
+- Target server selected: Latest MVP version
+
+**Steps:**
+1. Send a GET request to the `/history` endpoint.
+2. Receive and record the response.
+
+**Expected Result:** The user receives a response with status code 200 and a JSON file containing the calculation history with the following fields for each requested calculation: `calculation_id`, `execution_time`, `objective_function_cost`, `status`, and `timestamp`.
+
+**Execution Results:**
+
+| Execution Date | Tester | Result | Notes |
+|----------------|--------|--------|-------|
+| 10.07.2026 | Customer | PASS | History retrieved successfully. All expected fields are present and correctly populated. |
+
+**Customer Comments / Issues:**
+
+All test cases passed. The history endpoint provides a clear and organized view of all past calculations.
+
+**Resulting PBIs / Backlog Items:**
+
+https://github.com/iu-students/route-optimization-platform/issues/89
+
+---
+
+## UAT-007: View Calculation Details by Request ID (NEW)
+
+**Status:** Active
+
+**User Goal:** The user wants to obtain detailed information about a specific calculation request by its ID.
+
+**Preconditions:**
+- API server is available at `http://139.100.207.201:5000/docs`
+- The user is authenticated in the system
+- Target server selected: Latest MVP version
+- The user knows the calculation ID of the request they want to view
+
+**Steps:**
+1. Send a GET request to the `/history/{calculation_id}` endpoint. Specify the calculation_id in the request parameters.
+2. Receive and record the response.
+
+**Expected Result:** The user receives a response with status code 200 and a JSON file containing the calculation details. The response should display information about the calculation ID, execution time, input and output data, objective function cost, solution status, and start time. The JSON file should contain the following fields: `calculation_id`, `execution_time`, `input`, `input_json_path`, `objective_function_cost`, `output`, `output_json_path`, `status`, and `timestamp`.
+
+**Execution Results:**
+
+| Execution Date | Tester | Result | Notes |
+|----------------|--------|--------|-------|
+| 10.07.2026 | Customer | PASS | Calculation details retrieved successfully. All expected fields are present and correctly populated. |
+
+**Customer Comments / Issues:**
+
+All test cases passed. The detailed view provides comprehensive information about each calculation.
+
+**Resulting PBIs / Backlog Items:**
+
+https://github.com/iu-students/route-optimization-platform/issues/89
 
 ---
 
@@ -206,4 +280,10 @@ https://github.com/iu-students/route-optimization-platform/issues/81
 | UAT-003 | Customer | 4.07.2026 | PASS (with comments) |
 | UAT-004 | Customer | 4.07.2026 | PASS |
 | UAT-005 | Customer | 4.07.2026 | PASS |
-
+| UAT-001 | Customer | 10.07.2026 | PASS |
+| UAT-002 | Customer | 10.07.2026 | PASS |
+| UAT-003 | Customer | 10.07.2026 | PASS |
+| UAT-004 | Customer | 10.07.2026 | PASS |
+| UAT-005 | Customer | 10.07.2026 | PASS |
+| UAT-006 | Customer | 10.07.2026 | PASS |
+| UAT-007 | Customer | 10.07.2026 | PASS |
