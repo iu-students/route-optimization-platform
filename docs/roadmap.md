@@ -47,11 +47,11 @@ A public release (v0.2.0) will be created.
    - [US-015](https://github.com/iu-students/route-optimization-platform/issues/57)
 
 - Tasks:
-   - [TT-01](https://github.com/iu-students/route-optimization-platform/issues/59)
-   - [TT-02](https://github.com/iu-students/route-optimization-platform/issues/60)
-   - [TT-03](https://github.com/iu-students/route-optimization-platform/issues/62)
-   - [TT-04](https://github.com/iu-students/route-optimization-platform/issues/63)
-   - [TT-05](https://github.com/iu-students/route-optimization-platform/issues/64)
+   - [TT-08](https://github.com/iu-students/route-optimization-platform/issues/59)
+   - [TT-09](https://github.com/iu-students/route-optimization-platform/issues/60)
+   - [TT-10](https://github.com/iu-students/route-optimization-platform/issues/62)
+   - [TT-11](https://github.com/iu-students/route-optimization-platform/issues/63)
+   - [TT-12](https://github.com/iu-students/route-optimization-platform/issues/64)
 
 # Sprint 3
 **Sprint Milestone:** https://github.com/iu-students/route-optimization-platform/milestone/3
@@ -71,12 +71,12 @@ A public release (v0.3.0) will be created.
    - [US-016](https://github.com/iu-students/route-optimization-platform/issues/58)
 
 - Tasks:
-   - [TT-1](https://github.com/iu-students/route-optimization-platform/issues/77)
-   - [TT-2](https://github.com/iu-students/route-optimization-platform/issues/78)
-   - [TT-3](https://github.com/iu-students/route-optimization-platform/issues/79)
-   - [TT-4](https://github.com/iu-students/route-optimization-platform/issues/80)
-   - [TT-5](https://github.com/iu-students/route-optimization-platform/issues/81)
-   - [TT-6](https://github.com/iu-students/route-optimization-platform/issues/71)
+   - [TT-13](https://github.com/iu-students/route-optimization-platform/issues/77)
+   - [TT-14](https://github.com/iu-students/route-optimization-platform/issues/78)
+   - [TT-15](https://github.com/iu-students/route-optimization-platform/issues/79)
+   - [TT-16](https://github.com/iu-students/route-optimization-platform/issues/80)
+   - [TT-17](https://github.com/iu-students/route-optimization-platform/issues/81)
+   - [TT-18](https://github.com/iu-students/route-optimization-platform/issues/71)
 
 
 # Sprint 4
@@ -86,12 +86,18 @@ A public release (v0.3.0) will be created.
 
 **Finish date:** 12.07.2026
 
-**Sprint Goal:** MVPv2 modification, developing a different version of the algorithm to solve the problem, and the implementation part of the user stories.
+**Sprint Goal:** Enable data-driven decision-making by providing managers with comprehensive calculation history tracking (US-017) and persistent storage infrastructure (TT-19, TT-20), delivered as part of the v0.4.0 (MVPv2) release on the enhanced data persistence architecture.
 
-**Expected outcome:** New version of algorithm works on the server, part of the user stories is closed.
+**Expected outcome:** New version of algorithm works on the server, the user story US-017 is closed, architecture is refined.
 A public release (v0.4.0) will be created.
 
 **Planned items:**
+-  User stories:
+   - [US-017](https://github.com/iu-students/route-optimization-platform/issues/89)
+
+- Tasks:
+   - [TT-19](https://github.com/iu-students/route-optimization-platform/issues/96)
+   - [TT-20](https://github.com/iu-students/route-optimization-platform/issues/97)
 
 # Sprint 5
 **Sprint Milestone:** 
@@ -100,34 +106,9 @@ A public release (v0.4.0) will be created.
 
 **Finish date:** 19.07.2026
 
-**Sprint Goal:** 
+**Sprint Goal:** MVPv3 implementation, refining product and finish all required work, and the implementation part of PBIs.
 
-**Expected outcome:** 
+**Expected outcome:** New version of service works on the server, all remaining PBIs from Backlog are closed.
+A public release (v0.5.0) will be created.
 
-**Planned items:**
-
-# Sprint 6
-**Sprint Milestone:** 
-
-**Start date:** 20.07.2026
-
-**Finish date:** 26.07.2026
-
-**Sprint Goal:** 
-
-**Expected outcome:** 
-
-**Planned items:**
-
-# Sprint 7
-**Sprint Milestone:** 
-
-**Start date:** 27.07.2026
-
-**Finish date:** 2.08.2026
-
-**Sprint Goal:** 
-
-**Expected outcome:** 
-
-**Planned items:**
+**Planned items:** New PBIs
