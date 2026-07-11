@@ -11,11 +11,11 @@ TEST_TARGET = os.environ.get("TEST_TARGET", "v1.2")
 
 if TEST_TARGET == "v2":
     for p in [
-        os.path.join(PROJECT_ROOT, "api", "MVPv2"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2", "CP-SAT"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2", "Shared"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2", "Web"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2", "PyVRP"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv2.2"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "CP-SAT"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "Shared"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "Web"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "PyVRP"),
     ]:
         if p not in sys.path:
             sys.path.append(p)
