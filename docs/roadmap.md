@@ -106,9 +106,9 @@ A public release (v0.4.0) will be created.
 
 **Finish date:** 19.07.2026
 
-**Sprint Goal:** MVPv3 implementation, refining product and finish all required work, and the implementation part of PBIs.
+**Sprint Goal:** Final stabilization, bug fixing, performance optimization, and complete polishing of the product. Preparation of the final version MVPv3 and delivery of all remaining Product Backlog Items to ensure the platform is fully production-ready.
 
 **Expected outcome:** New version of service works on the server, all remaining PBIs from Backlog are closed.
-A public release (v0.5.0) will be created.
+A public release (v0.5.0) will be created. The product is fully aligned with the initial project vision and ready for handover.
 
-**Planned items:** New PBIs
+**Planned items:** TBD
