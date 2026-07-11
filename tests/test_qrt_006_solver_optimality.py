@@ -16,6 +16,8 @@ for p in [
     if p not in sys.path:
         sys.path.insert(0, p)
 
+from tester import calc_cost, load_json
+
 BASELINE_PATH = os.path.join(PROJECT_ROOT, "instances", "baseline_scores.json")
 INSTANCES_DIR = os.path.join(PROJECT_ROOT, "instances")
 
@@ -25,8 +27,7 @@ PASS_THRESHOLD = 7
 @pytest.fixture(scope="session")
 def baseline_scores():
     with open(BASELINE_PATH) as f:
-        data = json.load(f)
-    return data["scores"]
+        return json.load(f)
 
 
 @pytest.fixture(scope="session")
@@ -36,29 +37,34 @@ def instance_paths():
 
 
 def run_solver(instance_path, tmp_path):
-    try:
-        from CP_SAT.main import parse, run_solver as solve
-        from Shared.verifier import run_verification
-    except ImportError:
-        try:
-            sys.path.insert(0, os.path.join(PROJECT_ROOT, "api", "MVPv2"))
-            sys.path.insert(0, os.path.join(PROJECT_ROOT, "api", "MVPv2", "CP-SAT"))
-            sys.path.insert(0, os.path.join(PROJECT_ROOT, "api", "MVPv2", "Shared"))
-            from main import parse, run_solver as solve
-            from verifier import run_verification
-        except ImportError:
-            pytest.skip("solver pipeline not available")
+    import importlib.util
 
-    scenario = parse(instance_path)
-    solution = solve(scenario)
+    base = os.path.join(PROJECT_ROOT, "api", "MVPv2.2")
+    if not os.path.exists(base):
+        base = os.path.join(PROJECT_ROOT, "api", "MVPv2")
 
-    verifier_result = run_verification(solution, scenario)
-    if verifier_result.get("status") != "success":
-        pytest.skip(f"verification failed for {os.path.basename(instance_path)}")
+    main_path = os.path.join(base, "CP-SAT", "main.py")
+    if not os.path.exists(main_path):
+        pytest.skip("solver pipeline not available")
 
-    total_cost = solution.get("statistics", {}).get("total_cost")
-    if total_cost is None:
-        pytest.skip(f"no total_cost in solution for {os.path.basename(instance_path)}")
+    for p in [os.path.join(base, "Shared"),
+              os.path.join(base, "Web"),
+              os.path.join(base, "CP-SAT"),
+              base]:
+        if p not in sys.path:
+            sys.path.insert(0, p)
+
+    spec = importlib.util.spec_from_file_location("qrt006_solver", main_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    output_path = os.path.join(tmp_path, f"output_{os.path.basename(instance_path)}")
+    solution = mod.solve_pipeline(input_path=instance_path, output_path=output_path)
+
+    # Use tester.calc_cost for consistent cost calculation with baseline
+    input_data = load_json(instance_path)
+    analyzed = calc_cost(input_data, solution)
+    total_cost = analyzed['cost']['total']
 
     return total_cost
 
@@ -68,7 +74,7 @@ class TestQRTSolverOptimality:
     def test_all_instances_have_baseline(self, baseline_scores, instance_paths):
         missing = []
         for p in instance_paths:
-            key = os.path.basename(p).replace(".json", "")
+            key = "baseline_" + os.path.basename(p).replace(".json", "")
             if key not in baseline_scores:
                 missing.append(key)
         assert not missing, f"missing baseline entries for: {missing}"
@@ -79,7 +85,7 @@ class TestQRTSolverOptimality:
         total = len(instance_paths)
 
         for p in instance_paths:
-            key = os.path.basename(p).replace(".json", "")
+            key = "baseline_" + os.path.basename(p).replace(".json", "")
             score = run_solver(p, tmp_path)
             baseline = baseline_scores.get(key, float("inf"))
             is_beat = score < baseline

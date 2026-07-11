@@ -108,17 +108,17 @@ python -m pytest tests/test_qrt_005_docs_availability.py -v
 
 **Linked quality requirement:** [QR-006](quality-requirements.md#qr-006-solver-optimality-against-baseline)
 
-**Verification method:** Standalone test script that runs the current solver pipeline on all 10 test instances and compares each result against the baseline scores.
+**Verification method:** Standalone test script that runs the CP-SAT solver pipeline (`api/MVPv2.2/CP-SAT/main.py`) on all 10 test instances, computes each output's `total_cost` using `api/MVPv2.2/tester.py` `calc_cost()`, and compares against the pre-computed baseline scores (also derived from `instances/baseline_iN.json` via `calc_cost()`).
 
-**Test data, setup, or environment:** Local development environment with the standard dependencies installed. Requires `instances/i1.json`–`i10.json` (test inputs) and `instances/baseline_scores.json` (baseline scores).
+**Test data, setup, or environment:** Local development environment with the standard dependencies installed. Requires `instances/i1.json`–`i10.json` (test inputs), `instances/baseline_i1.json`–`baseline_i10.json` (baseline solutions), and `instances/baseline_scores.json` (pre-computed baseline scores).
 
-**Automated command or CI check:** Not run in CI. Execute manually:
+**Automated command or CI check:** Not run in CI (runs the full solver pipeline on 10 instances, which exceeds normal CI time budgets). Execute manually:
 
 ```bash
 python -m pytest tests/test_qrt_006_solver_optimality.py -v
 ```
 
-**Expected measurable result:** The solver produces a `total_cost` lower than the baseline on at least 7 out of 10 instances.
+**Expected measurable result:** The solver produces solutions whose `calc_cost()` `total_cost` is lower than the baseline on at least 7 out of 10 instances.
 
 **Evidence link:** `tests/test_qrt_006_solver_optimality.py`
 

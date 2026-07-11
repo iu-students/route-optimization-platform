@@ -2,7 +2,7 @@
 
 **Product:** Route Optimization Platform
 
-**Version:** MVPv2, release v0.4.0
+**Version:** MVPv2.2, release v0.4.0
 
 **Date:** 2026-07-11
 
@@ -173,7 +173,7 @@ docker compose restart
 ## 7. Known Limitations, Unfinished Areas, and Risks
 
 - **Unfinished Area 1:** MVPv3 is under development and not yet deployed.
-- **Unfinished Area 2:** The algorithm does not outperform the baseline on 1 out of 10 test cases. Work is ongoing to improve algorithm performance.
+- **Unfinished Area 2:** The CP-SAT solver pipeline (`MVPv2.2`) outperforms the baseline on 9 out of 10 standard test instances when both are evaluated using the consistent `calc_cost()` function. Instance `i4` remains a challenge due to its tight time windows and high vehicle/loader cost weights.
 
 ---
 
@@ -198,7 +198,7 @@ docker compose restart
 | Transfer repository administrator rights | Yes | Pending |
 | Transfer API service access credentials | Yes | Pending |
 | Implement MVPv3 | Yes | In process |
-| Improve algorithm performance to outperform 10/10 baseline cases | Yes | In process |
+| Improve algorithm performance to beat baseline on all 10/10 test instances | Yes | In process (9/10 achieved) |
 
 ---
 
