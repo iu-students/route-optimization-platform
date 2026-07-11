@@ -26,13 +26,13 @@ The following stories have been removed from the active backlog. They are kept h
 
 | ID | Short title | Reason for removal |
 |---|---|---|
-| US-001 | Display final route map | No longer required; functionality covered by US-011 |
+| US-01 | Display final route map | "Won't Have" stories excluded per customer request; replaced by US-11 (receive pre-planned route) |
 | US-002 | Fast program startup | Covered by QR-004 |
-| US-003 | Manage a large number of clients | The focus of the project has shifted towards delivering the core algorithmic solution. This user story has been removed from the backlog as it falls outside the planned scope.  |
-| US-004 | Track deliveries for one vehicle | Out of scope; covered by higher-level tracking features |
-| US-005 | Optimal routing | Merged into US-012 |
-| US-007 | Prioritizing delivery refusals | Business rule changed; no longer needed |
-| US-009 | Account for loaders' shift schedules | Covered by US-013 |
+| US-003 | Manage a large number of clients | Out of scope; the focus of the project has shifted towards delivering the core algorithmic solution |
+| US-04 | Track deliveries for one vehicle | Does not affect route planning; manager's interest is resource optimization, not bonuses |
+| US-05 | Optimal routing | Originally written from wrong role (driver); fuel economy is manager's task; rewritten as US-12 |
+| US-07 | Prioritizing delivery refusals | Contradicts technical constraint, no real-time recalculation during the day |
+| US-09 | Account for loaders' time windows | Written from wrong role (manager); respecting time windows is driver/loader interest; rewritten as US-13 |
 | US-012 | Optimal routing for resource savings | Covered by QR-006 |
 
 ---
