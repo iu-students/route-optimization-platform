@@ -24,7 +24,7 @@ Both solutions share five modules:
 - `models.py` — data classes used by both pipelines.
 - `app.py` — Flask REST API exposing both pipelines.
 
-We focus our testing on five things, because a bug in any of them breaks the
+We focus our testing on the following areas, because a bug in any of them breaks the
 result or the baseline comparison:
 
 - **Input validity:** `validator.py` must reject broken input before any
@@ -43,6 +43,8 @@ result or the baseline comparison:
   on a realistic test instance (QRT-004, QR-004).
 - **Docs availability:** the hosted documentation site must be reachable and
   serve the entry page (QRT-005, QR-005).
+- **Solver optimality:** the solver must beat the baseline `total_cost` on at
+  least 7 out of 10 standard test instances (QRT-006, QR-006).
 
 PyVRP and CP-SAT can both give different results on every run. So we only run them in integration tests, with a short runtime and a small instance. Each integration test runs in its own temporary folder, because the
 code writes files with fixed names.
@@ -73,7 +75,11 @@ code writes files with fixed names.
 | Unit tests (solution B) | `main.py` (`find_distance`, `eval_route`, `best_insertion_pos`, `insertion_construct`, `clarke_wright`, `build_slots`, `eval_chain`, `chains_insertion_construct`) | `pytest tests/test_main.py` | 22 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
 | Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
 | Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Automated QRTs | QR-001 (responsiveness), QR-002 (confidentiality), QR-003 (coverage), QR-004 (solver timing), QR-005 (docs availability) | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_004_solver_completion_time.py tests/test_qrt_005_docs_availability.py` | 5 QRT suites | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689676) |
+| Automated QRTs (CI) | QR-001 (responsiveness), QR-002 (confidentiality), QR-003 (coverage), QR-004 (solver timing), QR-005 (docs availability) | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_004_solver_completion_time.py tests/test_qrt_005_docs_availability.py` | 5 QRT suites | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689676) |
+| Automated QRT (manual) | QR-006 (solver optimality against baseline) | `pytest tests/test_qrt_006_solver_optimality.py -v` (not in CI) | N/A | N/A |
+| Linting | Code style and syntax (`flake8`) | `flake8 api/` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
+| Security audit | Vulnerability scanning (`bandit`) | `bandit -r api/ -ll` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
+| Link checking | All Markdown files (`lychee`) | `lychee ./*.md ./docs/**/*.md ./reports/**/*.md` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
 
 ## CI and QA Check Status
 
@@ -125,6 +131,10 @@ Other options considered:
 - Line coverage for critical modules must stay above 30%.
 - QRT-001, QRT-002, QRT-003, QRT-005 run in CI on every PR and push to `main`.
 - QRT-004 (solver completion time) runs in CI on every PR and push to `main` with a 16-minute workflow timeout.
+- QRT-006 (solver optimality against baseline) runs outside CI — execute manually with `python -m pytest tests/test_qrt_006_solver_optimality.py -v`.
+- Linting (`flake8`) must pass on every merge to `main`.
+- Security audit (`bandit`) must pass on every merge to `main`.
+- Link checking (`lychee`) must pass on every merge to `main`.
 - `pip-audit` must keep running in CI.
 - If any gate is replaced, the replacement must be documented and provide
   equal or stronger coverage.

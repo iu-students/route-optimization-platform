@@ -104,6 +104,26 @@ python -m pytest tests/test_qrt_005_docs_availability.py -v
 
 ---
 
+## QRT-006: Solver optimality against baseline
+
+**Linked quality requirement:** [QR-006](quality-requirements.md#qr-006-solver-optimality-against-baseline)
+
+**Verification method:** Standalone test script that runs the current solver pipeline on all 10 test instances and compares each result against the baseline scores.
+
+**Test data, setup, or environment:** Local development environment with the standard dependencies installed. Requires `instances/i1.json`–`i10.json` (test inputs) and `instances/baseline_scores.json` (baseline scores).
+
+**Automated command or CI check:** Not run in CI. Execute manually:
+
+```bash
+python -m pytest tests/test_qrt_006_solver_optimality.py -v
+```
+
+**Expected measurable result:** The solver produces a `total_cost` lower than the baseline on at least 7 out of 10 instances.
+
+**Evidence link:** `tests/test_qrt_006_solver_optimality.py`
+
+---
+
 ## Test Execution
 
 Run all automated quality requirement tests together:
@@ -122,6 +142,12 @@ QRT-005 (hosted docs availability) requires network access:
 
 ```bash
 python -m pytest tests/test_qrt_005_docs_availability.py -v
+```
+
+QRT-006 (solver optimality) runs outside CI:
+
+```bash
+python -m pytest tests/test_qrt_006_solver_optimality.py -v
 ```
 
 Or run the entire test suite:

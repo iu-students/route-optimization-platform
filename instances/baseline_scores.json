@@ -1,0 +1,15 @@
+{
+  "description": "Baseline total_cost scores for 10 test instances. The solver beats the baseline when it produces a lower total_cost. Threshold: 7 out of 10 must beat the baseline.",
+  "scores": {
+    "i1": 14144.10,
+    "i2": 33342.00,
+    "i3": 30627.36,
+    "i4": 106942.67,
+    "i5": 82117.67,
+    "i6": 134766.06,
+    "i7": 0.0,
+    "i8": 0.0,
+    "i9": 0.0,
+    "i10": 0.0
+  }
+}
