@@ -24,7 +24,7 @@ jobs:
         run: python -m pytest tests/ --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
 
   logic-tests-mvpv2:
-    name: Unit & integration (MVPv2)
+    name: Unit & integration (MVPv2.2)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -35,7 +35,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install flask flask-cors numpy pyvrp ortools openpyxl pytest
-      - name: Run logic tests (MVPv2)
+      - name: Run logic tests (MVPv2.2)
         env:
           TEST_TARGET: v2
         run: python -m pytest tests/ --ignore=tests/test_main.py --ignore=tests/test_integration_cpsat.py --ignore=tests/test_tester.py --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v

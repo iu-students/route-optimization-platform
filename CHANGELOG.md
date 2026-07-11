@@ -19,6 +19,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.4.0] - 2026-07-12
+
+### Added
+
+- Implemented SQLite database schema for calculation history ([TT-01](TT-01_link))
+  - `calculation_history` table with columns: `calculation_id`, `timestamp`, `execution_time`, `objective_function_cost`, `status`, `input_json_path`, `output_json_path`
+  - Automatic creation of `data/inputs/` and `data/outputs/` directories on application startup
+  - Input JSON saved as a file in `data/inputs/` before solving begins, with database status set to "processing"
+  - Output JSON saved as a file in `data/outputs/` after successful completion
+  - Database record updated with `output_json_path`, `execution_time`, `objective_function_cost`, and `status` set to "success" on completion
+  - On failure or timeout: status set to "error" with error details written to output file
+- Added `GET /history` endpoint returning a JSON array of past calculations with summary metadata ([TT-02](TT-02_link))
+  - Each record contains `calculation_id`, `timestamp`, `execution_time`, `objective_function_cost`, and `status`
+- Added `GET /history/{calculation_id}` endpoint returning full calculation details including input/output JSON files and metadata ([TT-02](TT-02_link))
+- Added 404 response for requests to non-existent `calculation_id` ([TT-02](TT-02_link))
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
 ## [0.3.0] - 2026-07-05
 
 ### Added
