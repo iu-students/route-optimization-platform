@@ -15,6 +15,7 @@ efficient routing of vehicles considering time windows and load capacity.
 ## Documentation
 
 - [Hosted Documentation Site](https://iu-students.github.io/route-optimization-platform/)
+- [Customer Handover Guide](docs/customer-handover.md)
 - [Development Process & Workflow](docs/development-process.md)
 - [Architecture Documentation](docs/architecture/README.md)
 - [Quality Requirements](docs/quality-requirements.md)
@@ -22,6 +23,11 @@ efficient routing of vehicles considering time windows and load capacity.
 - [Product Roadmap](docs/roadmap.md)
 - [Definition of Done](docs/definition-of-done.md)
 - [User Acceptance Tests](docs/user-acceptance-tests.md)
+
+## Contributing & Agents
+
+- [Contributing Guide](CONTRIBUTING.md)
+- [Agent Guide (AGENTS.md)](AGENTS.md)
 
 ## Team
 
@@ -68,7 +74,7 @@ After starting the application, open `http://localhost:5000/docs` in your browse
 Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v2**
 
 ## Available Endpoints
-
+а,
 - **POST /solve** — Start route optimization calculation.
 - **GET /solution** — Get the computed optimal route after `/solve` completes.
 - **GET /metrics** — Get cost breakdown statistics for the last completed solution.
@@ -87,6 +93,7 @@ The API key is set in the `.env` file.
 - [Week 3](reports/week3/README.md)
 - [Week 4](reports/week4/README.md)
 - [Week 5](reports/week5/README.md)
+- [Week 6](reports/week6/README.md)
 
 ## License
 
