@@ -2,10 +2,26 @@
 
 > Vehicle Routing Problem with Time Windows and Capacity Constraints (CVRPTW)
 
+## Live Demo & Access
+
+You can access the deployed version of the platform directly via Swagger UI:
+**[http://139.100.207.201:5000/docs/](http://139.100.207.201:5000/docs/)** 
+
 ## Description
 
-A logistics optimization system that solves the CVRPTW problem —
+A logistics optimization system that solves the CVRPTW problem -
 efficient routing of vehicles considering time windows and load capacity.
+
+## Documentation
+
+- [Hosted Documentation Site](https://iu-students.github.io/route-optimization-platform/)
+- [Development Process & Workflow](docs/development-process.md)
+- [Architecture Documentation](docs/architecture/README.md)
+- [Quality Requirements](docs/quality-requirements.md)
+- [Testing Strategy & CI](docs/testing.md)
+- [Product Roadmap](docs/roadmap.md)
+- [Definition of Done](docs/definition-of-done.md)
+- [User Acceptance Tests](docs/user-acceptance-tests.md)
 
 ## Team
 
@@ -43,7 +59,7 @@ docker compose up --build -d
 curl http://localhost:5002/health
 ```
 
-# Swagger UI
+## Swagger UI
 
 After starting the application, open `http://localhost:5000/docs` in your browser to access Swagger UI.
 
@@ -67,10 +83,11 @@ All endpoints except `/health` require API key authentication. Include in reques
 The API key is set in the `.env` file.
 ## Weekly reports
 
-Week 2: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week2/README.md
+- [Week 2](reports/week2/README.md)
+- [Week 3](reports/week3/README.md)
+- [Week 4](reports/week4/README.md)
+- [Week 5](reports/week5/README.md)
 
-Week 3: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week3/README.md
+## License
 
-Week 4: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week4/README.md
-
-Week 5: https://github.com/iu-students/route-optimization-platform/blob/main/reports/week5/README.md
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
