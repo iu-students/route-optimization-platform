@@ -45,7 +45,8 @@ def start_calculation(db_path, inputs_dir, input_data: dict) -> int:
         json.dump(input_data, f, indent=2, ensure_ascii=False)
 
     conn.execute(
-        "UPDATE calculation_history SET input_json_path = ? WHERE calculation_id = ?",
+        "UPDATE calculation_history SET input_json_path = ? "
+        "WHERE calculation_id = ?",
         (input_path, calculation_id),
     )
     conn.commit()
@@ -53,32 +54,38 @@ def start_calculation(db_path, inputs_dir, input_data: dict) -> int:
     return calculation_id
 
 
-def finish_success(db_path, outputs_dir, calculation_id: int, output_data: dict,
-                    execution_time: float, objective_function_cost):
+def finish_success(
+    db_path, outputs_dir, calculation_id: int, output_data: dict,
+    execution_time: float, objective_function_cost,
+):
     output_path = os.path.join(outputs_dir, f"{calculation_id}.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
     conn = _connect(db_path)
     conn.execute(
-        "UPDATE calculation_history SET output_json_path = ?, execution_time = ?, "
-        "objective_function_cost = ?, status = ? WHERE calculation_id = ?",
-        (output_path, execution_time, objective_function_cost, "success", calculation_id),
+        "UPDATE calculation_history SET output_json_path = ?, "
+        "execution_time = ?, objective_function_cost = ?, "
+        "status = ? WHERE calculation_id = ?",
+        (output_path, execution_time, objective_function_cost,
+         "success", calculation_id),
     )
     conn.commit()
     conn.close()
 
 
-def finish_error(db_path, outputs_dir, calculation_id: int, error_message: str,
-                  execution_time: float = None):
+def finish_error(
+    db_path, outputs_dir, calculation_id: int, error_message: str,
+    execution_time: float = None,
+):
     output_path = os.path.join(outputs_dir, f"{calculation_id}.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump({"error": error_message}, f, indent=2, ensure_ascii=False)
 
     conn = _connect(db_path)
     conn.execute(
-        "UPDATE calculation_history SET output_json_path = ?, execution_time = ?, "
-        "status = ? WHERE calculation_id = ?",
+        "UPDATE calculation_history SET output_json_path = ?, "
+        "execution_time = ?, status = ? WHERE calculation_id = ?",
         (output_path, execution_time, "error", calculation_id),
     )
     conn.commit()
@@ -92,8 +99,9 @@ def get_all_metadata(db_path) -> list:
     files themselves."""
     conn = _connect(db_path)
     rows = conn.execute(
-        "SELECT calculation_id, timestamp, execution_time, objective_function_cost, "
-        "status, input_json_path, output_json_path "
+        "SELECT calculation_id, timestamp, execution_time, "
+        "objective_function_cost, status, input_json_path, "
+        "output_json_path "
         "FROM calculation_history ORDER BY calculation_id DESC"
     ).fetchall()
     conn.close()
@@ -107,8 +115,9 @@ def get_metadata_by_id(db_path, calculation_id: int):
     files themselves."""
     conn = _connect(db_path)
     row = conn.execute(
-        "SELECT calculation_id, timestamp, execution_time, objective_function_cost, "
-        "status, input_json_path, output_json_path "
+        "SELECT calculation_id, timestamp, execution_time, "
+        "objective_function_cost, status, input_json_path, "
+        "output_json_path "
         "FROM calculation_history WHERE calculation_id = ?",
         (calculation_id,),
     ).fetchone()
@@ -121,7 +130,8 @@ def get_metadata_by_id(db_path, calculation_id: int):
 def get_all(db_path) -> list:
     conn = _connect(db_path)
     rows = conn.execute(
-        "SELECT calculation_id, timestamp, execution_time, objective_function_cost, status "
+        "SELECT calculation_id, timestamp, execution_time, "
+        "objective_function_cost, status "
         "FROM calculation_history ORDER BY calculation_id DESC"
     ).fetchall()
     conn.close()
@@ -131,8 +141,9 @@ def get_all(db_path) -> list:
 def get_by_id(db_path, calculation_id: int):
     conn = _connect(db_path)
     row = conn.execute(
-        "SELECT calculation_id, timestamp, execution_time, objective_function_cost, "
-        "status, input_json_path, output_json_path "
+        "SELECT calculation_id, timestamp, execution_time, "
+        "objective_function_cost, status, input_json_path, "
+        "output_json_path "
         "FROM calculation_history WHERE calculation_id = ?",
         (calculation_id,),
     ).fetchone()
@@ -149,7 +160,9 @@ def get_by_id(db_path, calculation_id: int):
     result["input"] = input_data
 
     output_data = None
-    if result["output_json_path"] and os.path.exists(result["output_json_path"]):
+    if result["output_json_path"] and os.path.exists(
+        result["output_json_path"]
+    ):
         with open(result["output_json_path"], encoding="utf-8") as f:
             output_data = json.load(f)
     result["output"] = output_data

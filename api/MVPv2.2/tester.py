@@ -72,7 +72,10 @@ def _compute_loader_shift_time(loaders, vehicles, by_id, loader_speed):
             time = max(time, arrival[route[i]])
             time += cur['loader_service_time']
         last = by_id[route[-1]]
-        back = _find_distance(last['x'], last['y'], home_x, home_y) / loader_speed
+        back = (
+            _find_distance(last['x'], last['y'], home_x, home_y)
+            / loader_speed
+        )
         shift_end = time + back
         total += (shift_end - shift_start)
     return round(total, 2)
@@ -194,7 +197,10 @@ def print_results(results):
         print(f"\n--- {label} ---")
         print(f"  машины:   {r['n_vehicles']:>3}    {c['vehicles']:>10.2f}")
         print(f"  грузчики: {r['n_loaders']:>3}    {c['loaders']:>10.2f}")
-        print(f"  топливо (dist={r['total_dist']}, travel_time={r['total_travel_time']}): {c['fuel']:>10.2f}")
+        print(
+            f"  топливо (dist={r['total_dist']}, "
+            f"travel_time={r['total_travel_time']}): {c['fuel']:>10.2f}"
+        )
         print(f"  работа грузч (t={r['loader_work_time']}): "
               f"{c['loader_w']:>10.2f}")
         print(f"  штраф опц ({len(r['missed_optional'])} шт): "
@@ -207,8 +213,11 @@ def print_results(results):
             print(f"  !!! ПРОПУЩЕНЫ ОБЯЗАТЕЛЬНЫЕ: {r['missed_mandatory']}")
         print(f"  длины маршрутов: {r['route_lens']}")
         print(f"  длины цепочек:   {r['chain_lens']}")
-        print(f"  multi-trip машин: {r['multi_trip_vehicles']} / {r['n_vehicles']} "
-              f"(распределение рейсов: {r['trips_dist']})")
+        print(
+            f"  multi-trip машин: {r['multi_trip_vehicles']} / "
+            f"{r['n_vehicles']} "
+            f"(распределение рейсов: {r['trips_dist']})"
+        )
 
     if REF_LABEL in results and OUR_LABEL in results:
         ref = results[REF_LABEL]
