@@ -74,7 +74,7 @@ After starting the application, open `http://localhost:5000/docs` in your browse
 Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v2**
 
 ## Available Endpoints
-а,
+
 - **POST /solve** — Start route optimization calculation.
 - **GET /solution** — Get the computed optimal route after `/solve` completes.
 - **GET /metrics** — Get cost breakdown statistics for the last completed solution.
