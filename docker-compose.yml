@@ -42,3 +42,14 @@ services:
       - ./.env
     volumes:
       - ./data:/MVPv2/data
+
+  mvpv2.2:
+    build:
+      context: .
+      dockerfile: ./api/MVPv2.2/Dockerfile
+    ports:
+      - "5022:5022"
+    env_file:
+      - ./.env
+    volumes:
+      - ./data:/MVPv2.2/data

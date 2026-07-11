@@ -1,0 +1,9 @@
+CREATE TABLE calculation_history (
+    calculation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TEXT NOT NULL,
+    execution_time REAL,
+    objective_function_cost REAL,
+    status TEXT NOT NULL,
+    input_json_path TEXT NOT NULL,
+    output_json_path TEXT
+);
