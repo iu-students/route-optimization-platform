@@ -153,6 +153,7 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 All test cases passed. The metrics endpoint works as expected. The estimated wait time during "computing" status is accurate and helpful for managing user expectations.
 
 **Resulting PBIs / Backlog Items:**
+
 https://github.com/iu-students/route-optimization-platform/issues/77
 https://github.com/iu-students/route-optimization-platform/issues/78
 https://github.com/iu-students/route-optimization-platform/issues/58
@@ -231,6 +232,8 @@ All test cases passed. The history endpoint provides a clear and organized view 
 **Resulting PBIs / Backlog Items:**
 
 https://github.com/iu-students/route-optimization-platform/issues/89
+https://github.com/iu-students/route-optimization-platform/issues/96
+https://github.com/iu-students/route-optimization-platform/issues/97
 
 ---
 
@@ -265,6 +268,8 @@ All test cases passed. The detailed view provides comprehensive information abou
 **Resulting PBIs / Backlog Items:**
 
 https://github.com/iu-students/route-optimization-platform/issues/89
+https://github.com/iu-students/route-optimization-platform/issues/96
+https://github.com/iu-students/route-optimization-platform/issues/97
 
 ---
 
