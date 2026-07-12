@@ -58,13 +58,13 @@ code writes files with fixed names.
 
 | Critical module | Path in `api/MVPv2.2/` | Why critical | Required line coverage | Current line coverage | Evidence |
 |---|---|---|---:|---:|---|
-| `script.py` | `PyVRP/script.py` | Pipeline orchestration, input validation entry point, and data transforms that feed the loader step and the output. | 30% | 90% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `loaders.py` | `PyVRP/loaders.py` | Greedy loader assignment. Core logic for minimizing loaders. | 30% | 89% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `main.py` | `CP-SAT/main.py` | Two-step pipeline: route pool generation (Clarke-Wright and insertion) and CP-SAT set partitioning for vehicles and loaders. | 30% | 87% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `verifier.py` | `Shared/verifier.py` | Feasibility check (capacity, time windows, shift). Guards the correctness of every solution. | 30% | 90% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `validator.py` | `Web/validator.py` | Input schema and value validation. Stops the solvers from running on broken input. | 30% | 82% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `tester.py` | `tester.py` | Calculates the total cost of a solution and exports the baseline comparison report. | 30% | 92% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `app.py` | `Web/app.py` | REST API entrypoint (Flask) exposing `/solve`, `/solution`, `/history`, and `/validate`. | 30% | 75% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
+| `script.py` | `PyVRP/script.py` | Pipeline orchestration, input validation entry point, and data transforms that feed the loader step and the output. | 30% | 90% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| `loaders.py` | `PyVRP/loaders.py` | Greedy loader assignment. Core logic for minimizing loaders. | 30% | 89% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| `main.py` | `CP-SAT/main.py` | Two-step pipeline: route pool generation (Clarke-Wright and insertion) and CP-SAT set partitioning for vehicles and loaders. | 30% | 87% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| `verifier.py` | `Shared/verifier.py` | Feasibility check (capacity, time windows, shift). Guards the correctness of every solution. | 30% | 90% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| `validator.py` | `Web/validator.py` | Input schema and value validation. Stops the solvers from running on broken input. | 30% | 82% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| `tester.py` | `tester.py` | Calculates the total cost of a solution and exports the baseline comparison report. | 30% | 92% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| `app.py` | `Web/app.py` | REST API entrypoint (Flask) exposing `/solve`, `/solution`, `/history`, and `/validate`. | 30% | 75% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
 | `history.py` | `Shared/history.py` | SQLite persistence for calculation history. Powers `GET /history` and `GET /history/{id}`. | 30% | - | Tested through integration tests in `conftest.py` (app fixture). |
 
 **Global repository coverage:** 85% (source limited to `api/MVPv2.2` per `coveragerc`)
@@ -73,39 +73,39 @@ code writes files with fixed names.
 
 | Test type | Scope | Command or CI check | Latest result | Evidence |
 |---|---|---|---|---|
-| Unit tests | `verifier.py` (shift, time window, capacity checks; route segmentation) | `pytest tests/test_verifier.py` | 11 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests | `validator.py` (schema, value ranges, time window order, duplicate ids, invalid JSON) | `pytest tests/test_validator.py` | 26 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests | `tester.py` (Euclidean distance, coord lookup, cost components, optional penalty, missing required orders, Excel export) | `pytest tests/test_tester.py` | 8 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests (solution A) | `script.py` (`find_distance`, `compute_times`, `create_loaders_task_list`, `build_output`, input validation) | `pytest tests/test_script.py` | 8 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests (solution A) | `loaders.py` (Point fields, sorting, distance matrix, `calculate`, `reset_state`) | `pytest tests/test_loaders.py` | 5 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests (solution B) | `vehicle_routes.py`, `loader_routes.py` | `pytest tests/test_main.py` | 22 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Automated QRTs (CI) | QR-001 (responsiveness), QR-002 (confidentiality), QR-003 (coverage), QR-005 (docs availability) | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_005_docs_availability.py` | 4 QRT suites | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689676) |
+| Unit tests | `verifier.py` (shift, time window, capacity checks; route segmentation) | `pytest tests/test_verifier.py` | 11 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests | `validator.py` (schema, value ranges, time window order, duplicate ids, invalid JSON) | `pytest tests/test_validator.py` | 26 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests | `tester.py` (Euclidean distance, coord lookup, cost components, optional penalty, missing required orders, Excel export) | `pytest tests/test_tester.py` | 8 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests (solution A) | `script.py` (`find_distance`, `compute_times`, `create_loaders_task_list`, `build_output`, input validation) | `pytest tests/test_script.py` | 8 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests (solution A) | `loaders.py` (Point fields, sorting, distance matrix, `calculate`, `reset_state`) | `pytest tests/test_loaders.py` | 5 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests (solution B) | `vehicle_routes.py`, `loader_routes.py` | `pytest tests/test_main.py` | 22 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Automated QRTs (CI) | QR-001 (responsiveness), QR-002 (confidentiality), QR-003 (coverage), QR-005 (docs availability) | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_005_docs_availability.py` | 4 QRT suites | [CI run](https://github.com/iu-students/route-optimization-platform/actions?query=workflow%3A%22Quality+requirement+tests+%28QRT%29%22+branch%3Amain) |
 | Automated QRT (manual) | QR-004 (solver timing) - runs outside CI due to solver runtime | `pytest tests/test_qrt_004_solver_completion_time.py -v --timeout=950` | N/A | N/A |
 | Automated QRT (manual) | QR-006 (solver optimality against baseline via `tester.calc_cost()`) | `pytest tests/test_qrt_006_solver_optimality.py -v` (not in CI) | N/A | N/A |
-| Linting & formatting (`flake8`) | PEP8 style, syntax, spacing, line length | `flake8 api/` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
-| Additional QA check (`bandit`) | Static analysis for security issues | `bandit -r api/ -ll` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
-| Link checking | All Markdown files (`lychee`) | `lychee --cache --verbose --no-progress --exclude "http://139.100.207.201:5000" './**/*.md' './reports/**/*.md'` (via `lycheeverse/lychee-action@v2` in CI) | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
+| Linting & formatting (`flake8`) | PEP8 style, syntax, spacing, line length | `flake8 api/` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259245/job/86688700933) |
+| Additional QA check (`bandit`) | Static analysis for security issues | `bandit -r api/ -ll` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259245/job/86688700924) |
+| Link checking | All Markdown files (`lychee`) | `lychee --cache --verbose --no-progress --exclude "http://139.100.207.201:5000" './**/*.md' './reports/**/*.md'` (via `lycheeverse/lychee-action@v2` in CI) | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259246/job/86688700907) |
 
 ## CI and QA Check Status
 
 | Gate or check | Required for Done? | Latest protected-branch status | Evidence |
 |---|---|---|---|
-| Linting & formatting (`flake8`) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
-| Unit tests (shared modules) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests (solution A) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Unit tests (solution B) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Integration tests (solution A) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Integration tests (solution B) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Line coverage (≥30% per critical module) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
-| Additional QA check (`bandit` security audit) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
+| Linting & formatting (`flake8`) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259245/job/86688700933) |
+| Unit tests (shared modules) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests (solution A) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Unit tests (solution B) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Integration tests (solution A) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Integration tests (solution B) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700967) |
+| Line coverage (≥30% per critical module) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244/job/86688700985) |
+| Additional QA check (`bandit` security audit) | Yes | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259245/job/86688700924) |
 
 ## Additional QA Check Rationale
 
 | QA objective or risk | Additional QA check | Scope | Latest result | Evidence | Limitations or follow-up |
 |---|---|---|---|---|---|
-| Common security issues in Python code (hardcoded credentials, SQL injection, shell injection, unsafe imports) | `bandit` static analysis | All `api/` source code | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) | Uses `-ll` (low-confidence skip); may miss some patterns. Covers source-code risks, not dependency CVEs. |
+| Common security issues in Python code (hardcoded credentials, SQL injection, shell injection, unsafe imports) | `bandit` static analysis | All `api/` source code | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259245/job/86688700924) | Uses `-ll` (low-confidence skip); may miss some patterns. Covers source-code risks, not dependency CVEs. |
 
 `bandit` runs as the additional automated QA check in `ci-file-checks.yml`. It satisfies the Assignment 4 requirement for an extra automated check beyond linting, formatting, tests, coverage, QRTs, and link checking. As a static-analysis security tool, it is distinct from the `flake8` linting + formatting job and the `pytest` test jobs.
 
@@ -119,7 +119,7 @@ code writes files with fixed names.
 ## CI and Branch Protection
 
 - **CI pipeline:** [CI workflow](https://github.com/iu-students/route-optimization-platform/actions)
-- **Latest protected-default-branch run:** [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637)
+- **Latest protected-default-branch run:** [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/29207259244)
 - **Branch protection / rules evidence:** ![Branch protection](../img/branch-protection.png)
 
 ## Continuation of Quality Gates

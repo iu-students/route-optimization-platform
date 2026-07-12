@@ -107,6 +107,7 @@ For detailed troubleshooting guidance and complete support documentation, please
 - [Week 3](reports/week3/README.md)
 - [Week 4](reports/week4/README.md)
 - [Week 5](reports/week5/README.md)
+- [Week 6](reports/week6/README.md)
 
 ## License
 
