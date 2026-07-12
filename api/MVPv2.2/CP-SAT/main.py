@@ -94,19 +94,19 @@ def solve_with_feedback(scenario, v_restarts, l_restarts, on_stage=None, run_fee
         if on_stage:
             on_stage(name)
 
-    # Резервы — грубая оценка, сколько времени нужно оставить на
+    # Резервы - грубая оценка, сколько времени нужно оставить на
     # последующие этапы ПОСЛЕ текущего CP-SAT вызова, чтобы не
     # выйти за общий дедлайн. CP-SAT time_limit при этом вычисляется
-    # ВНУТРИ find_vehicles_routes/find_loaders_routes — уже ПОСЛЕ
+    # ВНУТРИ find_vehicles_routes/find_loaders_routes - уже ПОСЛЕ
     # построения пула, а не заранее (иначе время, потраченное на
     # пул, не будет учтено, и дедлайн можно превысить).
     RESERVE_AFTER_VEHICLE_CPSAT = 30   # consolidate + loaders + verification
     RESERVE_AFTER_LOADER_CPSAT = 5     # verification
 
     # Отдельный, более узкий тайм-бюджет специально на построение пула
-    # маршрутов (не на весь этап целиком) — чтобы "больше маршрутов на
+    # маршрутов (не на весь этап целиком) - чтобы "больше маршрутов на
     # выбор" не съедало время, нужное CP-SAT/consolidate/грузчикам.
-    # num_restarts при этом ставим заведомо большим — реальным
+    # num_restarts при этом ставим заведомо большим - реальным
     # ограничителем становится именно этот тайм-бюджет, а не число
     # рестартов (см. deadline внутри generate_pool/generate_loader_pool).
     POOL_TIME_BUDGET_VEHICLES = 300
@@ -149,7 +149,7 @@ def solve_with_feedback(scenario, v_restarts, l_restarts, on_stage=None, run_fee
         print("[feedback] отключён (run_feedback=False), завершаем на итерации 1.")
         return solution
 
-    # Если бюджета почти не осталось — не начинаем вторую итерацию вообще,
+    # Если бюджета почти не осталось - не начинаем вторую итерацию вообще,
     # т.к. её тоже нужно уложить в общий дедлайн (пул-фильтр + CP-SAT +
     # consolidate + loaders).
     MIN_TIME_FOR_FEEDBACK = 20
@@ -169,7 +169,7 @@ def solve_with_feedback(scenario, v_restarts, l_restarts, on_stage=None, run_fee
 
     reduced_scenario = build_reduced_scenario(scenario, bad_ids)
 
-    # Переиспользуем уже построенный пул маршрутов вместо генерации нового —
+    # Переиспользуем уже построенный пул маршрутов вместо генерации нового -
     # это самая дорогая часть (insertion_construct/clarke_wright с num_restarts).
     # Обязательные заказы никогда не попадают в bad_ids (see find_bad_optional_orders),
     # поэтому фильтрация не ломает покрытие обязательных заказов.
@@ -229,9 +229,9 @@ def calculate_statistics(solution, scenario):
 
 def solve_pipeline(input_path="data/input.json", output_path="data/output.json", on_stage=None,
                     run_feedback=True, time_limit=240, max_total_time=840):
-    """max_total_time — общий бюджет времени в секундах на весь пайплайн
+    """max_total_time - общий бюджет времени в секундах на весь пайплайн
     (по умолчанию 840s = 14 минут, с запасом 60s от требования QR-004
-    в 900s/15 минут — запас нужен на parsing/verification/запись файла,
+    в 900s/15 минут - запас нужен на parsing/verification/запись файла,
     которые сами по себе не бюджетируются явным дедлайном)."""
 
     stage_times = []

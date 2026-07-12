@@ -82,8 +82,8 @@ def _compute_loader_shift_time(loaders, vehicles, by_id, loader_speed):
 
 
 def _count_trips(route):
-    """Число рейсов машины: [0, ..., 0] (ровно 2 нуля) — 1 рейс.
-    [0, ..., 0, ..., 0] (N нулей, N>2) — N-1 рейсов (multi-trip:
+    """Число рейсов машины: [0, ..., 0] (ровно 2 нуля) - 1 рейс.
+    [0, ..., 0, ..., 0] (N нулей, N>2) - N-1 рейсов (multi-trip:
     машина возвращалась в депо и уезжала снова)."""
     zeros = route.count(0)
     return max(1, zeros - 1)
@@ -307,7 +307,7 @@ def export_excel(results, out_path):
          lambda r: f"{r['served_optional']}/{r['total_optional']}",
          None, False),
         ('Пропущ. опц',
-         lambda r: ', '.join(map(str, r['missed_optional'])) or '—',
+         lambda r: ', '.join(map(str, r['missed_optional'])) or '-',
          None, False),
         (None, None, None, None),
         ('Заказов/машину',

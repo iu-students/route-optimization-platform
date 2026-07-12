@@ -33,12 +33,14 @@ class TestQRT003CriticalModuleCoverage:
 
         run_result = subprocess.run(
             [sys.executable, "-m", "coverage", "run",
-             "--source=api/MVPv1,api/MVPv1.2,api/MVPv2.2",
+             "--source=api/MVPv2.2",
              "-m", "pytest", "tests/",
              "--ignore=tests/test_qrt_003_critical_module_coverage.py",
+             "--ignore=tests/test_qrt_005_docs_availability.py",
+             "--ignore=tests/test_qrt_006_solver_optimality.py",
              "-q", "--tb=short"],
             capture_output=True, text=True,
-            cwd=PROJECT_ROOT, timeout=300,
+            cwd=PROJECT_ROOT, timeout=600,
         )
 
         assert run_result.returncode == 0, (

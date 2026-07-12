@@ -58,7 +58,8 @@ class TestQRT001ApiResponsiveness:
             "loader_speed": 1, "vehicle_shift_size": 480, "loader_shift_size": 480
         }
 
-        import api.MVPv1.app as flask_app
+        import importlib
+        flask_app = importlib.import_module("app")
         flask_app.solver_state = {"status": "computing"}
 
         start = time.time()

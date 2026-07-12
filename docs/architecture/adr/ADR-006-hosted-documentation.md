@@ -20,21 +20,21 @@ Use GitHub Pages with the repository's built-in deployment from the `docs/` dire
 
 ## Rationale
 
-- GitHub Pages is free, public, and deploys automatically on every push to the default branch — no separate CI job or deployment script needed.
+- GitHub Pages is free, public, and deploys automatically on every push to the default branch - no separate CI job or deployment script needed.
 - The `docs/` directory source maps directly to the rendered site path, keeping the hosted documentation structure identical to the repository structure.
 
 ## Consequences
 
 ### Positive
 
-- Documentation stays version-controlled in the repository — the hosted site always reflects `main`.
+- Documentation stays version-controlled in the repository - the hosted site always reflects `main`.
 - No additional deployment infrastructure or credentials needed.
 - The site URL is stable and predictable from the repository name.
 
 ### Negative
 
-- GitHub Pages renders Markdown with a default theme — custom branding or layout changes require Jekyll configuration.
-- Diagrams embedded as SVG or PNG in Markdown render inline, but PlantUML source files are not automatically rendered — the team must commit pre-rendered SVG outputs or use a PlantUML GitHub Action.
+- GitHub Pages renders Markdown with a default theme - custom branding or layout changes require Jekyll configuration.
+- Diagrams embedded as SVG or PNG in Markdown render inline, but PlantUML source files are not automatically rendered - the team must commit pre-rendered SVG outputs or use a PlantUML GitHub Action.
 - Private repositories require a paid GitHub plan for Pages; the repository must remain public for free hosting.
 
 ### Tradeoffs

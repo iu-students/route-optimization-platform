@@ -70,3 +70,17 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 **Linked quality requirement tests:** [QRT-005](quality-requirement-tests.md#qrt-005-hosted-documentation-availability)
 
 **Related ADRs:** [ADR-006](architecture/adr/ADR-006-hosted-documentation.md)
+
+---
+
+## QR-006: Solver optimality against baseline
+
+**ISO/IEC 25010 sub-characteristic:** Time behaviour / Efficiency
+
+**Scenario:** When the CP-SAT solver pipeline (`api/MVPv2.2/CP-SAT/main.py`) processes any of the 10 standard test instances (`instances/i1.json`–`i10.json`) with a 14-minute total pipeline budget, the solver shall produce a solution whose `total_cost` (computed by `api/MVPv2.2/tester.py` `calc_cost()`) is lower than the corresponding baseline score in `instances/baseline_scores.json` for at least 7 out of 10 instances. Baseline scores are themselves computed from `instances/baseline_iN.json` using the same `calc_cost()` function, ensuring an apples-to-apples comparison.
+
+**Why this matters:** The purpose of the platform is to produce cost-effective routes. If the solver cannot beat the baseline on the majority of test instances, it does not provide value over the existing manual or heuristic planning method. A 70% pass rate ensures meaningful improvement while acknowledging that some instances are inherently harder. Using a consistent cost function (`calc_cost()` from `tester.py`) for both the baseline and solver output eliminates measurement discrepancies.
+
+**Linked quality requirement tests:** [QRT-006](quality-requirement-tests.md#qrt-006-solver-optimality-against-baseline)
+
+**Related ADRs:** [ADR-001](architecture/adr/ADR-001-dual-solver-pipelines.md), [ADR-005](architecture/adr/ADR-005-solver-time-limits.md)

@@ -103,12 +103,12 @@ The direction will shift towards modifying the MVP v1 increment and developing a
 
 The following merged Pull Requests and deployment links serve as verification evidence that the MVP v1 scope has been successfully implemented, reviewed, and deployed:
 
-*   **TECH-01 & TECH-05 (JSON Reading & Generation):** [PR #43 - Task 1, 5 completed](https://github.com/iu-students/route-optimization-platform/pull/43) — *Evidence: Code merged into `main`. Contains parsing logic for input JSON files and output route JSON generation.*
-*   **TECH-02 (Truck capacity verification):** [PR #50 - Implement truck capacity verification](https://github.com/iu-students/route-optimization-platform/pull/50) — *Evidence: Code merged into `main`. Contains validation logic for vehicle capacity constraints.*
-*   **TECH-03 (Shift duration verification):** [PR #48 - Implement shift duration verification](https://github.com/iu-students/route-optimization-platform/pull/48) — *Evidence: Code merged into `main`. Contains validation logic for employee shift schedules.*
-*   **TECH-04 (Time window verification):** [PR #46 - Implement order time window verification](https://github.com/iu-students/route-optimization-platform/pull/46) — *Evidence: Code merged into `main`. Contains validation logic for order delivery time windows.*
-*   **API-01 & DEVOPS-01 (API & Deployment):** [PR #51 - other pbi deployment webinterface](https://github.com/iu-students/route-optimization-platform/pull/51) — *Evidence: Code merged into `main`. Implements API endpoints and deployment configuration.*
-*   **Live Verification (DEVOPS-01):** [http://139.100.207.201:5000/docs/](http://139.100.207.201:5000/docs/) — *Evidence: Live, accessible deployment of the MVP v1 increment via Swagger UI, capable of processing requests and returning calculated routes.*
+*   **TECH-01 & TECH-05 (JSON Reading & Generation):** [PR #43 - Task 1, 5 completed](https://github.com/iu-students/route-optimization-platform/pull/43) - *Evidence: Code merged into `main`. Contains parsing logic for input JSON files and output route JSON generation.*
+*   **TECH-02 (Truck capacity verification):** [PR #50 - Implement truck capacity verification](https://github.com/iu-students/route-optimization-platform/pull/50) - *Evidence: Code merged into `main`. Contains validation logic for vehicle capacity constraints.*
+*   **TECH-03 (Shift duration verification):** [PR #48 - Implement shift duration verification](https://github.com/iu-students/route-optimization-platform/pull/48) - *Evidence: Code merged into `main`. Contains validation logic for employee shift schedules.*
+*   **TECH-04 (Time window verification):** [PR #46 - Implement order time window verification](https://github.com/iu-students/route-optimization-platform/pull/46) - *Evidence: Code merged into `main`. Contains validation logic for order delivery time windows.*
+*   **API-01 & DEVOPS-01 (API & Deployment):** [PR #51 - other pbi deployment webinterface](https://github.com/iu-students/route-optimization-platform/pull/51) - *Evidence: Code merged into `main`. Implements API endpoints and deployment configuration.*
+*   **Live Verification (DEVOPS-01):** [http://139.100.207.201:5000/docs/](http://139.100.207.201:5000/docs/) - *Evidence: Live, accessible deployment of the MVP v1 increment via Swagger UI, capable of processing requests and returning calculated routes.*
 
 
 ### 16. Summary of the current product status

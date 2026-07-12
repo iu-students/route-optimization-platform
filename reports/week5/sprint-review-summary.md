@@ -34,23 +34,23 @@ The customer recorded a screen-capture video after the Sprint Review meeting and
  
 **UAT scenarios that passed:**
  
-UAT-001 (Server Health Check) — PASS
+UAT-001 (Server Health Check) - PASS
  
-UAT-002 (Start Background Solution) — PASS
+UAT-002 (Start Background Solution) - PASS
  
-UAT-003 (Retrieve Solution) — PASS (with comments)
+UAT-003 (Retrieve Solution) - PASS (with comments)
  
-UAT-004 (Retrieving Computational Metrics) — PASS
+UAT-004 (Retrieving Computational Metrics) - PASS
  
-UAT-005 (Input Data Validation Check) — PASS
+UAT-005 (Input Data Validation Check) - PASS
  
 **UAT scenarios that failed or need product changes:**
  
-No scenarios failed outright. However, UAT-003 was marked as "PASS (with comments)". The feedback from the previous UAT regarding lack of progress visibility has been partially addressed through the new metrics endpoint (UAT-004), but the core progress indication during long-running computations still needs attention. The system shows no stage-based progress — users cannot distinguish between "still computing" and "crashed/frozen" states.
+No scenarios failed outright. However, UAT-003 was marked as "PASS (with comments)". The feedback from the previous UAT regarding lack of progress visibility has been partially addressed through the new metrics endpoint (UAT-004), but the core progress indication during long-running computations still needs attention. The system shows no stage-based progress - users cannot distinguish between "still computing" and "crashed/frozen" states.
  
 **Most important feedback points received:**
  
-The customer noted the system shows no progress during long calculations — "check status" returns only "processing" indefinitely without indicating which stage is currently in progress. A stage-based progress indicator is needed showing which algorithm stage is running and how many stages remain.
+The customer noted the system shows no progress during long calculations - "check status" returns only "processing" indefinitely without indicating which stage is currently in progress. A stage-based progress indicator is needed showing which algorithm stage is running and how many stages remain.
  
 **Resulting PBIs or issues:** [#71](https://github.com/iu-students/route-optimization-platform/issues/71), [#77](https://github.com/iu-students/route-optimization-platform/issues/77), [#78](https://github.com/iu-students/route-optimization-platform/issues/78), [#58](https://github.com/iu-students/route-optimization-platform/issues/58), [#81](https://github.com/iu-students/route-optimization-platform/issues/81)
 

@@ -22,7 +22,7 @@ The interface prototype is described in `api/openapi.yaml`. MVP v0 implements en
 - The server does not perform actual optimization calculations
 
 ### Limitations
-- The server does not validate incoming requests — accepts any JSON
+- The server does not validate incoming requests - accepts any JSON
 - Data is not persisted anywhere (in-memory, lost on restart)
 - API key is required for authorization (passed in the `X-API-Key` header)
 - No support for concurrent requests

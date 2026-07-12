@@ -2,7 +2,7 @@
 
 - **Customer Feedback:**
     - Customer actively participates in refining requirements and suggests business-value improvements (optional orders, input validation).
-    - Customer values progress visibility during long computations — "processing" without ETA causes frustration (led to #71).
+    - Customer values progress visibility during long computations - "processing" without ETA causes frustration (led to #71).
 
 - **Defining Quality Requirements:**
     - We translated requirements into measurable scenarios using ISO/IEC 25010 (QR-001: API response <2s for 99% requests; QR-003: 30% coverage threshold).
@@ -21,7 +21,7 @@
 
 - **Release & Sprint Review:**
     - The team prepared and published SemVer release v0.2.0, tagged on the protected main branch. The root CHANGELOG.md was updated with all user-visible changes, including PyVRP integration, API endpoints, and deployment setup. The release includes deployment instructions, a public IP access link for the running MVP, and a sanitized video demonstration showcasing the working system.
-    - Customer feedback on Sprint Review was positive — the system works as expected, but he emphasized the need for progress indicators during long calculations, which we've already logged as #71 for the next sprint.
+    - Customer feedback on Sprint Review was positive - the system works as expected, but he emphasized the need for progress indicators during long calculations, which we've already logged as #71 for the next sprint.
 
 ---
 
@@ -29,10 +29,10 @@
 
 ### Confirmed
 - [Using PyVRP + CP-SAT in parallel]: We assumed that running two solver pipelines (PyVRP and CP-SAT) would increase solution reliability. Both passed all integration tests and verification checks on UAT. Confirmed.
-- [API key authentication is sufficient]: We assumed that an API key would be enough to protect route data. QRT-002 passed all confidentiality tests — unauthorized requests are rejected. Confirmed.
+- [API key authentication is sufficient]: We assumed that an API key would be enough to protect route data. QRT-002 passed all confidentiality tests - unauthorized requests are rejected. Confirmed.
 
 ### Rejected
-- [Polling with "processing" status is acceptable]: We assumed that returning "processing" would be enough for users. On UAT-003, the customer reported that lack of progress feedback is frustrating. This assumption was rejected — we now need to implement ETA/progress indicator (#71).
+- [Polling with "processing" status is acceptable]: We assumed that returning "processing" would be enough for users. On UAT-003, the customer reported that lack of progress feedback is frustrating. This assumption was rejected - we now need to implement ETA/progress indicator (#71).
 - [All business rules were captured upfront]: We assumed the initial requirements were complete. However, customer feedback during the sprint led to new stories: optional orders (US-015) and manager statistics (US-016). These were not in the original scope. Partially rejected.
 
 ---
@@ -40,7 +40,7 @@
 ## Friction and Gaps
 
 - **Unresolved Requirements / Backlog:**
-    - [US-016 — Manager statistics]: The customer requested a story for viewing calculation metrics and objective function (#58). Not planned for this sprint — deferred to focus on algorithm improvements and CI/CD setup. Will be implemented in subsequent sprints.
+    - [US-016 - Manager statistics]: The customer requested a story for viewing calculation metrics and objective function (#58). Not planned for this sprint - deferred to focus on algorithm improvements and CI/CD setup. Will be implemented in subsequent sprints.
     - [US-002, US-003, US-012, US-006]: Several "Should Have" and "Could Have" stories remain in backlog (fast startup, large client management, optimal routing for resource savings, one vehicle per client). Not started due to prioritization of core functionality.
 
 - **Technical Risks & Quality Gaps:**
@@ -60,15 +60,15 @@
 ## Planned Response
 
 - **Backlog Adjustments:**
-    - Move US-016 — Manager statistics into the next sprint as a top priority.
-    - сCreate new PBI for progress indicator / ETA — implement a progress tracking endpoint and update /solution response with estimated completion time.
+    - Move US-016 - Manager statistics into the next sprint as a top priority.
+    - сCreate new PBI for progress indicator / ETA - implement a progress tracking endpoint and update /solution response with estimated completion time.
 
 - **CI / Tests Improvements:**
     - Increase coverage threshold from 30% to 50% for critical modules (verifier.py, validator.py, tester.py) in the next sprint.
     - Add performance regression tests for /solve endpoint to ensure API responsiveness (<2s) under load.
 
 - **UAT & Release Strategy:**
-    - Update UAT scenarios to include progress feedback verification — UAT-004: "User receives ETA and progress updates during calculation."
+    - Update UAT scenarios to include progress feedback verification - UAT-004: "User receives ETA and progress updates during calculation."
     - Keep rollback strategy as is, deployment via GitHub Actions with tagged releases (v0.2.0, v0.3.0)
 
 - **Process / Communication:**

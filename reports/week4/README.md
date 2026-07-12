@@ -90,9 +90,9 @@
 
 | ID | Sub-characteristic | Scenario summary |
 |---|---|---|
-| QR-001 | Performance efficiency — Time behaviour | The API must return an HTTP response (202, 200, or 4xx/5xx) within 2 seconds for 99% of requests to `POST /solve` and `GET /solution`, regardless of whether solver computation has completed. |
-| QR-002 | Security — Confidentiality | Any request to a protected endpoint without a valid `X-API-Key` header must be rejected with HTTP 401 and must not expose any input, solution, or system state data. |
-| QR-003 | Reliability — Fault tolerance | Any request with missing, invalid, or out-of-range fields to `POST /solve` must be rejected with an appropriate 4xx status and a descriptive error message without crashing the application or corrupting the solver state. |
+| QR-001 | Performance efficiency - Time behaviour | The API must return an HTTP response (202, 200, or 4xx/5xx) within 2 seconds for 99% of requests to `POST /solve` and `GET /solution`, regardless of whether solver computation has completed. |
+| QR-002 | Security - Confidentiality | Any request to a protected endpoint without a valid `X-API-Key` header must be rejected with HTTP 401 and must not expose any input, solution, or system state data. |
+| QR-003 | Reliability - Fault tolerance | Any request with missing, invalid, or out-of-range fields to `POST /solve` must be rejected with an appropriate 4xx status and a descriptive error message without crashing the application or corrupting the solver state. |
 
 
 ### 19. Testing status summary
@@ -115,11 +115,11 @@ Full coverage details: [CI coverage run](https://github.com/iu-students/route-op
 
 ### 20. Links to unit tests
 
-*   [Unit tests](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) — 85 passed (verifier: 11, validator: 26, tester: 13, script: 8, loaders: 5, main: 22)
+*   [Unit tests](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) - 85 passed (verifier: 11, validator: 26, tester: 13, script: 8, loaders: 5, main: 22)
 
 ### 21. Links to integration tests
 
-*   [Integration tests](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) — 12 passed (solution A: 6, solution B: 6)
+*   [Integration tests](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) - 12 passed (solution A: 6, solution B: 6)
 
 ### 22. Links to automated quality requirement tests
 
@@ -175,11 +175,11 @@ All tests, CI checks, quality requirement tests, and Definition of Done criteria
 
 **UAT scenarios that passed:**
 
-UAT-001 (Server Health Check) — PASS
+UAT-001 (Server Health Check) - PASS
 
-UAT-002 (Start Background Solution) — PASS
+UAT-002 (Start Background Solution) - PASS
 
-UAT-003 (Retrieve Solution) — PASS (with comments)
+UAT-003 (Retrieve Solution) - PASS (with comments)
 
 **UAT scenarios that failed or need product changes:**
 

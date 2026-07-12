@@ -60,18 +60,18 @@ def _try_swap_rescue(oid, routes_dict, source_idx, scenario):
 def consolidate_routes(solution, scenario, deadline=None):
     """Пост-обработка: пытается полностью опустошить наименее загруженные
     (по объёму) машины. Сначала пробует прямую вставку каждого заказа
-    в другой маршрут (best_insertion_pos). Если прямая вставка невозможна —
+    в другой маршрут (best_insertion_pos). Если прямая вставка невозможна -
     пробует swap-эвакуацию (_try_swap_rescue): вытеснить кого-то из целевого
     маршрута, освободив место, и пристроить вытесненного в третий маршрут.
-    Если ВСЕ заказы машины удаётся переселить — машина убирается целиком
+    Если ВСЕ заказы машины удаётся переселить - машина убирается целиком
     (экономия vehicle_salary). Использует уже существующие
     best_insertion_pos/eval_route, не меняет генерацию пула и не трогает
     CP-SAT. Вызывать ДО построения маршрутов грузчиков (build_slots
     зависит от финальных маршрутов машин).
 
-    deadline — абсолютный time.time()-timestamp. У этой функции нет
+    deadline - абсолютный time.time()-timestamp. У этой функции нет
     встроенного лимита по умолчанию, а её сложность растёт нелинейно с
-    числом машин (swap-эвакуация перебирает пары маршрутов) — на больших
+    числом машин (swap-эвакуация перебирает пары маршрутов) - на больших
     инстансах без дедлайна она может занять непредсказуемо много времени."""
     routes = [
         [pid for pid in v["route"] if pid != 0] for v in solution["vehicles"]
@@ -153,7 +153,7 @@ def eval_route_with_start(order_ids, scenario, forced_start):
     второго+ рейса той же машины, который не может стартовать раньше,
     чем машина вернётся в депо после предыдущего рейса + load_time.
     Возвращает (arrival_times, dist, return_time) или None, если
-    time window/capacity нарушены. НЕ проверяет vehicle_shift_size —
+    time window/capacity нарушены. НЕ проверяет vehicle_shift_size -
     это делает вызывающий код на уровне всей цепочки рейсов."""
     by_id = {o.id: o for o in scenario.orders}
     cap = 0
@@ -183,21 +183,21 @@ def eval_route_with_start(order_ids, scenario, forced_start):
 
 def merge_multi_trip_routes(solution, scenario, deadline=None):
     """Пост-обработка (после consolidate_routes): жадно объединяет уже
-    выбранные отдельные маршруты (каждый — 1 машина) в multi-trip машины
+    выбранные отдельные маршруты (каждый - 1 машина) в multi-trip машины
     там, где остаток смены позволяет выполнить ещё один рейс после
     возврата в депо + depot.load_time. Не меняет генерацию пула и не
     трогает CP-SAT.
 
     Экономит vehicle_salary за каждую объединённую пару (лишняя машина
     не нужна), платит только depot.load_time за второй+ рейс. Топливо
-    не меняется — оба рейса и так идут через депо.
+    не меняется - оба рейса и так идут через депо.
 
     ПРИМЕЧАНИЕ: на реальных инстансах (i3, i4) эмпирически НЕ нашлось
-    ни одной валидной пары — распределение заказов по времени суток
+    ни одной валидной пары - распределение заказов по времени суток
     шире, чем vehicle_shift_size, поэтому ни один рейс не успевает
     вернуться и начать второй в пределах смены. Логика верна и
     протестирована (не даёт false positives), но её реальный эффект
-    зависит от конкретного инстанса — на некоторых входных данных
+    зависит от конкретного инстанса - на некоторых входных данных
     может не сработать вообще, и это нормально, не баг."""
     by_id = {o.id: o for o in scenario.orders}
     load_time = scenario.depot.load_time
@@ -242,7 +242,7 @@ def merge_multi_trip_routes(solution, scenario, deadline=None):
 
     for i, trip in enumerate(trips):
         if deadline is not None and time.time() >= deadline:
-            # если время вышло — оставшиеся рейсы переносим как есть,
+            # если время вышло - оставшиеся рейсы переносим как есть,
             # без попытки объединения
             for j, t2 in enumerate(trips):
                 if not used[j]:
@@ -313,7 +313,7 @@ def merge_multi_trip_routes(solution, scenario, deadline=None):
                 # единственный разделительный "0" между рейсами (возврат
                 # в депо = начало загрузки следующего рейса, это ОДНА
                 # точка, а не два отдельных события) + соответствующая
-                # метка времени начала загрузки (см. PDF: "time — времена
+                # метка времени начала загрузки (см. PDF: "time - времена
                 # начала разгрузки на заказах и начала загрузки в депо,
                 # если ТС делает несколько кругов")
                 route.append(0)
@@ -369,7 +369,7 @@ def find_best_route(routes, scenario, time_limit=300):
     model.Minimize(objective)
     solver = cp_model.CpSolver()
 
-    # Тот же защитный retry, что и в find_best_loaders — если урезанный
+    # Тот же защитный retry, что и в find_best_loaders - если урезанный
     # дедлайном time_limit слишком мал для нахождения хоть какого-то
     # допустимого решения (status=UNKNOWN), не падаем сразу.
     attempt_time_limit = max(time_limit, 1)
@@ -390,7 +390,7 @@ def find_best_route(routes, scenario, time_limit=300):
         attempt_time_limit *= 5
         print(
             f"[cp-sat/vehicles] status={solver.StatusName(status)}, "
-            f"не нашли допустимого решения — пробуем с бОльшим лимитом"
+            f"не нашли допустимого решения - пробуем с бОльшим лимитом"
         )
 
     raise RuntimeError(
@@ -477,7 +477,7 @@ def insertion_construct(scenario, jitter=0.0, deadline=None, by_id=None):
     routes = []
     for order in orders_sorted:
         if deadline is not None and time.time() >= deadline:
-            # прерываемся посреди построения — уже собранные маршруты
+            # прерываемся посреди построения - уже собранные маршруты
             # валидны сами по себе, просто не все заказы успели попасть
             # в какой-то маршрут за этот конкретный рестарт
             break
@@ -552,9 +552,9 @@ def clarke_wright(scenario, perturb=False, by_id=None):
 
 
 def generate_pool(scenario, num_restarts=200, deadline=None):
-    """deadline — абсолютный time.time()-timestamp, после которого рестарты
+    """deadline - абсолютный time.time()-timestamp, после которого рестарты
     прекращаются досрочно, даже если num_restarts ещё не исчерпан. Без
-    этого num_restarts не гарантирует предсказуемое время — на разных
+    этого num_restarts не гарантирует предсказуемое время - на разных
     инстансах одно и то же число рестартов может занимать сильно разное
     время (зависит от числа заказов и геометрии)."""
     pool = []
@@ -587,12 +587,12 @@ def generate_pool(scenario, num_restarts=200, deadline=None):
     for o in scenario.orders:
         add([o.id])
     print(f"[pool/vehicles] одиночки: {len(pool)} ({time.time() - t0:.1f}s)")
-    STALE_LIMIT = 15  # если пул не растёт N рестартов подряд — хватит,
+    STALE_LIMIT = 15  # если пул не растёт N рестартов подряд - хватит,
     # дальше крутить бессмысленно (диминишинг ретёрнс)
 
     t0 = time.time()
     # Clarke-Wright получает СВОЮ долю пул-бюджета (не весь оставшийся
-    # deadline) — иначе он может съесть всё время построения пула,
+    # deadline) - иначе он может съесть всё время построения пула,
     # не оставив insertion_construct ни секунды. Эмпирически
     # Clarke-Wright быстро выходит на плато (рост пула прекращается
     # уже после первых ~десятков рестартов на некоторых инстансах).
@@ -658,7 +658,7 @@ def generate_pool(scenario, num_restarts=200, deadline=None):
 
 def select_routes_from_pool(pool, scenario, time_limit=300, deadline=None, reserve_after=0):
     """Тот же выбор маршрутов через CP-SAT, что и find_vehicles_routes,
-    но без generate_pool — пул уже построен и передаётся готовым.
+    но без generate_pool - пул уже построен и передаётся готовым.
     Используется для дешёвой повторной итерации (feedback), где меняется
     только набор доступных заказов, а не сам процесс генерации кандидатов."""
     all_pool_routes = []
@@ -690,7 +690,7 @@ def select_routes_from_pool(pool, scenario, time_limit=300, deadline=None, reser
 
 def find_vehicles_routes(scenario, num_restarts=200, time_limit=300, deadline=None,
                           reserve_after=0, pool_deadline=None):
-    """pool_deadline — отдельный (обычно более узкий, чем общий deadline)
+    """pool_deadline - отдельный (обычно более узкий, чем общий deadline)
     дедлайн специально для generate_pool. Позволяет выделить пулу
     маршрутов свою долю общего бюджета времени, не давая ему съесть
     всё время, нужное CP-SAT/consolidate/грузчикам."""
@@ -710,7 +710,7 @@ def find_vehicles_routes(scenario, num_restarts=200, time_limit=300, deadline=No
     with open("all_possible_vehicles_routes.json", "w") as file:
         json.dump(all_pool_routes, file, indent=4)
 
-    # Лимит CP-SAT считаем СЕЙЧАС, после того как пул уже построен —
+    # Лимит CP-SAT считаем СЕЙЧАС, после того как пул уже построен -
     # если считать его заранее (до generate_pool), он не будет учитывать
     # время, реально потраченное на построение пула, и общий дедлайн
     # можно легко превысить.

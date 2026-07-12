@@ -7,7 +7,7 @@ import tempfile
 PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, PROJECT_ROOT)
 
-TEST_TARGET = os.environ.get("TEST_TARGET", "v1.2")
+TEST_TARGET = os.environ.get("TEST_TARGET", "v2")
 
 if TEST_TARGET == "v2":
     for p in [
@@ -59,15 +59,25 @@ def app():
     TEST_API_KEY = "test-api-key-123"
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        import api.MVPv1.app as flask_app
+        import importlib
+        flask_app = importlib.import_module("app")
 
         flask_app.API_KEY = TEST_API_KEY
         flask_app.DATA_DIR = tmpdir
         flask_app.INPUT_PATH = os.path.join(tmpdir, "input.json")
         flask_app.SOLUTION_PATH = os.path.join(tmpdir, "output.json")
+        flask_app.INPUTS_DIR = os.path.join(tmpdir, "inputs")
+        flask_app.OUTPUTS_DIR = os.path.join(tmpdir, "outputs")
+        flask_app.HISTORY_DB_PATH = os.path.join(tmpdir, "history.db")
         flask_app.solver_state = {"status": "idle"}
 
-        def _mock_run_solve():
+        os.makedirs(flask_app.INPUTS_DIR, exist_ok=True)
+        os.makedirs(flask_app.OUTPUTS_DIR, exist_ok=True)
+
+        from Shared.history import init_db
+        init_db(flask_app.HISTORY_DB_PATH, flask_app.INPUTS_DIR, flask_app.OUTPUTS_DIR)
+
+        def _mock_run_solve(calculation_id):
             with flask_app.solver_lock:
                 flask_app.solver_state = {"status": "done"}
 
@@ -82,4 +92,3 @@ def app():
 def client(app):
     with app.test_client() as client:
         yield client
-

@@ -46,7 +46,7 @@ def run_pipeline(tmp_path, monkeypatch):
     (tmp_path / "input.json").write_text(json.dumps(SMALL_INPUT))
 
     # script.py uses fixed filenames ('input.json', 'output.json', 'loaders_task_list.json')
-    # and loaders.solve_loaders() also reads 'input.json' — so we cd into tmp_path
+    # and loaders.solve_loaders() also reads 'input.json' - so we cd into tmp_path
     monkeypatch.chdir(tmp_path)
 
     # reset loaders global state (in case another test ran before)

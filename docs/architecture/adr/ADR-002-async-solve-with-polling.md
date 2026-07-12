@@ -24,7 +24,7 @@ based on in-memory `solver_state`, guarded by `solver_lock`.
 ## Rationale
 
 - Flask's synchronous request model works naturally with Python's `threading`
-  module — no need to introduce an async framework or a task queue for a
+  module - no need to introduce an async framework or a task queue for a
   3-endpoint API.
 - `solver_lock` + `solver_state` is enough to prevent concurrent solves and to
   expose solve status without a database.
@@ -35,7 +35,7 @@ based on in-memory `solver_state`, guarded by `solver_lock`.
 
 ### Positive
 
-- API response time is decoupled from solver runtime — the client is never
+- API response time is decoupled from solver runtime - the client is never
   blocked waiting for computation.
 - `POST /solve` reliably returns within QR-001's 2-second target regardless of
   problem size.

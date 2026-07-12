@@ -16,7 +16,7 @@
 
 ### Confirmed
 
-- The asynchronous API design (202 Accepted + polling) works well for the customer — no complaints about the interaction model itself, only about the lack of progress information during polling.
+- The asynchronous API design (202 Accepted + polling) works well for the customer - no complaints about the interaction model itself, only about the lack of progress information during polling.
 - The customer does not need a visual UI, confirming the API/endpoint-only approach was the right call for this product.
 - UAT recording format (customer records independently after the meeting) continues to work reliably.
 - Documenting architecture in PlantUML and storing diagram sources in the repository is practical, the team was able to produce three views within the sprint.

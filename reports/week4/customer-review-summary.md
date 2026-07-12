@@ -7,7 +7,7 @@
 - **Dania Galieva** - Moderator/discussion participant, Speaker 4: Presented updated user stories, sprint backlog, and feedback traceability.
 - **Anastasia Glinskaia** - Note taker/discussion participant, Speaker 5: Explained UAT process, testing scenarios, and server availability.
 - **Marsel Tukhvatullin** - Moderator/discussion participant, Speaker 2: Presented greedy algorithm improvements and baseline comparison results.
-- **Timur Iusupov** — Moderator/discussion participant, Speaker 6: Presented CP-solver-based algorithm (version B), route generation approach, and metric summary.
+- **Timur Iusupov** - Moderator/discussion participant, Speaker 6: Presented CP-solver-based algorithm (version B), route generation approach, and metric summary.
 
 
 ---
@@ -33,11 +33,11 @@ UAT was not executed live during the Sprint Review meeting. The customer recorde
  
 **UAT scenarios that passed:**
 
-UAT-001 (Server Health Check) — PASS
+UAT-001 (Server Health Check) - PASS
 
-UAT-002 (Start Background Solution) — PASS
+UAT-002 (Start Background Solution) - PASS
 
-UAT-003 (Retrieve Solution) — PASS (with comments)
+UAT-003 (Retrieve Solution) - PASS (with comments)
 
 **UAT scenarios that failed or need product changes:**
 

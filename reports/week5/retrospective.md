@@ -3,7 +3,7 @@
 ## What went well
 
 1. **Significant algorithm improvement:** CP-solver-based algorithm, extended to account for loader costs when evaluating optional order removal, now outperforms the baseline on 8 out of 10 test cases within 15 minutes, compared to 5 out of 10 with the previous approach. This is a substantial step forward in solution quality.
-2. **Successful response to customer feedback:** The team implemented all three feedback items carried over from the previous sprint — progress indicator, objective function metrics endpoint, and standalone input validation endpoint. The customer confirmed these were all necessary and useful.
+2. **Successful response to customer feedback:** The team implemented all three feedback items carried over from the previous sprint - progress indicator, objective function metrics endpoint, and standalone input validation endpoint. The customer confirmed these were all necessary and useful.
 3. **Architecture documentation completed:** The team produced static, dynamic, and deployment views using PlantUML diagrams and created three Architecture Decision Records linking structural choices to quality requirements. This was new territory for the team and was completed within the sprint.
 4. **Effective asynchronous UAT execution:** The customer successfully conducted User Acceptance Testing (UAT) asynchronously by recording a screencast. The system handled the customer's custom test scenarios without crashing.
 
@@ -20,7 +20,7 @@
 
 ## Action points (Process improvements for the next Sprint)
 
-1. **Add calculation history.** Consider starting implementation. Requires persistent storage for run results — execution time and objective function value per run.
+1. **Add calculation history.** Consider starting implementation. Requires persistent storage for run results - execution time and objective function value per run.
 2. **Investigate algorithm directions suggested by the customer:**
    - Analyze the frequency of short routes across test cases; if there are many, evaluate whether combining them into multi-route per vehicle plans would reduce vehicle count.
    - Analyze order volume distribution across test cases; evaluate whether separating high-volume orders into a dedicated routing iteration would improve overall route quality.

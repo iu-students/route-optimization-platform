@@ -10,7 +10,7 @@
 vehicle-capacity constraints (`verify_shift_times`, `verify_time_windows`,
 `verify_truck_capacity`). It was originally called only from Pipeline B
 (`script.py`). Pipeline A (`main.py`), the only pipeline wired to the API,
-produced no post-solve verification report — meaning the production path had
+produced no post-solve verification report - meaning the production path had
 no automated check that its own solver output respected the constraints it
 was supposed to satisfy.
 
@@ -29,7 +29,7 @@ with the `verification` field attached.
 ## Rationale
 
 - `verifier.py` operates on the same solution shape (`vehicles` with `route`
-  and `time`) produced by both pipelines — no pipeline-specific logic needed.
+  and `time`) produced by both pipelines - no pipeline-specific logic needed.
 - Reusing it avoids writing a second verification implementation for Pipeline A,
   which would duplicate constraint-checking logic that already exists and is
   tested for Pipeline B.

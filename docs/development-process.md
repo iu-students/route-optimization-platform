@@ -220,7 +220,7 @@ The platform requires minimal secret configuration. Secrets are handled as follo
 | **Secret storage** | Secrets are stored in a `.env` file that is never committed to the repository. The `.env` file is listed in `.gitignore`. |
 | **Sanitized example** | `.env.example` is committed and contains placeholder values as a reference for required variables. |
 | **Runtime configuration** | Docker Compose passes the `.env` file to containers via the `env_file` directive.|
-| **Required variables** | `API_KEY` — master authentication key for all API requests; `FLASK_HOST` — binding address; `FLASK_DEBUG` — debug mode toggle. |
+| **Required variables** | `API_KEY` - master authentication key for all API requests; `FLASK_HOST` - binding address; `FLASK_DEBUG` - debug mode toggle. |
 | **CI secrets** | No CI secrets are currently required.|
 | **Ignored files** | `.env`, `__pycache__/`, `*.pyc`, `.coverage`, `.pytest_cache/`, data files (`input.json`, `output.json`), and build artifacts are kept out of version control via `.gitignore`. |
 | **Generated files** | No generated files are committed. |

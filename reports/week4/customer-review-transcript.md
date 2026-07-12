@@ -16,7 +16,7 @@ From the tests checking quality, we highlighted three main ones. First, the syst
 Hello. I sent a file with the new sprint. It includes new user stories based on your feedback: about handling optional orders and metrics for the manager. We decided not to take the manager metrics into the current sprint; we will do it later. In this sprint, we are looking at the independent work of loaders and trucks, as well as handling optional orders. Everything is broken down into subtasks, and JSON file verification was added as a technical task.
 
 **[00:03:48] Speaker 4:** 
-That's all for user stories. But regarding the report, we need to discuss how accurately we are following your feedback. From the last meeting: we added a story about optional orders and took it into the sprint. We also added a story about the manager so they can track route efficiency. There were questions about GitHub formatting — we checked against the requirements, and our repository complies with them. And you asked for a baseline comparison — we will discuss that later with other team members.
+That's all for user stories. But regarding the report, we need to discuss how accurately we are following your feedback. From the last meeting: we added a story about optional orders and took it into the sprint. We also added a story about the manager so they can track route efficiency. There were questions about GitHub formatting - we checked against the requirements, and our repository complies with them. And you asked for a baseline comparison - we will discuss that later with other team members.
 
 **[00:04:45] Speaker 1:** 
 I didn't have time to familiarize myself with all the files. I read the user stories; they are complete now. No questions on technical issues either. I have a question regarding the solution: since there are user stories, we need to introduce some statistics on the solution's quality. The validator roughly provides this; we could tailor the code to the validator to parse and output this information.
@@ -59,7 +59,7 @@ I tried launching the file via the form. It seems a JSON format was returned. Ok
 A JSON format is returned. As of the last call, this wasn't there, but now it returns a JSON with the built route and the validator's response (which tests passed and which didn't).
 
 **[00:10:45] Speaker 1:** 
-Good. Expect a video from me over the weekend. Please don't turn off or break the current server, leave it accessible. I'll record and send it: if it's a large video — via cloud drive, if not — in the chat. Should I accompany the video with comments? And should I demonstrate that I'm checking the result's correctness somewhere else separately? For example, running the validator on my side and comparing, or is that unnecessary? Good, agreed.
+Good. Expect a video from me over the weekend. Please don't turn off or break the current server, leave it accessible. I'll record and send it: if it's a large video - via cloud drive, if not - in the chat. Should I accompany the video with comments? And should I demonstrate that I'm checking the result's correctness somewhere else separately? For example, running the validator on my side and comparing, or is that unnecessary? Good, agreed.
 
 **[00:11:51] Speaker 5:** 
 We don't have that in the requirements.
@@ -123,7 +123,7 @@ Yes, but with floating boundaries, we'll have to seriously change the algorithm 
 Floating boundaries can be tightened; take the average distance. You can evaluate the loader's first order and calculate a quantile (e.g., 75%) to plan them from the warehouse minus the expected distance. The solution's reliability will drop, but it's workable. Reducing the problem to a VRP via averaging might work for a "good" rather than an optimal solution. The difficulty is in the uncertainty: which distances to take. Routes might turn out suboptimal upon unpacking; we won't be able to remove an order without hiring a new loader. But the direction is effective.
 
 **[00:24:46] Speaker 2:** 
-The architecture had a stub to calculate a potential for a point — not the earliest or closest, but something average.
+The architecture had a stub to calculate a potential for a point - not the earliest or closest, but something average.
 
 **[00:25:10] Speaker 1:** 
 Have you tried the assignment problem? Currently, loaders are distributed greedily, sequentially. That's the downside. The assignment problem looks at distribution across the network as a whole. You could generate "route fragments" (3-4 orders), distribute them to loaders, minimizing the number of loaders and maximizing orders. Then build scenarios further (another 3-4 points) and use an optimization model (assignment problem, set cover problem). You can look deeper (several points ahead) and wider (all loaders at once). It makes sense to go in this direction if the bottleneck is with the loaders.
@@ -183,7 +183,7 @@ The higher the costs, the greater the mileage and work. It turns out the amount 
 Our algorithm is still not perfect, as we first consider paths for vehicles and then for loaders. One of my next ideas is the parallel creation of routes for vehicles and loaders. It seems to me this will allow for more optimized routes and save fuel and salaries.
 
 **[00:37:09] Speaker 1:** 
-Initially, we outlined a path of breaking the problem into subtasks by routing layers: loaders in one category, transport in another. Of course, you can decompose it differently. For example, decompose by geography — cluster orders into groups that can be considered independent. Or look at geography and time windows, dividing all orders into several groups. With these groups, using an automated algorithm (like hierarchical clustering), we get several subtasks. These subtasks are smaller, and it's possible to iterate through all combinations and fully optimize them.
+Initially, we outlined a path of breaking the problem into subtasks by routing layers: loaders in one category, transport in another. Of course, you can decompose it differently. For example, decompose by geography - cluster orders into groups that can be considered independent. Or look at geography and time windows, dividing all orders into several groups. With these groups, using an automated algorithm (like hierarchical clustering), we get several subtasks. These subtasks are smaller, and it's possible to iterate through all combinations and fully optimize them.
 
 **[00:38:28] Speaker 1:** 
 How much better this will be needs to be tested. We need to understand how finely we have to split it. For example, if we have 90 orders, should we split them into 3 groups of 30 or 2 of 45 so everything can be calculated and planned. You can go by geography, or by more complex logic considering both geography and time windows.

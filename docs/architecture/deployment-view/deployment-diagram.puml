@@ -7,23 +7,44 @@ node "Client Machine" as ClientNode {
 
 node "Docker Host (VPS)" as Host {
   node "Docker Container\n(python:3.12-slim)" as Container {
-    component "Flask API Process\n(app.py, port 5002)" as API
-    component "Solver Pipeline\n(main.py + vehicle_routes.py + loader_routes.py)" as Pipeline
-    folder "/ROP/data/\n(input.json, output.json)" as DataDir
+    component "Flask API Process\n(Web/app.py, port 5022)" as API
+    component "Solver Pipeline\n(CP-SAT/main.py + CP-SAT/vehicle_routes.py\n+ CP-SAT/loader_routes.py)" as Pipeline
+    folder "/ROP/data/\n(input.json, output.json —\nlive scratch files)" as DataDir
+    folder "/ROP/data/inputs/, /ROP/data/outputs/\n(per-calculation snapshots,\n{calculation_id}.json)" as Snapshots
+    database "/ROP/data/history.db\n(SQLite, calculation_history table)" as HistoryDB
   }
 }
 
-Client -down-> API : HTTP\n(port 5002, X-API-Key header)
+Client -down-> API : HTTP\n(port 5022, X-API-Key header)
 API -right-> Pipeline : in-process call\n(background thread)
 Pipeline -down-> DataDir : read/write JSON
 API -down-> DataDir : read/write JSON
+API -down-> Snapshots : write input/output\nper calculation_id
+API -down-> HistoryDB : SQL read/write\n(calculation_history)
 
 note bottom of DataDir
   data/ is COPY'd into the image at build time
-  (Dockerfile: COPY data/ data/).
-  Not a mounted volume: writes to output.json
-  do not persist across container rebuilds
-  unless a volume is added.
+  (Dockerfile: COPY data/ data/), and WORKDIR
+  is /ROP, so the process resolves DATA_DIR to
+  /ROP/data.
+  docker-compose.yml mounts ./data:/MVPv2.2/data
+  as a volume — a DIFFERENT container path that
+  the Flask process never reads from or writes
+  to. As a result, input.json/output.json,
+  history.db, and the per-calculation snapshots
+  currently do NOT persist across container
+  rebuilds. This mismatch pre-dates this update
+  and is worth fixing independently (align the
+  volume path with /ROP/data, or vice versa).
+end note
+
+note right of HistoryDB
+  New in this version (ADR-007). Single embedded
+  SQLite file — no separate database container.
+  Single-writer: a second API replica sharing
+  this file would risk lock contention, matching
+  the existing single-instance constraint on
+  solver_state (ADR-002).
 end note
 
 note right of Container
