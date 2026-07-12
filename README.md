@@ -12,7 +12,7 @@ You can access the deployed version of the platform directly via Swagger UI:
 A logistics optimization system that solves the CVRPTW problem -
 efficient routing of vehicles considering time windows and load capacity.
 
-<img width="1910" height="850" alt="image" src="https://github.com/user-attachments/assets/cf2aeb63-0529-4ed6-a5a4-00ae16b23acb" />
+![Swagger UI Interface](img/swagger.png)
 
 
 ## Documentation
