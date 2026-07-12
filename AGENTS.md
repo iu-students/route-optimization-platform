@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Route Optimization Platform — CVRPTW solver API (vehicle + loader routing). Five MVP versions coexist in `api/` (`MVPv0`, `MVPv1`, `MVPv1.2`, `MVPv2`, `MVPv2.2`); `MVPv2.2` is the current active version. See [README.md](README.md) for product description, team, and full run instructions.
+Route Optimization Platform - CVRPTW solver API (vehicle + loader routing). Five MVP versions coexist in `api/` (`MVPv0`, `MVPv1`, `MVPv1.2`, `MVPv2`, `MVPv2.2`); `MVPv2.2` is the current active version. See [README.md](README.md) for product description, team, and full run instructions.
 
 ## Setup
 
@@ -69,10 +69,10 @@ bandit -r api/ -ll
 - Branches follow `<issue-number>-<short-slug>` (e.g. `94-course-task-documentation-week-6`), tied to a GitHub issue.
 - Open a PR against `main`. Approval from any other team member is required before merge.
 - CI runs on every PR (open/sync/reopen) and on push to `main`, and must pass before merge:
-  - `ci-file-checks.yml` — flake8 + bandit
-  - `ci-tests.yml` — unit/integration tests (MVPv1 and MVPv2 subsets) + coverage
-  - `ci-qrt.yml` — quality requirement tests
-  - `ci-link-check.yml` — markdown link check (lychee)
+  - `ci-file-checks.yml` - flake8 + bandit
+  - `ci-tests.yml` - unit/integration tests (MVPv1 and MVPv2 subsets) + coverage
+  - `ci-qrt.yml` - quality requirement tests
+  - `ci-link-check.yml` - markdown link check (lychee)
 
 ## Safety & data
 

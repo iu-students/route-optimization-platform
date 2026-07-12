@@ -35,15 +35,15 @@ The team learned how to:
 
 ### Confirmed assumptions
 
-- We assumed users need API documentation — confirmed during Swagger UI presentation, customer approved the design.
-- We assumed MIT license is acceptable — confirmed during customer meeting.
-- We assumed MVP can produce non-optimal solutions — confirmed during customer meeting.
+- We assumed users need API documentation - confirmed during Swagger UI presentation, customer approved the design.
+- We assumed MIT license is acceptable - confirmed during customer meeting.
+- We assumed MVP can produce non-optimal solutions - confirmed during customer meeting.
 
 ### Rejected assumptions
-- We assumed greedy assignment of loaders after VRP for trucks is sufficient — rejected after customer recommendation to combine trucks and loaders into one problem.
-- We assumed PyVRP is the only algorithm approach to consider — rejected after customer suggested Assignment Problem + CPSolver/PIP as an alternative to explore in parallel.
-- We assumed public transcripts are acceptable — rejected after customer requested transcripts not be published in public domain.
-- We assumed real-time delivery refusal prioritization is valuable — rejected after technical constraint review: system recalculates once per morning with no dynamic changes.
+- We assumed greedy assignment of loaders after VRP for trucks is sufficient - rejected after customer recommendation to combine trucks and loaders into one problem.
+- We assumed PyVRP is the only algorithm approach to consider - rejected after customer suggested Assignment Problem + CPSolver/PIP as an alternative to explore in parallel.
+- We assumed public transcripts are acceptable - rejected after customer requested transcripts not be published in public domain.
+- We assumed real-time delivery refusal prioritization is valuable - rejected after technical constraint review: system recalculates once per morning with no dynamic changes.
 
 ---
 
@@ -54,7 +54,7 @@ Note: some questions remained from last week, because this week we focused on cr
 ### Unresolved questions
 - How should trucks and loaders be combined into a single optimization problem? (Assignment Problem + route generator + CPSolver needs research)
 - Do we need to support multiple routes per vehicle (multiple departures from the warehouse), or can we simplify to one?
-- Can time windows overlap in a way that makes it physically impossible for one vehicle to complete all orders (overlapping hard constraints) — what should be done in that case?
+- Can time windows overlap in a way that makes it physically impossible for one vehicle to complete all orders (overlapping hard constraints) - what should be done in that case?
 
 ### Assumptions needing validation
 - That the Assignment Problem + CPSolver approach will produce better integrated solutions than PyVRP
@@ -62,7 +62,7 @@ Note: some questions remained from last week, because this week we focused on cr
 
 ### Requirements requiring clarification
 - Whether the combined trucks + loaders problem has additional constraints beyond standard VRP
-- Constraint H12 (route sequence) — is waiting for the next order allowed (if you arrive before the time window), or is it prohibited?
+- Constraint H12 (route sequence) - is waiting for the next order allowed (if you arrive before the time window), or is it prohibited?
 
 ### Constraints to verify
 - Will there be limits on memory usage (RAM) or CPU time?

@@ -17,16 +17,16 @@ Our platform has two CVRPTW solver pipelines in `api/MVPv2.2/`, and we test both
 
 Both pipelines share modules across the `MVPv2.2` tree:
 
-- `Web/validator.py` — validates `input.json` before any solver runs.
-- `Shared/verifier.py` — checks the solution (capacity, time windows, shift) on
+- `Web/validator.py` - validates `input.json` before any solver runs.
+- `Shared/verifier.py` - checks the solution (capacity, time windows, shift) on
   `output.json`.
-- `tester.py` — calculates the total cost of a solution and compares it with
+- `tester.py` - calculates the total cost of a solution and compares it with
   the baseline. It also writes an Excel report (`comparison.xlsx`).
-- `Shared/models.py` — data classes used by both pipelines.
-- `Web/app.py` — Flask REST API exposing both pipelines.
-- `Shared/history.py` — SQLite persistence for calculation history
+- `Shared/models.py` - data classes used by both pipelines.
+- `Web/app.py` - Flask REST API exposing both pipelines.
+- `Shared/history.py` - SQLite persistence for calculation history
   (`GET /history`, `GET /history/{id}`).
-- `CP-SAT/common_functions.py` — shared distance helper used by the CP-SAT
+- `CP-SAT/common_functions.py` - shared distance helper used by the CP-SAT
   route generators.
 
 We focus our testing on the following areas, because a bug in any of them breaks the
@@ -65,7 +65,7 @@ code writes files with fixed names.
 | `validator.py` | `Web/validator.py` | Input schema and value validation. Stops the solvers from running on broken input. | 30% | 82% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
 | `tester.py` | `tester.py` | Calculates the total cost of a solution and exports the baseline comparison report. | 30% | 92% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
 | `app.py` | `Web/app.py` | REST API entrypoint (Flask) exposing `/solve`, `/solution`, `/history`, and `/validate`. | 30% | 75% | [Coverage run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637/job/83840364456?pr=68) |
-| `history.py` | `Shared/history.py` | SQLite persistence for calculation history. Powers `GET /history` and `GET /history/{id}`. | 30% | — | Tested through integration tests in `conftest.py` (app fixture). |
+| `history.py` | `Shared/history.py` | SQLite persistence for calculation history. Powers `GET /history` and `GET /history/{id}`. | 30% | - | Tested through integration tests in `conftest.py` (app fixture). |
 
 **Global repository coverage:** 85% (source limited to `api/MVPv2.2` per `coveragerc`)
 
@@ -82,7 +82,7 @@ code writes files with fixed names.
 | Integration tests (solution A) | Full `script.py` pipeline on a small instance (5 orders, 2-second PyVRP runtime), checked by `verifier.py` | `pytest tests/test_integration.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
 | Integration tests (solution B) | Full `main.py` pipeline on a small instance (5 orders, reduced restarts), checked by `verifier.py` | `pytest tests/test_integration_cpsat.py` | 6 passed | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689637) |
 | Automated QRTs (CI) | QR-001 (responsiveness), QR-002 (confidentiality), QR-003 (coverage), QR-005 (docs availability) | `pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_005_docs_availability.py` | 4 QRT suites | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689676) |
-| Automated QRT (manual) | QR-004 (solver timing) — runs outside CI due to solver runtime | `pytest tests/test_qrt_004_solver_completion_time.py -v --timeout=950` | N/A | N/A |
+| Automated QRT (manual) | QR-004 (solver timing) - runs outside CI due to solver runtime | `pytest tests/test_qrt_004_solver_completion_time.py -v --timeout=950` | N/A | N/A |
 | Automated QRT (manual) | QR-006 (solver optimality against baseline via `tester.calc_cost()`) | `pytest tests/test_qrt_006_solver_optimality.py -v` (not in CI) | N/A | N/A |
 | Linting & formatting (`flake8`) | PEP8 style, syntax, spacing, line length | `flake8 api/` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
 | Additional QA check (`bandit`) | Static analysis for security issues | `bandit -r api/ -ll` | Passing | [CI run](https://github.com/iu-students/route-optimization-platform/actions/runs/28297689663) |
@@ -113,8 +113,8 @@ code writes files with fixed names.
 
 | Evidence | Scope | Result | Follow-up PBI or issue |
 |---|---|---|---|
-| Manual run of `Shared/verifier.py` on full `input.json` (113 orders) for both pipelines | Feasibility of the full solution | ALL CHECKS PASSED | — |
-| Manual run of `tester.py` on `i1`–`i10` comparing solver output against baseline | Cost comparison, Excel report `comparison.xlsx` | Solver beats baseline on 9/10 instances | — |
+| Manual run of `Shared/verifier.py` on full `input.json` (113 orders) for both pipelines | Feasibility of the full solution | ALL CHECKS PASSED | - |
+| Manual run of `tester.py` on `i1`–`i10` comparing solver output against baseline | Cost comparison, Excel report `comparison.xlsx` | Solver beats baseline on 9/10 instances | - |
 
 ## CI and Branch Protection
 

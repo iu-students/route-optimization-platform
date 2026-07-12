@@ -162,7 +162,7 @@ def best_insertion_pos(route, order_id, scenario):
 
 
 def insertion_construct(scenario, jitter=0.0):
-    """Из tw_early — каждый в дешёвую вставку либо новый маршрут."""
+    """Из tw_early - каждый в дешёвую вставку либо новый маршрут."""
     orders_sorted = sorted(
         scenario.orders,
         key=lambda o: o.time_window[0] + random.uniform(-jitter, jitter)

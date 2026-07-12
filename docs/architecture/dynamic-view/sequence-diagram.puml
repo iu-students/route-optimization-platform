@@ -1,5 +1,5 @@
 @startuml sequence-diagram
-title Route Optimization Platform — Sequence Diagram (Dynamic View): POST /solve → GET /solution
+title Route Optimization Platform - Sequence Diagram (Dynamic View): POST /solve → GET /solution
 
 actor "API Client" as Client
 participant "Flask API\n(app.py)" as API

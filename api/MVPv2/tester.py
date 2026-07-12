@@ -225,7 +225,7 @@ def export_excel(results, out_path):
          lambda r: f"{r['served_optional']}/{r['total_optional']}",
          None, False),
         ('Пропущ. опц',
-         lambda r: ', '.join(map(str, r['missed_optional'])) or '—',
+         lambda r: ', '.join(map(str, r['missed_optional'])) or '-',
          None, False),
         (None, None, None, None),
         ('Заказов/машину',

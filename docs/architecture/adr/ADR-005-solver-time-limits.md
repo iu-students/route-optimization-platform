@@ -20,7 +20,7 @@ Set CP-SAT's `max_time_in_seconds` solver parameter to 240 seconds per solver in
 
 ## Rationale
 
-- CP-SAT natively supports `max_time_in_seconds` — no external infrastructure needed.
+- CP-SAT natively supports `max_time_in_seconds` - no external infrastructure needed.
 - 240 seconds is long enough for practical instances (up to 20 orders) to reach near-optimal solutions but short enough that the total solve (vehicles + loaders + feedback iteration) fits within QR-004's 15-minute bound.
 - Making it configurable lets the customer trade off solution quality against response time per problem instance.
 
@@ -28,14 +28,14 @@ Set CP-SAT's `max_time_in_seconds` solver parameter to 240 seconds per solver in
 
 ### Positive
 
-- Solver runtime is bounded at the algorithm level — the background thread always progresses to the output + verification step within a known window.
+- Solver runtime is bounded at the algorithm level - the background thread always progresses to the output + verification step within a known window.
 - The bound propagates to the API: the client's polling loop can set a worst-case upper bound on total wait time.
 - No separate watchdog process needed.
 
 ### Negative
 
 - A hard time limit may stop the solver before it finds the optimal solution. The returned solution is the best feasible solution found within the time limit, not necessarily the global optimum.
-- Two solver invocations (vehicles, loaders) each consume up to 240s — total wall-clock solve time can reach ~480s plus post-processing.
+- Two solver invocations (vehicles, loaders) each consume up to 240s - total wall-clock solve time can reach ~480s plus post-processing.
 
 ### Tradeoffs
 

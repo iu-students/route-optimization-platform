@@ -72,7 +72,7 @@ bandit -r api/ -ll
 ## Further reading
 
 - [README.md](README.md)
-- [AGENTS.md](AGENTS.md) — command reference for coding agents working in this repo
+- [AGENTS.md](AGENTS.md) - command reference for coding agents working in this repo
 - [docs/architecture/README.md](docs/architecture/README.md)
 - [docs/quality-requirements.md](docs/quality-requirements.md)
 - [docs/quality-requirement-tests.md](docs/quality-requirement-tests.md)

@@ -7,7 +7,7 @@ The team learned the importance of traceability when migrating user stories. We 
 The team learned that user stories alone are insufficient for execution. Decomposing Must Have stories into technical tasks (TECH-01, TECH-02, TECH-03, TECH-04, TECH-05) and identifying infrastructure needs (DEVOPS-01, API-01) was essential for effective work.
 
 ### Estimation and Sprint Planning
-Estimating revealed significant gaps in our understanding. US-11 seemed simple until we broke it down into acceptance criteria and discovered the need for multiple subtasks—generating individual JSON files, formatting outputs correctly, and handling edge cases. The total Product Backlog size came to 192 Story Points, and the Sprint 1 came to 63 Story Points much higher than our initial expectations. The amount of work required exceeded our expectations due to the complexity of integrating PyVRP with a greedy algorithm, implementing constraint checks, configuring the API, and deploying it.
+Estimating revealed significant gaps in our understanding. US-11 seemed simple until we broke it down into acceptance criteria and discovered the need for multiple subtasks-generating individual JSON files, formatting outputs correctly, and handling edge cases. The total Product Backlog size came to 192 Story Points, and the Sprint 1 came to 63 Story Points much higher than our initial expectations. The amount of work required exceeded our expectations due to the complexity of integrating PyVRP with a greedy algorithm, implementing constraint checks, configuring the API, and deploying it.
 
 ### MVP v1 Delivery and Customer Review
 The Sprint Review meeting on 19.06.2026 confirmed that the customer accepted our MVP v1 implementation. The customer validated that the core functionality meets expectations, approving the backlog, sprint plan, and timeline. Requested changes for the next iteration include adding optional orders, mandatory order constraints, metrics display, and economic viability cost estimates.
@@ -24,7 +24,7 @@ The team prepared and published SemVer release v0.1.0 mapped to MVP v1, tagged o
 
 from customer feedback
 ### Confirmed
-- **Drivers need ready-made routes**: The customer validated US-11—drivers should receive fixed routes, not plan themselves.
+- **Drivers need ready-made routes**: The customer validated US-11-drivers should receive fixed routes, not plan themselves.
 - **Time windows are critical**: Implementing US-13 and US-14 revealed they're interdependent with capacity constraints for feasibility.
 - **MVP algorithm approach**: The PyVRP + greedy algorithm approach is performing well, outperforming the baseline in some cases.
 
@@ -41,7 +41,7 @@ from customer feedback
 
 ### Technical risks
 1. **Server stability**: Deployed MVP runs on a single public IP without load balancing or monitoring. Under load, the server may crash.
-2. **Algorithm vs. baseline**: PyVRP + greedy does not consistently outperform the baseline across all test cases—risk of failing customer expectations.
+2. **Algorithm vs. baseline**: PyVRP + greedy does not consistently outperform the baseline across all test cases-risk of failing customer expectations.
 3. **Model seam**: Separate vehicle and loader calculations prevent proper economic evaluation.
 
 ### Missing scope (deferred to MVP v2 or later versions)

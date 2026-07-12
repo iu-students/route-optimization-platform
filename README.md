@@ -75,11 +75,11 @@ Use the dropdown at the top of Swagger UI to switch between MVP versions. Curren
 
 ## Available Endpoints
 
-- **POST /solve** — Start route optimization calculation.
-- **GET /solution** — Get the computed optimal route after `/solve` completes.
-- **GET /metrics** — Get cost breakdown statistics for the last completed solution.
-- **POST /validate** — Validate input JSON without solving.
-- **GET /health** — Check server status.
+- **POST /solve** - Start route optimization calculation.
+- **GET /solution** - Get the computed optimal route after `/solve` completes.
+- **GET /metrics** - Get cost breakdown statistics for the last completed solution.
+- **POST /validate** - Validate input JSON without solving.
+- **GET /health** - Check server status.
 
 ## Authentication
 

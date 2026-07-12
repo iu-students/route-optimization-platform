@@ -68,7 +68,7 @@
 
 ### 11. Explanation of feedback not addressed
 
-*   **Calculation history ([#89](https://github.com/iu-students/route-optimization-platform/issues/89)):** Not implemented in this sprint due to the architectural effort required — it would need persistent storage and a new data layer. The feature was logged as a backlog item and is planned for the next sprint once the core algorithm work is stable.
+*   **Calculation history ([#89](https://github.com/iu-students/route-optimization-platform/issues/89)):** Not implemented in this sprint due to the architectural effort required - it would need persistent storage and a new data layer. The feature was logged as a backlog item and is planned for the next sprint once the core algorithm work is stable.
 *   **Multi-route per vehicle:** Not yet implemented. The problem statement allows a single vehicle to complete multiple routes per shift, but the team has not yet analyzed whether the current test scenarios produce enough short routes to make this worthwhile. The team will conduct data analysis first and implement only if the data supports it.
 *   **Heavy order separation:** Not yet implemented. Requires analyzing order volume distribution across scenarios to determine whether separating large orders into a dedicated routing pass would improve overall solution quality. The team will conduct data analysis first and implement only if the data supports it.
 
@@ -127,7 +127,7 @@ Two pipelines solve the same problem: Solution A (CP-SAT) is used by the API, So
 [QR-001](https://github.com/iu-students/route-optimization-platform/blob/main/docs/quality-requirements.md#qr-001-api-responsiveness) (fast API) explains the async design (ADR-002) - the API never waits for the solver. [QR-002](https://github.com/iu-students/route-optimization-platform/blob/main/docs/quality-requirements.md#qr-002-route-data-confidentiality) (data protection) explains why input is validated before reaching the solver. [QR-003](https://github.com/iu-students/route-optimization-platform/blob/main/docs/quality-requirements.md#qr-003-critical-module-testability) (testable code) explains two things: why duplicated logic in two pipelines was accepted (ADR-001), and why the verifier is now shared instead of duplicated (ADR-003).
 
 ### 24. Testing and CI status summary for the delivered increment.
-**Testing and CI status summary:** All 5 QRT suites pass (API responsiveness, confidentiality, critical module coverage, solver completion time, docs availability). Unit tests: 85+ passing across verifier, validator, tester, script, loaders, main, and integration suites. Coverage: every critical module ≥30% (global 88%). CI: latest `main` run passing — linting (flake8), unit/integration tests, coverage, pip-audit, Lychee link checks. New for MVP v2: QRT-004 (solver <900s) and QRT-005 (hosted docs HTTP 200) added.
+**Testing and CI status summary:** All 5 QRT suites pass (API responsiveness, confidentiality, critical module coverage, solver completion time, docs availability). Unit tests: 85+ passing across verifier, validator, tester, script, loaders, main, and integration suites. Coverage: every critical module ≥30% (global 88%). CI: latest `main` run passing - linting (flake8), unit/integration tests, coverage, pip-audit, Lychee link checks. New for MVP v2: QRT-004 (solver <900s) and QRT-005 (hosted docs HTTP 200) added.
 
 See [docs/testing.md](../../docs/testing.md), [docs/quality-requirement-tests.md](../../docs/quality-requirement-tests.md), [CI pipeline](https://github.com/iu-students/route-optimization-platform/actions)
 
@@ -151,15 +151,15 @@ Summary for the report:
 
 UAT scenarios that passed:
 
-UAT-001 (Server Health Check) — PASS
+UAT-001 (Server Health Check) - PASS
 
-UAT-002 (Start Background Solution) — PASS
+UAT-002 (Start Background Solution) - PASS
 
-UAT-003 (Retrieve Solution) — PASS (with comments)
+UAT-003 (Retrieve Solution) - PASS (with comments)
 
-UAT-004 (Retrieving Computational Metrics) — PASS
+UAT-004 (Retrieving Computational Metrics) - PASS
 
-UAT-005 (Input Data Validation Check) — PASS
+UAT-005 (Input Data Validation Check) - PASS
 
 UAT scenarios that failed or need product changes:
 
@@ -167,7 +167,7 @@ No scenarios failed outright. However, UAT-003 was marked as "PASS (with comment
 
 What still needs to be fixed in the product:
 
-- The system shows no progress during long calculations — "check status" returns only "processing" indefinitely without indicating which stage is currently in progress
+- The system shows no progress during long calculations - "check status" returns only "processing" indefinitely without indicating which stage is currently in progress
 
 - Users cannot distinguish between "still computing" and "crashed/frozen" states
 
@@ -175,7 +175,7 @@ What still needs to be fixed in the product:
 
 Most important feedback points received:
 
-Progress visibility during computation (UAT-003): The customer noted the system shows no progress during long calculations — "check status" returns only "processing" indefinitely. They requested a stage-based progress indicator rather than a simple time estimate, showing which algorithm stage is currently in progress and how many stages remain. We will add new technical tasks related to this problem in next Sprint.
+Progress visibility during computation (UAT-003): The customer noted the system shows no progress during long calculations - "check status" returns only "processing" indefinitely. They requested a stage-based progress indicator rather than a simple time estimate, showing which algorithm stage is currently in progress and how many stages remain. We will add new technical tasks related to this problem in next Sprint.
 
 
 **Resulting PBIs or issues:** [#71](https://github.com/iu-students/route-optimization-platform/issues/71), [#77](https://github.com/iu-students/route-optimization-platform/issues/77), [#78](https://github.com/iu-students/route-optimization-platform/issues/78), [#58](https://github.com/iu-students/route-optimization-platform/issues/58), [#81](https://github.com/iu-students/route-optimization-platform/issues/81)

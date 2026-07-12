@@ -8,10 +8,10 @@
 
 The system solves the same CVRPTW problem with two independent implementations:
 
-- **Pipeline A** (`main.py`, `vehicle_routes.py`, `loader_routes.py`) — generates a
+- **Pipeline A** (`main.py`, `vehicle_routes.py`, `loader_routes.py`) - generates a
   route pool via Clarke-Wright and insertion heuristics, then selects the optimal
   subset with OR-Tools CP-SAT.
-- **Pipeline B** (`script.py`, `loaders.py`) — uses the PyVRP library for vehicle
+- **Pipeline B** (`script.py`, `loaders.py`) - uses the PyVRP library for vehicle
   routing and a greedy chain-building heuristic for loader assignment.
 
 Only Pipeline A is wired to the Flask API (`app.py`). Pipeline B is invoked
@@ -29,7 +29,7 @@ shared solver abstraction. Pipeline A remains the only one wired to the API.
 
 - An independently implemented algorithm (PyVRP + greedy heuristic) gives a
   genuine baseline for solution-quality comparison. A shared abstraction between
-  the two would defeat this purpose — bugs or bias in one implementation could
+  the two would defeat this purpose - bugs or bias in one implementation could
   propagate into the other.
 - Pipeline A can evolve (different heuristics, different constraints) without
   needing to keep the comparison baseline synchronized.

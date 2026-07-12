@@ -43,7 +43,7 @@ None.
 - The user has a prepared JSON scenario file
 
 **Steps:**
-1. Authenticate with the server — enter the API key in the Authorize section.
+1. Authenticate with the server - enter the API key in the Authorize section.
 2. Send a POST request to the `/solve` endpoint with the JSON scenario as the request body.
 
 **Expected Result:** `POST /solve` returns `{ "status": "started" }` with status code 202.
@@ -86,9 +86,9 @@ None.
    - Arrival (unloading start) falls within the time windows, inclusive
 
 **Expected Result:** `GET /solution` after completion returns status code 200 and a JSON with the following fields:
-- `loaders` — routes for assigned loaders. Contains loader IDs and their routes (order IDs, starting and ending at the same point).
-- `vehicles` — routes for vehicles. Contains vehicle IDs, their routes (order IDs, starting and ending at depot ID 0), and arrival times at each point.
-- `validation` — strict constraint checks. Expected status "success" for:
+- `loaders` - routes for assigned loaders. Contains loader IDs and their routes (order IDs, starting and ending at the same point).
+- `vehicles` - routes for vehicles. Contains vehicle IDs, their routes (order IDs, starting and ending at depot ID 0), and arrival times at each point.
+- `validation` - strict constraint checks. Expected status "success" for:
   - `capacity_verification`
   - `shift_verification`
   - `time_window_verification`

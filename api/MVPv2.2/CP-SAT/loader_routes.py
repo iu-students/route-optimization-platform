@@ -10,20 +10,20 @@ def build_slots(solution, scenario):
     by_id = {order.id: order for order in scenario.orders}
     slots = []
     for vehicle in solution["vehicles"]:
-        # route: [0, заказы_рейса_1, 0, заказы_рейса_2, 0, ...] — при
+        # route: [0, заказы_рейса_1, 0, заказы_рейса_2, 0, ...] - при
         # multi-trip внутри могут быть ДОПОЛНИТЕЛЬНЫЕ "0" (возврат в депо
         # между рейсами). Каждому такому внутреннему "0" соответствует
-        # ОДНА запись в times — метка начала загрузки в депо (см. PDF),
+        # ОДНА запись в times - метка начала загрузки в депо (см. PDF),
         # а не время прибытия на заказ. Наивный route[1:-1]/zip(times)
         # (без учёта внутренних "0") даёт по_id[0] KeyError на
-        # multi-trip машинах — 0 не заказ, а депо.
+        # multi-trip машинах - 0 не заказ, а депо.
         route = vehicle["route"]
         times = vehicle["time"]
         ti = 0
         for i in range(1, len(route) - 1):
             pid = route[i]
             if pid == 0:
-                # служебная метка начала загрузки в депо — пропускаем,
+                # служебная метка начала загрузки в депо - пропускаем,
                 # она не заказ и грузчиков на ней не бывает
                 ti += 1
                 continue
@@ -173,7 +173,7 @@ def find_best_loaders(pool, slots, time_limit=300):
 
     # Если урезанный дедлайном time_limit слишком мал, чтобы CP-SAT успел
     # найти ХОТЬ КАКОЕ-ТО допустимое решение (status=UNKNOWN), не падаем
-    # сразу — крах пайплайна без единого выходного файла хуже, чем
+    # сразу - крах пайплайна без единого выходного файла хуже, чем
     # превышение бюджета времени. Даём больше времени по нарастающей.
     attempt_time_limit = max(time_limit, 1)
     status = None
@@ -193,7 +193,7 @@ def find_best_loaders(pool, slots, time_limit=300):
         attempt_time_limit *= 5
         print(
             f"[cp-sat/loaders] status={solver.StatusName(status)}, "
-            f"не нашли допустимого решения — пробуем с бОльшим лимитом"
+            f"не нашли допустимого решения - пробуем с бОльшим лимитом"
         )
 
     raise RuntimeError(

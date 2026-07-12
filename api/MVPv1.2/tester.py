@@ -207,7 +207,7 @@ def _write_summary(ws, all_data):
 
             mand = f"{r['served_mandatory']}/{r['total_mandatory']}"
             opt = f"{r['served_optional']}/{r['total_optional']}"
-            missed = ', '.join(map(str, r['missed_optional'])) or '—'
+            missed = ', '.join(map(str, r['missed_optional'])) or '-'
             _c(ws.cell(row, 9), mand, fill=fill)
             _c(ws.cell(row, 10), opt, fill=fill)
             _c(ws.cell(row, 11), missed, fill=fill)
@@ -221,7 +221,7 @@ def _write_summary(ws, all_data):
 def _write_scenario(ws, name, results):
     labels = list(results.keys())
 
-    _h(ws.cell(1, 1), f'Метрика — {name.upper()}')
+    _h(ws.cell(1, 1), f'Метрика - {name.upper()}')
     for col, label in enumerate(labels, 2):
         fill = SUB_FILL if label == REF_LABEL else HEADER_FILL
         color = '000000' if label == REF_LABEL else 'FFFFFF'
@@ -264,7 +264,7 @@ def _write_scenario(ws, name, results):
          lambda r: f"{r['served_optional']}/{r['total_optional']}",
          None, False),
         ('Пропущ. опц',
-         lambda r: ', '.join(map(str, r['missed_optional'])) or '—',
+         lambda r: ', '.join(map(str, r['missed_optional'])) or '-',
          None, False),
         (None, None, None, None),
         ('Заказов/машину',

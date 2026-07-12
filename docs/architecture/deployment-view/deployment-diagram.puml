@@ -1,5 +1,5 @@
 @startuml deployment-diagram
-title Route Optimization Platform — Deployment Diagram (Deployment View)
+title Route Optimization Platform - Deployment Diagram (Deployment View)
 
 node "Client Machine" as ClientNode {
   [API Client] as Client

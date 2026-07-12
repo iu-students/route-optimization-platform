@@ -18,13 +18,13 @@ Speaker 3 is the customer. More about roles in Report on Moodle.
 
 **[00:01:50] Speaker 1:** That’s briefly on the results of the week, and now I’ll pass the floor for more details.
 
-**[00:02:01] Speaker 4:** Hello. Yesterday I sent a file with the user stories corrected according to your feedback. There are also prioritized user stories that are described in more detail — they already include technical tasks. This is all done within the backlog, meaning this is what we need to implement.
+**[00:02:01] Speaker 4:** Hello. Yesterday I sent a file with the user stories corrected according to your feedback. There are also prioritized user stories that are described in more detail - they already include technical tasks. This is all done within the backlog, meaning this is what we need to implement.
 
 **[00:02:32] Speaker 3:** Now, while we are still on the topic of user stories. I looked at the recent ones. I would also recommend adding something regarding optional orders. There is a story that orders must be fulfilled within a time window. But we have some orders that we might not fulfill within the window, or not fulfill at all. We need to add another story for the manager so they can see and understand which orders have been completed.
 
-**[00:03:12] Speaker 3:** Additionally, maybe we should add something about mandatory orders — as a hard constraint, they should also be highlighted. This is what needs to be added regarding the essential stories.
+**[00:03:12] Speaker 3:** Additionally, maybe we should add something about mandatory orders - as a hard constraint, they should also be highlighted. This is what needs to be added regarding the essential stories.
 
-**[00:03:27] Speaker 3:** As for additional features — the manager needs to see certain metrics and calculation indicators to understand their efficiency. There is a story related to routes being optimal, but at the same time, there should be an ability to view the overall objective function and calculation statistics. This is an additional thing worth adding. For the rest of the stories, I think it’s enough.
+**[00:03:27] Speaker 3:** As for additional features - the manager needs to see certain metrics and calculation indicators to understand their efficiency. There is a story related to routes being optimal, but at the same time, there should be an ability to view the overall objective function and calculation statistics. This is an additional thing worth adding. For the rest of the stories, I think it’s enough.
 
 **[00:04:19] Speaker 4:** Do the rest of the user stories match the feedback, is everything okay?
 
@@ -34,7 +34,7 @@ Speaker 3 is the customer. More about roles in Report on Moodle.
 
 **[00:05:00] Speaker 3:** I just didn't see any tasks regarding the calculation mechanism itself; there are no tasks for it right now. Is that because it's not related to the stories?
 
-**[00:05:21] Speaker 4:** Yes, it’s slightly unrelated to the format of our stories. Most of our current stories are related to verification functions. Since our main algorithm works — it builds the route itself without the help of the additional functions required from us, but we need to verify them. I think our developers will tell you more about this.
+**[00:05:21] Speaker 4:** Yes, it’s slightly unrelated to the format of our stories. Most of our current stories are related to verification functions. Since our main algorithm works - it builds the route itself without the help of the additional functions required from us, but we need to verify them. I think our developers will tell you more about this.
 
 **[00:06:16] Speaker 3:** Okay, I understand, so it’s out of scope. I also wanted to clarify the UI. What did you decide to settle on for the user interface? We initially discussed that a terminal line would be enough. Do you have any corrections or suggestions? Do you want to leave it as originally planned?
 
@@ -62,7 +62,7 @@ Speaker 3 is the customer. More about roles in Report on Moodle.
 
 **[00:11:38] Speaker 3:** Got it, I understand. So you start from the loader? You assign the first loader, and then build a route for this loader until the end of their shift?
 
-**[00:11:55] Speaker 2:** First, we build an area of points they can reach. For example, if they only go to this point and immediately return — that's the area they can theoretically cover. Because there are points they can't even reach one of. Then, when we've built such an area for one loader, for the remaining points not in the area, we add other loaders using the same principle. Eventually, we get that for each point in the initial distribution, we can theoretically reach it with any loader. Then we take an individual loader and start building a route for them in a greedy manner: to the most urgent point they need to reach.
+**[00:11:55] Speaker 2:** First, we build an area of points they can reach. For example, if they only go to this point and immediately return - that's the area they can theoretically cover. Because there are points they can't even reach one of. Then, when we've built such an area for one loader, for the remaining points not in the area, we add other loaders using the same principle. Eventually, we get that for each point in the initial distribution, we can theoretically reach it with any loader. Then we take an individual loader and start building a route for them in a greedy manner: to the most urgent point they need to reach.
 
 **[00:13:08] Speaker 2:** The idea is to never delay the vehicle. A loader can wait at a point, but the vehicle won't wait; it unloads immediately upon arrival. And as soon as we've built such a route for one loader, we fully complete it. The points they processed, if one loader was required there, we mark as completed. And then, among the remaining points, we again select the most urgent one, place a loader there, and repeat.
 
@@ -88,7 +88,7 @@ Speaker 3 is the customer. More about roles in Report on Moodle.
 
 **[00:17:01] Speaker 3:** Because for the MVP we agreed that you were just making an algorithm, but the target project is to do better than the baseline. I wanted to see right now how much better you are. You only mentioned the sixth one so far, meaning, essentially, at least one out of ten is already better. Okay. So, regarding ideas and algorithms, what do you have planned now to improve the algorithm?
 
-**[00:17:49] Speaker 5:** Hello. At the last session, you gave us a little spoiler about how we could try to improve the algorithm — using CP Solver together with the assignment problem. My role in the project right now is to try to create this function.
+**[00:17:49] Speaker 5:** Hello. At the last session, you gave us a little spoiler about how we could try to improve the algorithm - using CP Solver together with the assignment problem. My role in the project right now is to try to create this function.
 
 **[00:18:12] Speaker 5:** Right now, what we have is PyVRP in our function generating hundreds of thousands of different routes. And the CP Solver you mentioned looks for the best combination for them.
 
