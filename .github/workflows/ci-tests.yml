@@ -24,7 +24,7 @@ jobs:
         run: python -m pytest tests/ --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
 
   logic-tests-mvpv2:
-    name: Unit & integration (MVPv2.2)
+    name: Unit & integration
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
