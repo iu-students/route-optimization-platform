@@ -160,7 +160,7 @@ Resulting PBIs or issues (All Resolved and Closed):
 *   [CHANGELOG.md](../../CHANGELOG.md)
 
 ### 24. Link to the published Sprint Review transcript
-*   [customer-review-transcript.md](./customer-review-transcript.md)
+*   [sprint-review-transcript.md](./sprint-review-transcript.md)
 
 ### 25. Link to reports/week6/sprint-review-summary.md.
 
