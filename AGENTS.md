@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Route Optimization Platform — CVRPTW solver API (vehicle + loader routing). Four MVP versions coexist in `api/` (`MVPv0`, `MVPv1`, `MVPv1.2`, `MVPv2`); `MVPv2` is the current active version. See [README.md](README.md) for product description, team, and full run instructions.
+Route Optimization Platform — CVRPTW solver API (vehicle + loader routing). Five MVP versions coexist in `api/` (`MVPv0`, `MVPv1`, `MVPv1.2`, `MVPv2`, `MVPv2.2`); `MVPv2.2` is the current active version. See [README.md](README.md) for product description, team, and full run instructions.
 
 ## Setup
 
@@ -50,9 +50,9 @@ python -m pytest tests/test_qrt_001_api_responsiveness.py \
   tests/test_qrt_004_solver_completion_time.py \
   tests/test_qrt_005_docs_availability.py -v
 ```
-Note: `test_qrt_001`/`test_qrt_002` use the `client`/`app` fixtures from `conftest.py`, which currently target `api/MVPv1/app.py`.
+Note: `test_qrt_001`/`test_qrt_002` use the `client`/`app` fixtures from `conftest.py`, which target `api/MVPv2.2/Web/app.py` when `TEST_TARGET=v2` (the default).
 
-Coverage (config: `coveragerc`, source `api/MVPv2`):
+Coverage (config: `coveragerc`, source `api/MVPv2.2`):
 ```bash
 python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing --cov-report=xml
 ```

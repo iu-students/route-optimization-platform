@@ -61,7 +61,11 @@ def run_cpsat_pipeline(tmp_path, monkeypatch):
     )
 
     # few restarts → fast for CI
-    solution = main.find_vehicles_routes(scenario, num_restarts=3)
+    result = main.find_vehicles_routes(scenario, num_restarts=3)
+    if isinstance(result, tuple):
+        solution = result[0]
+    else:
+        solution = result
     solution["loaders"] = main.find_loaders_routes(solution, scenario, num_restarts=3)
 
     # normalize key for verifier compatibility

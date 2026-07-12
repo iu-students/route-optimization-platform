@@ -4,17 +4,13 @@ import sys
 import time
 import pytest
 
-_BASE = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "api", "MVPv2"))
+_BASE = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "api", "MVPv2.2", "CP-SAT"))
 sys.path.insert(0, _BASE)
 
 try:
-    from CP_SAT import main as cpsat_main
+    import main as cpsat_main
 except ImportError:
-    try:
-        import importlib
-        cpsat_main = importlib.import_module("CP-SAT.main")
-    except ImportError:
-        cpsat_main = None
+    cpsat_main = None
 
 
 SAMPLE_INPUT = {

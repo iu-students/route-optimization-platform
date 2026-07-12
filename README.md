@@ -71,7 +71,7 @@ After starting the application, open `http://localhost:5000/docs` in your browse
 
 ## API Version
 
-Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v2**
+Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v2.2**
 
 ## Available Endpoints
 

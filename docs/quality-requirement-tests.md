@@ -8,13 +8,15 @@ This document defines the automated quality requirement tests (QRTs) that direct
 
 **Verification method:** Automated integration test using Flask test client with timing measurement.
 
-**Test data, setup, or environment:** Flask application (`api/MVPv1/app.py`) configured in testing mode with a temporary data directory and a known API key (`test-api-key-123`). Each test simulates a realistic request scenario (health check, solve submission, solution polling) and measures wall-clock response time.
+**Test data, setup, or environment:** Flask application (`api/MVPv2.2/Web/app.py`) configured in testing mode with a temporary data directory and a known API key (`test-api-key-123`). Each test simulates a realistic request scenario (health check, solve submission, solution polling) and measures wall-clock response time.
 
 **Automated command or CI check:**
 
 ```bash
 python -m pytest tests/test_qrt_001_api_responsiveness.py -v
 ```
+
+Run with `TEST_TARGET=v2` (default in `conftest.py`) to target `api/MVPv2.2`.
 
 **Expected measurable result:** Each endpoint (`GET /health`, `POST /solve`, `GET /solution`) returns an HTTP response within 2.0 seconds for 100% of test requests.
 
@@ -28,13 +30,15 @@ python -m pytest tests/test_qrt_001_api_responsiveness.py -v
 
 **Verification method:** Automated integration test using Flask test client.
 
-**Test data, setup, or environment:** Flask application (`api/MVPv1/app.py`) configured in testing mode with a temporary data directory and a known API key (`test-api-key-123`). Tests exercise all protected endpoints with missing, invalid, and valid credentials.
+**Test data, setup, or environment:** Flask application (`api/MVPv2.2/Web/app.py`) configured in testing mode with a temporary data directory and a known API key (`test-api-key-123`). Tests exercise all protected endpoints with missing, invalid, and valid credentials.
 
 **Automated command or CI check:**
 
 ```bash
 python -m pytest tests/test_qrt_002_api_confidentiality.py -v
 ```
+
+Run with `TEST_TARGET=v2` (default in `conftest.py`) to target `api/MVPv2.2`.
 
 **Expected measurable result:** Every protected endpoint (`POST /solve`, `GET /solution`) returns HTTP 401 when called without a valid `X-API-Key` header. The `/health` endpoint remains accessible without authentication. No error response leaks the API key value.
 
@@ -62,15 +66,13 @@ python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing
 
 ---
 
----
-
 ## QRT-004: Solver completion time
 
 **Linked quality requirement:** [QR-004](quality-requirements.md#qr-004-solver-completion-time)
 
 **Verification method:** Automated integration test that runs the CP-SAT solver on a small test instance with a 15-minute wall-clock timeout.
 
-**Test data, setup, or environment:** Standard CI environment. Uses a realistic test instance (5 orders, standard weights) loaded from `api/data/input.json`. The solver runs in-process via `api/MVPv2/script.py`.
+**Test data, setup, or environment:** Local development environment. Uses a realistic test instance (5 orders, standard weights) loaded from `api/data/input.json`. The solver runs in-process via `api/MVPv2.2/PyVRP/script.py`.
 
 **Automated command or CI check:**
 
@@ -126,13 +128,13 @@ python -m pytest tests/test_qrt_006_solver_optimality.py -v
 
 ## Test Execution
 
-Run all automated quality requirement tests together:
+Run the CI-backed automated quality requirement tests together:
 
 ```bash
-python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_004_solver_completion_time.py tests/test_qrt_005_docs_availability.py -v
+python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_005_docs_availability.py -v
 ```
 
-QRT-004 (solver completion time) may require a longer timeout:
+QRT-004 (solver completion time) runs outside CI and may require a longer timeout:
 
 ```bash
 python -m pytest tests/test_qrt_004_solver_completion_time.py -v --timeout=950

@@ -12,7 +12,7 @@
 
 ### 1.1 Product Status
 
-- **Current State:** **MVPv2 is live and operational** in production. **MVPv3 is under active development** and is not yet deployed to production.
+- **Current State:** **MVPv2.2 is live and operational** in production. **MVPv3 is under active development** and is not yet deployed to production.
 - **Deployment Date:** 2026-07-11
 - **Health/Performance:** All services are operational. Each endpoint returns an HTTP response within 2.0 seconds.
 
@@ -95,7 +95,7 @@ Follow  these steps to set up the product for the first time:
 
 ### 3.2 API Version Management
 
-Use the dropdown at the top of Swagger UI to switch between MVP versions. **Current active version: v2**
+Use the dropdown at the top of Swagger UI to switch between MVP versions. **Current active version: v2.2**
 
 Follow https://github.com/iu-students/route-optimization-platform/blob/main/README.md for detailed instructions.
 
