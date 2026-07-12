@@ -1,75 +1,123 @@
 @startuml sequence-diagram
-title Route Optimization Platform - Sequence Diagram (Dynamic View): POST /solve → GET /solution
+title Route Optimization Platform - Sequence Diagram (Dynamic View): /solve, /solution, /history
 
 actor "API Client" as Client
-participant "Flask API\n(app.py)" as API
-participant "Validator\n(validator.py)" as Validator
+participant "Flask API\n(Web/app.py)" as API
+participant "Validator\n(Web/validator.py)" as Validator
+participant "History\n(Shared/history.py)" as History
 participant "Solver Thread" as Thread
-participant "Orchestrator\n(main.py)" as Orchestrator
-participant "Vehicle Routes Solver\n(vehicle_routes.py)" as VehicleSolver
-participant "Loader Routes Solver\n(loader_routes.py)" as LoaderSolver
-participant "Verifier\n(verifier.py)" as Verifier
-database "Data Storage\n(input.json / output.json)" as Storage
+participant "Orchestrator\n(CP-SAT/main.py)" as Orchestrator
+participant "Vehicle Routes Solver\n(CP-SAT/vehicle_routes.py)" as VehicleSolver
+participant "Loader Routes Solver\n(CP-SAT/loader_routes.py)" as LoaderSolver
+participant "Verifier\n(Shared/verifier.py)" as Verifier
+database "Data Storage\n(input/output.json,\ninputs/, outputs/)" as Storage
+database "history.db" as DB
 
-Client -> API : POST /solve\n(X-API-Key, JSON payload)
+== POST /solve ==
+
+Client -> API : POST /solve (X-API-Key, payload)
 activate API
-API -> API : require_api_key()
 API -> Validator : validate_input(data)
-activate Validator
 Validator --> API : ok / ValidationError
-deactivate Validator
 
 alt validation failed
-  API --> Client : 400 {status: error, errors}
+  API --> Client : 400 {errors}
 else validation ok
-  API -> Storage : write input.json
-  API -> Thread : start(target=run_solve)
+  API -> History : start_calculation() -> calculation_id
+  History -> DB : INSERT status="processing"
+  History -> Storage : write inputs/{id}.json
+  API -> Storage : write input.json (scratch)
+  API -> Thread : start(run_solve, calculation_id)
   activate Thread
-  API --> Client : 202 {status: started}
+  API --> Client : 202 {status: started, calculation_id}
   deactivate API
 
-  Thread -> Orchestrator : solve_pipeline(input_path, data_dir)
+  Thread -> Orchestrator : solve_pipeline(..., deadline=now+max_total_time)
   activate Orchestrator
-  Orchestrator -> Orchestrator : parse(input.json)
-  Orchestrator -> VehicleSolver : find_vehicles_routes(scenario)
-  activate VehicleSolver
-  VehicleSolver --> Orchestrator : solution, missed_count
-  deactivate VehicleSolver
-  Orchestrator -> LoaderSolver : find_loaders_routes(solution, scenario)
-  activate LoaderSolver
+  Orchestrator -> Thread : stage="parsing" ; parse(input.json)
+  Orchestrator -> Thread : stage="solving_vehicles"
+  Orchestrator -> VehicleSolver : find_vehicles_routes(scenario, deadline)
+  note right: Clarke-Wright pool +\nCP-SAT set-partition select
+  VehicleSolver --> Orchestrator : solution, missed_count, pool
+
+  Orchestrator -> Thread : stage="consolidating_vehicles"
+  Orchestrator -> VehicleSolver : consolidate_routes() +\nmerge_multi_trip_routes()
+  VehicleSolver --> Orchestrator : post-processed vehicles
+
+  Orchestrator -> Thread : stage="solving_loaders"
+  Orchestrator -> LoaderSolver : find_loaders_routes(solution, scenario, deadline)
   LoaderSolver --> Orchestrator : loaders
-  deactivate LoaderSolver
   Orchestrator -> Orchestrator : calculate_statistics(solution)
-  Orchestrator -> Storage : write output.json
 
+  alt bad optional orders AND time left > MIN_TIME_FOR_FEEDBACK
+    Orchestrator -> Thread : stage="feedback_iteration"
+    Orchestrator -> VehicleSolver : select_routes_from_pool(filtered_pool,\nreduced_scenario) + post-process
+    VehicleSolver --> Orchestrator : solution2
+    Orchestrator -> LoaderSolver : find_loaders_routes(solution2, reduced_scenario)
+    LoaderSolver --> Orchestrator : loaders2
+    Orchestrator -> Orchestrator : keep cheaper of solution / solution2
+  end
+
+  Orchestrator -> Storage : write output.json
   Orchestrator -> Verifier : run_verification(input_path, output_path)
-  activate Verifier
-  Verifier -> Storage : read input.json
-  Verifier -> Storage : read output.json
+  Verifier -> Storage : read input.json + output.json
   Verifier --> Orchestrator : verification result
-  deactivate Verifier
-  Orchestrator -> Orchestrator : solution["verification"] = verification
-  Orchestrator -> Storage : write output.json
-
+  Orchestrator -> Storage : write output.json (+ verification)
+  Orchestrator -> Thread : stage="done"
   Orchestrator --> Thread : solution
   deactivate Orchestrator
-  Thread -> Thread : solver_state = {status: done}
+
+  Thread -> History : finish_success(id, output, exec_time, cost)
+  History -> Storage : write outputs/{id}.json
+  History -> DB : UPDATE status="success", ...
+  Thread -> Thread : solver_state = done
   deactivate Thread
 end
 
-... later, client polls ...
+alt exception raised in run_solve()
+  Thread -> Thread : solver_state = error
+  Thread -> History : finish_error(id, message, exec_time)
+  History -> Storage : write outputs/{id}.json ({"error": ...})
+  History -> DB : UPDATE status="error"
+end
+
+== GET /solution (polling) ==
 
 Client -> API : GET /solution
 activate API
-API -> API : require_api_key()
-alt status == computing
-  API --> Client : 200 {status: computing}
-else status == done
+alt computing
+  API --> Client : 200 {computing, calculation_id, stage}
+else done
   API -> Storage : read output.json
-  Storage --> API : solution JSON
-  API --> Client : 200 {status: done, solution}
-else status == error
-  API --> Client : 500 {status: error, message}
+  API --> Client : 200 {done, solution}
+else error
+  API --> Client : 500 {error, message}
+else idle
+  API --> Client : 200 {idle}
+end
+deactivate API
+
+== GET /history  /  GET /history/{id} ==
+
+Client -> API : GET /history
+activate API
+API -> History : get_all()
+History -> DB : SELECT ... ORDER BY calculation_id DESC
+History --> API : summary list
+API --> Client : 200 {history: [...]}
+deactivate API
+
+Client -> API : GET /history/{calculation_id}
+activate API
+API -> History : get_by_id(calculation_id)
+History -> DB : SELECT * WHERE calculation_id = ?
+alt found
+  History -> Storage : read input/output JSON
+  History --> API : full record
+  API --> Client : 200 {record}
+else not found
+  History --> API : null
+  API --> Client : 404 {message: "Not found"}
 end
 deactivate API
 
