@@ -58,14 +58,14 @@ cp .env.example .env
 ```
 
 3. Start with Docker Compose:
-```
 This command builds the Docker images (if not already built) and starts all required services in detached mode. The platform will run in the background.
+```
 docker compose up --build -d
 ```
 
 4. Verify :
 ```
-curl http://localhost:5002/health
+curl http://localhost:5022/health
 ```
 
 ## Swagger UI
