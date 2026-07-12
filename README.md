@@ -12,6 +12,9 @@ You can access the deployed version of the platform directly via Swagger UI:
 A logistics optimization system that solves the CVRPTW problem -
 efficient routing of vehicles considering time windows and load capacity.
 
+<img width="1910" height="850" alt="image" src="https://github.com/user-attachments/assets/cf2aeb63-0529-4ed6-a5a4-00ae16b23acb" />
+
+
 ## Documentation
 
 - [Hosted Documentation Site](https://iu-students.github.io/route-optimization-platform/)
@@ -78,6 +81,8 @@ Use the dropdown at the top of Swagger UI to switch between MVP versions. Curren
 - **POST /solve** - Start route optimization calculation.
 - **GET /solution** - Get the computed optimal route after `/solve` completes.
 - **GET /metrics** - Get cost breakdown statistics for the last completed solution.
+- **GET /history** — List past calculations with summary metadata.
+- **GET /history/{id}** — Get full calculation details including input/output files.
 - **POST /validate** - Validate input JSON without solving.
 - **GET /health** - Check server status.
 
@@ -87,13 +92,21 @@ All endpoints except `/health` require API key authentication. Include in reques
 `X-API-Key: your-api-key`
 
 The API key is set in the `.env` file.
+
+## Known Limitations
+
+- MVPv3 is currently under active development and not yet deployed to production. Some features may be unavailable until the next release.
+- Solver Performance: The CP-SAT solver pipeline (MVPv2.2) achieves optimal results on 9 out of 10 standard test instances. Instance i4 remains challenging due to tight time windows and high vehicle/loader cost weights. We continue to work on improving performance for this edge case.
+
+For detailed troubleshooting guidance and complete support documentation, please refer to our [Customer Handover Documentation](docs/customer-handover.md).
+
+
 ## Weekly reports
 
 - [Week 2](reports/week2/README.md)
 - [Week 3](reports/week3/README.md)
 - [Week 4](reports/week4/README.md)
 - [Week 5](reports/week5/README.md)
-- [Week 6](reports/week6/README.md)
 
 ## License
 
