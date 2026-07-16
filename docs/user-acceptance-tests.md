@@ -65,7 +65,7 @@ None.
 
 ---
 
-## UAT-003: Retrieve Solution (UPDATED)
+## UAT-003: Retrieve Solution
 
 **Status:** Active
 
@@ -202,7 +202,7 @@ https://github.com/iu-students/route-optimization-platform/issues/81
 
 ---
 
-## UAT-006: View Calculation History (NEW)
+## UAT-006: View Calculation History
 
 **Status:** Active
 
@@ -237,7 +237,7 @@ https://github.com/iu-students/route-optimization-platform/issues/97
 
 ---
 
-## UAT-007: View Calculation Details by Request ID (NEW)
+## UAT-007: View Calculation Details by Request ID
 
 **Status:** Active
 
