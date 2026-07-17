@@ -8,7 +8,7 @@
 
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 
 **Steps:**
 1. Send a GET request to the `/health` endpoint.
@@ -23,6 +23,7 @@
 | 27.06.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 | 4.07.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 | 10.07.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
+| 17.07.2026 | Customer | PASS | Received HTTP 200 with {"status": "ok"} |
 
 **Customer Comments / Issues:**
 All systems operational. Service is accessible and responsive.
@@ -40,7 +41,7 @@ None.
 
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 - The user has a prepared JSON scenario file
 
 **Steps:**
@@ -56,6 +57,7 @@ None.
 | 27.06.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 | 04.07.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 | 10.07.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
+| 17.07.2026 | Customer | PASS | Received HTTP 202 with {"status": "started"} |
 
 **Customer Comments / Issues:**
 Authentication successful. Background process initiated without errors.
@@ -74,7 +76,7 @@ None.
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 - The user has a prepared JSON scenario file
 - The user has started the solution in background mode and received a "started" status response
 
@@ -103,6 +105,7 @@ None.
 |27.06.2026 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
 |4.07.2026 | Customer | PASS (with comments) | Solution retrieved successfully. All validation checks passed. |
 |10.07.2026 | Customer | PASS | Solution retrieved successfully. All validation checks passed. |
+|17.07.2026 | Customer | PASS | Solution retrieved successfully. All validation checks passed. |
 
 **Customer Comments / Issues:**
 
@@ -123,7 +126,7 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 - The user has a prepared JSON scenario file
 - The user has started the solution in background mode and received a "started" status response
 
@@ -146,6 +149,7 @@ https://github.com/iu-students/route-optimization-platform/issues/71
 |----------------|--------|--------|-------|
 | 4.07.2026 | Customer | PASS | All metrics returned successfully. Status "computing" received with estimated wait time, followed by status "done" with complete metrics. |
 | 10.07.2026 | Customer | PASS | All metrics returned successfully. Status "computing" received with estimated wait time, followed by status "done" with complete metrics. |
+| 17.07.2026 | Customer | PASS | All metrics returned successfully. Status "computing" received with estimated wait time, followed by status "done" with complete metrics. |
 
 
 **Customer Comments / Issues:**
@@ -169,7 +173,7 @@ https://github.com/iu-students/route-optimization-platform/issues/58
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 - The user has prepared JSON scenario files
 
 **Steps:**
@@ -191,6 +195,7 @@ https://github.com/iu-students/route-optimization-platform/issues/58
 |----------------|--------|--------|-------|
 | 4.07.2026 | Customer | PASS | Valid request returned 200 OK with status "ok". Negative value test returned 400 with clear error message identifying the negative number and its exact path in the JSON structure. Malformed JSON test returned 400 with appropriate error description indicating JSON format violation. |
 | 10.07.2026 | Customer | PASS | Valid request returned 200 OK with status "ok". Negative value test returned 400 with clear error message identifying the negative number and its exact path in the JSON structure. Malformed JSON test returned 400 with appropriate error description indicating JSON format violation. |
+| 17.07.2026 | Customer | PASS | Valid request returned 200 OK with status "ok". Negative value test returned 400 with clear error message identifying the negative number and its exact path in the JSON structure. Malformed JSON test returned 400 with appropriate error description indicating JSON format violation. |
 
 **Customer Comments / Issues:**
 
@@ -211,7 +216,7 @@ https://github.com/iu-students/route-optimization-platform/issues/81
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 
 **Steps:**
 1. Send a GET request to the `/history` endpoint.
@@ -224,6 +229,7 @@ https://github.com/iu-students/route-optimization-platform/issues/81
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
 | 10.07.2026 | Customer | PASS | History retrieved successfully. All expected fields are present and correctly populated. |
+| 17.07.2026 | Customer | PASS | History retrieved successfully. All expected fields are present and correctly populated. |
 
 **Customer Comments / Issues:**
 
@@ -246,7 +252,7 @@ https://github.com/iu-students/route-optimization-platform/issues/97
 **Preconditions:**
 - API server is available at `http://139.100.207.201:5000/docs`
 - The user is authenticated in the system
-- Target server selected: Latest MVP version
+- Target server selected: `http://139.100.207.201:5003` - MVPv3
 - The user knows the calculation ID of the request they want to view
 
 **Steps:**
@@ -260,6 +266,7 @@ https://github.com/iu-students/route-optimization-platform/issues/97
 | Execution Date | Tester | Result | Notes |
 |----------------|--------|--------|-------|
 | 10.07.2026 | Customer | PASS | Calculation details retrieved successfully. All expected fields are present and correctly populated. |
+| 17.07.2026 | Customer | PASS | Calculation details retrieved successfully. All expected fields are present and correctly populated. |
 
 **Customer Comments / Issues:**
 
@@ -292,3 +299,10 @@ https://github.com/iu-students/route-optimization-platform/issues/97
 | UAT-005 | Customer | 10.07.2026 | PASS |
 | UAT-006 | Customer | 10.07.2026 | PASS |
 | UAT-007 | Customer | 10.07.2026 | PASS |
+| UAT-001 | Customer | 17.07.2026 | PASS |
+| UAT-002 | Customer | 17.07.2026 | PASS |
+| UAT-003 | Customer | 17.07.2026 | PASS |
+| UAT-004 | Customer | 17.07.2026 | PASS |
+| UAT-005 | Customer | 17.07.2026 | PASS |
+| UAT-006 | Customer | 17.07.2026 | PASS |
+| UAT-007 | Customer | 17.07.2026 | PASS |
