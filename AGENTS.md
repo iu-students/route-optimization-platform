@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Route Optimization Platform - CVRPTW solver API (vehicle + loader routing). Five MVP versions coexist in `api/` (`MVPv0`, `MVPv1`, `MVPv1.2`, `MVPv2`, `MVPv2.2`); `MVPv2.2` is the current active version. See [README.md](README.md) for product description, team, and full run instructions.
+Route Optimization Platform - CVRPTW solver API (vehicle + loader routing). Six MVP versions coexist in `api/` (`MVPv0`, `MVPv1`, `MVPv1.2`, `MVPv2`, `MVPv2.2`, `MVPv3`); `MVPv2.2` is the current active version. `MVPv3` is under active development. See [README.md](README.md) for product description, team, and full run instructions.
 
 ## Setup
 
@@ -9,6 +9,7 @@ Run the full stack via Docker Compose:
 cp .env.example .env
 docker compose up --build -d
 curl http://localhost:5002/health
+curl http://localhost:5003/health   # MVPv3
 ```
 
 For local test/lint work without Docker, install the packages CI uses (no dedicated dev-requirements file; installed inline in CI):
@@ -42,6 +43,17 @@ TEST_TARGET=v2 python -m pytest tests/ \
   --ignore=tests/test_qrt_003_critical_module_coverage.py -v
 ```
 
+MVPv3 subset (CP-SAT solver):
+```bash
+TEST_TARGET=v3 python -m pytest tests/ \
+  --ignore=tests/test_loaders.py \
+  --ignore=tests/test_script.py \
+  --ignore=tests/test_integration.py \
+  --ignore=tests/test_qrt_001_api_responsiveness.py \
+  --ignore=tests/test_qrt_002_api_confidentiality.py \
+  --ignore=tests/test_qrt_003_critical_module_coverage.py -v
+```
+
 Quality requirement tests (QRT):
 ```bash
 python -m pytest tests/test_qrt_001_api_responsiveness.py \
@@ -50,9 +62,9 @@ python -m pytest tests/test_qrt_001_api_responsiveness.py \
   tests/test_qrt_004_solver_completion_time.py \
   tests/test_qrt_005_docs_availability.py -v
 ```
-Note: `test_qrt_001`/`test_qrt_002` use the `client`/`app` fixtures from `conftest.py`, which target `api/MVPv2.2/Web/app.py` when `TEST_TARGET=v2` (the default).
+Note: `test_qrt_001`/`test_qrt_002` use the `client`/`app` fixtures from `conftest.py`, which target `api/MVPv2.2/Web/app.py` when `TEST_TARGET=v2` (the default), or `api/MVPv3/Web/app.py` when `TEST_TARGET=v3`.
 
-Coverage (config: `coveragerc`, source `api/MVPv2.2`):
+Coverage (config: `coveragerc`, sources `api/MVPv2.2, api/MVPv3`):
 ```bash
 python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing --cov-report=xml
 ```

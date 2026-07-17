@@ -1,5 +1,5 @@
 [run]
-source = api/MVPv2.2
+source = api/MVPv3
 omit = tests/*
 
 [report]

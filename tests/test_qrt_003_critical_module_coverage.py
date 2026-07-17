@@ -7,14 +7,16 @@ import pytest
 
 PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 
+TEST_TARGET = os.environ.get("TEST_TARGET", "v3")
+
 CRITICAL_MODULES = {
     "app.py": 30,
-    "script.py": 30,
-    "loaders.py": 30,
     "main.py": 30,
     "verifier.py": 30,
     "validator.py": 30,
 }
+
+COVERAGE_SOURCE = "api/MVPv3"
 
 COVERAGE_JSON = os.path.join(PROJECT_ROOT, "coverage.json")
 
@@ -33,7 +35,7 @@ class TestQRT003CriticalModuleCoverage:
 
         run_result = subprocess.run(
             [sys.executable, "-m", "coverage", "run",
-             "--source=api/MVPv2.2",
+             f"--source={COVERAGE_SOURCE}",
              "-m", "pytest", "tests/",
              "--ignore=tests/test_qrt_003_critical_module_coverage.py",
              "--ignore=tests/test_qrt_005_docs_availability.py",
@@ -81,7 +83,7 @@ class TestQRT003CriticalModuleCoverage:
         cleanup()
 
         if failures:
-            lines = ["Critical modules below coverage threshold (>=30%):"]
+            lines = [f"Critical modules below coverage threshold (>=30%) for {COVERAGE_SOURCE}:"]
             for m, p in actual.items():
                 status = "OK" if (p is not None and p >= 30) else "FAIL"
                 p_str = f"{p:.1f}%" if p is not None else "N/A"

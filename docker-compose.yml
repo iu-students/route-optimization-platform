@@ -53,3 +53,14 @@ services:
       - ./.env
     volumes:
       - ./data:/MVPv2.2/data
+  
+  mvpv3:
+    build:
+      context: .
+      dockerfile: ./api/MVPv3/Dockerfile
+    ports:
+      - "5003:5003"
+    env_file:
+      - ./.env
+    volumes:
+      - ./data:/MVPv3/data

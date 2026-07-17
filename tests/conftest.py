@@ -9,7 +9,22 @@ sys.path.insert(0, PROJECT_ROOT)
 
 TEST_TARGET = os.environ.get("TEST_TARGET", "v2")
 
-if TEST_TARGET == "v2":
+if TEST_TARGET == "v3":
+    for p in [
+        os.path.join(PROJECT_ROOT, "api", "MVPv3"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv3", "CP-SAT"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv3", "Shared"),
+        os.path.join(PROJECT_ROOT, "api", "MVPv3", "Web"),
+    ]:
+        if p not in sys.path:
+            sys.path.append(p)
+
+    from Shared.models import Scenario, Depot, Weights, Order
+
+    # Set shift mode to "earliest" for test compatibility
+    from vehicle_routes import set_shift_mode
+    set_shift_mode("earliest")
+elif TEST_TARGET == "v2":
     for p in [
         os.path.join(PROJECT_ROOT, "api", "MVPv2.2"),
         os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "CP-SAT"),
