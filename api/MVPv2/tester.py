@@ -8,9 +8,11 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 
 # ==== пути к файлам: меняешь тут ====
-INPUT_FILE = 'input.json'
-BASELINE_FILE = 'baseline.json'
-OUTPUT_FILE = 'output.json'
+i = "i10.json"
+
+INPUT_FILE = f'instances/{i}'
+BASELINE_FILE = f'instances/output_{i}'
+OUTPUT_FILE = f'instances/other_{i}'
 
 REF_LABEL = 'BASELINE'
 OUR_LABEL = 'НАШЕ'

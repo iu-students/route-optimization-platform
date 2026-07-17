@@ -63,7 +63,24 @@ def eval_chain(slot_ids, slots, scenario):
     shift = time + back - first["start"]
     if shift > scenario.loader_shift_size:
         return None
-    cost = scenario.weights.loader_salary + scenario.weights.loader_work * shift
+    # ВАЖНО: официальная метрика (validator, _route_time_calc) считает
+    # LoaderWorkTime НЕ как длительность смены. Валидатор в препроцессинге
+    # добавляет к маршруту грузчика возврат в начальную точку
+    # (route -> [o1, ..., oN, o1]), после чего end_point = route[-1] = o1,
+    # и "рабочее время" = (arr[o1] + loader_service_time(o1)) - arr[o1] =
+    # = loader_service_time ПЕРВОГО заказа цепочки. Проверено численно:
+    # на реальном решении сумма lst(первый заказ) по всем грузчикам
+    # совпала с LoaderWorkTime валидатора до копейки (1805.00 = 1805.0).
+    # Раньше cost включал loader_work * shift (полная смена с переездами,
+    # ожиданиями и обратной дорогой) - это в ~7 раз больше официальной
+    # величины и заставляло CP-SAT избегать длинных цепочек, т.е. брать
+    # ЛИШНИХ грузчиков (каждый = +loader_salary к официальному счёту).
+    # Ограничение H7 (shift <= loader_shift_size) при этом остаётся -
+    # меняется только стоимость в целевой функции.
+    cost = (
+        scenario.weights.loader_salary
+        + scenario.weights.loader_work * first["service"]
+    )
     return (cost, shift)
 
 

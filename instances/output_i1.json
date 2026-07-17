@@ -4,26 +4,124 @@
             "id": 1,
             "route": [
                 0,
-                72,
-                39,
-                67,
-                55,
-                24,
+                42,
+                14,
+                16,
+                38,
+                46,
+                17,
+                83,
                 0
             ],
             "time": [
-                29.73,
-                45.12,
-                80.77,
-                126,
-                150.22
+                28.32,
+                51.86,
+                66.1,
+                99.14,
+                137.0,
+                170.0,
+                185.0
             ],
-            "dist": 120.22,
-            "cost": 620.44,
+            "dist": 121.34,
+            "cost": 622.68,
             "trips": 1
         },
         {
             "id": 2,
+            "route": [
+                0,
+                33,
+                3,
+                34,
+                81,
+                35,
+                77,
+                0
+            ],
+            "time": [
+                38.3,
+                61.91,
+                83.95,
+                114.0,
+                136.07,
+                169
+            ],
+            "dist": 109.28,
+            "cost": 598.56,
+            "trips": 1
+        },
+        {
+            "id": 3,
+            "route": [
+                0,
+                52,
+                63,
+                71,
+                20,
+                66,
+                50,
+                0
+            ],
+            "time": [
+                20.93,
+                64.0,
+                88.32,
+                116,
+                142.66,
+                169.69
+            ],
+            "dist": 107.62,
+            "cost": 595.24,
+            "trips": 1
+        },
+        {
+            "id": 4,
+            "route": [
+                0,
+                5,
+                45,
+                7,
+                18,
+                8,
+                60,
+                82,
+                0
+            ],
+            "time": [
+                23.47,
+                48.47,
+                72.51,
+                91.75,
+                115.0,
+                152,
+                169.0
+            ],
+            "dist": 78.35,
+            "cost": 536.7,
+            "trips": 1
+        },
+        {
+            "id": 5,
+            "route": [
+                0,
+                36,
+                64,
+                49,
+                48,
+                0
+            ],
+            "time": [
+                56.6,
+                93.0,
+                123.63,
+                147.56
+            ],
+            "dist": 121.97,
+            "cost": 623.94,
+            "trips": 1
+        },
+        {
+            "id": 6,
             "route": [
                 0,
                 21,
@@ -36,366 +134,325 @@
                 0
             ],
             "time": [
-                7.07,
-                32.46,
-                68,
-                102.87,
-                120,
-                160.25,
-                184.72
+                18.89,
+                44.28,
+                70.33,
+                105.2,
+                121.28,
+                161.53,
+                186.0
             ],
             "dist": 97.83,
             "cost": 575.66,
             "trips": 1
         },
         {
-            "id": 3,
-            "route": [
-                0,
-                7,
-                18,
-                8,
-                60,
-                5,
-                59,
-                0
-            ],
-            "time": [
-                21.47,
-                77,
-                100.25,
-                152,
-                182.26,
-                197.26
-            ],
-            "dist": 66.84,
-            "cost": 513.68,
-            "trips": 1
-        },
-        {
-            "id": 4,
-            "route": [
-                0,
-                2,
-                15,
-                57,
-                41,
-                75,
-                58,
-                0
-            ],
-            "time": [
-                19.42,
-                51,
-                91,
-                116.05,
-                144.11,
-                180
-            ],
-            "dist": 73.43,
-            "cost": 526.86,
-            "trips": 1
-        },
-        {
-            "id": 5,
-            "route": [
-                0,
-                3,
-                34,
-                81,
-                20,
-                35,
-                50,
-                0
-            ],
-            "time": [
-                32.8,
-                54.84,
-                84.89,
-                116,
-                133.24,
-                172.43
-            ],
-            "dist": 104.14,
-            "cost": 588.28,
-            "trips": 1
-        },
-        {
-            "id": 6,
-            "route": [
-                0,
-                33,
-                29,
-                78,
-                9,
-                68,
-                77,
-                0
-            ],
-            "time": [
-                32.76,
-                68.57,
-                86,
-                116.56,
-                141.03,
-                170.09
-            ],
-            "dist": 110.12,
-            "cost": 600.24,
-            "trips": 1
-        },
-        {
             "id": 7,
             "route": [
                 0,
-                31,
-                36,
-                6,
-                48,
-                1,
-                52,
+                59,
+                37,
+                44,
+                61,
+                84,
+                43,
+                2,
                 0
             ],
             "time": [
-                21.4,
-                60.81,
-                114.41,
-                150.03,
-                177.15,
-                193.15
+                27.59,
+                51.71,
+                64.54,
+                86.91,
+                113.98,
+                152.0,
+                177.82
             ],
-            "dist": 148.28,
-            "cost": 676.56,
+            "dist": 95.27,
+            "cost": 570.54,
             "trips": 1
         },
         {
             "id": 8,
             "route": [
                 0,
-                63,
-                30,
-                51,
-                66,
-                10,
-                70,
+                72,
+                39,
+                67,
+                55,
+                24,
                 0
             ],
             "time": [
-                43.0,
-                76.0,
-                98.07,
-                117,
-                137.2,
-                168
+                48.61,
+                64.0,
+                99.65,
+                131.24,
+                155.46
             ],
-            "dist": 119.35,
-            "cost": 618.7,
+            "dist": 120.22,
+            "cost": 620.44,
             "trips": 1
         },
         {
             "id": 9,
             "route": [
                 0,
-                14,
-                16,
-                38,
-                43,
-                13,
+                27,
+                29,
+                78,
+                9,
+                68,
                 0
             ],
             "time": [
-                32.0,
-                65,
-                98.04,
-                131.58,
-                171.18
+                37.58,
+                70.61,
+                86.44,
+                117.0,
+                141.47
             ],
-            "dist": 103.41,
-            "cost": 586.82,
+            "dist": 72.99,
+            "cost": 525.98,
             "trips": 1
         },
         {
             "id": 10,
             "route": [
                 0,
-                42,
-                45,
-                44,
-                84,
-                46,
-                17,
+                11,
+                19,
+                31,
+                6,
                 0
             ],
             "time": [
-                25.0,
-                56.16,
-                75.38,
-                91.78,
-                130.1,
-                163.1
+                58.27,
+                78.27,
+                94.68,
+                119.0
             ],
-            "dist": 122.76,
-            "cost": 625.52,
+            "dist": 54.94,
+            "cost": 489.88,
             "trips": 1
         },
         {
             "id": 11,
             "route": [
                 0,
-                27,
-                69,
-                11,
-                19,
-                49,
+                15,
+                57,
+                41,
+                75,
+                13,
+                58,
                 0
             ],
             "time": [
-                27.0,
-                51.43,
-                73.09,
-                93.09,
-                127.79
+                67.48,
+                91.95,
+                117.0,
+                145.06,
+                178.74,
+                195.15
             ],
-            "dist": 96.97,
-            "cost": 573.94,
+            "dist": 74.37,
+            "cost": 528.74,
             "trips": 1
         },
         {
             "id": 12,
+            "route": [
+                0,
+                69,
+                30,
+                51,
+                10,
+                32,
+                70,
+                1,
+                0
+            ],
+            "time": [
+                70.0,
+                84.12,
+                106.19,
+                124.0,
+                146.04,
+                172.16,
+                197.16
+            ],
+            "dist": 89.29,
+            "cost": 558.58,
+            "trips": 1
+        },
+        {
+            "id": 13,
             "route": [
                 0,
                 28,
                 76,
                 40,
                 12,
-                54,
                 74,
+                54,
+                80,
                 0
             ],
             "time": [
-                29.0,
-                63,
-                85.24,
-                107.48,
-                131.91,
-                155.52
+                56.25,
+                76.91,
+                99.15,
+                121.39,
+                146.39,
+                160.0,
+                185.83
             ],
-            "dist": 45.94,
-            "cost": 471.88,
+            "dist": 47.05,
+            "cost": 474.1,
             "trips": 1
         }
     ],
-    "missed_optional_count": 14,
+    "missed_optional_count": 6,
     "loaders": [
         {
             "id": 1,
             "route": [
-                36
+                59,
+                57,
+                43
             ],
-            "shift": 25.0
+            "shift": 170.28142857142856
         },
         {
             "id": 2,
             "route": [
                 14,
-                16
+                22,
+                4
             ],
-            "shift": 59.057142857142864
+            "shift": 193.82714285714286
         },
         {
             "id": 3,
             "route": [
-                3,
-                12,
-                77
+                36,
+                32
             ],
-            "shift": 161.43285714285713
+            "shift": 167.31142857142856
         },
         {
             "id": 4,
             "route": [
-                69,
-                51,
+                3,
                 35
             ],
-            "shift": 142.2957142857143
+            "shift": 118.33142857142857
         },
         {
             "id": 5,
             "route": [
-                67,
-                24
+                16,
+                84,
+                83
             ],
-            "shift": 133.12142857142857
+            "shift": 174.04285714285714
         },
         {
             "id": 6,
             "route": [
-                40,
-                54
+                67,
+                24
             ],
-            "shift": 97.95571428571428
+            "shift": 119.48142857142858
         },
         {
             "id": 7,
             "route": [
-                57,
-                43,
-                59
+                64,
+                58
             ],
-            "shift": 165.5885714285714
+            "shift": 209.0214285714286
         },
         {
             "id": 8,
             "route": [
-                84,
-                58
+                52,
+                7,
+                6,
+                82
             ],
-            "shift": 146.2057142857143
+            "shift": 201.39857142857142
         },
         {
             "id": 9,
             "route": [
-                22,
-                4
+                37,
+                40,
+                77
             ],
-            "shift": 110.73714285714286
+            "shift": 198.06142857142856
         },
         {
             "id": 10,
             "route": [
-                6,
-                50
+                37,
+                12,
+                80
             ],
-            "shift": 111.16285714285715
+            "shift": 192.56285714285715
         },
         {
             "id": 11,
             "route": [
                 33,
                 78,
-                70
+                54
             ],
-            "shift": 209.54000000000002
+            "shift": 199.67142857142858
         },
         {
             "id": 12,
             "route": [
-                7,
-                11,
-                68,
-                52
+                37,
+                61,
+                83
             ],
-            "shift": 217.52285714285716
+            "shift": 178.2757142857143
+        },
+        {
+            "id": 13,
+            "route": [
+                71,
+                68
+            ],
+            "shift": 120.32142857142858
+        },
+        {
+            "id": 14,
+            "route": [
+                11,
+                51,
+                50
+            ],
+            "shift": 165.34857142857143
+        },
+        {
+            "id": 15,
+            "route": [
+                69,
+                70
+            ],
+            "shift": 151.51714285714286
         }
     ],
     "statistics": {
-        "total_cost": 13614.2,
-        "fuel_cost": 2418.58,
-        "vehicle_salaries": 4560,
-        "loader_salaries": 2760,
-        "loader_work_cost": 1579.6200000000001,
-        "penalties": 2296
+        "total_cost": 12020.04,
+        "fuel_cost": 2381.04,
+        "vehicle_salaries": 4940,
+        "loader_salaries": 3450,
+        "loader_work_cost": 265,
+        "penalties": 984
     },
     "verification": {
         "shift_verification": {
@@ -404,85 +461,92 @@
                 {
                     "vehicle_id": 1,
                     "status": "success",
-                    "message": "Route start 29.73 <= shift end 240",
-                    "route_start_time": 29.73,
+                    "message": "Route start 28.32 <= shift end 240",
+                    "route_start_time": 28.32,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 2,
                     "status": "success",
-                    "message": "Route start 7.07 <= shift end 240",
-                    "route_start_time": 7.07,
+                    "message": "Route start 38.3 <= shift end 240",
+                    "route_start_time": 38.3,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 3,
                     "status": "success",
-                    "message": "Route start 21.47 <= shift end 240",
-                    "route_start_time": 21.47,
+                    "message": "Route start 20.93 <= shift end 240",
+                    "route_start_time": 20.93,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 4,
                     "status": "success",
-                    "message": "Route start 19.42 <= shift end 240",
-                    "route_start_time": 19.42,
+                    "message": "Route start 23.47 <= shift end 240",
+                    "route_start_time": 23.47,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 5,
                     "status": "success",
-                    "message": "Route start 32.8 <= shift end 240",
-                    "route_start_time": 32.8,
+                    "message": "Route start 56.6 <= shift end 240",
+                    "route_start_time": 56.6,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 6,
                     "status": "success",
-                    "message": "Route start 32.76 <= shift end 240",
-                    "route_start_time": 32.76,
+                    "message": "Route start 18.89 <= shift end 240",
+                    "route_start_time": 18.89,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 7,
                     "status": "success",
-                    "message": "Route start 21.4 <= shift end 240",
-                    "route_start_time": 21.4,
+                    "message": "Route start 27.59 <= shift end 240",
+                    "route_start_time": 27.59,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 8,
                     "status": "success",
-                    "message": "Route start 43.0 <= shift end 240",
-                    "route_start_time": 43.0,
+                    "message": "Route start 48.61 <= shift end 240",
+                    "route_start_time": 48.61,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 9,
                     "status": "success",
-                    "message": "Route start 32.0 <= shift end 240",
-                    "route_start_time": 32.0,
+                    "message": "Route start 37.58 <= shift end 240",
+                    "route_start_time": 37.58,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 10,
                     "status": "success",
-                    "message": "Route start 25.0 <= shift end 240",
-                    "route_start_time": 25.0,
+                    "message": "Route start 58.27 <= shift end 240",
+                    "route_start_time": 58.27,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 11,
                     "status": "success",
-                    "message": "Route start 27.0 <= shift end 240",
-                    "route_start_time": 27.0,
+                    "message": "Route start 67.48 <= shift end 240",
+                    "route_start_time": 67.48,
                     "shift_end": 240
                 },
                 {
                     "vehicle_id": 12,
                     "status": "success",
-                    "message": "Route start 29.0 <= shift end 240",
-                    "route_start_time": 29.0,
+                    "message": "Route start 70.0 <= shift end 240",
+                    "route_start_time": 70.0,
+                    "shift_end": 240
+                },
+                {
+                    "vehicle_id": 13,
+                    "status": "success",
+                    "message": "Route start 56.25 <= shift end 240",
+                    "route_start_time": 56.25,
                     "shift_end": 240
                 }
             ]
@@ -495,54 +559,74 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 72,
-                            "arrival_time": 29.73,
+                            "order_id": 42,
+                            "arrival_time": 28.32,
                             "time_window": [
-                                0,
-                                197
+                                25,
+                                55
                             ],
                             "status": "success",
-                            "message": "Arrival 29.73 within [0, 197]"
+                            "message": "Arrival 28.32 within [25, 55]"
                         },
                         {
-                            "order_id": 39,
-                            "arrival_time": 45.12,
+                            "order_id": 14,
+                            "arrival_time": 51.86,
                             "time_window": [
-                                34,
-                                64
+                                32,
+                                62
                             ],
                             "status": "success",
-                            "message": "Arrival 45.12 within [34, 64]"
+                            "message": "Arrival 51.86 within [32, 62]"
                         },
                         {
-                            "order_id": 67,
-                            "arrival_time": 80.77,
+                            "order_id": 16,
+                            "arrival_time": 66.1,
+                            "time_window": [
+                                65,
+                                95
+                            ],
+                            "status": "success",
+                            "message": "Arrival 66.1 within [65, 95]"
+                        },
+                        {
+                            "order_id": 38,
+                            "arrival_time": 99.14,
                             "time_window": [
                                 73,
                                 103
                             ],
                             "status": "success",
-                            "message": "Arrival 80.77 within [73, 103]"
+                            "message": "Arrival 99.14 within [73, 103]"
                         },
                         {
-                            "order_id": 55,
-                            "arrival_time": 126,
+                            "order_id": 46,
+                            "arrival_time": 137.0,
                             "time_window": [
-                                126,
-                                156
+                                107,
+                                137
                             ],
                             "status": "success",
-                            "message": "Arrival 126 within [126, 156]"
+                            "message": "Arrival 137.0 within [107, 137]"
                         },
                         {
-                            "order_id": 24,
-                            "arrival_time": 150.22,
+                            "order_id": 17,
+                            "arrival_time": 170.0,
                             "time_window": [
-                                143,
-                                173
+                                147,
+                                177
                             ],
                             "status": "success",
-                            "message": "Arrival 150.22 within [143, 173]"
+                            "message": "Arrival 170.0 within [147, 177]"
+                        },
+                        {
+                            "order_id": 83,
+                            "arrival_time": 185.0,
+                            "time_window": [
+                                0,
+                                198
+                            ],
+                            "status": "success",
+                            "message": "Arrival 185.0 within [0, 198]"
                         }
                     ]
                 },
@@ -551,74 +635,64 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 21,
-                            "arrival_time": 7.07,
+                            "order_id": 33,
+                            "arrival_time": 38.3,
+                            "time_window": [
+                                27,
+                                57
+                            ],
+                            "status": "success",
+                            "message": "Arrival 38.3 within [27, 57]"
+                        },
+                        {
+                            "order_id": 3,
+                            "arrival_time": 61.91,
                             "time_window": [
                                 0,
-                                201
+                                197
                             ],
                             "status": "success",
-                            "message": "Arrival 7.07 within [0, 201]"
+                            "message": "Arrival 61.91 within [0, 197]"
                         },
                         {
-                            "order_id": 26,
-                            "arrival_time": 32.46,
+                            "order_id": 34,
+                            "arrival_time": 83.95,
                             "time_window": [
                                 0,
-                                208
+                                183
                             ],
                             "status": "success",
-                            "message": "Arrival 32.46 within [0, 208]"
+                            "message": "Arrival 83.95 within [0, 183]"
                         },
                         {
-                            "order_id": 73,
-                            "arrival_time": 68,
+                            "order_id": 81,
+                            "arrival_time": 114.0,
                             "time_window": [
-                                68,
-                                98
+                                84,
+                                114
                             ],
                             "status": "success",
-                            "message": "Arrival 68 within [68, 98]"
+                            "message": "Arrival 114.0 within [84, 114]"
                         },
                         {
-                            "order_id": 22,
-                            "arrival_time": 102.87,
+                            "order_id": 35,
+                            "arrival_time": 136.07,
                             "time_window": [
-                                87,
-                                117
+                                133,
+                                163
                             ],
                             "status": "success",
-                            "message": "Arrival 102.87 within [87, 117]"
+                            "message": "Arrival 136.07 within [133, 163]"
                         },
                         {
-                            "order_id": 56,
-                            "arrival_time": 120,
+                            "order_id": 77,
+                            "arrival_time": 169,
                             "time_window": [
-                                120,
-                                150
+                                169,
+                                199
                             ],
                             "status": "success",
-                            "message": "Arrival 120 within [120, 150]"
-                        },
-                        {
-                            "order_id": 4,
-                            "arrival_time": 160.25,
-                            "time_window": [
-                                139,
-                                169
-                            ],
-                            "status": "success",
-                            "message": "Arrival 160.25 within [139, 169]"
-                        },
-                        {
-                            "order_id": 25,
-                            "arrival_time": 184.72,
-                            "time_window": [
-                                156,
-                                186
-                            ],
-                            "status": "success",
-                            "message": "Arrival 184.72 within [156, 186]"
+                            "message": "Arrival 169 within [169, 199]"
                         }
                     ]
                 },
@@ -627,166 +701,34 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 7,
-                            "arrival_time": 21.47,
+                            "order_id": 52,
+                            "arrival_time": 20.93,
                             "time_window": [
                                 0,
-                                198
+                                208
                             ],
                             "status": "success",
-                            "message": "Arrival 21.47 within [0, 198]"
+                            "message": "Arrival 20.93 within [0, 208]"
                         },
                         {
-                            "order_id": 18,
-                            "arrival_time": 77,
+                            "order_id": 63,
+                            "arrival_time": 64.0,
                             "time_window": [
-                                77,
-                                107
+                                34,
+                                64
                             ],
                             "status": "success",
-                            "message": "Arrival 77 within [77, 107]"
+                            "message": "Arrival 64.0 within [34, 64]"
                         },
                         {
-                            "order_id": 8,
-                            "arrival_time": 100.25,
+                            "order_id": 71,
+                            "arrival_time": 88.32,
                             "time_window": [
-                                85,
-                                115
+                                67,
+                                97
                             ],
                             "status": "success",
-                            "message": "Arrival 100.25 within [85, 115]"
-                        },
-                        {
-                            "order_id": 60,
-                            "arrival_time": 152,
-                            "time_window": [
-                                152,
-                                182
-                            ],
-                            "status": "success",
-                            "message": "Arrival 152 within [152, 182]"
-                        },
-                        {
-                            "order_id": 5,
-                            "arrival_time": 182.26,
-                            "time_window": [
-                                0,
-                                199
-                            ],
-                            "status": "success",
-                            "message": "Arrival 182.26 within [0, 199]"
-                        },
-                        {
-                            "order_id": 59,
-                            "arrival_time": 197.26,
-                            "time_window": [
-                                0,
-                                202
-                            ],
-                            "status": "success",
-                            "message": "Arrival 197.26 within [0, 202]"
-                        }
-                    ]
-                },
-                {
-                    "vehicle_id": 4,
-                    "status": "success",
-                    "points": [
-                        {
-                            "order_id": 2,
-                            "arrival_time": 19.42,
-                            "time_window": [
-                                0,
-                                202
-                            ],
-                            "status": "success",
-                            "message": "Arrival 19.42 within [0, 202]"
-                        },
-                        {
-                            "order_id": 15,
-                            "arrival_time": 51,
-                            "time_window": [
-                                51,
-                                81
-                            ],
-                            "status": "success",
-                            "message": "Arrival 51 within [51, 81]"
-                        },
-                        {
-                            "order_id": 57,
-                            "arrival_time": 91,
-                            "time_window": [
-                                91,
-                                121
-                            ],
-                            "status": "success",
-                            "message": "Arrival 91 within [91, 121]"
-                        },
-                        {
-                            "order_id": 41,
-                            "arrival_time": 116.05,
-                            "time_window": [
-                                87,
-                                117
-                            ],
-                            "status": "success",
-                            "message": "Arrival 116.05 within [87, 117]"
-                        },
-                        {
-                            "order_id": 75,
-                            "arrival_time": 144.11,
-                            "time_window": [
-                                0,
-                                192
-                            ],
-                            "status": "success",
-                            "message": "Arrival 144.11 within [0, 192]"
-                        },
-                        {
-                            "order_id": 58,
-                            "arrival_time": 180,
-                            "time_window": [
-                                180,
-                                210
-                            ],
-                            "status": "success",
-                            "message": "Arrival 180 within [180, 210]"
-                        }
-                    ]
-                },
-                {
-                    "vehicle_id": 5,
-                    "status": "success",
-                    "points": [
-                        {
-                            "order_id": 3,
-                            "arrival_time": 32.8,
-                            "time_window": [
-                                0,
-                                197
-                            ],
-                            "status": "success",
-                            "message": "Arrival 32.8 within [0, 197]"
-                        },
-                        {
-                            "order_id": 34,
-                            "arrival_time": 54.84,
-                            "time_window": [
-                                0,
-                                183
-                            ],
-                            "status": "success",
-                            "message": "Arrival 54.84 within [0, 183]"
-                        },
-                        {
-                            "order_id": 81,
-                            "arrival_time": 84.89,
-                            "time_window": [
-                                84,
-                                114
-                            ],
-                            "status": "success",
-                            "message": "Arrival 84.89 within [84, 114]"
+                            "message": "Arrival 88.32 within [67, 97]"
                         },
                         {
                             "order_id": 20,
@@ -799,24 +741,146 @@
                             "message": "Arrival 116 within [116, 146]"
                         },
                         {
-                            "order_id": 35,
-                            "arrival_time": 133.24,
+                            "order_id": 66,
+                            "arrival_time": 142.66,
                             "time_window": [
-                                133,
-                                163
+                                117,
+                                147
                             ],
                             "status": "success",
-                            "message": "Arrival 133.24 within [133, 163]"
+                            "message": "Arrival 142.66 within [117, 147]"
                         },
                         {
                             "order_id": 50,
-                            "arrival_time": 172.43,
+                            "arrival_time": 169.69,
                             "time_window": [
                                 0,
                                 203
                             ],
                             "status": "success",
-                            "message": "Arrival 172.43 within [0, 203]"
+                            "message": "Arrival 169.69 within [0, 203]"
+                        }
+                    ]
+                },
+                {
+                    "vehicle_id": 4,
+                    "status": "success",
+                    "points": [
+                        {
+                            "order_id": 5,
+                            "arrival_time": 23.47,
+                            "time_window": [
+                                0,
+                                199
+                            ],
+                            "status": "success",
+                            "message": "Arrival 23.47 within [0, 199]"
+                        },
+                        {
+                            "order_id": 45,
+                            "arrival_time": 48.47,
+                            "time_window": [
+                                29,
+                                59
+                            ],
+                            "status": "success",
+                            "message": "Arrival 48.47 within [29, 59]"
+                        },
+                        {
+                            "order_id": 7,
+                            "arrival_time": 72.51,
+                            "time_window": [
+                                0,
+                                198
+                            ],
+                            "status": "success",
+                            "message": "Arrival 72.51 within [0, 198]"
+                        },
+                        {
+                            "order_id": 18,
+                            "arrival_time": 91.75,
+                            "time_window": [
+                                77,
+                                107
+                            ],
+                            "status": "success",
+                            "message": "Arrival 91.75 within [77, 107]"
+                        },
+                        {
+                            "order_id": 8,
+                            "arrival_time": 115.0,
+                            "time_window": [
+                                85,
+                                115
+                            ],
+                            "status": "success",
+                            "message": "Arrival 115.0 within [85, 115]"
+                        },
+                        {
+                            "order_id": 60,
+                            "arrival_time": 152,
+                            "time_window": [
+                                152,
+                                182
+                            ],
+                            "status": "success",
+                            "message": "Arrival 152 within [152, 182]"
+                        },
+                        {
+                            "order_id": 82,
+                            "arrival_time": 169.0,
+                            "time_window": [
+                                0,
+                                196
+                            ],
+                            "status": "success",
+                            "message": "Arrival 169.0 within [0, 196]"
+                        }
+                    ]
+                },
+                {
+                    "vehicle_id": 5,
+                    "status": "success",
+                    "points": [
+                        {
+                            "order_id": 36,
+                            "arrival_time": 56.6,
+                            "time_window": [
+                                41,
+                                71
+                            ],
+                            "status": "success",
+                            "message": "Arrival 56.6 within [41, 71]"
+                        },
+                        {
+                            "order_id": 64,
+                            "arrival_time": 93.0,
+                            "time_window": [
+                                63,
+                                93
+                            ],
+                            "status": "success",
+                            "message": "Arrival 93.0 within [63, 93]"
+                        },
+                        {
+                            "order_id": 49,
+                            "arrival_time": 123.63,
+                            "time_window": [
+                                98,
+                                128
+                            ],
+                            "status": "success",
+                            "message": "Arrival 123.63 within [98, 128]"
+                        },
+                        {
+                            "order_id": 48,
+                            "arrival_time": 147.56,
+                            "time_window": [
+                                0,
+                                192
+                            ],
+                            "status": "success",
+                            "message": "Arrival 147.56 within [0, 192]"
                         }
                     ]
                 },
@@ -825,64 +889,74 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 33,
-                            "arrival_time": 32.76,
+                            "order_id": 21,
+                            "arrival_time": 18.89,
                             "time_window": [
-                                27,
-                                57
+                                0,
+                                201
                             ],
                             "status": "success",
-                            "message": "Arrival 32.76 within [27, 57]"
+                            "message": "Arrival 18.89 within [0, 201]"
                         },
                         {
-                            "order_id": 29,
-                            "arrival_time": 68.57,
+                            "order_id": 26,
+                            "arrival_time": 44.28,
                             "time_window": [
-                                53,
-                                83
+                                0,
+                                208
                             ],
                             "status": "success",
-                            "message": "Arrival 68.57 within [53, 83]"
+                            "message": "Arrival 44.28 within [0, 208]"
                         },
                         {
-                            "order_id": 78,
-                            "arrival_time": 86,
+                            "order_id": 73,
+                            "arrival_time": 70.33,
                             "time_window": [
-                                86,
-                                116
+                                68,
+                                98
                             ],
                             "status": "success",
-                            "message": "Arrival 86 within [86, 116]"
+                            "message": "Arrival 70.33 within [68, 98]"
                         },
                         {
-                            "order_id": 9,
-                            "arrival_time": 116.56,
+                            "order_id": 22,
+                            "arrival_time": 105.2,
                             "time_window": [
                                 87,
                                 117
                             ],
                             "status": "success",
-                            "message": "Arrival 116.56 within [87, 117]"
+                            "message": "Arrival 105.2 within [87, 117]"
                         },
                         {
-                            "order_id": 68,
-                            "arrival_time": 141.03,
+                            "order_id": 56,
+                            "arrival_time": 121.28,
                             "time_window": [
-                                132,
-                                162
+                                120,
+                                150
                             ],
                             "status": "success",
-                            "message": "Arrival 141.03 within [132, 162]"
+                            "message": "Arrival 121.28 within [120, 150]"
                         },
                         {
-                            "order_id": 77,
-                            "arrival_time": 170.09,
+                            "order_id": 4,
+                            "arrival_time": 161.53,
                             "time_window": [
-                                169,
-                                199
+                                139,
+                                169
                             ],
                             "status": "success",
-                            "message": "Arrival 170.09 within [169, 199]"
+                            "message": "Arrival 161.53 within [139, 169]"
+                        },
+                        {
+                            "order_id": 25,
+                            "arrival_time": 186.0,
+                            "time_window": [
+                                156,
+                                186
+                            ],
+                            "status": "success",
+                            "message": "Arrival 186.0 within [156, 186]"
                         }
                     ]
                 },
@@ -891,64 +965,74 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 31,
-                            "arrival_time": 21.4,
+                            "order_id": 59,
+                            "arrival_time": 27.59,
                             "time_window": [
                                 0,
                                 202
                             ],
                             "status": "success",
-                            "message": "Arrival 21.4 within [0, 202]"
+                            "message": "Arrival 27.59 within [0, 202]"
                         },
                         {
-                            "order_id": 36,
-                            "arrival_time": 60.81,
-                            "time_window": [
-                                41,
-                                71
-                            ],
-                            "status": "success",
-                            "message": "Arrival 60.81 within [41, 71]"
-                        },
-                        {
-                            "order_id": 6,
-                            "arrival_time": 114.41,
-                            "time_window": [
-                                89,
-                                119
-                            ],
-                            "status": "success",
-                            "message": "Arrival 114.41 within [89, 119]"
-                        },
-                        {
-                            "order_id": 48,
-                            "arrival_time": 150.03,
+                            "order_id": 37,
+                            "arrival_time": 51.71,
                             "time_window": [
                                 0,
-                                192
+                                198
                             ],
                             "status": "success",
-                            "message": "Arrival 150.03 within [0, 192]"
+                            "message": "Arrival 51.71 within [0, 198]"
                         },
                         {
-                            "order_id": 1,
-                            "arrival_time": 177.15,
+                            "order_id": 44,
+                            "arrival_time": 64.54,
                             "time_window": [
-                                0,
-                                204
+                                59,
+                                89
                             ],
                             "status": "success",
-                            "message": "Arrival 177.15 within [0, 204]"
+                            "message": "Arrival 64.54 within [59, 89]"
                         },
                         {
-                            "order_id": 52,
-                            "arrival_time": 193.15,
+                            "order_id": 61,
+                            "arrival_time": 86.91,
                             "time_window": [
-                                0,
-                                208
+                                66,
+                                96
                             ],
                             "status": "success",
-                            "message": "Arrival 193.15 within [0, 208]"
+                            "message": "Arrival 86.91 within [66, 96]"
+                        },
+                        {
+                            "order_id": 84,
+                            "arrival_time": 113.98,
+                            "time_window": [
+                                91,
+                                121
+                            ],
+                            "status": "success",
+                            "message": "Arrival 113.98 within [91, 121]"
+                        },
+                        {
+                            "order_id": 43,
+                            "arrival_time": 152.0,
+                            "time_window": [
+                                122,
+                                152
+                            ],
+                            "status": "success",
+                            "message": "Arrival 152.0 within [122, 152]"
+                        },
+                        {
+                            "order_id": 2,
+                            "arrival_time": 177.82,
+                            "time_window": [
+                                0,
+                                202
+                            ],
+                            "status": "success",
+                            "message": "Arrival 177.82 within [0, 202]"
                         }
                     ]
                 },
@@ -957,64 +1041,54 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 63,
-                            "arrival_time": 43.0,
+                            "order_id": 72,
+                            "arrival_time": 48.61,
+                            "time_window": [
+                                0,
+                                197
+                            ],
+                            "status": "success",
+                            "message": "Arrival 48.61 within [0, 197]"
+                        },
+                        {
+                            "order_id": 39,
+                            "arrival_time": 64.0,
                             "time_window": [
                                 34,
                                 64
                             ],
                             "status": "success",
-                            "message": "Arrival 43.0 within [34, 64]"
+                            "message": "Arrival 64.0 within [34, 64]"
                         },
                         {
-                            "order_id": 30,
-                            "arrival_time": 76.0,
+                            "order_id": 67,
+                            "arrival_time": 99.65,
                             "time_window": [
-                                61,
-                                91
+                                73,
+                                103
                             ],
                             "status": "success",
-                            "message": "Arrival 76.0 within [61, 91]"
+                            "message": "Arrival 99.65 within [73, 103]"
                         },
                         {
-                            "order_id": 51,
-                            "arrival_time": 98.07,
+                            "order_id": 55,
+                            "arrival_time": 131.24,
                             "time_window": [
-                                78,
-                                108
+                                126,
+                                156
                             ],
                             "status": "success",
-                            "message": "Arrival 98.07 within [78, 108]"
+                            "message": "Arrival 131.24 within [126, 156]"
                         },
                         {
-                            "order_id": 66,
-                            "arrival_time": 117,
+                            "order_id": 24,
+                            "arrival_time": 155.46,
                             "time_window": [
-                                117,
-                                147
+                                143,
+                                173
                             ],
                             "status": "success",
-                            "message": "Arrival 117 within [117, 147]"
-                        },
-                        {
-                            "order_id": 10,
-                            "arrival_time": 137.2,
-                            "time_window": [
-                                114,
-                                144
-                            ],
-                            "status": "success",
-                            "message": "Arrival 137.2 within [114, 144]"
-                        },
-                        {
-                            "order_id": 70,
-                            "arrival_time": 168,
-                            "time_window": [
-                                168,
-                                198
-                            ],
-                            "status": "success",
-                            "message": "Arrival 168 within [168, 198]"
+                            "message": "Arrival 155.46 within [143, 173]"
                         }
                     ]
                 },
@@ -1023,54 +1097,54 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 14,
-                            "arrival_time": 32.0,
+                            "order_id": 27,
+                            "arrival_time": 37.58,
                             "time_window": [
-                                32,
-                                62
+                                27,
+                                57
                             ],
                             "status": "success",
-                            "message": "Arrival 32.0 within [32, 62]"
+                            "message": "Arrival 37.58 within [27, 57]"
                         },
                         {
-                            "order_id": 16,
-                            "arrival_time": 65,
+                            "order_id": 29,
+                            "arrival_time": 70.61,
                             "time_window": [
-                                65,
-                                95
+                                53,
+                                83
                             ],
                             "status": "success",
-                            "message": "Arrival 65 within [65, 95]"
+                            "message": "Arrival 70.61 within [53, 83]"
                         },
                         {
-                            "order_id": 38,
-                            "arrival_time": 98.04,
+                            "order_id": 78,
+                            "arrival_time": 86.44,
                             "time_window": [
-                                73,
-                                103
+                                86,
+                                116
                             ],
                             "status": "success",
-                            "message": "Arrival 98.04 within [73, 103]"
+                            "message": "Arrival 86.44 within [86, 116]"
                         },
                         {
-                            "order_id": 43,
-                            "arrival_time": 131.58,
+                            "order_id": 9,
+                            "arrival_time": 117.0,
                             "time_window": [
-                                122,
-                                152
+                                87,
+                                117
                             ],
                             "status": "success",
-                            "message": "Arrival 131.58 within [122, 152]"
+                            "message": "Arrival 117.0 within [87, 117]"
                         },
                         {
-                            "order_id": 13,
-                            "arrival_time": 171.18,
+                            "order_id": 68,
+                            "arrival_time": 141.47,
                             "time_window": [
-                                149,
-                                179
+                                132,
+                                162
                             ],
                             "status": "success",
-                            "message": "Arrival 171.18 within [149, 179]"
+                            "message": "Arrival 141.47 within [132, 162]"
                         }
                     ]
                 },
@@ -1079,64 +1153,44 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 42,
-                            "arrival_time": 25.0,
+                            "order_id": 11,
+                            "arrival_time": 58.27,
                             "time_window": [
-                                25,
-                                55
+                                57,
+                                87
                             ],
                             "status": "success",
-                            "message": "Arrival 25.0 within [25, 55]"
+                            "message": "Arrival 58.27 within [57, 87]"
                         },
                         {
-                            "order_id": 45,
-                            "arrival_time": 56.16,
+                            "order_id": 19,
+                            "arrival_time": 78.27,
                             "time_window": [
-                                29,
-                                59
+                                66,
+                                96
                             ],
                             "status": "success",
-                            "message": "Arrival 56.16 within [29, 59]"
+                            "message": "Arrival 78.27 within [66, 96]"
                         },
                         {
-                            "order_id": 44,
-                            "arrival_time": 75.38,
+                            "order_id": 31,
+                            "arrival_time": 94.68,
                             "time_window": [
-                                59,
-                                89
+                                0,
+                                202
                             ],
                             "status": "success",
-                            "message": "Arrival 75.38 within [59, 89]"
+                            "message": "Arrival 94.68 within [0, 202]"
                         },
                         {
-                            "order_id": 84,
-                            "arrival_time": 91.78,
+                            "order_id": 6,
+                            "arrival_time": 119.0,
                             "time_window": [
-                                91,
-                                121
+                                89,
+                                119
                             ],
                             "status": "success",
-                            "message": "Arrival 91.78 within [91, 121]"
-                        },
-                        {
-                            "order_id": 46,
-                            "arrival_time": 130.1,
-                            "time_window": [
-                                107,
-                                137
-                            ],
-                            "status": "success",
-                            "message": "Arrival 130.1 within [107, 137]"
-                        },
-                        {
-                            "order_id": 17,
-                            "arrival_time": 163.1,
-                            "time_window": [
-                                147,
-                                177
-                            ],
-                            "status": "success",
-                            "message": "Arrival 163.1 within [147, 177]"
+                            "message": "Arrival 119.0 within [89, 119]"
                         }
                     ]
                 },
@@ -1145,54 +1199,64 @@
                     "status": "success",
                     "points": [
                         {
-                            "order_id": 27,
-                            "arrival_time": 27.0,
+                            "order_id": 15,
+                            "arrival_time": 67.48,
                             "time_window": [
-                                27,
-                                57
+                                51,
+                                81
                             ],
                             "status": "success",
-                            "message": "Arrival 27.0 within [27, 57]"
+                            "message": "Arrival 67.48 within [51, 81]"
                         },
                         {
-                            "order_id": 69,
-                            "arrival_time": 51.43,
+                            "order_id": 57,
+                            "arrival_time": 91.95,
                             "time_window": [
-                                40,
-                                70
+                                91,
+                                121
                             ],
                             "status": "success",
-                            "message": "Arrival 51.43 within [40, 70]"
+                            "message": "Arrival 91.95 within [91, 121]"
                         },
                         {
-                            "order_id": 11,
-                            "arrival_time": 73.09,
+                            "order_id": 41,
+                            "arrival_time": 117.0,
                             "time_window": [
-                                57,
-                                87
+                                87,
+                                117
                             ],
                             "status": "success",
-                            "message": "Arrival 73.09 within [57, 87]"
+                            "message": "Arrival 117.0 within [87, 117]"
                         },
                         {
-                            "order_id": 19,
-                            "arrival_time": 93.09,
+                            "order_id": 75,
+                            "arrival_time": 145.06,
                             "time_window": [
-                                66,
-                                96
+                                0,
+                                192
                             ],
                             "status": "success",
-                            "message": "Arrival 93.09 within [66, 96]"
+                            "message": "Arrival 145.06 within [0, 192]"
                         },
                         {
-                            "order_id": 49,
-                            "arrival_time": 127.79,
+                            "order_id": 13,
+                            "arrival_time": 178.74,
                             "time_window": [
-                                98,
-                                128
+                                149,
+                                179
                             ],
                             "status": "success",
-                            "message": "Arrival 127.79 within [98, 128]"
+                            "message": "Arrival 178.74 within [149, 179]"
+                        },
+                        {
+                            "order_id": 58,
+                            "arrival_time": 195.15,
+                            "time_window": [
+                                180,
+                                210
+                            ],
+                            "status": "success",
+                            "message": "Arrival 195.15 within [180, 210]"
                         }
                     ]
                 },
@@ -1201,64 +1265,150 @@
                     "status": "success",
                     "points": [
                         {
+                            "order_id": 69,
+                            "arrival_time": 70.0,
+                            "time_window": [
+                                40,
+                                70
+                            ],
+                            "status": "success",
+                            "message": "Arrival 70.0 within [40, 70]"
+                        },
+                        {
+                            "order_id": 30,
+                            "arrival_time": 84.12,
+                            "time_window": [
+                                61,
+                                91
+                            ],
+                            "status": "success",
+                            "message": "Arrival 84.12 within [61, 91]"
+                        },
+                        {
+                            "order_id": 51,
+                            "arrival_time": 106.19,
+                            "time_window": [
+                                78,
+                                108
+                            ],
+                            "status": "success",
+                            "message": "Arrival 106.19 within [78, 108]"
+                        },
+                        {
+                            "order_id": 10,
+                            "arrival_time": 124.0,
+                            "time_window": [
+                                114,
+                                144
+                            ],
+                            "status": "success",
+                            "message": "Arrival 124.0 within [114, 144]"
+                        },
+                        {
+                            "order_id": 32,
+                            "arrival_time": 146.04,
+                            "time_window": [
+                                131,
+                                161
+                            ],
+                            "status": "success",
+                            "message": "Arrival 146.04 within [131, 161]"
+                        },
+                        {
+                            "order_id": 70,
+                            "arrival_time": 172.16,
+                            "time_window": [
+                                168,
+                                198
+                            ],
+                            "status": "success",
+                            "message": "Arrival 172.16 within [168, 198]"
+                        },
+                        {
+                            "order_id": 1,
+                            "arrival_time": 197.16,
+                            "time_window": [
+                                0,
+                                204
+                            ],
+                            "status": "success",
+                            "message": "Arrival 197.16 within [0, 204]"
+                        }
+                    ]
+                },
+                {
+                    "vehicle_id": 13,
+                    "status": "success",
+                    "points": [
+                        {
                             "order_id": 28,
-                            "arrival_time": 29.0,
+                            "arrival_time": 56.25,
                             "time_window": [
                                 29,
                                 59
                             ],
                             "status": "success",
-                            "message": "Arrival 29.0 within [29, 59]"
+                            "message": "Arrival 56.25 within [29, 59]"
                         },
                         {
                             "order_id": 76,
-                            "arrival_time": 63,
+                            "arrival_time": 76.91,
                             "time_window": [
                                 63,
                                 93
                             ],
                             "status": "success",
-                            "message": "Arrival 63 within [63, 93]"
+                            "message": "Arrival 76.91 within [63, 93]"
                         },
                         {
                             "order_id": 40,
-                            "arrival_time": 85.24,
+                            "arrival_time": 99.15,
                             "time_window": [
                                 75,
                                 105
                             ],
                             "status": "success",
-                            "message": "Arrival 85.24 within [75, 105]"
+                            "message": "Arrival 99.15 within [75, 105]"
                         },
                         {
                             "order_id": 12,
-                            "arrival_time": 107.48,
+                            "arrival_time": 121.39,
                             "time_window": [
                                 0,
                                 205
                             ],
                             "status": "success",
-                            "message": "Arrival 107.48 within [0, 205]"
-                        },
-                        {
-                            "order_id": 54,
-                            "arrival_time": 131.91,
-                            "time_window": [
-                                130,
-                                160
-                            ],
-                            "status": "success",
-                            "message": "Arrival 131.91 within [130, 160]"
+                            "message": "Arrival 121.39 within [0, 205]"
                         },
                         {
                             "order_id": 74,
-                            "arrival_time": 155.52,
+                            "arrival_time": 146.39,
                             "time_window": [
                                 139,
                                 169
                             ],
                             "status": "success",
-                            "message": "Arrival 155.52 within [139, 169]"
+                            "message": "Arrival 146.39 within [139, 169]"
+                        },
+                        {
+                            "order_id": 54,
+                            "arrival_time": 160.0,
+                            "time_window": [
+                                130,
+                                160
+                            ],
+                            "status": "success",
+                            "message": "Arrival 160.0 within [130, 160]"
+                        },
+                        {
+                            "order_id": 80,
+                            "arrival_time": 185.83,
+                            "time_window": [
+                                168,
+                                198
+                            ],
+                            "status": "success",
+                            "message": "Arrival 185.83 within [168, 198]"
                         }
                     ]
                 }
@@ -1274,11 +1424,35 @@
                         {
                             "segment_index": 0,
                             "order_ids": [
-                                72,
-                                39,
-                                67,
-                                55,
-                                24
+                                42,
+                                14,
+                                16,
+                                38,
+                                46,
+                                17,
+                                83
+                            ],
+                            "total_volume": 74,
+                            "capacity": 91,
+                            "status": "success",
+                            "message": "Volume 74 <= capacity 91"
+                        }
+                    ],
+                    "max_capacity": 91
+                },
+                {
+                    "vehicle_id": 2,
+                    "status": "success",
+                    "segments": [
+                        {
+                            "segment_index": 0,
+                            "order_ids": [
+                                33,
+                                3,
+                                34,
+                                81,
+                                35,
+                                77
                             ],
                             "total_volume": 86,
                             "capacity": 91,
@@ -1289,7 +1463,72 @@
                     "max_capacity": 91
                 },
                 {
-                    "vehicle_id": 2,
+                    "vehicle_id": 3,
+                    "status": "success",
+                    "segments": [
+                        {
+                            "segment_index": 0,
+                            "order_ids": [
+                                52,
+                                63,
+                                71,
+                                20,
+                                66,
+                                50
+                            ],
+                            "total_volume": 81,
+                            "capacity": 91,
+                            "status": "success",
+                            "message": "Volume 81 <= capacity 91"
+                        }
+                    ],
+                    "max_capacity": 91
+                },
+                {
+                    "vehicle_id": 4,
+                    "status": "success",
+                    "segments": [
+                        {
+                            "segment_index": 0,
+                            "order_ids": [
+                                5,
+                                45,
+                                7,
+                                18,
+                                8,
+                                60,
+                                82
+                            ],
+                            "total_volume": 87,
+                            "capacity": 91,
+                            "status": "success",
+                            "message": "Volume 87 <= capacity 91"
+                        }
+                    ],
+                    "max_capacity": 91
+                },
+                {
+                    "vehicle_id": 5,
+                    "status": "success",
+                    "segments": [
+                        {
+                            "segment_index": 0,
+                            "order_ids": [
+                                36,
+                                64,
+                                49,
+                                48
+                            ],
+                            "total_volume": 80,
+                            "capacity": 91,
+                            "status": "success",
+                            "message": "Volume 80 <= capacity 91"
+                        }
+                    ],
+                    "max_capacity": 91
+                },
+                {
+                    "vehicle_id": 6,
                     "status": "success",
                     "segments": [
                         {
@@ -1312,111 +1551,24 @@
                     "max_capacity": 91
                 },
                 {
-                    "vehicle_id": 3,
-                    "status": "success",
-                    "segments": [
-                        {
-                            "segment_index": 0,
-                            "order_ids": [
-                                7,
-                                18,
-                                8,
-                                60,
-                                5,
-                                59
-                            ],
-                            "total_volume": 83,
-                            "capacity": 91,
-                            "status": "success",
-                            "message": "Volume 83 <= capacity 91"
-                        }
-                    ],
-                    "max_capacity": 91
-                },
-                {
-                    "vehicle_id": 4,
-                    "status": "success",
-                    "segments": [
-                        {
-                            "segment_index": 0,
-                            "order_ids": [
-                                2,
-                                15,
-                                57,
-                                41,
-                                75,
-                                58
-                            ],
-                            "total_volume": 63,
-                            "capacity": 91,
-                            "status": "success",
-                            "message": "Volume 63 <= capacity 91"
-                        }
-                    ],
-                    "max_capacity": 91
-                },
-                {
-                    "vehicle_id": 5,
-                    "status": "success",
-                    "segments": [
-                        {
-                            "segment_index": 0,
-                            "order_ids": [
-                                3,
-                                34,
-                                81,
-                                20,
-                                35,
-                                50
-                            ],
-                            "total_volume": 83,
-                            "capacity": 91,
-                            "status": "success",
-                            "message": "Volume 83 <= capacity 91"
-                        }
-                    ],
-                    "max_capacity": 91
-                },
-                {
-                    "vehicle_id": 6,
-                    "status": "success",
-                    "segments": [
-                        {
-                            "segment_index": 0,
-                            "order_ids": [
-                                33,
-                                29,
-                                78,
-                                9,
-                                68,
-                                77
-                            ],
-                            "total_volume": 89,
-                            "capacity": 91,
-                            "status": "success",
-                            "message": "Volume 89 <= capacity 91"
-                        }
-                    ],
-                    "max_capacity": 91
-                },
-                {
                     "vehicle_id": 7,
                     "status": "success",
                     "segments": [
                         {
                             "segment_index": 0,
                             "order_ids": [
-                                31,
-                                36,
-                                6,
-                                48,
-                                1,
-                                52
+                                59,
+                                37,
+                                44,
+                                61,
+                                84,
+                                43,
+                                2
                             ],
-                            "total_volume": 90,
+                            "total_volume": 88,
                             "capacity": 91,
                             "status": "success",
-                            "message": "Volume 90 <= capacity 91"
+                            "message": "Volume 88 <= capacity 91"
                         }
                     ],
                     "max_capacity": 91
@@ -1428,17 +1580,16 @@
                         {
                             "segment_index": 0,
                             "order_ids": [
-                                63,
-                                30,
-                                51,
-                                66,
-                                10,
-                                70
+                                72,
+                                39,
+                                67,
+                                55,
+                                24
                             ],
-                            "total_volume": 87,
+                            "total_volume": 86,
                             "capacity": 91,
                             "status": "success",
-                            "message": "Volume 87 <= capacity 91"
+                            "message": "Volume 86 <= capacity 91"
                         }
                     ],
                     "max_capacity": 91
@@ -1450,16 +1601,16 @@
                         {
                             "segment_index": 0,
                             "order_ids": [
-                                14,
-                                16,
-                                38,
-                                43,
-                                13
+                                27,
+                                29,
+                                78,
+                                9,
+                                68
                             ],
-                            "total_volume": 85,
+                            "total_volume": 80,
                             "capacity": 91,
                             "status": "success",
-                            "message": "Volume 85 <= capacity 91"
+                            "message": "Volume 80 <= capacity 91"
                         }
                     ],
                     "max_capacity": 91
@@ -1471,17 +1622,15 @@
                         {
                             "segment_index": 0,
                             "order_ids": [
-                                42,
-                                45,
-                                44,
-                                84,
-                                46,
-                                17
+                                11,
+                                19,
+                                31,
+                                6
                             ],
-                            "total_volume": 49,
+                            "total_volume": 59,
                             "capacity": 91,
                             "status": "success",
-                            "message": "Volume 49 <= capacity 91"
+                            "message": "Volume 59 <= capacity 91"
                         }
                     ],
                     "max_capacity": 91
@@ -1493,16 +1642,17 @@
                         {
                             "segment_index": 0,
                             "order_ids": [
-                                27,
-                                69,
-                                11,
-                                19,
-                                49
+                                15,
+                                57,
+                                41,
+                                75,
+                                13,
+                                58
                             ],
-                            "total_volume": 81,
+                            "total_volume": 79,
                             "capacity": 91,
                             "status": "success",
-                            "message": "Volume 81 <= capacity 91"
+                            "message": "Volume 79 <= capacity 91"
                         }
                     ],
                     "max_capacity": 91
@@ -1514,17 +1664,41 @@
                         {
                             "segment_index": 0,
                             "order_ids": [
+                                69,
+                                30,
+                                51,
+                                10,
+                                32,
+                                70,
+                                1
+                            ],
+                            "total_volume": 91,
+                            "capacity": 91,
+                            "status": "success",
+                            "message": "Volume 91 <= capacity 91"
+                        }
+                    ],
+                    "max_capacity": 91
+                },
+                {
+                    "vehicle_id": 13,
+                    "status": "success",
+                    "segments": [
+                        {
+                            "segment_index": 0,
+                            "order_ids": [
                                 28,
                                 76,
                                 40,
                                 12,
+                                74,
                                 54,
-                                74
+                                80
                             ],
-                            "total_volume": 83,
+                            "total_volume": 89,
                             "capacity": 91,
                             "status": "success",
-                            "message": "Volume 83 <= capacity 91"
+                            "message": "Volume 89 <= capacity 91"
                         }
                     ],
                     "max_capacity": 91
