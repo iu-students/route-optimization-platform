@@ -27,7 +27,6 @@ This handover covers the transfer of operational ownership and knowledge for the
     - User rights to use the API service
     - Administrator rights to the repository
 - **Retained by Team:** 
-    - Development and maintenance of MVPv3
     - Administrator rights to the repository
 
 ---
