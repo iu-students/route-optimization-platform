@@ -106,9 +106,13 @@ A public release (v0.4.0) will be created.
 
 **Finish date:** 19.07.2026
 
-**Sprint Goal:** Final stabilization, bug fixing, performance optimization, and complete polishing of the product. Preparation of the final version MVPv3 and delivery of all remaining Product Backlog Items to ensure the platform is fully production-ready.
+**Sprint Goal:** Final stabilization, performance optimization, and complete polishing of the product and documentation. Preparation of the final version MVPv3 and delivery of all remaining Product Backlog Items to ensure the platform is fully production-ready.
 
-**Expected outcome:** New version of service works on the server, all remaining PBIs from Backlog are closed.
-A public release (v0.5.0) will be created. The product is fully aligned with the initial project vision and ready for handover.
+**Expected outcome:** New version of service works on the server, TT-21 and TT-22 are closed.
+A public release (v1.0.0) will be created. The product is fully aligned with the initial project vision and ready for handover.
 
-**Planned items:** TBD
+**Planned items:** 
+- Tasks:
+   - [TT-21](https://github.com/iu-students/route-optimization-platform/issues/103)
+   - [TT-22](https://github.com/iu-students/route-optimization-platform/issues/104)
+
