@@ -7,7 +7,7 @@ This guide covers how to contribute changes to the Route Optimization Platform. 
 ```bash
 cp .env.example .env
 docker compose up --build -d
-curl http://localhost:5002/health
+curl http://localhost:5003/health
 ```
 
 Set `API_KEY` inside `.env` before starting.
@@ -22,16 +22,10 @@ pip install flask flask-cors numpy pyvrp ortools openpyxl pytest pytest-cov cove
 
 Run the same test jobs CI runs.
 
-MVPv1 / MVPv1.2 logic tests:
+MVPv3 logic tests:
 
 ```bash
-python -m pytest tests/ --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
-```
-
-MVPv2 logic tests:
-
-```bash
-TEST_TARGET=v2 python -m pytest tests/ --ignore=tests/test_main.py --ignore=tests/test_integration_cpsat.py --ignore=tests/test_tester.py --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
+TEST_TARGET=v3 python -m pytest tests/ --ignore=tests/test_main.py --ignore=tests/test_integration_cpsat.py --ignore=tests/test_tester.py --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py -v
 ```
 
 Coverage:
