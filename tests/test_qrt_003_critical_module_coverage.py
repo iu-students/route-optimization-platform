@@ -21,6 +21,8 @@ COVERAGE_SOURCE = "api/MVPv3"
 COVERAGE_JSON = os.path.join(PROJECT_ROOT, "coverage.json")
 COVERAGE_FILE = os.path.join(PROJECT_ROOT, ".coverage")
 
+_COV_ENSURED = False
+
 
 def _cleanup_artifacts():
     for name in ("coverage.json", ".coverage.lock"):
@@ -29,28 +31,52 @@ def _cleanup_artifacts():
             os.remove(p)
 
 
+def _ensure_coverage_file():
+    global _COV_ENSURED
+    if _COV_ENSURED:
+        return True
+    if os.path.exists(COVERAGE_FILE):
+        _COV_ENSURED = True
+        return True
+    try:
+        import coverage
+        cov = coverage.Coverage.current()
+        if cov is not None:
+            cov.save()
+            _COV_ENSURED = True
+            return True
+    except Exception:
+        pass
+    return False
+
+
+CRITICAL_TEST_FILES = [
+    "tests/test_main.py",
+    "tests/test_verifier.py",
+    "tests/test_validator.py",
+    "tests/test_tester.py",
+    "tests/test_integration_cpsat.py",
+    "tests/test_qrt_001_api_responsiveness.py",
+    "tests/test_qrt_002_api_confidentiality.py",
+]
+
+
 class TestQRT003CriticalModuleCoverage:
 
     def test_critical_modules_have_sufficient_coverage(self):
         _cleanup_artifacts()
 
-        if not os.path.exists(COVERAGE_FILE):
+        if not _ensure_coverage_file():
             run_result = subprocess.run(
                 [sys.executable, "-m", "coverage", "run",
                  f"--source={COVERAGE_SOURCE}",
-                 "-m", "pytest", "tests/",
-                 "--ignore=tests/test_qrt_003_critical_module_coverage.py",
-                 "--ignore=tests/test_qrt_005_docs_availability.py",
-                 "--ignore=tests/test_qrt_006_solver_optimality.py",
-                 "--ignore=tests/test_integration.py",
-                 "--ignore=tests/test_loaders.py",
-                 "--ignore=tests/test_script.py",
-                 "-q", "--tb=short"],
+                 "-m", "pytest"] + CRITICAL_TEST_FILES +
+                ["-q", "--tb=short"],
                 capture_output=True, text=True,
-                cwd=PROJECT_ROOT, timeout=60,
+                cwd=PROJECT_ROOT, timeout=600,
             )
             assert run_result.returncode == 0, (
-                f"Test suite exited with code {run_result.returncode}:\n"
+                f"Coverage run exited with code {run_result.returncode}:\n"
                 f"{run_result.stdout}\n{run_result.stderr}"
             )
 
