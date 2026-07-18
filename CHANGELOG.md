@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
+## [1.0.0] - 2026-07-19
+
+### Added
+
 - Inter-route order exchange: solver now attempts to move or swap orders between vehicles, accepting only cost-reducing moves that preserve route validity
 - `optional_penalty_factor` request parameter to tune optional-order skip aggressiveness without affecting final cost comparison
 
@@ -21,15 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Progress output is flushed immediately for better visibility in Docker/log environments
 - OR-Tools (when enabled) runs once at startup instead of once per attempt
 
-### Deprecated
-
 ### Removed
 
-- PyVRP pipeline — fully removed; all solving now goes through the CP-SAT solver
+- PyVRP pipeline - fully removed; all solving now goes through the CP-SAT solver
 
 ### Fixed
 
-- Route-merge function no longer overwrites correct departure times with the old formula — this was silently breaking optimized departure times and causing false shift-overrun violations
+- Route-merge function no longer overwrites correct departure times with the old formula - this was silently breaking optimized departure times and causing false shift-overrun violations
 
 
 ## [0.4.0] - 2026-07-12
