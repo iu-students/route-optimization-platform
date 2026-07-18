@@ -42,15 +42,34 @@ def _cleanup_artifacts():
             os.remove(p)
 
 
+_RELOAD_MODULES = [
+    "Web.app",
+    "Web.validator",
+    "Shared.models",
+    "Shared.verifier",
+    "Shared.history",
+    "CP-SAT.main",
+    "CP-SAT.vehicle_routes",
+    "CP-SAT.loader_routes",
+]
+
+
 def _run_critical_tests_under_coverage():
     try:
         import coverage as _cmod
         import pytest as _ptmod
+        import importlib as _il
     except ImportError:
         return False
     try:
         cov = _cmod.Coverage(source=[COVERAGE_SOURCE])
         cov.start()
+        for _m in _RELOAD_MODULES:
+            if _m in sys.modules:
+                try:
+                    _il.reload(sys.modules[_m])
+                except Exception:
+                    pass
         exit_code = _ptmod.main(
             CRITICAL_TEST_FILES + ["-q", "--tb=short", "--no-header", "-p", "no:cacheprovider"],
             plugins=[],
