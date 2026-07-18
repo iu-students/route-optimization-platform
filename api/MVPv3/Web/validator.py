@@ -462,9 +462,8 @@ class Validator:
                 + str(unachievable
                       .assign(released=lambda df: df['time'] + df[service_time_name])
                       [[NAMES.ID, 'next_point', 'released', 'travel_time', 'min_correct_time', 'next_time']]
-                      .rename(
-                    columns={NAMES.ID: f'{name}_id', 'next_point': 'point',
-                             'next_time': 'solution_time', })
+                      .rename(columns={NAMES.ID: f'{name}_id', 'next_point': 'point',
+                                       'next_time': 'solution_time'})
                       .set_index(f'{name}_id')
                       .to_string()
                       )
@@ -513,7 +512,7 @@ class Validator:
             .query(f'{NAMES.VOLUME} > {self.params[NAMES.VEH_CAPACITY]}')
         )
         if not capacities.empty:
-            self._logger.warning(f"\nVehicle with violation of capacity: "
+            self._logger.warning("\nVehicle with violation of capacity: "
                                  + ', '.join([str(_) for _ in capacities.index.values])
                                  )
             self.violations[OUTPUT.veh_cap] = capacities.shape[0]
@@ -841,7 +840,7 @@ def _unique_sheet_name(wb: Workbook, desired: str) -> str:
 
 
 def export_excel(out_path: str, sheet_name: str, result: "Validator", result_label: str,
-                  baseline: "Validator" = None, baseline_label: str = "BASELINE") -> str:
+                 baseline: "Validator" = None, baseline_label: str = "BASELINE") -> str:
     """Записывает результат валидации (и, если есть, сравнение с baseline) на новый лист
     файла out_path. Если файл уже существует -- добавляет лист, не трогая остальные."""
 
@@ -954,9 +953,11 @@ if __name__ == '__main__':
                 f"\nBaseline file not found: {baseline_file_path}. Skipping comparison.")
             baseline_validator = None
         else:
-            result_validator.compare_with_baseline(baseline_validator,
-                                                    our_label=result_file_name,
-                                                    baseline_label=baseline_file_name)
+            result_validator.compare_with_baseline(
+                baseline_validator,
+                our_label=result_file_name,
+                baseline_label=baseline_file_name,
+            )
 
     sheet_name = f"{datetime.now():%Y-%m-%d %H-%M-%S} {task_name}"
     saved_sheet = export_excel(args.excel_out, sheet_name, result_validator,

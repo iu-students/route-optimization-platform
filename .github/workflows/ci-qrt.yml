@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install flask flask-cors numpy pyvrp ortools openpyxl pytest pytest-cov coverage
+          pip install flask flask-cors numpy ortools openpyxl pytest pytest-cov coverage
       - name: Run QRTs
         env:
           TEST_TARGET: v3
