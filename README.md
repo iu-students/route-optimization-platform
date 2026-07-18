@@ -81,8 +81,8 @@ Use the dropdown at the top of Swagger UI to switch between MVP versions. Curren
 - **POST /solve** - Start route optimization calculation.
 - **GET /solution** - Get the computed optimal route after `/solve` completes.
 - **GET /metrics** - Get cost breakdown statistics for the last completed solution.
-- **GET /history** — List past calculations with summary metadata.
-- **GET /history/{id}** — Get full calculation details including input/output files.
+- **GET /history** - List past calculations with summary metadata.
+- **GET /history/{id}** - Get full calculation details including input/output files.
 - **POST /validate** - Validate input JSON without solving.
 - **GET /health** - Check server status.
 
