@@ -12,9 +12,7 @@ routes_pool.json
 /input.json
 /loaders_task_list.json
 /output.json
-data/input.json
-data/loaders_task_list.json
-data/output.json
+data/
 all_possible_vehicles_routes.json
 all_possible_loaders_routes.json
 solution.json

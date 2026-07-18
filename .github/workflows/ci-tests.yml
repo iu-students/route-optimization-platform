@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  logic-tests-mvpv1:
+  logic-tests-mvpv3:
     name: Unit & integration
     runs-on: ubuntu-latest
     steps:
@@ -20,25 +20,10 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install flask flask-cors numpy pyvrp ortools openpyxl pytest
-      - name: Run logic tests (MVPv1)
-        run: python -m pytest tests/ --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py --ignore=tests/test_qrt_004_solver_completion_time.py --ignore=tests/test_qrt_006_solver_optimality.py -v
-
-  logic-tests-mvpv2:
-    name: Unit & integration
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install flask flask-cors numpy pyvrp ortools openpyxl pytest
-      - name: Run logic tests (MVPv2.2)
+      - name: Run logic tests (MVPv3)
         env:
-          TEST_TARGET: v2
-        run: python -m pytest tests/ --ignore=tests/test_main.py --ignore=tests/test_integration_cpsat.py --ignore=tests/test_tester.py --ignore=tests/test_qrt_001_api_responsiveness.py --ignore=tests/test_qrt_002_api_confidentiality.py --ignore=tests/test_qrt_003_critical_module_coverage.py --ignore=tests/test_qrt_004_solver_completion_time.py --ignore=tests/test_qrt_006_solver_optimality.py -v
+          TEST_TARGET: v3
+        run: python -m pytest tests/ --ignore=tests/test_qrt_004_solver_completion_time.py --ignore=tests/test_qrt_006_solver_optimality.py -v
 
   coverage:
     name: Coverage report
@@ -53,6 +38,10 @@ jobs:
           pip install --upgrade pip
           pip install flask flask-cors numpy pyvrp ortools openpyxl pytest pytest-cov
       - name: Run tests with coverage
+        env:
+          TEST_TARGET: v3
         run: python -m pytest tests/ --cov-config=coveragerc --cov --ignore=tests/test_qrt_004_solver_completion_time.py --ignore=tests/test_qrt_006_solver_optimality.py -v
       - name: Report coverage
+        env:
+          TEST_TARGET: v3
         run: python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_qrt_004_solver_completion_time.py --ignore=tests/test_qrt_006_solver_optimality.py

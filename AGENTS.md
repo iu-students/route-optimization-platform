@@ -19,39 +19,11 @@ pip install flask flask-cors numpy pyvrp ortools openpyxl pytest pytest-cov cove
 
 ## Test
 
+All tests target MVPv3 (CP-SAT solver). The default `TEST_TARGET` in `conftest.py` is `v3`.
+
 Full suite:
 ```bash
 python -m pytest tests/ -v
-```
-
-MVPv1/MVPv1.2 subset (default `TEST_TARGET`, per `conftest.py`):
-```bash
-python -m pytest tests/ \
-  --ignore=tests/test_qrt_001_api_responsiveness.py \
-  --ignore=tests/test_qrt_002_api_confidentiality.py \
-  --ignore=tests/test_qrt_003_critical_module_coverage.py -v
-```
-
-MVPv2 subset:
-```bash
-TEST_TARGET=v2 python -m pytest tests/ \
-  --ignore=tests/test_main.py \
-  --ignore=tests/test_integration_cpsat.py \
-  --ignore=tests/test_tester.py \
-  --ignore=tests/test_qrt_001_api_responsiveness.py \
-  --ignore=tests/test_qrt_002_api_confidentiality.py \
-  --ignore=tests/test_qrt_003_critical_module_coverage.py -v
-```
-
-MVPv3 subset (CP-SAT solver):
-```bash
-TEST_TARGET=v3 python -m pytest tests/ \
-  --ignore=tests/test_loaders.py \
-  --ignore=tests/test_script.py \
-  --ignore=tests/test_integration.py \
-  --ignore=tests/test_qrt_001_api_responsiveness.py \
-  --ignore=tests/test_qrt_002_api_confidentiality.py \
-  --ignore=tests/test_qrt_003_critical_module_coverage.py -v
 ```
 
 Quality requirement tests (QRT):
@@ -59,12 +31,13 @@ Quality requirement tests (QRT):
 python -m pytest tests/test_qrt_001_api_responsiveness.py \
   tests/test_qrt_002_api_confidentiality.py \
   tests/test_qrt_003_critical_module_coverage.py \
-  tests/test_qrt_004_solver_completion_time.py \
   tests/test_qrt_005_docs_availability.py -v
 ```
-Note: `test_qrt_001`/`test_qrt_002` use the `client`/`app` fixtures from `conftest.py`, which target `api/MVPv2.2/Web/app.py` when `TEST_TARGET=v2` (the default), or `api/MVPv3/Web/app.py` when `TEST_TARGET=v3`.
+Note: `test_qrt_001`/`test_qrt_002` use the `client`/`app` fixtures from `conftest.py`, which target `api/MVPv3/Web/app.py`.
 
-Coverage (config: `coveragerc`, sources `api/MVPv2.2, api/MVPv3`):
+Manual-only (not in CI): `test_qrt_004_solver_completion_time.py`, `test_qrt_006_solver_optimality.py`
+
+Coverage (config: `coveragerc`, sources `api/MVPv3`):
 ```bash
 python -m pytest tests/ --cov-config=coveragerc --cov --cov-report=term-missing --cov-report=xml
 ```
@@ -82,7 +55,7 @@ bandit -r api/ -ll
 - Open a PR against `main`. Approval from any other team member is required before merge.
 - CI runs on every PR (open/sync/reopen) and on push to `main`, and must pass before merge:
   - `ci-file-checks.yml` - flake8 + bandit
-  - `ci-tests.yml` - unit/integration tests (MVPv1 and MVPv2 subsets) + coverage
+  - `ci-tests.yml` - unit/integration tests (MVPv3) + coverage
   - `ci-qrt.yml` - quality requirement tests
   - `ci-link-check.yml` - markdown link check (lychee)
 

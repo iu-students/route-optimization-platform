@@ -21,4 +21,6 @@ jobs:
           pip install --upgrade pip
           pip install flask flask-cors numpy pyvrp ortools openpyxl pytest pytest-cov coverage
       - name: Run QRTs
+        env:
+          TEST_TARGET: v3
         run: python -m pytest tests/test_qrt_001_api_responsiveness.py tests/test_qrt_002_api_confidentiality.py tests/test_qrt_003_critical_module_coverage.py tests/test_qrt_005_docs_availability.py -v
