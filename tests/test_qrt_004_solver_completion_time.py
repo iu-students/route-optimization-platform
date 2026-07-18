@@ -4,7 +4,9 @@ import sys
 import time
 import pytest
 
-_BASE = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "api", "MVPv2.2", "CP-SAT"))
+TEST_TARGET = os.environ.get("TEST_TARGET", "v3")
+_BASE = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "api", "MVPv3", "CP-SAT"))
+
 sys.path.insert(0, _BASE)
 
 try:

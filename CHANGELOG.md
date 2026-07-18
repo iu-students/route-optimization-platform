@@ -19,6 +19,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+
+## [1.0.0] - 2026-07-18
+
+### Added
+
+- Inter-route order exchange: solver now attempts to move or swap orders between vehicles, accepting only cost-reducing moves that preserve route validity
+- `optional_penalty_factor` request parameter to tune optional-order skip aggressiveness without affecting final cost comparison
+
+### Changed
+
+- Vehicle departure time is now chosen to minimize idle-on-shift: the vehicle waits at the depot instead of arriving early and burning shift time at customer sites
+- Optional order skipping now evaluates two candidate sets (conservative and aggressive), runs both, and keeps the cheaper result
+- Solver runs multiple attempts from scratch on small tests (when time permits) and returns the best result
+- Remaining time budget is fully utilized: a squeezed attempt runs if possible, followed by continuous polish of the best solution until the deadline
+- Progress output is flushed immediately for better visibility in Docker/log environments
+- OR-Tools (when enabled) runs once at startup instead of once per attempt
+
+### Removed
+
+- PyVRP pipeline - fully removed; all solving now goes through the CP-SAT solver
+
+### Fixed
+
+- Route-merge function no longer overwrites correct departure times with the old formula - this was silently breaking optimized departure times and causing false shift-overrun violations
+
+
 ## [0.4.0] - 2026-07-12
 
 ### Added
@@ -34,16 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Each record contains `calculation_id`, `timestamp`, `execution_time`, `objective_function_cost`, and `status`
 - Added `GET /history/{calculation_id}` endpoint returning full calculation details including input/output JSON files and metadata ([#TT-20](https://github.com/iu-students/route-optimization-platform/issues/97))
 - Added 404 response for requests to non-existent `calculation_id` ([#TT-20](https://github.com/iu-students/route-optimization-platform/issues/97))
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 
 ## [0.3.0] - 2026-07-05
 
