@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 import json
+import textwrap
 import pytest
 
 
@@ -42,44 +43,50 @@ def _cleanup_artifacts():
             os.remove(p)
 
 
-_RELOAD_MODULES = [
-    "app",
-    "Web.validator",
-    "Shared.models",
-    "Shared.verifier",
-    "Shared.history",
-    "CP-SAT.main",
-    "main",
-    "vehicle_routes",
-    "loader_routes",
-]
+_COV_SCRIPT = textwrap.dedent("""\
+    import sys, os
+    sys.path[:] = {sys_path!r}
+    os.chdir({cwd!r})
+    import coverage as _cmod
+    _cov = _cmod.Coverage(source=[{source!r}])
+    _cov.start()
+    _RELOAD = {reload!r}
+    import importlib as _il
+    for _m in _RELOAD:
+        if _m in sys.modules:
+            try:
+                _il.reload(sys.modules[_m])
+            except Exception:
+                pass
+    import pytest
+    _exit = pytest.main({test_files!r} + ["-q", "--tb=short", "-p", "no:cacheprovider"])
+    _cov.stop()
+    _cov.save()
+    sys.exit(_exit)
+""")
 
 
 def _run_critical_tests_under_coverage():
-    try:
-        import coverage as _cmod
-        import pytest as _ptmod
-        import importlib as _il
-    except ImportError:
-        return False
-    try:
-        cov = _cmod.Coverage(source=[COVERAGE_SOURCE])
-        cov.start()
-        for _m in _RELOAD_MODULES:
-            if _m in sys.modules:
-                try:
-                    _il.reload(sys.modules[_m])
-                except Exception:
-                    pass
-        exit_code = _ptmod.main(
-            CRITICAL_TEST_FILES + ["-q", "--tb=short", "--no-header", "-p", "no:cacheprovider"],
-            plugins=[],
-        )
-        cov.stop()
-        cov.save()
-        return exit_code == 0
-    except Exception:
-        return False
+    _cleanup_artifacts()
+    script = _COV_SCRIPT.format(
+        sys_path=sys.path,
+        cwd=PROJECT_ROOT,
+        source=COVERAGE_SOURCE,
+        reload=[
+            "app", "Web.validator", "Shared.models", "Shared.verifier",
+            "Shared.history", "CP-SAT.main", "main",
+            "vehicle_routes", "loader_routes",
+        ],
+        test_files=CRITICAL_TEST_FILES,
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", script],
+        capture_output=True, text=True,
+        cwd=PROJECT_ROOT, timeout=600,
+    )
+    if result.returncode != 0:
+        print(f"[qrt003] subprocess pytest stderr:\n{result.stderr}", file=sys.stderr)
+    return result.returncode == 0
 
 
 def _has_critical_module_data():
@@ -130,11 +137,15 @@ def _load_coverage_from_api():
         files = {}
         for fpath in cov.get_data().measured_files():
             try:
-                analysis = cov.analysis(fpath)
+                r = cov.analysis(fpath)
             except Exception:
                 continue
-            stmts = list(analysis.statements)
-            missing = list(analysis.missing)
+            if isinstance(r, tuple):
+                stmts = list(r[1])
+                missing = list(r[2])
+            else:
+                stmts = list(r.statements)
+                missing = list(r.missing)
             total = len(stmts)
             executed = total - len(missing)
             pct = round(executed / total * 100, 1) if total > 0 else 100.0
