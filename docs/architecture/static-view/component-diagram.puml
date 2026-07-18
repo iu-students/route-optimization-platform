@@ -1,0 +1,110 @@
+@startuml component-diagram
+title Route Optimization Platform - Component Diagram (Static View)
+
+skinparam componentStyle rectangle
+skinparam wrapWidth 200
+skinparam shadowing false
+
+actor "API Client" as Client
+actor "Developer (CLI)" as Developer
+
+package "API Layer" {
+  [Flask API\n(Web/app.py)] as API
+  [Validator\n(Web/validator.py)] as Validator
+}
+
+package "CP-SAT Pipeline (single production pipeline)" {
+  [Orchestrator\n(CP-SAT/main.py)] as MainOrchestrator
+  [Vehicle Routes Solver\n(CP-SAT/vehicle_routes.py)] as VehicleRoutesSolver
+  [Loader Routes Solver\n(CP-SAT/loader_routes.py)] as LoaderRoutesSolver
+  [Common Utils\n(CP-SAT/common_functions.py)] as CommonUtils
+}
+
+package "Shared" {
+  [Models / Dataclasses\n(Shared/models.py)] as Models
+  [Verifier\n(Shared/verifier.py)] as Verifier
+  [History\n(Shared/history.py)] as History
+  database "Data Storage\n(input/output.json,\nlive scratch files)" as DataStorage
+  folder "Per-calculation snapshots\n(data/inputs/{id}.json,\ndata/outputs/{id}.json)" as Snapshots
+  database "history.db\n(SQLite, calculation_history)" as HistoryDB
+}
+
+package "Offline Tools" {
+  [Tester\n(tester.py)] as Tester
+  folder "instances/\n(TASK.json, output_TASK.json)" as TestCases
+  file "comparison.xlsx" as ComparisonFile
+  [Solution Validator CLI\n(Validator class in Web/validator.py)] as OfflineValidator
+}
+
+Models -[hidden]d-> Developer
+
+Client --> API : POST /solve, GET /solution\nPOST /validate, GET /metrics\nGET /history, GET /history/{id}
+API --> Validator : validate_input()
+API --> History : start_calculation()\nfinish_success() / finish_error()\nget_all() / get_by_id()
+History --> HistoryDB : SQL read/write
+History --> Snapshots : write input/output\nJSON per calculation_id
+API --> MainOrchestrator : solve_pipeline()
+MainOrchestrator --> VehicleRoutesSolver
+MainOrchestrator --> LoaderRoutesSolver
+VehicleRoutesSolver --> CommonUtils
+LoaderRoutesSolver --> CommonUtils
+MainOrchestrator --> Models
+VehicleRoutesSolver --> Models
+LoaderRoutesSolver --> Models
+MainOrchestrator --> DataStorage : read input.json\nwrite output.json
+MainOrchestrator --> Verifier : run_verification()
+API --> DataStorage : read output.json\n(GET /metrics, no orchestrator call)
+
+Developer --> Tester : python tester.py
+Tester ..> TestCases : reads (baseline is a\nstatic file, not live PyVRP)
+Tester ..> ComparisonFile : appends sheet
+Developer --> OfflineValidator : python validator.py --dir ...
+OfflineValidator ..> TestCases : reads input/result/\nbaseline files
+OfflineValidator ..> ComparisonFile : appends sheet\n(separate report,\nnot code-shared with Verifier)
+
+note bottom of VehicleRoutesSolver
+  Pool via Clarke-Wright + randomized insertion
+  (optionally seeded once by a one-time OR-Tools
+  run, reused by every attempt). CP-SAT selects
+  the optimal subset via set-partitioning.
+  Post-processing: consolidate_routes(),
+  reduce_vehicles_by_merge(),
+  inter_route_local_search(),
+  merge_multi_trip_routes().
+end note
+
+note bottom of MainOrchestrator
+  Runs a multi-start loop: independent full
+  attempts, keeps the one with lowest real
+  total_cost, then an LNS polish phase
+  (perturb + re-improve) with remaining time.
+  Feedback iteration drops optional orders
+  unprofitable on BOTH the vehicle side (exact
+  marginal savings) and loader side, re-selects
+  from the same pool. One shared deadline
+  (max_total_time, default 840s), budgets
+  scaled by instance size - see ADR-005, ADR-008.
+end note
+
+note bottom of Verifier
+  Used only by this pipeline now that Pipeline B
+  (PyVRP) has been removed - see ADR-009.
+  Verifies shift times, time windows, and
+  vehicle capacity against the solution.
+end note
+
+note right of OfflineValidator
+  Independent of Shared/verifier.py: its own
+  constraint checks, baseline comparison, and
+  Excel export. Not wired to the Flask app.
+end note
+
+note right of History
+  Records one row per /solve call: timestamp,
+  execution_time, objective_function_cost,
+  status (processing/success/error), and paths
+  to the per-calculation input/output snapshots.
+  See ADR-007. Only used by the API layer.
+end note
+
+@enduml
