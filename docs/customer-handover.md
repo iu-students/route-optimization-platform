@@ -83,7 +83,7 @@ Follow  these steps to set up the product for the first time:
 4. **Verify Installation:**
 
    ```bash
-   curl http://localhost:5002/health
+   curl http://localhost:5003/health
    ```
 
    Expected response: `{"status":"ok"}`.
