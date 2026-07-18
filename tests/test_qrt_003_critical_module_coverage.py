@@ -44,8 +44,8 @@ def _cleanup_artifacts():
 
 
 _COV_SCRIPT = textwrap.dedent("""\
-    import sys, os
-    sys.path[:] = {sys_path!r}
+    import os, sys
+    sys.path.insert(0, {project_root!r})
     os.chdir({cwd!r})
     import coverage as _cmod
     _cov = _cmod.Coverage(source=[{source!r}])
@@ -69,7 +69,7 @@ _COV_SCRIPT = textwrap.dedent("""\
 def _run_critical_tests_under_coverage():
     _cleanup_artifacts()
     script = _COV_SCRIPT.format(
-        sys_path=sys.path,
+        project_root=PROJECT_ROOT,
         cwd=PROJECT_ROOT,
         source=COVERAGE_SOURCE,
         reload=[
