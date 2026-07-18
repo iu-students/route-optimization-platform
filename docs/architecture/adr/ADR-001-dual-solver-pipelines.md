@@ -1,6 +1,6 @@
-# ADR-001: Maintain Two Independent Solver Pipelines (CP-SAT and PyVRP)
+# ADR-001: Maintain Two Independent Solver Pipelines
 
-**Status:** Accepted
+**Status:** Declined / Superseded as of MVPv3 by [ADR-001: Consolidate to a Single CP-SAT Solver Pipeline](ADR-001-single-solver-pipeline.md). This record is kept for historical context; do not treat it as the current architecture.
 
 **Quality requirements addressed:** QR-003
 
@@ -22,42 +22,46 @@ The team needed to decide whether to keep both pipelines or consolidate into one
 
 ## Decision
 
-Keep both pipelines as separate, non-unified code paths. Do not merge them into a
-shared solver abstraction. Pipeline A remains the only one wired to the API.
+Keep both pipelines. Pipeline A remains the only one wired to the API; Pipeline B
+is retained purely as an independent, manually-invoked baseline for offline
+comparison via `tester.py`.
 
 ## Rationale
 
-- An independently implemented algorithm (PyVRP + greedy heuristic) gives a
-  genuine baseline for solution-quality comparison. A shared abstraction between
-  the two would defeat this purpose - bugs or bias in one implementation could
-  propagate into the other.
-- Pipeline A can evolve (different heuristics, different constraints) without
-  needing to keep the comparison baseline synchronized.
-- Unifying them now would require redesigning both around a common interface,
-  a cost not currently justified by the product's needs.
+- Pipeline B provides a genuinely independent cross-check on solution quality: a
+  bug or systematic bias in Pipeline A's heuristics is unlikely to also exist in
+  PyVRP's differently-implemented solver.
+- `tester.py` already depends on Pipeline B's output as its baseline; removing it
+  would require sourcing a baseline some other way.
+- The two pipelines are cleanly separated (different files, no shared solver
+  code beyond `Shared/models.py` and `Shared/verifier.py`), so maintaining both
+  does not require constant synchronization of internals - only of the shared
+  data contracts.
 
 ## Consequences
 
 ### Positive
 
-- Solution quality can be independently verified by comparing Pipeline A against
-  Pipeline B on the same test cases (`tester.py` → `comparison.xlsx`).
-- Each pipeline can be modified without risk of breaking the other.
+- An independent implementation exists to validate Pipeline A's solution quality
+  and catch bugs that share a common blind spot with Pipeline A's own heuristics.
+- `tester.py`'s comparison workflow has a live, regenerable baseline rather than a
+  static frozen file.
 
 ### Negative
 
-- Route-generation logic (constraints, cost calculation) must be changed in two
-  places if both pipelines are to stay behaviorally consistent.
-- Automated test coverage effort is duplicated across two independent solver
-  implementations.
+- Every routing-constraint change has to be considered for, and potentially
+  implemented in, both pipelines, or the two silently drift apart in behavior.
+- Test coverage effort is split across two independent solver implementations.
 
 ### Tradeoffs
 
-- A shared solver abstraction was considered but rejected: it would eliminate the
-  independence needed for baseline comparison and add coupling between code paths
-  that currently serve different purposes (production vs. offline validation).
+- Consolidating to a single pipeline was considered and rejected at this point:
+  Pipeline A's own heuristics were not yet mature enough to provide an internal
+  cross-check on solution quality, so an external independent baseline (Pipeline B)
+  was still needed.
 
 ## Links
 
 - [QR-003: Critical module testability](../../quality-requirements.md#qr-003-critical-module-testability)
 - [Component Diagram](../static-view/component-diagram.puml)
+- [Superseded by: ADR-001 (MVPv3) - Single CP-SAT solver pipeline](ADR-001-single-solver-pipeline.md)
