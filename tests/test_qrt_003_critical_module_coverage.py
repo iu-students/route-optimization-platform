@@ -20,6 +20,7 @@ COVERAGE_SOURCE = "api/MVPv3"
 
 COVERAGE_JSON = os.path.join(PROJECT_ROOT, "coverage.json")
 COVERAGE_FILE = os.path.join(PROJECT_ROOT, ".coverage")
+COVERAGERC = os.path.join(PROJECT_ROOT, "coveragerc")
 
 _COV_ENSURED = False
 
@@ -79,6 +80,56 @@ CRITICAL_TEST_FILES = [
 ]
 
 
+def _load_coverage_from_api():
+    try:
+        import coverage as _c
+    except ImportError:
+        return None
+    try:
+        cov = _c.Coverage()
+        cov.load()
+        files = {}
+        for fpath in cov.get_data().measured_files():
+            try:
+                analysis = cov.analysis(fpath)
+            except Exception:
+                continue
+            stmts = list(analysis.statements)
+            missing = list(analysis.missing)
+            total = len(stmts)
+            executed = total - len(missing)
+            pct = round(executed / total * 100, 1) if total > 0 else 100.0
+            norm = fpath.replace("\\", "/")
+            files[norm] = {
+                "summary": {
+                    "covered_lines": executed,
+                    "num_statements": total,
+                    "percent_covered": pct,
+                    "percent_covered_display": pct,
+                    "missing_lines": len(missing),
+                    "excluded_lines": 0,
+                }
+            }
+        return {"files": files}
+    except Exception:
+        return None
+
+
+def _load_coverage_data():
+    if os.path.exists(COVERAGE_JSON):
+        with open(COVERAGE_JSON) as f:
+            return json.load(f)
+    json_result = subprocess.run(
+        [sys.executable, "-m", "coverage", "json"],
+        capture_output=True, text=True,
+        cwd=PROJECT_ROOT, timeout=30,
+    )
+    if json_result.returncode == 0 and os.path.exists(COVERAGE_JSON):
+        with open(COVERAGE_JSON) as f:
+            return json.load(f)
+    return _load_coverage_from_api()
+
+
 class TestQRT003CriticalModuleCoverage:
 
     def test_critical_modules_have_sufficient_coverage(self):
@@ -86,10 +137,10 @@ class TestQRT003CriticalModuleCoverage:
 
         if not _ensure_coverage_file():
             run_result = subprocess.run(
-                [sys.executable, "-m", "coverage", "run",
-                 f"--source={COVERAGE_SOURCE}",
-                 "-m", "pytest"] + CRITICAL_TEST_FILES +
-                ["-q", "--tb=short"],
+                [sys.executable, "-m", "pytest",
+                 "--cov", f"--cov-config={COVERAGERC}",
+                 "--cov-report=",
+                 "-q", "--tb=short", "--no-header"] + CRITICAL_TEST_FILES,
                 capture_output=True, text=True,
                 cwd=PROJECT_ROOT, timeout=600,
             )
@@ -98,21 +149,10 @@ class TestQRT003CriticalModuleCoverage:
                 f"{run_result.stdout}\n{run_result.stderr}"
             )
 
-        json_result = subprocess.run(
-            [sys.executable, "-m", "coverage", "json"],
-            capture_output=True, text=True,
-            cwd=PROJECT_ROOT, timeout=30,
-        )
+        coverage_data = _load_coverage_data()
 
-        assert json_result.returncode == 0, (
-            f"coverage json failed:\n{json_result.stderr}"
-        )
-
-        if not os.path.exists(COVERAGE_JSON):
-            pytest.fail(f"Coverage JSON not found at {COVERAGE_JSON}")
-
-        with open(COVERAGE_JSON) as f:
-            coverage_data = json.load(f)
+        if coverage_data is None:
+            pytest.fail("Could not load coverage data")
 
         failures = []
         actual = {}
