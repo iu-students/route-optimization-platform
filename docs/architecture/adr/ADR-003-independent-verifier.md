@@ -6,7 +6,7 @@
 
 ## Context
 
-`Shared/verifier.py` checks a produced solution against shift-time, time-window, and vehicle-capacity constraints (`verify_shift_times`, `verify_time_windows`, `verify_truck_capacity`). Through MVPv2.2, this ADR's rationale was that the module was shared between Pipeline A and Pipeline B, avoiding duplicated verification logic across two solver implementations. As of MVPv3 (see [ADR-001](ADR-001-single-solver-pipeline.md)), Pipeline B has been removed, so `Shared/verifier.py` now has exactly one caller: `CP-SAT/main.py`'s `solve_pipeline()`.
+`Shared/verifier.py` checks a produced solution against shift-time, time-window, and vehicle-capacity constraints (`verify_shift_times`, `verify_time_windows`, `verify_truck_capacity`). Through MVPv2.2, this ADR's rationale was that the module was shared between Pipeline A and Pipeline B, avoiding duplicated verification logic across two solver implementations. As of MVPv3 (see [ADR-009](ADR-009-single-solver-pipeline.md)), Pipeline B has been removed, so `Shared/verifier.py` now has exactly one caller: `CP-SAT/main.py`'s `solve_pipeline()`.
 
 Separately, `Web/validator.py` has grown a second, unrelated `Validator` class with its own CLI, which independently re-implements similar constraint checks (route sequencing, capacity, time windows) plus baseline comparison and Excel export - without importing or reusing `Shared/verifier.py`.
 
@@ -42,4 +42,4 @@ Keep `Shared/verifier.py` as a standalone module invoked via `run_verification()
 - [QR-003: Critical module testability](../../quality-requirements.md#qr-003-critical-module-testability)
 - [Sequence Diagram](../dynamic-view/sequence-diagram.puml)
 - [Component Diagram](../static-view/component-diagram.puml)
-- [ADR-001: Single CP-SAT solver pipeline](ADR-001-single-solver-pipeline.md)
+- [ADR-009: Single CP-SAT solver pipeline](ADR-009-single-solver-pipeline.md)

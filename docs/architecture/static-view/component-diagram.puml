@@ -88,7 +88,7 @@ end note
 
 note bottom of Verifier
   Used only by this pipeline now that Pipeline B
-  (PyVRP) has been removed - see ADR-001.
+  (PyVRP) has been removed - see ADR-009.
   Verifies shift times, time windows, and
   vehicle capacity against the solution.
 end note

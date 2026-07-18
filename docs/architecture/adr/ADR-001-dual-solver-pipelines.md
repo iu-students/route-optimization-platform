@@ -1,6 +1,6 @@
 # ADR-001: Maintain Two Independent Solver Pipelines
 
-**Status:** Declined / Superseded as of MVPv3 by [ADR-001: Consolidate to a Single CP-SAT Solver Pipeline](ADR-001-single-solver-pipeline.md). This record is kept for historical context; do not treat it as the current architecture.
+**Status:** Declined / Superseded as of MVPv3 by [ADR-009: Consolidate to a Single CP-SAT Solver Pipeline](ADR-009-single-solver-pipeline.md). This record is kept for historical context; do not treat it as the current architecture.
 
 **Quality requirements addressed:** QR-003
 
@@ -64,4 +64,4 @@ comparison via `tester.py`.
 
 - [QR-003: Critical module testability](../../quality-requirements.md#qr-003-critical-module-testability)
 - [Component Diagram](../static-view/component-diagram.puml)
-- [Superseded by: ADR-001 (MVPv3) - Single CP-SAT solver pipeline](ADR-001-single-solver-pipeline.md)
+- [Superseded by: ADR-009 (MVPv3) - Single CP-SAT solver pipeline](ADR-009-single-solver-pipeline.md)
