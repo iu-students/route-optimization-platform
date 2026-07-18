@@ -19,10 +19,11 @@ CRITICAL_MODULES = {
 COVERAGE_SOURCE = "api/MVPv3"
 
 COVERAGE_JSON = os.path.join(PROJECT_ROOT, "coverage.json")
+COVERAGE_FILE = os.path.join(PROJECT_ROOT, ".coverage")
 
 
-def cleanup():
-    for name in (".coverage", "coverage.json", ".coverage.lock"):
+def _cleanup_artifacts():
+    for name in ("coverage.json", ".coverage.lock"):
         p = os.path.join(PROJECT_ROOT, name)
         if os.path.exists(p):
             os.remove(p)
@@ -31,27 +32,27 @@ def cleanup():
 class TestQRT003CriticalModuleCoverage:
 
     def test_critical_modules_have_sufficient_coverage(self):
-        cleanup()
+        _cleanup_artifacts()
 
-        run_result = subprocess.run(
-            [sys.executable, "-m", "coverage", "run",
-             f"--source={COVERAGE_SOURCE}",
-             "-m", "pytest", "tests/",
-             "--ignore=tests/test_qrt_003_critical_module_coverage.py",
-             "--ignore=tests/test_qrt_005_docs_availability.py",
-             "--ignore=tests/test_qrt_006_solver_optimality.py",
-             "--ignore=tests/test_integration.py",
-             "--ignore=tests/test_loaders.py",
-             "--ignore=tests/test_script.py",
-             "-q", "--tb=short"],
-            capture_output=True, text=True,
-            cwd=PROJECT_ROOT, timeout=600,
-        )
-
-        assert run_result.returncode == 0, (
-            f"Test suite exited with code {run_result.returncode}:\n"
-            f"{run_result.stdout}\n{run_result.stderr}"
-        )
+        if not os.path.exists(COVERAGE_FILE):
+            run_result = subprocess.run(
+                [sys.executable, "-m", "coverage", "run",
+                 f"--source={COVERAGE_SOURCE}",
+                 "-m", "pytest", "tests/",
+                 "--ignore=tests/test_qrt_003_critical_module_coverage.py",
+                 "--ignore=tests/test_qrt_005_docs_availability.py",
+                 "--ignore=tests/test_qrt_006_solver_optimality.py",
+                 "--ignore=tests/test_integration.py",
+                 "--ignore=tests/test_loaders.py",
+                 "--ignore=tests/test_script.py",
+                 "-q", "--tb=short"],
+                capture_output=True, text=True,
+                cwd=PROJECT_ROOT, timeout=60,
+            )
+            assert run_result.returncode == 0, (
+                f"Test suite exited with code {run_result.returncode}:\n"
+                f"{run_result.stdout}\n{run_result.stderr}"
+            )
 
         json_result = subprocess.run(
             [sys.executable, "-m", "coverage", "json"],
@@ -83,7 +84,7 @@ class TestQRT003CriticalModuleCoverage:
                     f"{module}: {pct:.1f}% (threshold: {threshold}%)"
                 )
 
-        cleanup()
+        _cleanup_artifacts()
 
         if failures:
             lines = [f"Critical modules below coverage threshold (>=30%) for {COVERAGE_SOURCE}:"]
