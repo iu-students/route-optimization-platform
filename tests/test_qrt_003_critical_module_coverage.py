@@ -43,14 +43,15 @@ def _cleanup_artifacts():
 
 
 _RELOAD_MODULES = [
-    "Web.app",
+    "app",
     "Web.validator",
     "Shared.models",
     "Shared.verifier",
     "Shared.history",
     "CP-SAT.main",
-    "CP-SAT.vehicle_routes",
-    "CP-SAT.loader_routes",
+    "main",
+    "vehicle_routes",
+    "loader_routes",
 ]
 
 
