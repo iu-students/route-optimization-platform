@@ -31,11 +31,26 @@ def _cleanup_artifacts():
             os.remove(p)
 
 
+def _has_critical_module_data():
+    try:
+        import coverage as _c
+        c = _c.Coverage()
+        c.load()
+        data = c.get_data()
+        for fpath in data.measured_files():
+            norm = fpath.replace("\\", "/")
+            if any(norm.endswith(m) for m in CRITICAL_MODULES):
+                return True
+    except Exception:
+        pass
+    return False
+
+
 def _ensure_coverage_file():
     global _COV_ENSURED
     if _COV_ENSURED:
         return True
-    if os.path.exists(COVERAGE_FILE):
+    if os.path.exists(COVERAGE_FILE) and _has_critical_module_data():
         _COV_ENSURED = True
         return True
     try:
@@ -43,8 +58,11 @@ def _ensure_coverage_file():
         cov = coverage.Coverage.current()
         if cov is not None:
             cov.save()
-            _COV_ENSURED = True
-            return True
+            if _has_critical_module_data():
+                _COV_ENSURED = True
+                return True
+            if os.path.exists(COVERAGE_FILE):
+                os.remove(COVERAGE_FILE)
     except Exception:
         pass
     return False
