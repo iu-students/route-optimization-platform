@@ -95,9 +95,7 @@ The API key is set in the `.env` file.
 
 ## Known Limitations
 
-- MVPv3 is currently under active development and not yet deployed to production. Some features may be unavailable until the next release.
-- Solver Performance: The CP-SAT solver pipeline (MVPv2.2) achieves optimal results on 9 out of 10 standard test instances. Instance i4 remains challenging due to tight time windows and high vehicle/loader cost weights. We continue to work on improving performance for this edge case.
-
+- The optimization algorithms are based on heuristics and metaheuristics (including CP-SAT). As a result, **the solver may produce different solutions for identical inputs** across different runs. This is expected behavior for heuristic approaches, which balance solution quality against computational speed.
 For detailed troubleshooting guidance and complete support documentation, please refer to our [Customer Handover Documentation](docs/customer-handover.md).
 
 
