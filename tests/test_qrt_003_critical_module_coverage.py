@@ -20,9 +20,19 @@ COVERAGE_SOURCE = "api/MVPv3"
 
 COVERAGE_JSON = os.path.join(PROJECT_ROOT, "coverage.json")
 COVERAGE_FILE = os.path.join(PROJECT_ROOT, ".coverage")
-COVERAGERC = os.path.join(PROJECT_ROOT, "coveragerc")
 
 _COV_ENSURED = False
+
+
+CRITICAL_TEST_FILES = [
+    "tests/test_main.py",
+    "tests/test_verifier.py",
+    "tests/test_validator.py",
+    "tests/test_tester.py",
+    "tests/test_integration_cpsat.py",
+    "tests/test_qrt_001_api_responsiveness.py",
+    "tests/test_qrt_002_api_confidentiality.py",
+]
 
 
 def _cleanup_artifacts():
@@ -30,6 +40,26 @@ def _cleanup_artifacts():
         p = os.path.join(PROJECT_ROOT, name)
         if os.path.exists(p):
             os.remove(p)
+
+
+def _run_critical_tests_under_coverage():
+    try:
+        import coverage as _cmod
+        import pytest as _ptmod
+    except ImportError:
+        return False
+    try:
+        cov = _cmod.Coverage(source=[COVERAGE_SOURCE])
+        cov.start()
+        exit_code = _ptmod.main(
+            CRITICAL_TEST_FILES + ["-q", "--tb=short", "--no-header", "-p", "no:cacheprovider"],
+            plugins=[],
+        )
+        cov.stop()
+        cov.save()
+        return exit_code == 0
+    except Exception:
+        return False
 
 
 def _has_critical_module_data():
@@ -67,17 +97,6 @@ def _ensure_coverage_file():
     except Exception:
         pass
     return False
-
-
-CRITICAL_TEST_FILES = [
-    "tests/test_main.py",
-    "tests/test_verifier.py",
-    "tests/test_validator.py",
-    "tests/test_tester.py",
-    "tests/test_integration_cpsat.py",
-    "tests/test_qrt_001_api_responsiveness.py",
-    "tests/test_qrt_002_api_confidentiality.py",
-]
 
 
 def _load_coverage_from_api():
@@ -136,17 +155,8 @@ class TestQRT003CriticalModuleCoverage:
         _cleanup_artifacts()
 
         if not _ensure_coverage_file():
-            run_result = subprocess.run(
-                [sys.executable, "-m", "pytest",
-                 "--cov", f"--cov-config={COVERAGERC}",
-                 "--cov-report=",
-                 "-q", "--tb=short", "--no-header"] + CRITICAL_TEST_FILES,
-                capture_output=True, text=True,
-                cwd=PROJECT_ROOT, timeout=600,
-            )
-            assert run_result.returncode == 0, (
-                f"Coverage run exited with code {run_result.returncode}:\n"
-                f"{run_result.stdout}\n{run_result.stderr}"
+            assert _run_critical_tests_under_coverage(), (
+                "Could not collect coverage for critical modules"
             )
 
         coverage_data = _load_coverage_data()
