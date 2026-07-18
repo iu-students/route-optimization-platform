@@ -7,28 +7,21 @@ import tempfile
 PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, PROJECT_ROOT)
 
-TEST_TARGET = os.environ.get("TEST_TARGET", "v2")
+TEST_TARGET = os.environ.get("TEST_TARGET", "v3")
 
-if TEST_TARGET == "v2":
-    for p in [
-        os.path.join(PROJECT_ROOT, "api", "MVPv2.2"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "CP-SAT"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "Shared"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "Web"),
-        os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "PyVRP"),
-    ]:
-        if p not in sys.path:
-            sys.path.append(p)
+for p in [
+    os.path.join(PROJECT_ROOT, "api", "MVPv3"),
+    os.path.join(PROJECT_ROOT, "api", "MVPv3", "CP-SAT"),
+    os.path.join(PROJECT_ROOT, "api", "MVPv3", "Shared"),
+    os.path.join(PROJECT_ROOT, "api", "MVPv3", "Web"),
+]:
+    if p not in sys.path:
+        sys.path.append(p)
 
-    from Shared.models import Scenario, Depot, Weights, Order
-else:
-    MVPv1_2_PATH = os.path.join(PROJECT_ROOT, "api", "MVPv1.2")
-    sys.path.insert(1, MVPv1_2_PATH)
+from Shared.models import Scenario, Depot, Weights, Order
 
-    MVPv2_PATH = os.path.join(PROJECT_ROOT, "api", "MVPv2")
-    sys.path.insert(2, MVPv2_PATH)
-
-    from models import Scenario, Depot, Weights, Order
+from vehicle_routes import set_shift_mode
+set_shift_mode("earliest")
 
 
 @pytest.fixture

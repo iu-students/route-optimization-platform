@@ -6,12 +6,10 @@ import pytest
 
 PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 
-# add current pipeline paths (MVPv2.2)
 for p in [
-    os.path.join(PROJECT_ROOT, "api", "MVPv2.2"),
-    os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "CP-SAT"),
-    os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "Shared"),
-    os.path.join(PROJECT_ROOT, "api", "MVPv2.2", "PyVRP"),
+    os.path.join(PROJECT_ROOT, "api", "MVPv3"),
+    os.path.join(PROJECT_ROOT, "api", "MVPv3", "CP-SAT"),
+    os.path.join(PROJECT_ROOT, "api", "MVPv3", "Shared"),
 ]:
     if p not in sys.path:
         sys.path.insert(0, p)
