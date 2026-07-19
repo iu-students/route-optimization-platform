@@ -64,8 +64,7 @@ See [docs/architecture/adr/](adr/) for the full ADR set.
 
 | ADR | Decision | Related QR |
 |---|---|---|
-| [ADR-009](adr/ADR-009-single-solver-pipeline.md) | Consolidate to a single CP-SAT solver pipeline, removing the PyVRP-based Pipeline B | QR-003 |
-| ~~ADR-001 (declined)~~ | ~~[Maintain two independent solver pipelines](adr/ADR-001-dual-solver-pipelines.md)~~ - kept for historical context only | QR-003 |
+| ~~[ADR-001](adr/ADR-001-dual-solver-pipelines.md)~~ | ~~[Maintain two independent solver pipelines](adr/ADR-001-dual-solver-pipelines.md)~~ - kept for historical context only | QR-003 |
 | [ADR-002](adr/ADR-002-async-solve-with-polling.md) | Run `/solve` asynchronously via background thread with `/solution` polling instead of a synchronous request | QR-001, QR-004 |
 | ~~[ADR-003](adr/ADR-003-shared-verifier.md)~~ | ~~Keep `verifier.py` as an independent module invoked after solving, rather than inlined into the orchestrator~~ - kept for historical context only | QR-003 |
 | [ADR-004](adr/ADR-004-api-key-authentication.md) | Enforce access control via a shared API key checked at every protected endpoint | QR-002 |
@@ -73,4 +72,5 @@ See [docs/architecture/adr/](adr/) for the full ADR set.
 | [ADR-006](adr/ADR-006-hosted-documentation.md) | Publish maintained documentation via GitHub Pages from `docs/` | QR-005 |
 | [ADR-007](adr/ADR-007-sqlite-calculation-history.md) | Persist calculation metadata and input/output snapshots in an embedded SQLite database | QR-002, QR-004 |
 | [ADR-008](adr/ADR-008-multistart-lns-search.md) | Use multi-start with best-of selection plus LNS polishing instead of a single solve attempt | QR-004 |
+| [ADR-009](adr/ADR-009-single-solver-pipeline.md) | Consolidate to a single CP-SAT solver pipeline, removing the PyVRP-based Pipeline B | QR-003 |
 | [ADR-010](adr/ADR-010-independent-verifier.md) | Keep `verifier.py` as an independent module invoked after solving, rather than inlined into the orchestrator | QR-003 |
