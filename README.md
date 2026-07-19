@@ -65,7 +65,7 @@ docker compose up --build -d
 
 4. Verify :
 ```
-curl http://localhost:5022/health
+curl http://localhost:5003/health
 ```
 
 ## Swagger UI
@@ -74,7 +74,7 @@ After starting the application, open `http://localhost:5000/docs` in your browse
 
 ## API Version
 
-Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v2.2**
+Use the dropdown at the top of Swagger UI to switch between MVP versions. Current active version: **v3**
 
 ## Available Endpoints
 
@@ -106,6 +106,7 @@ For detailed troubleshooting guidance and complete support documentation, please
 - [Week 4](reports/week4/README.md)
 - [Week 5](reports/week5/README.md)
 - [Week 6](reports/week6/README.md)
+- [Week 7](reports/week7/README.md)
 
 ## License
 
