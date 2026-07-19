@@ -27,7 +27,7 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 **Linked quality requirement tests:** [QRT-002](quality-requirement-tests.md#qrt-002-api-confidentiality)
 
-**Related ADRs:** [ADR-004](architecture/adr/ADR-004-api-key-authentication.md)
+**Related ADRs:** [ADR-004](architecture/adr/ADR-004-api-key-authentication.md), [ADR-007](architecture/adr/ADR-007-sqlite-calculation-history.md)
 
 ---
 
@@ -41,7 +41,7 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 **Linked quality requirement tests:** [QRT-003](quality-requirement-tests.md#qrt-003-critical-module-unit-coverage)
 
-**Related ADRs:** [ADR-001](architecture/adr/ADR-001-dual-solver-pipelines.md), [ADR-003](architecture/adr/ADR-003-independent-verifier.md)
+**Related ADRs:** [ADR-001](architecture/adr/ADR-001-dual-solver-pipelines.md), [ADR-003](architecture/adr/ADR-003-independent-verifier.md), [ADR-009](architecture/adr/ADR-009-single-solver-pipeline.md), [ADR-010](architecture/adr/ADR-010-independent-verifier.md)
 
 ---
 
@@ -55,7 +55,7 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 **Linked quality requirement tests:** [QRT-004](quality-requirement-tests.md#qrt-004-solver-completion-time)
 
-**Related ADRs:** [ADR-002](architecture/adr/ADR-002-async-solve-with-polling.md), [ADR-005](architecture/adr/ADR-005-solver-time-limits.md)
+**Related ADRs:** [ADR-002](architecture/adr/ADR-002-async-solve-with-polling.md), [ADR-005](architecture/adr/ADR-005-solver-time-limits.md), [ADR-007](architecture/adr/ADR-007-sqlite-calculation-history.md), [ADR-008](architecture/adr/ADR-008-multistart-lns-search.md)
 
 ---
 
