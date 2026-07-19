@@ -1,4 +1,4 @@
-# ADR-003: Keep Verification as an Independent Module
+# ADR-010: Keep Verification as an Independent Module
 
 **Status:** Accepted (rationale updated for MVPv3; originally framed around sharing between two pipelines)
 
