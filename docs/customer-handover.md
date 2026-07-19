@@ -2,9 +2,9 @@
 
 **Product:** Route Optimization Platform
 
-**Version:** MVPv2.2, release v0.4.0
+**Version:** MVPv3, release v1.0.0
 
-**Date:** 2026-07-11
+**Date:** 2026-07-18
 
 ---
 
@@ -12,8 +12,8 @@
 
 ### 1.1 Product Status
 
-- **Current State:** **MVPv2.2 is live and operational** in production. **MVPv3 is under active development** and is not yet deployed to production.
-- **Deployment Date:** 2026-07-11
+- **Current State:** **MVPv3 is live and operational** in production. This is the final course version of the product.
+- **Deployment Date:** 2026-07-18
 - **Health/Performance:** All services are operational. Each endpoint returns an HTTP response within 2.0 seconds.
 
 ### 1.2 Handover Scope
@@ -27,7 +27,6 @@ This handover covers the transfer of operational ownership and knowledge for the
     - User rights to use the API service
     - Administrator rights to the repository
 - **Retained by Team:** 
-    - Development and maintenance of MVPv3
     - Administrator rights to the repository
 
 ---
@@ -84,7 +83,7 @@ Follow  these steps to set up the product for the first time:
 4. **Verify Installation:**
 
    ```bash
-   curl http://localhost:5002/health
+   curl http://localhost:5003/health
    ```
 
    Expected response: `{"status":"ok"}`.
@@ -95,7 +94,7 @@ Follow  these steps to set up the product for the first time:
 
 ### 3.2 API Version Management
 
-Use the dropdown at the top of Swagger UI to switch between MVP versions. **Current active version: v2.2**
+Use the dropdown at the top of Swagger UI to switch between MVP versions. **Current active version: v3**
 
 Follow https://github.com/iu-students/route-optimization-platform/blob/main/README.md for detailed instructions.
 
@@ -172,8 +171,9 @@ docker compose restart
 
 ## 7. Known Limitations, Unfinished Areas, and Risks
 
-- **Unfinished Area 1:** MVPv3 is under development and not yet deployed.
-- **Unfinished Area 2:** The CP-SAT solver pipeline (`MVPv2.2`) outperforms the baseline on 9 out of 10 standard test instances when both are evaluated using the consistent `calc_cost()` function. Instance `i4` remains a challenge due to its tight time windows and high vehicle/loader cost weights.
+- **Risk 1:** High-load production environments may require migration from SQLite to a more performant database.
+- **Risk 2:** If the API key is lost or compromised, it must be updated in the .env file and services restarted.
+- **Limitation 1:** The optimization algorithms are based on heuristics and metaheuristics (including CP-SAT). As a result, **the solver may produce different solutions for identical inputs** across different runs. This is expected behavior for heuristic approaches, which balance solution quality against computational speed.
 
 ---
 
@@ -182,23 +182,37 @@ docker compose restart
 ### 8.1 Current Handover Status
 **Level Reached:** 
 
-- [x] **Ready for independent use**  
+- [ ] **Ready for independent use**  
     *Explanation: The documentation is complete, and the system is stable. The customer is trained and has the necessary access to start using it independently.*
 
 - [ ] **Independently used by customer**  
     *Explanation: The customer has been operating the product independently in a staging environment for 2 weeks and is preparing for the production cutover.*
 
-- [ ] **Deployed or operated on customer side**  
+- [x] **Deployed or operated on customer side**  
     *Explanation: The system is live in the customer's production environment. The handover is complete for this phase, with monitoring in a hyper-care period.*
 
-### 8.2 Remaining Actions
+### 8.2 Customer Confirmation Status
+
+- [x] Accepted
+
+- [ ] Accepted with follow-up items
+
+- [ ] Not yet accepted
+
+Explanation: The customer has confirmed that the documentation and product are ready for use and has confirmed successful deployment.
+
+
+### 8.3 Remaining Actions
 
 | Action Item | Blocker? | Status |
 | :--- | :--- | :--- |
-| Transfer repository administrator rights | Yes | Pending |
-| Transfer API service access credentials | Yes | Pending |
-| Implement MVPv3 | Yes | In process |
-| Improve algorithm performance to beat baseline on all 10/10 test instances | Yes | In process (9/10 achieved) |
+| Transfer repository administrator rights | Yes | Completed |
+| Transfer API service access credentials | Yes | Completed |
+| Implement MVPv3 | Yes | Completed |
+| Improve algorithm performance to beat baseline on all 10/10 test instances | Yes | Completed |
+| Post-handover monitoring and support | No | Active |
+
+All blocking items have been completed, so the transfer can be completed.
 
 ---
 

@@ -16,7 +16,7 @@ Options considered:
 
 ## Decision
 
-Use a single shared API key validated via the `X-API-Key` request header at every protected endpoint (`POST /solve`, `GET /solution`, `GET /metrics`). The `/health` and `/validate` endpoints remain unauthenticated. The key is supplied through the `API_KEY` environment variable and checked inline by `require_api_key()` in `app.py` before each protected handler runs.
+Use a single shared API key validated via the `X-API-Key` request header at every protected endpoint (`POST /solve`, `GET /solution`, `GET /metrics`, `GET /history`, `GET /history/{calculation_id}`). The `/health` and `/validate` endpoints remain unauthenticated. The key is supplied through the `API_KEY` environment variable and checked inline by `require_api_key()` in `Web/app.py` before each protected handler runs.
 
 ## Rationale
 

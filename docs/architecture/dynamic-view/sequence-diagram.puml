@@ -35,29 +35,35 @@ else validation ok
   Thread -> Orchestrator : solve_pipeline(..., deadline=now+max_total_time)
   activate Orchestrator
   Orchestrator -> Thread : stage="parsing" ; parse(input.json)
-  Orchestrator -> Thread : stage="solving_vehicles"
-  Orchestrator -> VehicleSolver : find_vehicles_routes(scenario, deadline)
-  note right: Clarke-Wright pool +\nCP-SAT set-partition select
-  VehicleSolver --> Orchestrator : solution, missed_count, pool
+  Orchestrator -> Orchestrator : size-scaled restarts + pool budgets (n=orders)
+  Orchestrator -> VehicleSolver : ortools_generate_routes() (optional, one-time seed)
+  VehicleSolver --> Orchestrator : seed_routes
 
-  Orchestrator -> Thread : stage="consolidating_vehicles"
-  Orchestrator -> VehicleSolver : consolidate_routes() +\nmerge_multi_trip_routes()
-  VehicleSolver --> Orchestrator : post-processed vehicles
-
-  Orchestrator -> Thread : stage="solving_loaders"
-  Orchestrator -> LoaderSolver : find_loaders_routes(solution, scenario, deadline)
-  LoaderSolver --> Orchestrator : loaders
-  Orchestrator -> Orchestrator : calculate_statistics(solution)
-
-  alt bad optional orders AND time left > MIN_TIME_FOR_FEEDBACK
-    Orchestrator -> Thread : stage="feedback_iteration"
-    Orchestrator -> VehicleSolver : select_routes_from_pool(filtered_pool,\nreduced_scenario) + post-process
-    VehicleSolver --> Orchestrator : solution2
-    Orchestrator -> LoaderSolver : find_loaders_routes(solution2, reduced_scenario)
-    LoaderSolver --> Orchestrator : loaders2
-    Orchestrator -> Orchestrator : keep cheaper of solution / solution2
+  Orchestrator -> Thread : stage="solving"
+  loop multi-start: while time remains for an attempt
+    Orchestrator -> Thread : stage="solving_vehicles"
+    Orchestrator -> VehicleSolver : find_vehicles_routes(scenario, deadline, seed_routes)
+    note right: Clarke-Wright pool + insertion\n+ CP-SAT set-partition select
+    VehicleSolver --> Orchestrator : solution, pool
+    Orchestrator -> Thread : stage="consolidating_vehicles"
+    Orchestrator -> VehicleSolver : consolidate + reduce_by_merge +\nlocal_search + merge_multi_trip
+    VehicleSolver --> Orchestrator : post-processed vehicles
+    Orchestrator -> Thread : stage="solving_loaders"
+    Orchestrator -> LoaderSolver : find_loaders_routes(solution, scenario, deadline)
+    LoaderSolver --> Orchestrator : loaders
+    Orchestrator -> Orchestrator : calculate_statistics(solution)
+    alt bad orders on vehicle AND/OR loader side, time left ok
+      Orchestrator -> Thread : stage="feedback_iteration"
+      Orchestrator -> VehicleSolver : select_routes_from_pool(filtered_pool, reduced)
+      VehicleSolver --> Orchestrator : solution2
+      Orchestrator -> LoaderSolver : find_loaders_routes(solution2, reduced)
+      LoaderSolver --> Orchestrator : loaders2
+      Orchestrator -> Orchestrator : keep cheaper of solution / solution2
+    end
+    Orchestrator -> Orchestrator : keep attempt if real total_cost < best so far
   end
 
+  Orchestrator -> Orchestrator : LNS polish loop (remaining time):\nlocal_search + re-solve loaders;\naccept if improved, else perturb best
   Orchestrator -> Storage : write output.json
   Orchestrator -> Verifier : run_verification(input_path, output_path)
   Verifier -> Storage : read input.json + output.json

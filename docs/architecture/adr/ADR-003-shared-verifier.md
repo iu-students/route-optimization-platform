@@ -1,6 +1,6 @@
 # ADR-003: Share verifier.py Between Both Solver Pipelines
 
-**Status:** Accepted
+**Status:** Declined / Superseded as of MVPv3 by [ADR-010: Keep Verification as an Independent Module](ADR-010-independent-verifier.md). This record is kept for historical context; do not treat it as the current architecture.
 
 **Quality requirements addressed:** QR-003
 
@@ -67,3 +67,4 @@ with the `verification` field attached.
 - [QR-003: Critical module testability](../../quality-requirements.md#qr-003-critical-module-testability)
 - [Sequence Diagram](../dynamic-view/sequence-diagram.puml)
 - [Component Diagram](../static-view/component-diagram.puml)
+- [ADR-010](ADR-010-independent-verifier.md)
