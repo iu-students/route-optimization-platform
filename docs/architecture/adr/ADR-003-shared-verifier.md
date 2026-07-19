@@ -1,9 +1,6 @@
 # ADR-003: Share verifier.py Between Both Solver Pipelines
 
-**Status:** **Superseded by [ADR-010](ADR-010-independent-verifier.md)**
-
-**Note: This ADR has been superseded.** 
-Please refer to [ADR-010](ADR-010-independent-verifier.md) for the current verification architecture.
+**Status:** Declined / Superseded as of MVPv3 by [ADR-010: Keep Verification as an Independent Module](ADR-010-independent-verifier.md). This record is kept for historical context; do not treat it as the current architecture.
 
 **Quality requirements addressed:** QR-003
 
