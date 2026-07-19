@@ -41,7 +41,7 @@ Requirements are structured using the ISO/IEC 25010 quality model and follow the
 
 **Linked quality requirement tests:** [QRT-003](quality-requirement-tests.md#qrt-003-critical-module-unit-coverage)
 
-**Related ADRs:** [ADR-001](architecture/adr/ADR-001-dual-solver-pipelines.md), [ADR-003](architecture/adr/ADR-003-independent-verifier.md), [ADR-009](architecture/adr/ADR-009-single-solver-pipeline.md), [ADR-010](architecture/adr/ADR-010-independent-verifier.md)
+**Related ADRs:** [ADR-001](architecture/adr/ADR-001-dual-solver-pipelines.md), [ADR-003](architecture/adr/ADR-003-shared-verifier.md), [ADR-009](architecture/adr/ADR-009-single-solver-pipeline.md), [ADR-010](architecture/adr/ADR-010-independent-verifier.md)
 
 ---
 
