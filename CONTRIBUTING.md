@@ -7,7 +7,7 @@ This guide explains how to contribute changes to the Route Optimization Platform
 ```bash
 cp .env.example .env
 docker compose up --build -d
-curl http://localhost:5002/health
+curl http://localhost:5003/health
 ```
 
 Set `API_KEY` inside `.env` before you start the app.
@@ -79,7 +79,7 @@ bandit -r api/ -ll
 ## Further reading
 
 - [README.md](README.md)
-- [AGENTS.md](AGENTS.md) - command reference for coding agents working in this repo
+- [AGENTS.md](AGENTS.md)
 - [docs/architecture/README.md](docs/architecture/README.md)
 - [docs/quality-requirements.md](docs/quality-requirements.md)
 - [docs/quality-requirement-tests.md](docs/quality-requirement-tests.md)
